@@ -1,0 +1,7 @@
+repgen5
+
+This is a partial copy of HEC's (Hydrologic Engineering Center) repgen program.
+It creates fixed form text reports from a time series database.
+
+Currently I'm not worried about time series. I'm currenlty expirementing with
+other aspects of the report generator, like the math part.
