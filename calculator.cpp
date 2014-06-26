@@ -173,6 +173,14 @@ void Calculator::process(Queue& newqueue)
 	      op1 = value_stack.top();
 	      value_stack.pop();
 	      value_stack.push( cos( op1 ) );
+	    } else if( token->str == "sin" ){
+	      op1 = value_stack.top();
+	      value_stack.pop();
+	      value_stack.push( sin( op1 ) );
+	    } else if( token->str == "tan" ){
+	      op1 = value_stack.top();
+	      value_stack.pop();
+	      value_stack.push( tan( op1 ) );
 	    }
 	    break;
 	  }

@@ -1,0 +1,22 @@
+#FORM
+**************|*********************|************|*************
+Report  Date: %BASDATE              Current Date %CURDATE
+Current Date: %CURDATE
+Value = %TMP
+Value2= %TMP2
+Value3= %TMP3
+Value4= %TMP4
+Value5= %TMP5
+***************************************************************
+#ENDFORM
+#DEF
+%TMP=5
+%TMP2=5.3
+%TMP3=4+3/5
+%TMP4=(4+3)/5
+%TMP5=cos(5)
+#%BASDATE
+#	PICTURE=DDBAAABYYYY
+#%BTM=TIME(0800)
+#	PICTURE=ZZZT
+#ENDDEF
