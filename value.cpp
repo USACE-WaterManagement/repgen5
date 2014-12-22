@@ -30,11 +30,12 @@
 #include "mildatetime.h"
 #include <sstream>
 #include <iostream>
+#include <limits>
 using namespace std;
 
 
 
-string Value::get_formated(size_t i)
+string Value::get_formatted(size_t i)
 {
     if( is_double() )
     {
@@ -107,7 +108,8 @@ string Value::get_formated(size_t i)
 	  if the next character is the same as the previous, ignore unless it's A, then we count and cut of
        */
       // build a date 
-      tm *mytime = gmtime( &this->time );
+      time_t time = this->get_time(i);
+      tm *mytime = gmtime( &time );
       string result;
       stringstream stream;
       int zeropad = 0;
@@ -231,4 +233,37 @@ string Value::get_formated(size_t i)
       return result;
     }
 }
+
+
+time_t Value::get_time( size_t i){
+  if( i > this->size ){
+	return -std::numeric_limits<int>::max();
+    }else if( this->scalar ){
+	return this->time_value[0];
+    } else{
+	return this->time_value[i];
+    }
+}
+
+		
+double Value::get_double_val( size_t i ){
+    if( i > this->size ){
+	return std::numeric_limits<float>::infinity();
+    }else if( this->scalar ){
+	return this->double_value[0];
+    } else{
+	return this->double_value[i];
+    }
+  
+}
+string Value::get_string_val( size_t i ){
+    if( i > this->size ){
+	return this->missing;
+    }else if( this->scalar ){
+	return this->string_value[0];
+    } else{
+	return this->string_value[i];
+    }
+}
+
 

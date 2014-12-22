@@ -58,8 +58,9 @@ Report::Report(Options& opts)
   
   // setup the initial variables
   cout << "Setting up curdate variable" << endl;
-  Queue cur_date( true );
-  cur_date.set_picture("MM/DD/YYYY ZZZT");
+  Value cur_date( "MM/DD/YYYY ZZZT", "               ",TIME_VAL,"9999999999" );
+  cur_date.scalar = true;
+  
   time_t _time = time(NULL);
   Value cur_date_v( _time );
   cout << "adding value to queue" << endl;
