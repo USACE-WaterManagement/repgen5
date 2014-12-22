@@ -28,7 +28,6 @@
 
 #include "report.h"
 #include "mildatetime.h"
-#include "calculator.h"
 #include <cstring>
 #include <fstream>
 
@@ -109,66 +108,6 @@ void Report::read_report_body(ifstream& file)
   
 }
 
-void Report::read_variable_definitions(ifstream& file)
-{
-  string line;
-  cout << "reading report variable definitions" << endl;
-  while( getline( file, line ) ){    
-    if(  line.find( "#ENDDEF" ) != string::npos ){
-      ///cout << "End of Form found" << endl;
-      break;
-    }
-    cout << "check size" << endl;
-    if( line.size() == 0 ) continue;
-    
-    cout << "check first character" << endl;
-    cout << line << endl;
-    char c = *(line.begin());
-    cout << "char check" << endl;
-    if( c == '%' ){
-        cout << "Found new variable ";
-	// process variable
-	size_t equals = line.find_first_of('=');
-	if( equals != string::npos ){
-	  cout << "Found formula" << endl;
-	  string tmp = line.substr( 0, equals );
-	  string newvarname("");
-	  string::iterator e = tmp.end();
-	  while( e != tmp.begin() ){
-	    if( *e == ' ' || *e == 0){
-	    }else{
-	      newvarname.insert(0,1, *e );
-	    }	    
-	    e--;
-	  }	  
-	  newvarname.insert(0,1, '%' );
-	  cout << newvarname << endl;
-	  // parse the reset of the line and pass it to the 
-	  string equation = line.substr(equals+1,line.size() );
-	  cout << "processing " << equation << endl;
-	  Queue newqueue;
-	  Calculator calc( equation, &data );
-	  calc.process( newqueue );
-	  newqueue.set_picture("NNNZZZ");
-	  data[newvarname] = newqueue;
-	  
-	  
-	} else{
-	  string newvarname( line );
-	  cout << newvarname << endl;
-	}
-	// now process the other information
-	
-    }
-    
-    
-    
-  }
-  
-
-}
-
-
 
 
 
@@ -184,16 +123,14 @@ void Report::print()
     string line = report.front();
     report.pop_front();
    
-    for( map<string,Queue, std::greater<string> >::iterator iter = data.begin(); iter != data.end(); iter++ ){
+    for( map<string,Value, std::greater<string> >::iterator iter = data.begin(); iter != data.end(); iter++ ){
       string key = iter->first;
-      Queue  values = iter->second;
+      Value  values = iter->second;
       size_t pos = string::npos;
       if( (pos = line.find( key ) ) != string::npos ){
-	  cout << "Found variable in report: " << key << endl;
-	  string picture = values.get_picture();
-	  string rounding = "234234234";	  
-	  line.replace( pos,  picture.size() , values.pop().format( picture, rounding )  );
-	  
+	  cout << "Found variable in report: " << key << endl;	  
+	  line.replace( pos,  picture.size() , values.get_formatted( values.index )  );	  
+	  values.index++;
       }
       
       

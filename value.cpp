@@ -32,14 +32,9 @@
 #include <iostream>
 using namespace std;
 
-string Value::format(char *picture, char *rounding_spec){
-    string pic( picture );
-    string rnd( rounding_spec );
-    return format( pic, rnd );
-}
 
 
-string Value::format(string& picture, string& rounding_spec)
+string Value::get_formated(size_t i)
 {
     if( is_double() )
     {
@@ -48,7 +43,10 @@ string Value::format(string& picture, string& rounding_spec)
       // we should scan the picture to figure out how many decimal places to present
       stream.precision(3);
       stream.fill( '0' );
-      stream << this->double_val;
+      stream << this->get_double_val(i);
+      /*
+       * Check for missing
+       */
       cout << stream.str() << endl;
       string raw = stream.str();
       string result;
