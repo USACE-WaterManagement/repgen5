@@ -229,20 +229,21 @@ string Value::get_formatted(size_t i)
       }
       cout << endl;
       
-      cout <<"--"<<result<<"--"<<endl;
+      cout << "--" << result << "--" << endl;
       return result;
     }
 }
 
 
-time_t Value::get_time( size_t i){
+time_t Value::get_time( size_t i ){
+  
   if( i > this->size ){
 	return -std::numeric_limits<int>::max();
-    }else if( this->scalar ){
+  }else if( this->scalar ){	
 	return this->time_value[0];
-    } else{
+  } else{
 	return this->time_value[i];
-    }
+  }
 }
 
 		
@@ -260,9 +261,9 @@ string Value::get_string_val( size_t i ){
     if( i > this->size ){
 	return this->missing;
     }else if( this->scalar ){
-	return this->string_value[0];
+	return string_value[0];
     } else{
-	return this->string_value[i];
+	return string_value[i];
     }
 }
 

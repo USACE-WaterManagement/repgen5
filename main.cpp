@@ -3,7 +3,6 @@
 #include <string>
 #include "options.h"
 #include "report.h"
-#include "queue.h"
 #include "value.h"
 #include "mildatetime.h"
 

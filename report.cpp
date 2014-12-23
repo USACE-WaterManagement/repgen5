@@ -30,6 +30,9 @@
 #include "mildatetime.h"
 #include <cstring>
 #include <fstream>
+#include <sstream>
+
+using namespace std;
 
 
 const char *standard_options[] = {
@@ -58,21 +61,23 @@ Report::Report(Options& opts)
   
   // setup the initial variables
   cout << "Setting up curdate variable" << endl;
-  Value cur_date( "MM/DD/YYYY ZZZT", "               ",TIME_VAL,"9999999999" );
-  cur_date.scalar = true;
-  
+  Value cur_date( "MM/DD/YYYY ZZZT", "               ", "9999999999", TIME_VAL );
+  cur_date.scalar = true;  
   time_t _time = time(NULL);
-  Value cur_date_v( _time );
-  cout << "adding value to queue" << endl;
-  cur_date.push( cur_date_v );
+  cur_date.time_value.push_back( _time );
+  
+  
   this->data["%CURDATE"] =  cur_date;
   
   cout << "Setting up basdate variable" << endl;
-  Queue bas_date( true );
-  bas_date.set_picture( "AAAbDD,bYYYYb@bZZZT" );
+  Value bas_date( "AAAbDD,bYYYYb@bZZZT", "                   ",  "9999999999", TIME_VAL );
+  
+  
+  
   string fulldate = options.startdate + " " + options.starttime;
-  Value bas_date_v( MilDateTime::parse( fulldate  ) );
-  bas_date.push( bas_date_v );
+  _time = MilDateTime::parse( fulldate  );
+  bas_date.time_value.push_back( _time );
+  
   this->data["%BASDATE"] = bas_date;    
   
   cout << "Reading Actual report now" << endl;
@@ -84,7 +89,31 @@ Report::Report(Options& opts)
       this->read_report_body( rep );
     }
     else if( line.find( "#DEF") != string::npos ){
-      this->read_variable_definitions( rep );      
+      bool compiled= false;
+      if( line.find( "complied") != string::npos ){
+	complied = true;
+      }
+	  // already compiled
+      stringstream _prog;
+      
+      string line;
+      while( getline( rep, line ) ){
+	  if( line.find("#ENDFORM") != string::npos ){
+	      break; //done reading
+	  }
+	  
+	  _prog >> line;
+      }
+      
+      if( !compiled ){
+	  // Compiler compiler( _prog );
+	  // _prog = compiler.compile();
+      }
+      
+      Program prog( _prog );
+      prog.run( this->data );
+      
+      //this->read_variable_definitions( rep );      
     } // anything else gets ignored    
   }  
   
@@ -130,7 +159,7 @@ void Report::print()
       size_t pos = string::npos;
       if( (pos = line.find( key ) ) != string::npos ){
 	  cout << "Found variable in report: " << key << endl;	  
-	  line.replace( pos,  picture.size() , values.get_formatted( values.index )  );	  
+	  line.replace( pos,  values.picture.size() , values.get_formatted( values.index )  );	  
 	  values.index++;
       }
       
