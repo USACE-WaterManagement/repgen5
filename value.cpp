@@ -43,12 +43,12 @@ string Value::get_formatted(size_t i)
       stream.width( picture.size() );
       // we should scan the picture to figure out how many decimal places to present
       stream.precision(3);
-      stream.fill( '0' );
+      stream.fill( '0' );      
       stream << this->get_double_val(i);
       /*
        * Check for missing
        */
-      cout << stream.str() << endl;
+      cout << "Line is '" << stream.str() << "'" << endl;
       string raw = stream.str();
       string result;
       string::iterator strm = raw.begin();
@@ -237,7 +237,7 @@ string Value::get_formatted(size_t i)
 
 time_t Value::get_time( size_t i ){
   
-  if( i > this->size ){
+  if( i > this->size && !this->scalar ){
 	return -std::numeric_limits<int>::max();
   }else if( this->scalar ){	
 	return this->time_value[0];
@@ -248,17 +248,18 @@ time_t Value::get_time( size_t i ){
 
 		
 double Value::get_double_val( size_t i ){
-    if( i > this->size ){
-	return std::numeric_limits<float>::infinity();
+    if( i > this->size && !this->scalar ){
+	return std::numeric_limits<float>::infinity();	
     }else if( this->scalar ){
+	cout << "returning First value" << endl;
 	return this->double_value[0];
     } else{
 	return this->double_value[i];
-    }
-  
+    }  
 }
+
 string Value::get_string_val( size_t i ){
-    if( i > this->size ){
+    if( i > this->size && !this->scalar ){
 	return this->missing;
     }else if( this->scalar ){
 	return string_value[0];

@@ -25,72 +25,38 @@
     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#include "options.h"
-#include <unistd.h>
-#include <getopt.h>
-#include <time.h>
+
+#ifndef PROGRAM_H
+#define PROGRAM_H
+#include <sstream>
+#include <stack>
+#include <vector>
+#include <string>
+#include <map>
+#include "value.h"
+#include "instruction.h"
 #include "repgenutil.h"
 
-Options::Options(int argc, char** argv)
+
+class Program
 {
-  // parse the options
-  report = "report";
-  input = "";
-  time_t rawtime;
-  time( &rawtime );
-  tm *_time = localtime( &rawtime );
-  
-  // default to the current time  
-  
-  startdate = rg_strftime( "%d%b%Y", _time); 
-  starttime = rg_strftime( "%H%M", _time );
-  
-  static struct option long_options[] = {
-        {"in",      required_argument,   0,  'i' },
-	{"input",   required_argument,   0,  'i' },
-        {"report",  required_argument,   0,  'r' },
-        {"date",    required_argument,   0,  'd' },
-        {"time",    required_argument,   0,  't' },
-        {0,         0,                   0,  0   }
-    };
-  
-  int opt;
-  int long_index;
-  
-  while( ( opt = getopt_long_only(argc, argv,"", long_options, &long_index ) ) != -1 )  {
     
+    map< string, string> var_defaults; // holds all of the defaults from settings to feed into various bits and pieces
+    size_t register_index; // loop index
+    size_t loop_size; // result of size opcode
+    stack<Value> stack_values;
+    size_t program_counter; // 
+
+    vector<Instruction> program;
     
+    vector<string> operators;
     
-    switch( opt ){
-      case 'i':
-	  input = optarg;
-	  break;
-      case 'r':
-	  report = optarg;
-	  break;
-      case 'd':
-	  startdate = optarg;
-	  break;
-      case 't':
-	  starttime = optarg;
-	  break;
-	
-      default:
-	  cout << "Uknown options" << endl;
-    }
-    
-  }
   
-  cout << "Using repot definition " << input << endl;
-  cout << "To create report " << report << endl;
-  cout << "Using date/time " << startdate << " " << starttime << endl;
+public:
+    Program( stringstream &stream );
   
+    void run( data_map &data );
   
-}
+};
 
-
-Options::Options()
-{
-
-}
-
+#endif // PROGRAM_H

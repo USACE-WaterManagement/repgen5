@@ -5,6 +5,7 @@
 #include "report.h"
 #include "value.h"
 #include "mildatetime.h"
+#include "repgenutil.h"
 
 using namespace std;
 
@@ -15,6 +16,7 @@ int main( int argc, char **argv )
 	setenv("TZ", "", 1);
 	tzset();
   
+	init_opcodes();
 	time_t _time = MilDateTime::parse("21Jun2014 1500");
 	cout << "Repgen 5" << endl;
 	// parse the options

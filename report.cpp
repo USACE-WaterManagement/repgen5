@@ -28,6 +28,7 @@
 
 #include "report.h"
 #include "mildatetime.h"
+#include "program.h"
 #include <cstring>
 #include <fstream>
 #include <sstream>
@@ -66,14 +67,12 @@ Report::Report(Options& opts)
   time_t _time = time(NULL);
   cur_date.time_value.push_back( _time );
   
-  
   this->data["%CURDATE"] =  cur_date;
   
   cout << "Setting up basdate variable" << endl;
   Value bas_date( "AAAbDD,bYYYYb@bZZZT", "                   ",  "9999999999", TIME_VAL );
   
-  
-  
+    
   string fulldate = options.startdate + " " + options.starttime;
   _time = MilDateTime::parse( fulldate  );
   bas_date.time_value.push_back( _time );
@@ -89,20 +88,25 @@ Report::Report(Options& opts)
       this->read_report_body( rep );
     }
     else if( line.find( "#DEF") != string::npos ){
-      bool compiled= false;
-      if( line.find( "complied") != string::npos ){
-	complied = true;
+      
+      cout << "Reading Program" << endl;
+      
+      bool compiled = false;
+      
+      if( line.find( "compiled") != string::npos ){
+	cout << "Reading compiled program" << endl;
+	compiled = true;
       }
 	  // already compiled
       stringstream _prog;
       
       string line;
       while( getline( rep, line ) ){
-	  if( line.find("#ENDFORM") != string::npos ){
+	  if( line.find("#ENDDEF") != string::npos ){
 	      break; //done reading
 	  }
 	  
-	  _prog >> line;
+	  _prog << line << endl;
       }
       
       if( !compiled ){
@@ -143,31 +147,58 @@ void Report::read_report_body(ifstream& file)
 
 void Report::print()
 {
+  
+  
   //go through each line of the report
   //scan through the line and replace data as needed
   cout << "Printing Report: " << options.report << endl;
   ofstream rep_out( options.report.c_str(), ofstream::out );
-  cout << report.size();
+  cout << report.size() << endl;
+  
   while( !report.empty() )
   {
     string line = report.front();
     report.pop_front();
    
+    size_t per_loc = string::npos;
+    per_loc = line.find_first_of( '%' );
+    while( per_loc != string::npos ){
+	size_t end = line.find_first_of("%\t \r\n", per_loc+1);
+	cout << "'"<< line.substr( per_loc ) << "'" << endl;
+	string var;
+	if( end == string::npos ){
+	    var = line.substr( per_loc, end );
+	} else{
+	    var = line.substr(per_loc, end-1);
+	}
+		
+	cout << "Found " << var << endl;
+	
+	try{
+	  Value &val = data.at( var );
+	  line.replace( per_loc,  val.picture.size() , val.get_formatted( val.index )  );	  
+	  val.index++;
+	  
+	} catch( exception e ){
+	    cerr << "Undefined variable :" << var << endl;
+	}
+	
+	
+	per_loc = line.find_first_of("%", end);
+    }
+    /*
     for( map<string,Value, std::greater<string> >::iterator iter = data.begin(); iter != data.end(); iter++ ){
       string key = iter->first;
       Value  values = iter->second;
       size_t pos = string::npos;
-      if( (pos = line.find( key ) ) != string::npos ){
+      if( (pos = line.find( key ) ) != string::npos ){ // one problem here is if if only %TMP is defined it will also replace %TMP5. perhaps check if the next char is %, ' ', '\r', '\n'
 	  cout << "Found variable in report: " << key << endl;	  
 	  line.replace( pos,  values.picture.size() , values.get_formatted( values.index )  );	  
 	  values.index++;
       }
+     */
       
-      
-      
-      
-    }
-    
+                   
     
     
     rep_out << line << endl;
