@@ -1,0 +1,42 @@
+#FORM
+**************|*********************|************|*************
+Report  Date: %BASDATE              Current Date %CURDATE
+Current Date: %CURDATE
+Value = %TMP
+Value2= %TMP2
+Value3= %TMP3
+Value4= %TMP4
+Value5= %TMP5
+***************************************************************
+#ENDFORM
+#DEF compiled
+pushd 5
+popv %TMP
+pushv %TMP
+pushd 2
+add
+popv %TMP2
+pushv %TMP2
+pushv %TMP
+sub
+popv %TMP3
+pushv %TMP
+pushv %TMP2
+size
+subi
+jmpgt 3
+pushdi 2
+jmp 2
+pushdi 1
+popr %TMP4
+#
+#ENDDEF
+#%TMP=5
+#%TMP2=5.3
+#%TMP3=4+3/5
+#%TMP4=(4+3)/5
+#%TMP5=cos(5)
+#%BASDATE
+#	PICTURE=DDBAAABYYYY
+#%BTM=TIME(0800)
+#	PICTURE=ZZZT
