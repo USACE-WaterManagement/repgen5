@@ -44,38 +44,22 @@ const time_t NULL_TIME = (time_t)(-1);
 
 class Value
 {
-	public:
-		vector<double> double_value;
-		vector< time_t > time_value;
-		vector< string > string_value;
-		
-		size_t size;// should need this now
-		size_t index; // used by the report
-		
-		string picture;		
-		string rounding;
-		string missing;
-		
-		int    type; // string or int or time
-		bool   scalar; // is this a scalar value
-		
 
+	private:
+		double value;
+		time_t time;
+		uint32 quality;
+		
 	public:
-		Value( string &picture, string &missing, string rounding, int type ){ this->picture = picture; this->type = type;  this->rounding = rounding, index=0; size=0; this->missing = missing;}
-		Value( const char *picture, const char *missing, const char *rounding, int type ){ this->picture = picture; this->type = type;  this->rounding = rounding, index=0; size=0; this->missing = missing;}
-		Value(){};
+
+		Value();
+		Value( time_t &t, double value, uint32 quality );
+		string get_value_formated( const string &picture);
+		time_t get_time();
+		uint32 get_quality();
+		double get_value();
+
 		
-		int get_type(){ return type; }		
-		bool is_string(){ return type == STRING_VAL; }
-		bool is_double(){ return type == DOUBLE_VAL; }		
-		bool is_time(){ return type == TIME_VAL; }
-		
-		
-		time_t get_time( size_t i );
-		double get_double_val( size_t i );
-		string get_string_val( size_t i );
-		string get_formatted( size_t i );
-				
 };
 
 #endif // VALUE_H
