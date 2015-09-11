@@ -1,0 +1,51 @@
+#!/bin/env python
+import sys
+
+
+
+
+
+def Value:
+	picture = "NNZ"
+	misstr  = "-M-"
+	undef   = "-?-"
+	data_sys = None
+	def __init__( self  ):
+		self.picture = Value.picture
+		self.misstr  = Value.misstr
+		self.undef   = Value.undef
+		self.scalar = True
+	def __init__( self, *args, *kwargs ):
+		self.__init__()
+		if len( args ) = 1: self.value = args[0]
+		elif len(args)> 0: raise Exception ("Only 1 non named value is allowed")
+
+		# go through the keyword args, get the data system, all of the paraters, then get the data
+
+		self.values = [] # will be a touple of (time stamp, value, quality )
+
+	def format_value ( value ):
+		# go through the process of formatting the data
+		return value
+			
+
+
+
+data = {}
+
+# setup base time, ex
+# default formats
+
+
+if __name__ == "__main__":
+	report_file = sys.argv[1]
+	f = open(report_file) 
+	data = f.read()
+	f.close()
+
+	# read the report file
+
+
+	# exec the definitions
+
+	# build the report
