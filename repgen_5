@@ -1,47 +1,251 @@
-#!/bin/env python
-import sys
+#!/usr/local/bin/python
+import sys,time,datetime,pytz,tempfile,shutil,os
 
+class Report:
+	def __init__(self,report ):
+		self.repfile = report
+		self.replines = []
+		self.datadef = ""
+		lines = report.splitlines()
+		self.data = {}
+		deflines = []
+		state="none"
+		for line in lines:
+			if state == "none":
+				if "#FORM" in line.upper():
+					
+					print >> sys.stderr,"Found Report Section"
+					state="INREP"
+				elif "#DEF" in line.upper():
+					print >> sys.stderr, "Found Definition Section"
+					state="INDEF"
+			elif state == "INREP":
+				if "#ENDFORM" in line.upper():
+					print >> sys.stderr, "End of Report"
+					state = "none"
+					continue
+				self.replines.append( line )
+			elif state == "INDEF":
+				if "#ENDDEF" in line.upper():
+					print >> sys.stderr, "End of Report"
+					state = "none"
+					continue
+				deflines.append( line )
 
+		self.datadef = "\n".join(deflines)
+	
 
+	def fill_report(self, output ):
+		print repr(self.data)
+		values = self.data.keys()
+		values.sort()
+		values.reverse() # need to be able to match the longest first
+		
+		for line in self.replines:
+			tmp = line
+			for v in values:
+				if v in tmp:
+					#print >>sys.stderr, "Found a marker for %s" % v
+					start = tmp.find(v)
+					newval = self.data[v].pop()
+					#print >>sys.stderr, "Using %s" % newval
+					end = len(newval)
+					if start+end > len(tmp):
+						# we need to extend the line
+						tmp = tmp + " "*end
+					#print start
+					tmp2 = list(tmp)
+					for i in range(0,end):
+						tmp2[start+i] = newval[i]
+					#tmp2[start:start+end] = newval
+					tmp = "".join(tmp2)
+			output.write( tmp +"\n" )
+			
+	def run( self ):
+		# setup the base data
+		my_locals = {
+			"BASDATE": Value(datetime.datetime.now(),picture="%Y%b%d %H%M"),
+			"CURDATE": Value(datetime.datetime.now(),picture="%Y%b%d %H%M"),
+		}
+		exec self.datadef in globals(),my_locals
 
+		# loop through my_locals and add them
+		# to a dictionary with the % in front of the them
+		# to mark location on the report
+		self.data = { }
 
-def Value:
-	picture = "NNZ"
-	misstr  = "-M-"
-	undef   = "-?-"
-	data_sys = None
-	def __init__( self  ):
-		self.picture = Value.picture
-		self.misstr  = Value.misstr
-		self.undef   = Value.undef
-		self.scalar = True
-	def __init__( self, *args, *kwargs ):
-		self.__init__()
-		if len( args ) = 1: self.value = args[0]
-		elif len(args)> 0: raise Exception ("Only 1 non named value is allowed")
+		for key in my_locals:
+			if isinstance(my_locals[key], Value ):
+				print "adding %s to data list" % key 
+				self.data["%"+key] = my_locals[key]
 
-		# go through the keyword args, get the data system, all of the paraters, then get the data
+class Value:
+	shared = {
+		"picture" : "NNZ",
+		"misstr"  : "-M-",
+		"undef"   : "-?-",
 
-		self.values = [] # will be a touple of (time stamp, value, quality )
+		# shared and updated between calls
+		"host" : None, # ip address/hostname or file name
+		"port" : None,
+		"dbtype" : None, # file or spkjson
+		"tz" : pytz.utc,
+		"start": None,
+		"end": None,
+		"interval": None,
+		"value": None, # this value is only used for generating time series
+	}
+	
 
-	def format_value ( value ):
-		# go through the process of formatting the data
-		return value
+	
+	def __init__( self, *args, **kwargs ):
+		self.index = None
+		self.type="SCALAR"
 			
 
+		# go through the keyword args,
+		# set them as static variables for the next call
+
+		# update the shared keywords
+		for key in kwargs:
+			Value.shared[key.lower()] = kwargs[key]
+		
+		# load the keywords for this instance
+		for key in Value.shared:
+			self.__dict__[key] = Value.shared[key] 
+	
+		if len( args ) == 1: 
+			self.value = args[0]
+			return
+		elif len(args)> 0: raise Exception ("Only 1 non named value is allowed")
+		
+		
+		self.type = "TIMESERIES"	
+		self.values = [ ] # will be a touple of (time stamp, value, quality )
+			
+		if self.dbtype is None:
+			raise Exception("you must enter a scalar quantity if you aren't specifying a data source")
+		elif self.dbtype.upper() == "FILE":
+			pass
+		elif self.dbtype.upper() == "COPY":
+			pass
+		elif self.dbtype.upper() == "GENTS":
+			current_t = self.start
+			end_t = self.end
+			while current_t != end_t:
+				self.values.append( ( current_t,self.value,0 ) )
+				current_t = current_t + self.interval
+			
+		elif self.dbtype.upper() == "SPKJSON":
+			try:
+				import json
+			except:
+				try:
+					import simplejson as json
+				except:
+					print >>sys.stderr, "To run this program you either need to update to a newer python, or install the simplejson module."
+
+			import httplib, urllib
+					
+		elif self.dbtype.upper() == "DSS":
+			raise Exception("DSS retrieval is not currently implemented")
+			
+
+	
+
+		
+	def __str__(self):
+		if self.type=="SCALAR":
+			return self.format(self.value)
+		else:
+			return "Unable to process at this time"
+
+	def format(self,value):
+		#print repr(value)
+		if isinstance(value, (int,long,float,complex)):
+			return self.picture % value
+		elif isinstance(value, datetime.datetime) :
+			return value.strftime(self.picture)
+	# will need implementations of add, radd, mult, div, etc for use in math operations.
+	def pop(self):
+		if self.type == "SCALAR":
+			return self.format(self.value)
+		elif self.type == "TIMESERIES":
+			if self.index is None:
+				self.index = 0
+			self.index = self.index+1
+			try:
+				#print repr(self.values[self.index-1])
+				return self.format(self.values[self.index-1][1])
+			except Exception,err:
+				print >>sys.stderr, repr(err) + " : " + str(err)
+				return self.misstr
+
+	def datatimes(self):
+		"""
+			Returns a new Value where the values are replaced by the datetimes
+		
+		"""
+		tmp = Value(dbtype="copy")
+		for v in self.values:
+			tmp.values.append( (v[0],v[0],v[2]) )
+		print repr(tmp.__dict__)
+		return tmp
+
+	def qualities(self):
+		"""
+			Returns a new Value where the values are replace by the qualities
+		"""
+		tmp = Value(dbtype="copy")
+		for v in self.values:
+			tmp.values.append( (v[0],v[2],v[2]) )
+		return tmp
 
 
-data = {}
 
 # setup base time, ex
 # default formats
-
+def parseArgs():
+	import optparse
+	parser=optparse.OptionParser()
+	_d = time.strftime("%d%b%Y", time.localtime() )
+	_t = time.strftime("%H%M", time.localtime() )
+	parser.add_option( '-i', '--in', dest='in_file', help="INput report file", metavar="REPFILE" )
+	parser.add_option( '-o', '--out', dest='out_file', default="-", help="OUTput file with filled report", metavar="REPOUTPUT")
+	parser.add_option( '-d', '--date', dest='base_date', default=_d, help="base date for data", metavar="DDMMMYYY" )
+	parser.add_option( '-t', '--time', dest='base_time', default=_t, help="base time for data", metavar="HHMM")
+	parser.add_option( '-a', '--host', dest='host', default='localhost', help="host for data connections", metavar='IP ADDRESS OR HOSTNAME')
+	parser.add_option( '-p', '--port', dest='port', default=80, help="port for data connection", metavar='0-65535')
+	return parser.parse_args()[0]
 
 if __name__ == "__main__":
-	report_file = sys.argv[1]
+
+	config = parseArgs()
+	print repr(config)	
+
+	report_file = config.in_file
+	Value.host = config.host
+	Value.port = int(config.port)
 	f = open(report_file) 
 	data = f.read()
 	f.close()
+	report = Report(data)
+	report.run()
+	output = None
+	tmpname = None
+	if config.out_file == "-":
+		output = sys.stdout
+	else:
+		fd,tmpname = tempfile.mkstemp(text=True)
+		output = os.fdopen(fd,"w")
+
+	
+	report.fill_report(output)
+
+	if config.out_file != "-":
+		shutil.move(tmpname,config.out_file)
+		output.close()
+
 
 	# read the report file
 

@@ -2,18 +2,36 @@
 **************|*********************|************|*************
 Report  Date: %BASDATE              Current Date %CURDATE
 Current Date: %CURDATE
-Value = %TMP
-Value2= %TMP2
-Value3= %TMP3
+Value 
+%vt              %v
+%vt              %v
+%vt              %v
+%vt              %v
+%vt              %v
+%vt              %v
+%vt              %v
+%vt              %v
+%vt              %v
+%vt              %v
+Value2= %a         %b
+Value3= %b
 Value4= %TMP4
 Value5= %TMP5
 ***************************************************************
 #ENDFORM
 #DEF
-a = 5
-data["%TMP"] = a
+import sys
 
+t1 = datetime.datetime.now(pytz.utc)
+t1 = t1.replace(minute=0,second=0,hour=12)
+t2 = t1+datetime.timedelta(hours=2)
 
+v = Value(dbtype="gents",value=1, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
+vt = v.datatimes()
+vt.picture="%Y%b%m %H%M"
+
+a = Value(5)
+b = Value(6, picture="%7.01f")
 #%BASDATE
 #	PICTURE=DDBAAABYYYY
 #%BTM=TIME(0800)
