@@ -41,7 +41,7 @@ Keyword | Description |
 ------- | ----------- |
 picture | python format string or time format string, tells the system how to format the value |
 misstr  | what to display when a value is missing (None) |
-undef   | what to display when a value is undef (this isn't implemented yet but was part of the original repgen program |
+undef   | what to display when a value is undef (this isn't implemented yet but was part of the original repgen program) |
 dbtype  | copy,gents,spkjson are the current valid values. This tells the system how it should interpret the supplied keywords |
 
 Everytime you set a keyword, Value stored the last used version. If a keyword doesn't need to change between values (e.g. they all need to render the same) you don't have to include it when creating the additional values.
@@ -50,11 +50,10 @@ Everytime you set a keyword, Value stored the last used version. If a keyword do
 ##### Scalar value
 
 ```python
-```python
-SCALAR=Value(1)
+SCALAR=Value(1) # except whatever the last picture was
+SCALAR2=Value(2,picture="%d")
 ```
 
-```
 
 ##### Generate Time Series 
 
@@ -77,18 +76,18 @@ vt.picture = "%Y%b%d %H%M"
 
 This will get the times of v and create a new time series whos values are the times of v. The new timesseries times will also be those of v.
 picture is so that when the report is filled the a time format will be used
-```
 
 
 ##### Retrive Time Series
 
-```
+```python
 ts = Value(dbtype="spkjson", 
 	   dbloc="BLB BLBQ-Black Butte Outflow-Stony Cr", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
 	   dbtz=pytz.utc, dbunits="ft" )
 ```
 
-spkjson is a simple format that looks like the following
+spkjson is a simple format that looks like the following:
+
 ```javascript
 	{
 		"site": "sitename",
@@ -108,10 +107,12 @@ spkjson is a simple format that looks like the following
 
 This particular case uses httplib host and port and be specified as keywords, or a default data on the command line.
 
+Adding new methods is a simple as adding a new elif block to the constructor of Value where you see the other types
+
 ##### Math
 
 ```python
-# after created 2 time series as above
+# after creating the 2 time series as above
 v3 = v + v2
 
 ```
