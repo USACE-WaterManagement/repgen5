@@ -23,7 +23,8 @@ Value5= %TMP5
 import sys
 
 t1 = datetime.datetime.now(pytz.utc)
-t1 = t1.replace(minute=0,second=0,hour=12)
+print t1
+t1 = t1.replace(minute=30,second=0,hour=0)-datetime.timedelta(hours=1)
 t2 = t1+datetime.timedelta(hours=2)
 
 v = Value(dbtype="gents",value=1, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
@@ -35,7 +36,7 @@ ts = Value(dbtype="spkjson",
 
 v3 = v + v2
 vt = v.datatimes()
-vt.picture="%Y%b%d %H%M"
+vt.picture="%Y%b%d %K%M"
 tst = ts.datatimes()
 tst.picture = vt.picture
 
