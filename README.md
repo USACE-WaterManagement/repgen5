@@ -78,7 +78,7 @@ This will get the times of v and create a new time series whos values are the ti
 picture is so that when the report is filled the a time format will be used
 
 
-##### Retrive Time Series
+##### Retreive Time Series
 
 ```python
 ts = Value(dbtype="spkjson", 
