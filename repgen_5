@@ -1,5 +1,5 @@
 #!/usr/local/bin/python
-import sys,time,datetime,pytz,tempfile,shutil,os
+import sys,time,datetime,pytz,tempfile,shutil,os,operator
 
 class Report:
 	def __init__(self,report ):
@@ -49,13 +49,17 @@ class Report:
 					newval = self.data[v].pop()
 					#print >>sys.stderr, "Using %s" % newval
 					end = len(newval)
+					
+					if end < len(v):
+						end = len(v) # make sure the replacement eats the whole variable
 					if start+end > len(tmp):
 						# we need to extend the line
 						tmp = tmp + " "*end
 					#print start
 					tmp2 = list(tmp)
 					for i in range(0,end):
-						tmp2[start+i] = newval[i]
+						if i < len(newval):tmp2[start+i] = newval[i]
+						else: tmp2[start+i] = " "
 					#tmp2[start:start+end] = newval
 					tmp = "".join(tmp2)
 			output.write( tmp +"\n" )
@@ -131,7 +135,7 @@ class Value:
 		elif self.dbtype.upper() == "GENTS":
 			current_t = self.start
 			end_t = self.end
-			while current_t != end_t:
+			while current_t <= end_t:
 				self.values.append( ( current_t,self.value,0 ) )
 				current_t = current_t + self.interval
 			
@@ -163,7 +167,6 @@ class Value:
 			conn.request("GET", query+params )
 			r1 = conn.getresponse()
 			data =r1.read()
-			#print data
 
 			data_dict = json.loads(data)
 			# get the depth
@@ -180,44 +183,46 @@ class Value:
 			
 	# math functions
 	def __add__( self, other ):
+		return self.domath(operator.add,other)
+
+
+	def __sub__( self, other ):
+		return self.domath( operator.sub, other )
+
+	def __mul__( self, other ):
+		return self.domath( operator.mul, other)
+
+	def __truediv__(self,other):
+		return self.domath( operator.div,other)
+
+	
+	def domath(self,op,other):
 		tmp = Value(dbtype="copy")
 
 		
 		if isinstance( other, (int,long,float,complex) ) and self.type=="TIMESERIES":
 			for v in self.values:
-				tmp.values.append( (v[0],v[1] + other,v[2]) )
+				tmp.values.append( (v[0],op(v[1], other),v[2]) )
 		elif isinstance( other, (int,long,float,complex) ) and self.type=="SCALAR":
-			tmp.value = tmp.value+other
+			tmp.value = op(tmp.value,other)
 			tmp.type="SCALAR"
 		elif isinstance( other, Value ):
 			if self.type =="TIMESERIES" and other.type == "SCALAR":
 				for v in self.values:
-					tmp.values.append( (v[0], v[1]+ other.value, v[1] ) )
+					tmp.values.append( (v[0], op(v[1],other.value), v[1] ) )
 			elif self.type=="TIMESERIES" and other.type == "TIMESERIES":
 			# loop through both arrays
 				# for now just implement intersection
 				for v_left in self.values:
 					for v_right in other.values:
 						if v_left[0] == v_right[0]: # times match
-							tmp.values.append( (v_left[0], v_left[1]+v_right[1], v_left[2] ) )
+							tmp.values.append( (v_left[0],op( v_left[1], v_right[1] ), v_left[2] ) )
 			else:
 				return NotImplemented
 		else:
 			return NotImplemented
 		return tmp
-
-
-	def __sub__( self, other ):
-		pass
-
-	def __mul__( self, other ):
-		pass
-
-	def __truediv__(self,other):
-		pass
-
-	
-
+		
 	
 
 		

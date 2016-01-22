@@ -2,17 +2,17 @@
 **************|*********************|************|*************
 Report  Date: %BASDATE              Current Date %CURDATE
 Current Date: %CURDATE
-v.datatimes()     V   v2   v+v2 ts   tstime
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
-%vt              %v   %v2  %v3  %ts  %tst
+v.datatimes()     V   v2   v+v2 v*v3  ts   ts+v  tstime
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+%vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
 Value2= %a         %b
 Value3= %b
 Value4= %TMP4
@@ -23,18 +23,19 @@ Value5= %TMP5
 import sys
 
 t1 = datetime.datetime.now(pytz.utc)
-print t1
-t1 = t1.replace(minute=30,second=0,hour=0)-datetime.timedelta(hours=1)
+t1 = t1.replace(minute=30,second=0,hour=0,microsecond=0)-datetime.timedelta(hours=1)
 t2 = t1+datetime.timedelta(hours=2)
 
-v = Value(dbtype="gents",value=1, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
+v = Value(dbtype="gents",value=3, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
 v2 = Value(dbtype="gents",value=2, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
 
 ts = Value(dbtype="spkjson", 
 	   dbloc="BLB BLBQ-Black Butte Outflow-Stony Cr", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
 	   dbtz=pytz.utc, dbunits="ft" )
-
+ts2 = ts + v
 v3 = v + v2
+v4 = v * v2
+
 vt = v.datatimes()
 vt.picture="%Y%b%d %K%M"
 tst = ts.datatimes()

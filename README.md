@@ -86,6 +86,19 @@ ts = Value(dbtype="spkjson",
 	   dbtz=pytz.utc, dbunits="ft" )
 ```
 
+The start and end could also be used, in this example the start and end from the gents section is used.
+This allows you to get multiple time series of data by only changing the needed parameters.
+for example if we wanted the Stages (height of water in a channel) from several differnt locations we could to the following:
+```python
+ts = Value(dbtype="spkjson", 
+	   dbloc="BLB BLBQ-Black Butte Outflow-Stony Cr", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
+	   dbtz=pytz.utc, dbunits="ft"
+	   start=datetime.datetime.now()-datetime.timedelta(hours=4)
+	   end=datetime.datetime.now())
+ts2 = Value( dbloc="Location2")
+ts2 = Value( dbloc="Location3")
+```
+
 spkjson is a simple format that looks like the following:
 
 ```javascript
