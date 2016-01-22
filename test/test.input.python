@@ -2,17 +2,17 @@
 **************|*********************|************|*************
 Report  Date: %BASDATE              Current Date %CURDATE
 Current Date: %CURDATE
-Value 
-%vt              %v
-%vt              %v
-%vt              %v
-%vt              %v
-%vt              %v
-%vt              %v
-%vt              %v
-%vt              %v
-%vt              %v
-%vt              %v
+v.datatimes()     V   v2   v+v2 ts   tstime
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
+%vt              %v   %v2  %v3  %ts  %tst
 Value2= %a         %b
 Value3= %b
 Value4= %TMP4
@@ -27,10 +27,19 @@ t1 = t1.replace(minute=0,second=0,hour=12)
 t2 = t1+datetime.timedelta(hours=2)
 
 v = Value(dbtype="gents",value=1, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
-vt = v.datatimes()
-vt.picture="%Y%b%m %H%M"
+v2 = Value(dbtype="gents",value=2, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
 
-a = Value(5)
+ts = Value(dbtype="spkjson", 
+	   dbloc="BLB BLBQ-Black Butte Outflow-Stony Cr", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
+	   dbtz=pytz.utc, dbunits="ft" )
+
+v3 = v + v2
+vt = v.datatimes()
+vt.picture="%Y%b%d %H%M"
+tst = ts.datatimes()
+tst.picture = vt.picture
+
+a = Value(5)+1
 b = Value(6, picture="%7.01f")
 #%BASDATE
 #	PICTURE=DDBAAABYYYY

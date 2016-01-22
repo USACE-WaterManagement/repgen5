@@ -1,3 +1,5 @@
 build
 build/*
 *.o
+test_priv
+test_priv/*

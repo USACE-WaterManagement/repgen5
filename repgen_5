@@ -63,6 +63,7 @@ class Report:
 			
 	def run( self ):
 		# setup the base data
+		#
 		my_locals = {
 			"BASDATE": Value(datetime.datetime.now(),picture="%Y%b%d %H%M"),
 			"CURDATE": Value(datetime.datetime.now(),picture="%Y%b%d %H%M"),
@@ -146,10 +147,79 @@ class Value:
 					print >>sys.stderr, "To run this program you either need to update to a newer python, or install the simplejson module."
 
 			import httplib, urllib
-					
+			fmt = "%d-%b-%Y %H%M"
+			tz = self.tz
+			units= self.dbunits
+			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, self.dbint, self.dbdur, self.dbver) )
+			
+			print >> sys.stderr, "Getting %s from %s to %s in tz %s, with units %s" % (ts_name,self.start.strftime(fmt),self.end.strftime(fmt),str(tz),units)
+			query = "/fcgi-bin/get_ts.py?"
+			params = urllib.urlencode( {
+				"site": ts_name,
+				"units": units,
+				"start_time": self.start.strftime(fmt),
+				"end_time":   self.end.strftime(fmt),
+				"tz": str(self.tz)
+			})	
+			conn = httplib.HTTPConnection( self.host + ":" + str(self.port))
+			conn.request("GET", query+params )
+			r1 = conn.getresponse()
+			data =r1.read()
+			#print data
+
+			data_dict = json.loads(data)
+			print repr(data_dict)
+			# get the depth
+			prev_t = 0
+			for d in data_dict["data"]:
+				_t = float(d[0])/1000.0 # spkjson returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
+				_dt = datetime.datetime.fromtimestamp(_t,self.tz)
+				_v = float(d[1]) # does not currently implement text operations
+				_q = int(d[2])
+				self.values.append( ( _dt,_v,_q  ) )
+				
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
 			
+	# math functions
+	def __add__( self, other ):
+		tmp = Value(dbtype="copy")
+
+		
+		if isinstance( other, (int,long,float,complex) ) and self.type=="TIMESERIES":
+			for v in self.values:
+				tmp.values.append( (v[0],v[1] + other,v[2]) )
+		elif isinstance( other, (int,long,float,complex) ) and self.type=="SCALAR":
+			tmp.value = tmp.value+other
+			tmp.type="SCALAR"
+		elif isinstance( other, Value ):
+			if self.type =="TIMESERIES" and other.type == "SCALAR":
+				for v in self.values:
+					tmp.values.append( (v[0], v[1]+ other.value, v[1] ) )
+			elif self.type=="TIMESERIES" and other.type == "TIMESERIES":
+			# loop through both arrays
+				# for now just implement intersection
+				for v_left in self.values:
+					for v_right in other.values:
+						if v_left[0] == v_right[0]: # times match
+							tmp.values.append( (v_left[0], v_left[1]+v_right[1], v_left[2] ) )
+			else:
+				return NotImplemented
+		else:
+			return NotImplemented
+		return tmp
+
+
+	def __sub__( self, other ):
+		pass
+
+	def __mul__( self, other ):
+		pass
+
+	def __truediv__(self,other):
+		pass
+
+	
 
 	
 
@@ -224,8 +294,8 @@ if __name__ == "__main__":
 	print repr(config)	
 
 	report_file = config.in_file
-	Value.host = config.host
-	Value.port = int(config.port)
+	Value(1,host=config.host, port= int(config.port) )
+	
 	f = open(report_file) 
 	data = f.read()
 	f.close()
@@ -233,6 +303,8 @@ if __name__ == "__main__":
 	report.run()
 	output = None
 	tmpname = None
+
+	# set some of the default values
 	if config.out_file == "-":
 		output = sys.stdout
 	else:
