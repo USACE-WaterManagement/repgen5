@@ -122,7 +122,7 @@ class Value:
 			value = kwargs[key]
 			if key.lower()=="tz" and isinstance(value, (basestring)):
 				value = pytz.timezone(value)
-			if key.lower() == "start" or key.lower() == "end" or key.lower() == "time"  and isinstance(value,Value):	
+			if (key.lower() == "start" or key.lower() == "end" or key.lower() == "time")  and isinstance(value,(Value)):	
 				value = value.value # internally we want the actual datetime
 			if key.lower() == "time":
 				Value.shared["start"] = value

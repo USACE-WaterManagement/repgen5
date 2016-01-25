@@ -13,6 +13,9 @@ v.datatimes()     V   v2   v+v2 v*v3  ts   ts+v  tstime
 %vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
 %vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
 %vt              %v   %v2  %v3  %v4   %ts  %ts2  %tst
+
+End of TS = %tsend
+Value 1 hour ago = %ts1h
 Value2= %a         %b
 Value3= %b
 Value4= %TMP4
@@ -32,6 +35,9 @@ v2 = Value(dbtype="gents",value=2, interval=datetime.timedelta(minutes=15), pict
 ts = Value(dbtype="spkjson", tz="PST8PDT",
 	   dbloc="BLB BLBQ-Black Butte Outflow-Stony Cr", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
 	   dbunits="ft" )
+tsend= ts.last()
+ts1h = ts(t_end-datetime.timedelta(hours=1))
+
 ts2 = ts + v
 v3 = v + v2
 v4 = v * v2
@@ -39,6 +45,7 @@ v4 = v * v2
 vt = v.datatimes()
 vt.picture="%Y%b%d %K%M"
 tst = ts.datatimes()
+
 tst.picture = vt.picture
 
 a = Value(5)+1
