@@ -22,16 +22,16 @@ Value5= %TMP5
 #DEF
 import sys
 
-t1 = datetime.datetime.now(pytz.utc)
-t1 = t1.replace(minute=30,second=0,hour=0,microsecond=0)-datetime.timedelta(hours=1)
-t2 = t1+datetime.timedelta(hours=2)
+#t_end = datetime.datetime.now(TZ("PST8PDT"))
+t_end = BASDATE.value.replace(minute=0,second=0,microsecond=0)
+t_start = t_end-datetime.timedelta(hours=2)
 
-v = Value(dbtype="gents",value=3, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
-v2 = Value(dbtype="gents",value=2, start=t1,end=t2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
+v = Value(dbtype="gents",value=3, tz="PST8PDT", start=t_start,end=t_end, interval=datetime.timedelta(minutes=15), picture="%0.02f")
+v2 = Value(dbtype="gents",value=2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
 
-ts = Value(dbtype="spkjson", 
+ts = Value(dbtype="spkjson", tz="PST8PDT",
 	   dbloc="BLB BLBQ-Black Butte Outflow-Stony Cr", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
-	   dbtz=pytz.utc, dbunits="ft" )
+	   dbunits="ft" )
 ts2 = ts + v
 v3 = v + v2
 v4 = v * v2

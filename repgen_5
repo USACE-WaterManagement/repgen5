@@ -1,6 +1,10 @@
 #!/usr/local/bin/python
 import sys,time,datetime,pytz,tempfile,shutil,os,operator
 
+
+def TZ(tz):
+	return pytz.timezone(tz)
+
 class Report:
 	def __init__(self,report ):
 		self.repfile = report
@@ -48,6 +52,9 @@ class Report:
 					start = tmp.find(v)
 					newval = self.data[v].pop()
 					#print >>sys.stderr, "Using %s" % newval
+					if newval is None:
+						newval = self.data[v].misstr
+					
 					end = len(newval)
 					
 					if end < len(v):
@@ -70,6 +77,7 @@ class Report:
 		my_locals = {
 			"BASDATE": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M"),
 			"CURDATE": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M"),
+			"CTM": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M")
 		}
 		exec self.datadef in globals(),my_locals
 
@@ -111,21 +119,29 @@ class Value:
 
 		# update the shared keywords
 		for key in kwargs:
-			Value.shared[key.lower()] = kwargs[key]
+			value = kwargs[key]
+			if key.lower()=="tz" and isinstance(value, (basestring)):
+				value = pytz.timezone(value)
+			if key.lower() == "start" or key.lower() == "end" or key.lower() == "time"  and isinstance(value,Value):	
+				value = value.value # internally we want the actual datetime
+			if key.lower() == "time":
+				Value.shared["start"] = value
+				Value.shared["end"] = value
+			
+			Value.shared[key.lower()] = value
 		
 		# load the keywords for this instance
 		for key in Value.shared:
 			self.__dict__[key] = Value.shared[key] 
-	
+
 		if len( args ) == 1: 
 			self.value = args[0]
 			return
 		elif len(args)> 0: raise Exception ("Only 1 non named value is allowed")
 		
-		
 		self.type = "TIMESERIES"	
 		self.values = [ ] # will be a touple of (time stamp, value, quality )
-			
+		
 		if self.dbtype is None:
 			raise Exception("you must enter a scalar quantity if you aren't specifying a data source")
 		elif self.dbtype.upper() == "FILE":
@@ -136,7 +152,7 @@ class Value:
 			current_t = self.start
 			end_t = self.end
 			while current_t <= end_t:
-				self.values.append( ( current_t,self.value,0 ) )
+				self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
 				current_t = current_t + self.interval
 			
 		elif self.dbtype.upper() == "SPKJSON":
@@ -149,6 +165,7 @@ class Value:
 					print >>sys.stderr, "To run this program you either need to update to a newer python, or install the simplejson module."
 
 			import httplib, urllib
+	
 			fmt = "%d-%b-%Y %H%M"
 			tz = self.tz
 			units= self.dbunits
@@ -162,22 +179,33 @@ class Value:
 				"start_time": self.start.strftime(fmt),
 				"end_time":   self.end.strftime(fmt),
 				"tz": str(self.tz)
-			})	
-			conn = httplib.HTTPConnection( self.host + ":" + str(self.port))
-			conn.request("GET", query+params )
-			r1 = conn.getresponse()
-			data =r1.read()
+			})
+			try:
+				conn = httplib.HTTPConnection( self.host + ":" + str(self.port))
+				conn.request("GET", query+params )
+				r1 = conn.getresponse()
+				data =r1.read()
 
-			data_dict = json.loads(data)
-			# get the depth
-			prev_t = 0
-			for d in data_dict["data"]:
-				_t = float(d[0])/1000.0 # spkjson returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
-				_dt = datetime.datetime.fromtimestamp(_t,self.tz)
-				_v = float(d[1]) # does not currently implement text operations
-				_q = int(d[2])
-				self.values.append( ( _dt,_v,_q  ) )
-				
+				data_dict = json.loads(data)
+				# get the depth
+				prev_t = 0
+				#print repr(data_dict)
+				for d in data_dict["data"]:
+					_t = float(d[0])/1000.0 # spkjson returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
+					_dt = datetime.datetime.fromtimestamp(_t)
+					_dt = _dt.replace(tzinfo=self.tz)
+					if d[1] is not None:
+						_v = float(d[1]) # does not currently implement text operations
+					else:
+						_v = None
+					_q = int(d[2])
+					self.values.append( ( _dt,_v,_q  ) )
+
+				if self.start == self.end:
+					self.type = "SCALAR"
+					self.value = self.values[0][1]
+			except Exception,err:
+				print repr(err) + " : " + str(err)
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
 			
@@ -197,26 +225,46 @@ class Value:
 
 	
 	def domath(self,op,other):
+		typ = Value.shared["dbtype"]
 		tmp = Value(dbtype="copy")
-
+		Value.shared["dbtype"]=typ
 		
 		if isinstance( other, (int,long,float,complex) ) and self.type=="TIMESERIES":
 			for v in self.values:
-				tmp.values.append( (v[0],op(v[1], other),v[2]) )
-		elif isinstance( other, (int,long,float,complex) ) and self.type=="SCALAR":
-			tmp.value = op(tmp.value,other)
+				if (v is not None) and (other is not None):
+					tmp.values.append( (v[0],op(v[1], other),v[2]) )
+				else:
+					tmp.values.append( ( v[0], None, v[2] ) )
+		elif isinstance( other, (int,long,float,complex,datetime.timedelta) ) and self.type=="SCALAR":
+			if (self.value is not None) and (other is not None):
+				tmp.value = op(self.value,other)
+			else:
+				tmp.value = None
 			tmp.type="SCALAR"
 		elif isinstance( other, Value ):
-			if self.type =="TIMESERIES" and other.type == "SCALAR":
+			if self.type == "SCALAR" and other.type == "SCALAR":
+				if (self.value is not None) and (other.value is not None):
+					tmp.value = op(self.value,other.value)
+				else:
+					tmp.value = None
+				tmp.type = "SCALAR"
+			elif self.type =="TIMESERIES" and other.type == "SCALAR":
 				for v in self.values:
-					tmp.values.append( (v[0], op(v[1],other.value), v[1] ) )
+					if (v is not None) and (other.value is not None):
+						tmp.values.append( (v[0], op(v[1],other.value), v[1] ) )
+					else:
+						tmp.values.append( (v[0], None, v[1] ) )
+						
 			elif self.type=="TIMESERIES" and other.type == "TIMESERIES":
 			# loop through both arrays
 				# for now just implement intersection
 				for v_left in self.values:
 					for v_right in other.values:
 						if v_left[0] == v_right[0]: # times match
-							tmp.values.append( (v_left[0],op( v_left[1], v_right[1] ), v_left[2] ) )
+							if (v_left[1] is not None) and (v_right[1] is not None):
+								tmp.values.append( (v_left[0],op( v_left[1], v_right[1] ), v_left[2] ) )
+							else:
+								tmp.values.append( (v_left[0], None, v_left[2] ) )
 			else:
 				return NotImplemented
 		else:
@@ -268,7 +316,10 @@ class Value:
 			Returns a new Value where the values are replaced by the datetimes
 		
 		"""
+		typ = Value.shared["dbtype"]
 		tmp = Value(dbtype="copy")
+		Value.shared["dbtype"]=typ
+		
 		for v in self.values:
 			tmp.values.append( (v[0],v[0],v[2]) )
 		return tmp
@@ -277,11 +328,53 @@ class Value:
 		"""
 			Returns a new Value where the values are replace by the qualities
 		"""
+		typ = Value.shared["dbtype"]
 		tmp = Value(dbtype="copy")
+		Value.shared["dbtype"]=typ
 		for v in self.values:
 			tmp.values.append( (v[0],v[2],v[2]) )
 		return tmp
 
+	def set_time( self, **kwarg  ):
+		if self.type == "SCALAR" and isinstance( self.value, datetime.datetime ):
+			self.value = self.value.replace( **kwarg )
+		else:
+			raise Exception("Not implemented for the requested change")
+
+	def last(self):
+		if self.type =="TIMESERIES":
+			
+			typ = Value.shared["dbtype"]
+			tmp = Value(dbtype="copy")
+			Value.shared["dbtype"]=typ
+			tmp.value = None
+			tmp.type ="SCALAR"
+			try:
+				tmp.value = self.values[ len(self.values)-1 ] [1]
+			except Exception,err:
+				print >>sys.stderr, "Issue with getting last value -> %s : %s" % (repr(err),str(err))
+			return tmp
+		else:
+			raise Exception("operation only valid on a time series")
+	
+	def __call__( self, *args ):
+		if len(args)==1 and isinstance(args[0], (datetime.datetime,Value)):
+			dt = args[0]
+			if isinstance(args[0],Value):
+				dt = args[0].value
+			if self.type == "TIMESERIES":
+				typ = Value.shared["dbtype"]
+				tmp = Value(dbtype="copy")
+				Value.shared["dbtype"]=typ
+				tmp.value = None
+				tmp.type ="SCALAR"
+				for v in self.values:
+					if v[0] == dt:
+						tmp.value = v[1]
+						break
+				return tmp
+			else:
+				raise Exception("date index only valid on a timeseries")
 
 
 # setup base time, ex
@@ -297,6 +390,7 @@ def parseArgs():
 	parser.add_option( '-t', '--time', dest='base_time', default=_t, help="base time for data", metavar="HHMM")
 	parser.add_option( '-a', '--host', dest='host', default='localhost', help="host for data connections", metavar='IP ADDRESS OR HOSTNAME')
 	parser.add_option( '-p', '--port', dest='port', default=80, help="port for data connection", metavar='0-65535')
+	parser.add_option( '-z', '--tz', dest='tz', default='UTC', help="default timezone", metavar='Time Zone Name')
 	return parser.parse_args()[0]
 
 if __name__ == "__main__":
@@ -304,7 +398,7 @@ if __name__ == "__main__":
 	config = parseArgs()
 
 	report_file = config.in_file
-	Value(1,host=config.host, port= int(config.port) )
+	Value(1,host=config.host, port= int(config.port),tz=pytz.timezone(config.tz) )
 	
 	f = open(report_file) 
 	data = f.read()
