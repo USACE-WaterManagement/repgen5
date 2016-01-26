@@ -357,11 +357,10 @@ class Value:
 		else:
 			raise Exception("operation only valid on a time series")
 	
-	def __call__( self, *args ):
-		if len(args)==1 and isinstance(args[0], (datetime.datetime,Value)):
-			dt = args[0]
-			if isinstance(args[0],Value):
-				dt = args[0].value
+	def __getitem__( self, arg ):
+			dt = arg
+			if isinstance(arg,Value):
+				dt = arg.value
 			if self.type == "TIMESERIES":
 				typ = Value.shared["dbtype"]
 				tmp = Value(dbtype="copy")
