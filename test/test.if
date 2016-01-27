@@ -1,0 +1,56 @@
+#FORM
+**************|*********************|************|*************
+Report  Date: %BASDATE              Current Date %CURDATE
+Current Date: %CURDATE
+v.datatimes()     V   v2   max  min  v>4 
+				    othrws
+				      0 
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5
+sum              %sum
+count            %cnt
+avg              %avg
+***************************************************************
+#ENDFORM
+#DEF
+import random
+def rand():
+	# we just need slightly larger numbers 
+	import random
+	return random.random()*10
+
+#t_end = datetime.datetime.now(TZ("PST8PDT"))
+t_end = BASDATE.value.replace(minute=0,second=0,microsecond=0)
+t_start = t_end-datetime.timedelta(hours=2)
+
+v = Value(dbtype="gents",value=rand, tz="PST8PDT", start=t_start,end=t_end, interval=datetime.timedelta(minutes=15), picture="%0.02f")
+v2 = Value(dbtype="gents",value=2, interval=datetime.timedelta(minutes=15), picture="%0.02f")
+
+v3 = Value.apply( lambda x,y: max(x,y), v,v2 )
+v4 = Value.apply( lambda x,y: min(x,y), v,v2 )
+v5 = Value.apply( lambda x: x if x > 4 else 0, v )
+
+sum = Value.sum(v,treat="IGNORE")
+avg = Value.average(v, treat="IGNORE")
+cnt = Value.count(v)
+cnt.picture="%d"
+
+vt = v.datatimes()
+vt.picture="%Y%b%d %K%M"
+
+
+
+
+#%BASDATE
+#	PICTURE=DDBAAABYYYY
+#%BTM=TIME(0800)
+#	PICTURE=ZZZT
+#ENDDEF

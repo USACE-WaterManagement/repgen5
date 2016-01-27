@@ -398,9 +398,12 @@ class Value:
 		a number   - if a value is missing (None) use this number in its place
 		a touple of numbers - if a value is missing, substitude in order of the arguments these replacement values
 		"IGNORE"   - operate as if that row/value wasn't there
-		"MISS"     - if any given value is missing, the result is missing
+		"MISS"     - if any given value is missing, the result is missing (This is the default)
+	
+		Generally args should be either a list of SCALAR values (actual number types are okay)
+		or a single time series.
 		
-
+		
 	"""
 				
 
@@ -419,22 +422,12 @@ class Value:
 		tmp = Value(dbtype="copy")
 		Value.shared["dbtype"]=typ
 		
-		# build a new last that has the interestion or union (user specified, just implement intersection for now
-		# scalar values will just get copied in time, we do need to maintain the order of the input args.
-		timesets = []	
-		times = []
-		for arg in args:
-			if isinstance( arg, Value) and arg.type == "TIMESERIES":
-				timesets.append( set( [x[0] for x in arg.values ]) )	
-		if len(timesets)==0:
+		times = Value.gettimes(*args,**kwargs)
+		if len(times)==0:
 			tmp.type = "SCALAR"
 			# get the numbers of everything
 			tmp.value = function( *args )
-		elif len(timesets) > 0:
-			if len(timesets)==1:
-				times = list(timesets[0])
-			else:
-				times =list( timesets[0].intersection( *timesets[1:] ) ) # here we should check for intersection or union
+		elif len(times) > 0:
 			tmp.values = []
 			for t in times:
 				vars = []
@@ -458,19 +451,117 @@ class Value:
 
 		return tmp
 	@staticmethod	
-	def sum( *arg, **kwarg ):
+	def sum( *args, **kwarg ):
+		"""
+			this is an exception to the one timeseries rule.
+			we assume the user what's whatever values passed summed up into 
+			one value
+		"""
+		tmp = Value.mktmp()
+		tmp.value = 0
+		tmp.type="SCALAR"
+		treat=Value.gettreat(**kwarg)
+		
+		for arg in args:
+			if isinstance( arg, (int,long,float,complex) ):
+				tmp.value += arg
+			if arg.type =="SCALAR":
+				if arg.value is not None:
+					tmp.value += arg.value
+				else:
+					if instance( treat, (int,long,float,complex)):
+						tmp.value += treat
+					elif treat=="MISS":
+						tmp.value = None
+						return tmp
+					# else, move to the next value
+			elif arg.type == "TIMESERIES":
+				for row in arg.values:
+					v = row[1]
+					if v is not None:
+						tmp.value += v
+					else:
+						if instance( treat, (int,long,float,complex)):
+							tmp.value += treat
+						elif treat=="MISS":
+							tmp.value = None
+							return tmp
+			
+		return tmp
+
+	@staticmethod
+	def average( *args, **kwarg ):
+		tmp = Value.mktmp()
+		tmp.value = 0
+		tmp.type="SCALAR"
+		treat = Value.gettreat(**kwarg)
+		numvals = 0
+		if len(args) > 1:
+			for arg in args:
+				if arg.type=="TIMESERIES":
+					raise Exception("Time series not allowed with mulitple values")
+		
+		if len(args) == 1:
+			if args[0].type == "SCALAR":
+				tmp.value = args[0].value
+			else: # time series
+				for row in args[0].values:
+					v = row[1]
+					if v is not None:
+						tmp.value += v
+						numvals += 1
+					elif treat == "MISS":
+						tmp.value = None
+						return tmp
+
+				tmp.value = tmp.value/float(numvals)
+		else:
+			for arg in args:
+				if isinstance( arg, (int,long,float,complex) ):
+					tmp.value += arg
+					numvals += 1
+				else:
+					if arg.value is not None:
+						tmp.value += arg.value
+						numvals += 1
+					elif treat=="MISS":
+						tmp.value = None
+						return tmp
+			tmp.value = tmp.value/float(numvals)
+		return tmp
+		
+
+	@staticmethod
+	def count(*args ):
+		"""		
+			This function ignores the only 1 timeseries rule and just counts the number of non-missing
+			values in all the variables passed in.
+			It also doesn't take any keywords
+		"""
+		tmp = Value.mktmp()
+		tmp.value = 0
+		tmp.type = "SCALAR"
+		for arg in args:
+			if isinstance(arg, (int,long,float,complex)):
+				tmp.value+=1
+			elif isinstance(arg, Value) and arg.type =="SCALAR" and arg.value is not None:
+				tmp.value+=1
+			elif isinstance(arg, Value) and arg.type =="TIMESERIES":
+				for row in arg.values:
+					if row[1] is not None:
+						tmp.value+=1
+			
+		
+		return tmp
+
+	@staticmethod
+	def accum(*args,**kwarg ):
 		pass
 
 	@staticmethod
-	def average( *arg, **kwarg ):
-		pass
-
-	@staticmethod
-	def count(*args, **kwarg ):
-		pass
-
-	@staticmethod
-	def gettimes( *args ):
+	def gettimes( *args,**kwargs ):
+		# build a new last that has the interestion or union (user specified, just implement intersection for now
+		# scalar values will just get copied in time, we do need to maintain the order of the input args.
 		timesets = []	
 		times = []
 		for arg in args:
@@ -481,7 +572,26 @@ class Value:
 				times = list(timesets[0])
 			else:
 				times =list( timesets[0].intersection( *timesets[1:] ) ) # here we should check for intersection or union
+
+		times.sort() # make sure everything is in time ascending order
 		return times
+
+	@staticmethod
+	def mktmp():
+		typ = Value.shared["dbtype"]
+		tmp = Value(dbtype="copy")
+		Value.shared["dbtype"]=typ
+		return tmp
+	@staticmethod
+	def gettreat(**kwarg):
+		treat = "MISS"
+		for key in kwarg:
+			if key.lower() == "treat":
+				treat= kwarg[key]
+		if isinstance(treat, basestring):
+			treat=treat.upper()
+		return treat
+		
 # setup base time, ex
 # default formats
 def parseArgs():
