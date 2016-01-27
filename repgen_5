@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 import sys,time,datetime,pytz,tempfile,shutil,os,operator
-
+from inspect import isfunction
 
 def TZ(tz):
 	return pytz.timezone(tz)
@@ -152,7 +152,14 @@ class Value:
 			current_t = self.start
 			end_t = self.end
 			while current_t <= end_t:
-				self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
+				if isinstance(self.value, (int,long,float,complex)):
+					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
+				elif isinstance(self.value, Value ):
+					self.value = self.value.value 
+					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
+				elif isfunction(self.value):
+					self.values.append( ( current_t.astimezone(self.tz),self.value(),0 ) )
+					
 				current_t = current_t + self.interval
 			
 		elif self.dbtype.upper() == "SPKJSON":
@@ -367,15 +374,114 @@ class Value:
 				Value.shared["dbtype"]=typ
 				tmp.value = None
 				tmp.type ="SCALAR"
+				haveval =False
 				for v in self.values:
 					if v[0] == dt:
 						tmp.value = v[1]
+						haveval = True
 						break
-				return tmp
+				if haveval == True:
+					return tmp
+				else:
+					raise KeyError("no value at %s" % str(dt) )
 			else:
 				raise Exception("date index only valid on a timeseries")
 
+	"""
+		The following are static methods as they can be applied to multiple time series/values at a time
 
+		all functions should process a keyword treat which determines how the function will reponsd
+		to missing values
+
+		valid values for treat will be the following:
+
+		a number   - if a value is missing (None) use this number in its place
+		a touple of numbers - if a value is missing, substitude in order of the arguments these replacement values
+		"IGNORE"   - operate as if that row/value wasn't there
+		"MISS"     - if any given value is missing, the result is missing
+		
+
+	"""
+				
+
+	@staticmethod
+	def apply( function, *args, **kwargs ):
+		"""
+			apply an arbitrary user function to the provided data.
+			the inputs to the function must the same number of and in the same order as passed into args
+			the function is called using function(*args)
+			
+			the function must return a number or None
+			the function can be a lambda
+			
+		"""
+		typ = Value.shared["dbtype"]
+		tmp = Value(dbtype="copy")
+		Value.shared["dbtype"]=typ
+		
+		# build a new last that has the interestion or union (user specified, just implement intersection for now
+		# scalar values will just get copied in time, we do need to maintain the order of the input args.
+		timesets = []	
+		times = []
+		for arg in args:
+			if isinstance( arg, Value) and arg.type == "TIMESERIES":
+				timesets.append( set( [x[0] for x in arg.values ]) )	
+		if len(timesets)==0:
+			tmp.type = "SCALAR"
+			# get the numbers of everything
+			tmp.value = function( *args )
+		elif len(timesets) > 0:
+			if len(timesets)==1:
+				times = list(timesets[0])
+			else:
+				times =list( timesets[0].intersection( *timesets[1:] ) ) # here we should check for intersection or union
+			tmp.values = []
+			for t in times:
+				vars = []
+				for arg in args:
+					if isinstance( arg, (int,long,float,complex) ):
+						vars.append(arg) 
+					elif isinstance( arg, Value ) and arg.type=="SCALAR":
+						vars.append( arg.value) # need to handle missing value (.value is None)						
+					elif isinstance( arg, Value ) and arg.type=="TIMESERIES":
+						try:
+							v = arg[t].value
+							vars.append(v)
+						except KeyError,err:
+							vars.append(None) # here we handle the missing value logic
+				res = None
+				try:
+					res = function( *vars )
+				except Exception,err:					
+					print >> sys.stderr, "Failed to compute a values %s : %s" % (repr(err),repr(str))
+				tmp.values.append( ( t,res,0) )
+
+		return tmp
+	@staticmethod	
+	def sum( *arg, **kwarg ):
+		pass
+
+	@staticmethod
+	def average( *arg, **kwarg ):
+		pass
+
+	@staticmethod
+	def count(*args, **kwarg ):
+		pass
+
+	@staticmethod
+	def gettimes( *args ):
+		timesets = []	
+		times = []
+		for arg in args:
+			if isinstance( arg, Value) and arg.type == "TIMESERIES":
+				timesets.append( set( [x[0] for x in arg.values ]) )	
+		if len(timesets) > 0:
+			if len(timesets)==1:
+				times = list(timesets[0])
+			else:
+				times =list( timesets[0].intersection( *timesets[1:] ) ) # here we should check for intersection or union
+		return times
 # setup base time, ex
 # default formats
 def parseArgs():

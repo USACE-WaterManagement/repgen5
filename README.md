@@ -41,7 +41,7 @@ Keyword | Description |
 ------- | ----------- |
 picture | python format string or time format string, tells the system how to format the value |
 misstr  | what to display when a value is missing (None) |
-undef   | what to display when a value is undef (this isn't implemented yet but was part of the original repgen program) |
+undef   | what to display when a value is undefdefined (this isn't implemented yet but was part of the original repgen program, general meaning is the time series you asked for doesn't actually exists the database being used) |
 dbtype  | copy,gents,spkjson are the current valid values. This tells the system how it should interpret the supplied keywords |
 
 Everytime you set a keyword, Value stored the last used version. If a keyword doesn't need to change between values (e.g. they all need to render the same) you don't have to include it when creating the additional values.
