@@ -2,19 +2,19 @@
 **************|*********************|************|*************
 Report  Date: %BASDATE              Current Date %CURDATE
 Current Date: %CURDATE
-v.datatimes()     V   v2   max  min  v>4 
+v.datatimes()     V   v2   max  min  v>4    accum(v)
 				    othrws
 				      0 
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
-%vt              %v   %v2  %v3  %v4  %v5
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
+%vt              %v   %v2  %v3  %v4  %v5    %vacc
 sum              %sum
 count            %cnt
 avg              %avg
@@ -40,6 +40,8 @@ v5 = Value.apply( lambda x: x if x > 4 else 0, v )
 
 sum = Value.sum(v,treat="IGNORE")
 avg = Value.average(v, treat="IGNORE")
+vacc = Value.accum(v,treat="IGNORE")
+
 cnt = Value.count(v)
 cnt.picture="%d"
 

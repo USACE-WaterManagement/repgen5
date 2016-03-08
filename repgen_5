@@ -1,7 +1,7 @@
 #!/usr/local/bin/python
 import sys,time,datetime,pytz,tempfile,shutil,os,operator
 from inspect import isfunction
-
+import math
 def TZ(tz):
 	return pytz.timezone(tz)
 
@@ -71,11 +71,14 @@ class Report:
 					tmp = "".join(tmp2)
 			output.write( tmp +"\n" )
 			
-	def run( self ):
+	def run( self,basedate ):
 		# setup the base data
 		#
+		
+		
 		my_locals = {
-			"BASDATE": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M"),
+			"BASDATE": Value(basedate,picture="%Y%b%d %H%M"),
+			"BTM": Value(basedate,picture="%Y%b%d %H%M"),
 			"CURDATE": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M"),
 			"CTM": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M")
 		}
@@ -112,7 +115,9 @@ class Value:
 	def __init__( self, *args, **kwargs ):
 		self.index = None
 		self.type="SCALAR"
-			
+		self.value = None
+		self.values = []
+		self.picture="%s"
 
 		# go through the keyword args,
 		# set them as static variables for the next call
@@ -199,8 +204,13 @@ class Value:
 				#print repr(data_dict)
 				for d in data_dict["data"]:
 					_t = float(d[0])/1000.0 # spkjson returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
-					_dt = datetime.datetime.fromtimestamp(_t)
+					# this seems to work to have the data in the right time
+					# will need to keep an eye on it though
+					_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
+					#print _dt
+					#_dt = _dt.astimezone(self.tz)
 					_dt = _dt.replace(tzinfo=self.tz)
+					#print _dt
 					if d[1] is not None:
 						_v = float(d[1]) # does not currently implement text operations
 					else:
@@ -235,7 +245,7 @@ class Value:
 		typ = Value.shared["dbtype"]
 		tmp = Value(dbtype="copy")
 		Value.shared["dbtype"]=typ
-		
+		print "Doing Op %s on %s with other %s" % (repr(op),repr(self),repr(other) )	
 		if isinstance( other, (int,long,float,complex) ) and self.type=="TIMESERIES":
 			for v in self.values:
 				if (v is not None) and (other is not None):
@@ -257,7 +267,7 @@ class Value:
 				tmp.type = "SCALAR"
 			elif self.type =="TIMESERIES" and other.type == "SCALAR":
 				for v in self.values:
-					if (v is not None) and (other.value is not None):
+					if (v[1] is not None) and (other.value is not None):
 						tmp.values.append( (v[0], op(v[1],other.value), v[1] ) )
 					else:
 						tmp.values.append( (v[0], None, v[1] ) )
@@ -286,6 +296,8 @@ class Value:
 			return self.format(self.value)
 		else:
 			return "Unable to process at this time"
+	def __repr__(self):
+		return "<Value,type=%s,value=%s,len values=%d, picture=%s>" % (self.type,str(self.value),len(self.values),self.picture)
 
 	def format(self,value):
 		#print repr(value)
@@ -415,20 +427,36 @@ class Value:
 			the function is called using function(*args)
 			
 			the function must return a number or None
-			the function can be a lambda
+			the function can be any callable object: function,lambda, class with a __call__ method, etc
 			
 		"""
+		returns = 1 #
+		try:
+			returns = int(kwargs["returns"])
+		except:
+			pass
+		values = []
 		typ = Value.shared["dbtype"]
-		tmp = Value(dbtype="copy")
-		Value.shared["dbtype"]=typ
+		for i in range(0,returns):
+			tmp = Value(dbtype="copy")
+			tmp.values = []
+			tmp.value = None
+			values.append( tmp )
+			Value.shared["dbtype"]=typ
 		
 		times = Value.gettimes(*args,**kwargs)
 		if len(times)==0:
 			tmp.type = "SCALAR"
 			# get the numbers of everything
-			tmp.value = function( *args )
+			#tmp.value = function( *args )
+			ret = function( *args )
+			if isinstance( ret, (list,tuple) ):
+				for i in range(len(ret)):
+					values[i].value = ret[i]
+					
+			else:
+				values[0].value = ret
 		elif len(times) > 0:
-			tmp.values = []
 			for t in times:
 				vars = []
 				for arg in args:
@@ -447,14 +475,18 @@ class Value:
 					res = function( *vars )
 				except Exception,err:					
 					print >> sys.stderr, "Failed to compute a values %s : %s" % (repr(err),repr(str))
-				tmp.values.append( ( t,res,0) )
+				if isinstance( res, (list,tuple)):
+					for i in range(len(res)):
+						values[i].values.append( (t,res[i],0) )
+				else:
+					values[0].values.append( ( t,res,0) )
 
-		return tmp
+		return values
 	@staticmethod	
 	def sum( *args, **kwarg ):
 		"""
 			this is an exception to the one timeseries rule.
-			we assume the user what's whatever values passed summed up into 
+			we assume the user wants whatever values passed summed up into 
 			one value
 		"""
 		tmp = Value.mktmp()
@@ -555,8 +587,41 @@ class Value:
 		return tmp
 
 	@staticmethod
-	def accum(*args,**kwarg ):
-		pass
+	def accum(arg,**kwarg ):
+		"""	
+			This function requires a single time series and nothing else
+
+			treat
+			number = use the number
+			ignore = current value is missing, but otherwise keep accumulating
+			miss = stop accumulating after the first missing input
+			
+		"""
+		tmp = Value.mktmp()
+		tmp.type="TIMESERIES"
+		tmp.values = []
+		treat = Value.gettreat(**kwarg)
+		accum = 0
+		previous = 0
+		for row in arg.values:
+			dt,v,q = row
+			cur = None
+			
+			if v is not None and not ((previous is None) and (treat=="MISS")) :
+				accum += v				
+				cur = accum
+			elif v is None and ((previous is None) and (treat=="MISS")): 
+				cur = None
+			elif isinstance(treat, (int,long,float,complex)):
+				accum += v
+			else:
+				cur = None
+		
+			previous=v
+				
+		
+			tmp.values.append( (dt,cur,q) )
+		return tmp
 
 	@staticmethod
 	def gettimes( *args,**kwargs ):
@@ -618,8 +683,20 @@ if __name__ == "__main__":
 	f = open(report_file) 
 	data = f.read()
 	f.close()
+	#os.environ['TZ'] = config.tz
+	#time.tzset()
+	_t = time.strptime(config.base_date+" " + config.base_time  , "%d%b%Y %H%M" )
+	# make sure we have basedate in a reasonable time zone
+	print repr(_t)
+	_t = list(_t[0:6])
+	_t.append(0)
+	_t.append(pytz.timezone(config.tz))
+	print repr(_t)
+	basedate = datetime.datetime( *_t )
+	print >>sys.stderr, basedate.strftime("%d%b%Y %H%M %Z")
+	
 	report = Report(data)
-	report.run()
+	report.run(basedate)
 	output = None
 	tmpname = None
 
