@@ -131,9 +131,59 @@ v3 = v + v2
 ```
 
 This will add the points that intersect. It will loop through v then through v2 and whenever the dates match add a new row with the value as the sum.
-Only addition is implemented right now. 
+All of the basic operators are implemented.  
 If v2 was a scalar value or a simple constant value v would loop through and add the value to all of its values.
 
+###### Complex operations
+
+If you need to do something more complex you can create a function,lamba or callable class and use the apply operator.
+
+```python
+# first define a function
+def func( v, v2 ):
+	return v + math.log(v2)
+# the parameters should be in the same order as what they represent in the function
+v3 = Value.apply( func, v, v2 )
+```
+
+That was a rather contrived example. lets say you needed to do thing that has a starting value and always references the previous value.
+
+```python
+class Func:
+	def __init__( self, starting_val):
+		self.previous_val = starting_val
+
+	def __call__(self, new_val, decay):
+		self.previous_val = self.previous_val*decay + new_val
+		return self.previous_val
+
+func = Func(1)
+v3 = Value.apply( func, v, .5 )
+```
+
+You can also return multiple values
+
+```python
+class Func:
+	def __init__( self, starting_val):
+		self.previous_val = starting_val
+
+	def __call__(self, new_val, decay):
+		self.previous_val = self.previous_val*decay + new_val
+		return self.previous_val, new_val/self.previous_val
+func = Func(1)
+# tell the system how many values your function will return with the returns keyword.
+v3,v4 = Value.apply( func, v, .5, returns=>2)
+```
+There are also other helper functions
+
+Function|Description|
+--------|-----------|
+sum     | Sums all values given. You can feed it any combination of variable types, scalar, time series, or constant number|
+average | Give an average of the values passed in. You can give the function EITHER multiple scalar values, or a single time series value.|
+count   | Counts the number of not missing values in all values given.|
+accum   | Calculates a running accumulation of the values in a provided time series.|
+gettimes| Creates a new Value or data values are the times of the give timeseries. (The times of the new Value will also be that of the given time series.)|
 
 ### TODO:
 

@@ -271,6 +271,12 @@ class Value:
 						tmp.values.append( (v[0], op(v[1],other.value), v[1] ) )
 					else:
 						tmp.values.append( (v[0], None, v[1] ) )
+			elif self.type =="SCALAR" and other.type == "TIMESERIES":
+				for v in other.values:
+					if (v[1] is not None) and (self.value is not None):
+						tmp.values.append( (v[0], op(v[1],self.value), v[1] ) )
+					else:
+						tmp.values.append( (v[0], None, v[1] ) )
 						
 			elif self.type=="TIMESERIES" and other.type == "TIMESERIES":
 			# loop through both arrays
