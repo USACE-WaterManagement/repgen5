@@ -27,8 +27,8 @@ see test/test.input.python for a full example.
 ## Currently Implemented
 
 ### Value 
-This is the basic unit of a report, can be either a time series or scalar values. Any variables using this type
-will be added to a list with "%" in from of the names and can be used on the report form
+This is the basic unit of a report, an instance can be either a time series or scalar values. Any variables using this type
+will be added to a list with "%" in front of the names and can be used on the report form.
 
 
 #### operations
@@ -44,7 +44,7 @@ misstr  | what to display when a value is missing (None) |
 undef   | what to display when a value is undefdefined (this isn't implemented yet but was part of the original repgen program, general meaning is the time series you asked for doesn't actually exists the database being used) |
 dbtype  | copy,gents,spkjson are the current valid values. This tells the system how it should interpret the supplied keywords |
 
-Everytime you set a keyword, Value stored the last used version. If a keyword doesn't need to change between values (e.g. they all need to render the same) you don't have to include it when creating the additional values.
+Everytime you set a keyword, Value stores the last used value. If a keyword doesn't need to change between values (e.g. they all need to render the same) you don't have to include it when creating the additional values.
 
 
 ##### Scalar value
@@ -118,9 +118,9 @@ spkjson is a simple format that looks like the following:
 
 ```
 
-This particular case uses httplib host and port and be specified as keywords, or a default data on the command line.
+This particular case uses httplib to retrieve data. Host and port and be specified as keywords, or as parameters on the command line.
 
-Adding new methods is a simple as adding a new elif block to the constructor of Value where you see the other types
+Adding new methods is a simple as adding a new elif block to the constructor of Value where you see the other types.
 
 ##### Math
 
@@ -130,13 +130,14 @@ v3 = v + v2
 
 ```
 
-This will add the points that intersect. It will loop through v then through v2 and whenever the dates match add a new row with the value as the sum.
+This will add the points of both time series that intersect in time. It will loop through v then through v2 and whenever the dates match add a new row with the value as the sum.
 All of the basic operators are implemented.  
 If v2 was a scalar value or a simple constant value v would loop through and add the value to all of its values.
 
+
 ###### Complex operations
 
-If you need to do something more complex you can create a function,lamba or callable class and use the apply operator.
+If you need to do something more complex you can create a function,lamba, or callable class and use the apply function of Value.
 
 ```python
 # first define a function
@@ -146,7 +147,7 @@ def func( v, v2 ):
 v3 = Value.apply( func, v, v2 )
 ```
 
-That was a rather contrived example. lets say you needed to do thing that has a starting value and always references the previous value.
+That was a rather contrived example. Lets say you needed to do something that has a starting value and always references the previous value.
 
 ```python
 class Func:
@@ -186,8 +187,6 @@ accum   | Calculates a running accumulation of the values in a provided time ser
 gettimes| Creates a new Value or data values are the times of the give timeseries. (The times of the new Value will also be that of the given time series.)|
 
 ### TODO:
-
-The rest of the math.
 
 Implement as many helper functions from the original repgen as make sense.
 
