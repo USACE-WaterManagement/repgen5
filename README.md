@@ -74,7 +74,7 @@ vt = v.datatimes()
 vt.picture = "%Y%b%d %H%M"
 ```
 
-This will get the times of v and create a new time series whos values are the times of v. The new timesseries times will also be those of v.
+This will get the times of v and create a new time series whos values are the times of v. The new times series times will also be those of v.
 picture is so that when the report is filled the a time format will be used
 
 
@@ -130,7 +130,7 @@ v3 = v + v2
 
 ```
 
-This will add the points of both time series that intersect in time. It will loop through v then through v2 and whenever the dates match add a new row with the value as the sum.
+This will add the points of both time series that intersect in time while ignoring those that don't. It will loop through v then through v2 and whenever the dates match add a new row with the value as the sum.
 All of the basic operators are implemented.  
 If v2 was a scalar value or a simple constant value v would loop through and add the value to all of its values.
 
@@ -147,7 +147,7 @@ def func( v, v2 ):
 v3 = Value.apply( func, v, v2 )
 ```
 
-That was a rather contrived example. Lets say you needed to do something that has a starting value and always references the previous value.
+Since that was a rather contrived example let's try something more complicated. Lets say you needed to do something that has a starting value and always references the previous value.
 
 ```python
 class Func:
@@ -192,4 +192,4 @@ Implement as many helper functions from the original repgen as make sense.
 
 Perhaps build a tool to convert original repgen #DEF sections to the python format.
 
-
+Integrate https://github.com/gyanz/pydsstools
