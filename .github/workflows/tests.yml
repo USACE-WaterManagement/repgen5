@@ -21,10 +21,11 @@ jobs:
       - name: run tests        
         run: nose2 -v
   canpackage:
-    runs-on: ubuntu-latests
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-versions: ['3.5','3.6','3.7','3.8']
+        python-version: ['3.5','3.6','3.7','3.8']
+    steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
