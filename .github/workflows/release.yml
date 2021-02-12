@@ -6,7 +6,7 @@ on:
 
 jobs:
   create_release:
-    runs-on: ubuntu-lateststeps:
+    runs-on: ubuntu-latest
     steps:
       - name: checkout code
         uses: actions/checkout@v2
