@@ -1,7 +1,13 @@
-#!/usr/local/bin/python
+#!/bin/env python3
 import sys,time,datetime,pytz,tempfile,shutil,os,operator
 from inspect import isfunction
 import math
+
+# types
+string_types = ("".__class__,u"".__class__)
+number_types = (int,float,complex)
+
+
 def TZ(tz):
 	return pytz.timezone(tz)
 
@@ -18,20 +24,20 @@ class Report:
 			if state == "none":
 				if "#FORM" in line.upper():
 					
-					print >> sys.stderr,"Found Report Section"
+					print( "Found Report Section",file=sys.stderr)
 					state="INREP"
 				elif "#DEF" in line.upper():
-					print >> sys.stderr, "Found Definition Section"
+					print( "Found Definition Section", file=sys.stderr)
 					state="INDEF"
 			elif state == "INREP":
 				if "#ENDFORM" in line.upper():
-					print >> sys.stderr, "End of Report"
+					print( "End of Report", file=sys.stderr)
 					state = "none"
 					continue
 				self.replines.append( line )
 			elif state == "INDEF":
 				if "#ENDDEF" in line.upper():
-					print >> sys.stderr, "End of Report"
+					print("End of Report", file=sys.stderr)
 					state = "none"
 					continue
 				deflines.append( line )
@@ -40,8 +46,8 @@ class Report:
 	
 
 	def fill_report(self, output ):
-		values = self.data.keys()
-		values.sort()
+		values = sorted(self.data.keys())
+		#values.sort()
 		values.reverse() # need to be able to match the longest first
 		
 		for line in self.replines:
@@ -82,7 +88,7 @@ class Report:
 			"CURDATE": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M"),
 			"CTM": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M")
 		}
-		exec self.datadef in globals(),my_locals
+		exec(self.datadef,globals(),my_locals )
 
 		# loop through my_locals and add them
 		# to a dictionary with the % in front of the them
@@ -125,7 +131,7 @@ class Value:
 		# update the shared keywords
 		for key in kwargs:
 			value = kwargs[key]
-			if key.lower()=="tz" and isinstance(value, (basestring)):
+			if key.lower()=="tz" and isinstance(value, string_types):
 				value = pytz.timezone(value)
 			if (key.lower() == "start" or key.lower() == "end" or key.lower() == "time")  and isinstance(value,(Value)):	
 				value = value.value # internally we want the actual datetime
@@ -157,7 +163,7 @@ class Value:
 			current_t = self.start
 			end_t = self.end
 			while current_t <= end_t:
-				if isinstance(self.value, (int,long,float,complex)):
+				if isinstance(self.value, number_types):
 					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
 				elif isinstance(self.value, Value ):
 					self.value = self.value.value 
@@ -221,8 +227,8 @@ class Value:
 				if self.start == self.end:
 					self.type = "SCALAR"
 					self.value = self.values[0][1]
-			except Exception,err:
-				print repr(err) + " : " + str(err)
+			except Exception as err:
+				print( repr(err) + " : " + str(err) )
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
 			
@@ -245,14 +251,14 @@ class Value:
 		typ = Value.shared["dbtype"]
 		tmp = Value(dbtype="copy")
 		Value.shared["dbtype"]=typ
-		print "Doing Op %s on %s with other %s" % (repr(op),repr(self),repr(other) )	
-		if isinstance( other, (int,long,float,complex) ) and self.type=="TIMESERIES":
+		print( "Doing Op %s on %s with other %s" % (repr(op),repr(self),repr(other) ) )
+		if isinstance( other, number_types ) and self.type=="TIMESERIES":
 			for v in self.values:
 				if (v is not None) and (other is not None):
 					tmp.values.append( (v[0],op(v[1], other),v[2]) )
 				else:
 					tmp.values.append( ( v[0], None, v[2] ) )
-		elif isinstance( other, (int,long,float,complex,datetime.timedelta) ) and self.type=="SCALAR":
+		elif isinstance( other, (int,float,complex,datetime.timedelta) ) and self.type=="SCALAR":
 			if (self.value is not None) and (other is not None):
 				tmp.value = op(self.value,other)
 			else:
@@ -307,7 +313,7 @@ class Value:
 
 	def format(self,value):
 		#print repr(value)
-		if isinstance(value, (int,long,float,complex)):
+		if isinstance(value, number_types):
 			return self.picture % value
 		elif isinstance(value, datetime.datetime) :
 
@@ -332,8 +338,8 @@ class Value:
 			try:
 				#print repr(self.values[self.index-1])
 				return self.format(self.values[self.index-1][1])
-			except Exception,err:
-				print >>sys.stderr, repr(err) + " : " + str(err)
+			except Exception as err:
+				print(repr(err) + " : " + str(err), file=sys.stderr)
 				return self.misstr
 
 	def datatimes(self):
@@ -376,7 +382,7 @@ class Value:
 			tmp.type ="SCALAR"
 			try:
 				tmp.value = self.values[ len(self.values)-1 ] [1]
-			except Exception,err:
+			except Exception as err:
 				print >>sys.stderr, "Issue with getting last value -> %s : %s" % (repr(err),str(err))
 			return tmp
 		else:
@@ -466,7 +472,7 @@ class Value:
 			for t in times:
 				vars = []
 				for arg in args:
-					if isinstance( arg, (int,long,float,complex) ):
+					if isinstance( arg, (int,float,complex) ):
 						vars.append(arg) 
 					elif isinstance( arg, Value ) and arg.type=="SCALAR":
 						vars.append( arg.value) # need to handle missing value (.value is None)						
@@ -474,12 +480,12 @@ class Value:
 						try:
 							v = arg[t].value
 							vars.append(v)
-						except KeyError,err:
+						except KeyError as err:
 							vars.append(None) # here we handle the missing value logic
 				res = None
 				try:
 					res = function( *vars )
-				except Exception,err:					
+				except Exception as err:					
 					print >> sys.stderr, "Failed to compute a values %s : %s" % (repr(err),repr(str))
 				if isinstance( res, (list,tuple)):
 					for i in range(len(res)):
@@ -501,13 +507,13 @@ class Value:
 		treat=Value.gettreat(**kwarg)
 		
 		for arg in args:
-			if isinstance( arg, (int,long,float,complex) ):
+			if isinstance( arg, number_types ):
 				tmp.value += arg
 			if arg.type =="SCALAR":
 				if arg.value is not None:
 					tmp.value += arg.value
 				else:
-					if instance( treat, (int,long,float,complex)):
+					if isinstance( treat, number_types):
 						tmp.value += treat
 					elif treat=="MISS":
 						tmp.value = None
@@ -519,7 +525,7 @@ class Value:
 					if v is not None:
 						tmp.value += v
 					else:
-						if instance( treat, (int,long,float,complex)):
+						if isinstance( treat, number_types):
 							tmp.value += treat
 						elif treat=="MISS":
 							tmp.value = None
@@ -555,7 +561,7 @@ class Value:
 				tmp.value = tmp.value/float(numvals)
 		else:
 			for arg in args:
-				if isinstance( arg, (int,long,float,complex) ):
+				if isinstance( arg, number_types ):
 					tmp.value += arg
 					numvals += 1
 				else:
@@ -580,7 +586,7 @@ class Value:
 		tmp.value = 0
 		tmp.type = "SCALAR"
 		for arg in args:
-			if isinstance(arg, (int,long,float,complex)):
+			if isinstance(arg, number_types):
 				tmp.value+=1
 			elif isinstance(arg, Value) and arg.type =="SCALAR" and arg.value is not None:
 				tmp.value+=1
@@ -618,7 +624,7 @@ class Value:
 				cur = accum
 			elif v is None and ((previous is None) and (treat=="MISS")): 
 				cur = None
-			elif isinstance(treat, (int,long,float,complex)):
+			elif isinstance(treat, number_types):
 				accum += v
 			else:
 				cur = None
@@ -659,7 +665,7 @@ class Value:
 		for key in kwarg:
 			if key.lower() == "treat":
 				treat= kwarg[key]
-		if isinstance(treat, basestring):
+		if isinstance(treat, string_types):
 			treat=treat.upper()
 		return treat
 		
@@ -693,13 +699,13 @@ if __name__ == "__main__":
 	#time.tzset()
 	_t = time.strptime(config.base_date+" " + config.base_time  , "%d%b%Y %H%M" )
 	# make sure we have basedate in a reasonable time zone
-	print repr(_t)
+	print( repr(_t) )
 	_t = list(_t[0:6])
 	_t.append(0)
 	_t.append(pytz.timezone(config.tz))
-	print repr(_t)
+	print( repr(_t) )
 	basedate = datetime.datetime( *_t )
-	print >>sys.stderr, basedate.strftime("%d%b%Y %H%M %Z")
+	print( basedate.strftime("%d%b%Y %H%M %Z"), file=sys.stderr)
 	
 	report = Report(data)
 	report.run(basedate)
