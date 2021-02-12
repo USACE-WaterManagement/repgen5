@@ -1,0 +1,18 @@
+name: repgen5 tests
+on: 
+  pull_request:
+    branches: [ main ]
+
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: install requirements
+        run: pip3 install -r tests/requirements.txt
+      - name: run tests
+        working_directory: tests
+        run: nose2 -v
