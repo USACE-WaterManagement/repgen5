@@ -1,0 +1,53 @@
+name: Create Release
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create_release:
+    runs-on: ubuntu-lateststeps:
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+          architecture: x64
+      - name: package
+        run: ./package.sh
+      - name: get version
+        id: get_version
+        run: |
+          VER=`build/repgen -V`
+          echo "::set-output name=VERSION::$VER"
+          echo "::set-output name=FILENAME::repgen-$VER"
+      - name: tag repo
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.git.createRef({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              ref: "refs/tags/${{steps.get_version.outputs.VERSION}}",
+              sha: context.sha
+            })
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env: 
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{steps.get_version.outputs.VERSION}}
+          release_name: Release ${{steps.get_version.outputs.VERSION}}
+      - name: Upload File
+        id: upload-File
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ build/repgen}}
+          asset_name: ${{ steps.get_version.outputs.FILENAME}}
+          asset_content_type: multipart/x-zip
