@@ -36,5 +36,5 @@ jobs:
       - name: package
         run: ./package.sh
       - name: run package
-        run: python build/repgen_5 -i test.manual/test.if
+        run: python build/repgen_5.zip -i test.manual/test.if
 
