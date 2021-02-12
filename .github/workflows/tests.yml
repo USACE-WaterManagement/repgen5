@@ -19,6 +19,21 @@ jobs:
       - name: install requirements
         run: pip3 install -r tests/requirements.txt
       - name: run tests        
-        run: |
-          cd tests
-          nose2 -v
+        run: nose2 -v
+  canpackage:
+    runs-on: ubuntu-latests
+    strategy:
+      matrix:
+        python-versions: ['3.5','3.6','3.7','3.8']
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version}}
+          architecture: x64
+      - name: install requirements
+        run: pip3 install -r tests/requirements.txt
+      - name: package
+        run: ./package.sh
+      - name: run package
+        run: python build/repgen_5 -i test.manual/test.if
+

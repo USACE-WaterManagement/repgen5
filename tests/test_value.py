@@ -5,7 +5,8 @@ import datetime
 sys.path.append("../")
 
 
-from repgen_5 import Value,TZ
+from repgen.data import Value
+from repgen.util import TZ
 
 def test_gents_scalar():
     t_end = datetime.datetime.now().replace(minute=0,second=0,microsecond=0,tzinfo=TZ("UTC"))

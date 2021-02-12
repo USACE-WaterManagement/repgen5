@@ -1,4 +1,4 @@
-import pytz
+import pytz,datetime,sys
 from inspect import isfunction
 # types
 string_types = ("".__class__,u"".__class__)
@@ -572,4 +572,4 @@ class Value:
 				treat= kwarg[key]
 		if isinstance(treat, string_types):
 			treat=treat.upper()
-		return treatg
+		return treat
