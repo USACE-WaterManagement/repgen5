@@ -5,10 +5,10 @@ import datetime
 sys.path.append("../")
 
 
-from repgen_5 import Value
+from repgen_5 import Value,TZ
 
 def test_gents_scalar():
-    t_end = datetime.datetime.now().replace(minute=0,second=0,microsecond=0)
+    t_end = datetime.datetime.now(tz=TZ("UTC")).replace(minute=0,second=0,microsecond=0)
     t_start = t_end-datetime.timedelta(hours=2)
     v = Value(dbtype="gents",value=2, tz="PST8PDT", start=t_start,end=t_end, interval=datetime.timedelta(minutes=15), picture="%0.02f")
     assert len( v.values ) == 9    
