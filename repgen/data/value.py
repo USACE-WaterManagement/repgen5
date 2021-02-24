@@ -1,9 +1,10 @@
 import pytz,datetime,sys
-from inspect import isfunction
+from inspect import isclass, isfunction
 import operator
 # types
 string_types = ("".__class__,u"".__class__)
 number_types = (int,float,complex)
+array_type = ([].__class__,().__class__)
 
 class Value:
 	shared = {
@@ -68,6 +69,9 @@ class Value:
 		elif self.dbtype.upper() == "GENTS":
 			current_t = self.start
 			end_t = self.end
+			if isinstance(self.value, array_type):
+				self.values = self.value
+				return
 			while current_t <= end_t:
 				if isinstance(self.value, number_types):
 					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
@@ -75,7 +79,7 @@ class Value:
 					self.value = self.value.value 
 					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
 				elif isfunction(self.value):
-					self.values.append( ( current_t.astimezone(self.tz),self.value(),0 ) )
+					self.values.append( ( current_t.astimezone(self.tz),self.value(),0 ) )				
 					
 				current_t = current_t + self.interval
 			
