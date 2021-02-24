@@ -1,5 +1,6 @@
 import pytz,datetime,sys
 from inspect import isfunction
+import operator
 # types
 string_types = ("".__class__,u"".__class__)
 number_types = (int,float,complex)

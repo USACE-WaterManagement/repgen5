@@ -36,3 +36,8 @@ def test_gents_generator():
     assert v.values[8][1] == 8
 
 
+def test_simple_sum():
+    v1 = Value(1)
+    v2 = Value(2)
+    v3 = v1+v2
+    assert v3.value == 3
