@@ -3,7 +3,7 @@ from inspect import isfunction
 import math
 from repgen.data.value import Value
 from repgen.report import Report
-version = "5.0.0"
+version = "5.0.1"
 # setup base time, ex
 # default formats
 def parseArgs():
@@ -63,8 +63,8 @@ if __name__ == "__main__":
 	report.fill_report(output)
 
 	if config.out_file != "-":
-		shutil.move(tmpname,config.out_file)
 		output.close()
+		shutil.move(tmpname,config.out_file)
 
 
 	# read the report file
