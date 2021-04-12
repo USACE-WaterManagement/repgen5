@@ -1,4 +1,5 @@
 import pytz,datetime,sys
+import operator
 from inspect import isfunction
 # types
 string_types = ("".__class__,u"".__class__)
@@ -87,14 +88,14 @@ class Value:
 				except:
 					print >>sys.stderr, "To run this program you either need to update to a newer python, or install the simplejson module."
 
-			import httplib, urllib
+			import http.client as httplib, urllib.parse as urllib
 	
 			fmt = "%d-%b-%Y %H%M"
 			tz = self.tz
 			units= self.dbunits
 			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, self.dbint, self.dbdur, self.dbver) )
 			
-			print >> sys.stderr, "Getting %s from %s to %s in tz %s, with units %s" % (ts_name,self.start.strftime(fmt),self.end.strftime(fmt),str(tz),units)
+			sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,self.start.strftime(fmt),self.end.strftime(fmt),str(tz),units))
 			query = "/fcgi-bin/get_ts.py?"
 			params = urllib.urlencode( {
 				"site": ts_name,
