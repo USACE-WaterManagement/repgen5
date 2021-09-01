@@ -69,7 +69,7 @@ class Report:
 					tmp = "".join(tmp2)
 			output.write( tmp +"\n" )
 
-	def run( self,basedate ):
+	def run( self,basedate, local_vars: dict = None ):
 		# setup the base data
 		#
 		my_locals = {
@@ -78,6 +78,11 @@ class Report:
 			"CURDATE": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M"),
 			"CTM": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M")
 		}
+
+		# If locals were passed in, set them too
+		if local_vars:
+			for key, value in local_vars.items():
+				my_locals[key] = value
 
 		# Compile the report, so source and line number information can be reported to the user
 		exec(compile(self.datadef, self.repfilename, "exec"),globals(),my_locals )

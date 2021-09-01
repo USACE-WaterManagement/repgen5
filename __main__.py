@@ -3,6 +3,7 @@ from inspect import isfunction
 import math
 from repgen.data.value import Value
 from repgen.report import Report
+
 version = "5.0.1"
 # setup base time, ex
 # default formats
@@ -19,6 +20,7 @@ def parseArgs():
 	parser.add_option( '-p', '--port', dest='port', default=80, help="port for data connection", metavar='0-65535')
 	parser.add_option( '-z', '--tz', dest='tz', default='UTC', help="default timezone", metavar='Time Zone Name')
 	parser.add_option( '-V', '--Version',dest='show_ver',action='store_true',default=False, help="print version number")
+	parser.add_option( '-f', '--file', dest='data_file', default=None, help="Variable data file", metavar="DATAFILE" )
 	return parser.parse_args()[0]
 
 if __name__ == "__main__":
@@ -46,9 +48,45 @@ if __name__ == "__main__":
 	print( repr(_t) )
 	basedate = datetime.datetime( *_t )
 	print( basedate.strftime("%d%b%Y %H%M %Z"), file=sys.stderr)
-	
+
+	local_vars = {}
+	# Read data file input
+	if config.data_file:
+		f_d = open(config.data_file)
+		key = None
+		prefix = ""
+
+		# This processes data file inputs, and converts ^a variables to _a.
+		# Format of this file is:
+		# ^
+		# a
+		# Some Value
+		# b
+		# Another value
+		for line in f_d.readlines():
+			line = line.strip()
+			if line == "^":
+				prefix = "_"
+			elif not key:
+				key = prefix + line
+			else:
+				# Check to see if the read in value is really a number, and convert it if so
+				val = line.strip('"')
+				try:
+					if '.' in val:
+						val = float(val)
+					else:
+						val = int(val)
+				except (TypeError, ValueError):
+					pass
+				local_vars[key] = val
+				key = None
+
+		f_d.close()
+
+
 	report = Report(report_data, report_file)
-	report.run(basedate)
+	report.run(basedate, local_vars)
 	output = None
 	tmpname = None
 
