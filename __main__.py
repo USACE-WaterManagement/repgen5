@@ -33,7 +33,7 @@ if __name__ == "__main__":
 	Value(1,host=config.host, port= int(config.port),tz=pytz.timezone(config.tz) )
 	
 	f = open(report_file) 
-	data = f.read()
+	report_data = f.read()
 	f.close()
 	#os.environ['TZ'] = config.tz
 	#time.tzset()
@@ -47,7 +47,7 @@ if __name__ == "__main__":
 	basedate = datetime.datetime( *_t )
 	print( basedate.strftime("%d%b%Y %H%M %Z"), file=sys.stderr)
 	
-	report = Report(data)
+	report = Report(report_data, report_file)
 	report.run(basedate)
 	output = None
 	tmpname = None

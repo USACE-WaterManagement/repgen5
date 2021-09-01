@@ -2,7 +2,8 @@ import sys,time,datetime,pytz,tempfile,shutil,os,operator
 from repgen.data.value import Value
 
 class Report:
-	def __init__(self,report ):
+	def __init__(self, report, file_name):
+		self.repfilename = file_name
 		self.repfile = report
 		self.replines = []
 		self.datadef = ""
@@ -12,14 +13,15 @@ class Report:
 		state="none"
 		for line in lines:
 			if state == "none":
+				deflines.append( "" )		# Append blank line to align definition line numbers
 				if "#FORM" in line.upper():
-					
 					print( "Found Report Section",file=sys.stderr)
 					state="INREP"
 				elif "#DEF" in line.upper():
 					print( "Found Definition Section", file=sys.stderr)
 					state="INDEF"
 			elif state == "INREP":
+				deflines.append( "" )		# Append blank line to align definition line numbers
 				if "#ENDFORM" in line.upper():
 					print( "End of Report", file=sys.stderr)
 					state = "none"
@@ -66,19 +68,19 @@ class Report:
 					#tmp2[start:start+end] = newval
 					tmp = "".join(tmp2)
 			output.write( tmp +"\n" )
-			
+
 	def run( self,basedate ):
 		# setup the base data
 		#
-		
-		
 		my_locals = {
 			"BASDATE": Value(basedate,picture="%Y%b%d %H%M"),
 			"BTM": Value(basedate,picture="%Y%b%d %H%M"),
 			"CURDATE": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M"),
 			"CTM": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M")
 		}
-		exec(self.datadef,globals(),my_locals )
+
+		# Compile the report, so source and line number information can be reported to the user
+		exec(compile(self.datadef, self.repfilename, "exec"),globals(),my_locals )
 
 		# loop through my_locals and add them
 		# to a dictionary with the % in front of the them
@@ -88,6 +90,3 @@ class Report:
 		for key in my_locals:
 			if isinstance(my_locals[key], Value ):
 				self.data["%"+key] = my_locals[key]
-
-
-		

@@ -4,3 +4,6 @@ build/*
 test_priv
 test_priv/*
 **/__pycache__
+*~
+.vscode
+*.swp
