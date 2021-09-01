@@ -19,6 +19,7 @@ def parseArgs():
 	parser.add_option( '-a', '--host', dest='host', default='localhost', help="host for data connections", metavar='IP ADDRESS OR HOSTNAME')
 	parser.add_option( '-p', '--port', dest='port', default=80, help="port for data connection", metavar='0-65535')
 	parser.add_option( '-z', '--tz', dest='tz', default='UTC', help="default timezone", metavar='Time Zone Name')
+	parser.add_option( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
 	parser.add_option( '-V', '--Version',dest='show_ver',action='store_true',default=False, help="print version number")
 	parser.add_option( '-f', '--file', dest='data_file', default=None, help="Variable data file", metavar="DATAFILE" )
 	return parser.parse_args()[0]
@@ -85,7 +86,7 @@ if __name__ == "__main__":
 		f_d.close()
 
 
-	report = Report(report_data, report_file)
+	report = Report(report_data, report_file, config.compat)
 	report.run(basedate, local_vars)
 	output = None
 	tmpname = None

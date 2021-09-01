@@ -2,13 +2,15 @@ import sys,time,datetime,pytz,tempfile,shutil,os,operator
 from repgen.data.value import Value
 
 class Report:
-	def __init__(self, report, file_name):
+	def __init__(self,report, file_name, compatibility):
 		self.repfilename = file_name
 		self.repfile = report
 		self.replines = []
 		self.datadef = ""
-		lines = report.splitlines()
+		self.compatibility = compatibility
 		self.data = {}
+
+		lines = report.splitlines()
 		deflines = []
 		state="none"
 		for line in lines:
@@ -41,32 +43,58 @@ class Report:
 		values = sorted(self.data.keys())
 		#values.sort()
 		values.reverse() # need to be able to match the longest first
-		
+
+		# Map the variable names in the data, so we can find it even when we have uppercased name
+		if self.compatibility:
+			data_keys = {k.upper(): k for k in self.data.keys()}
+		else:
+			data_keys = {k: k for k in self.data.keys()}
+
+
 		for line in self.replines:
 			tmp = line
 			for v in values:
-				if v in tmp:
-					#print >>sys.stderr, "Found a marker for %s" % v
-					start = tmp.find(v)
-					newval = self.data[v].pop()
-					#print >>sys.stderr, "Using %s" % newval
+				# if compat mode on, uppercase everything
+				if self.compatibility:
+					v = v.upper()
+					tmpupper = tmp.upper()
+				else:
+					tmpupper = tmp
+				# Loop to catch multiple instances of a variable usage
+				while v in tmpupper:
+					#sys.stderr.write("Found a marker for %s (%d)\n" % (v, len(v)))
+					if self.compatibility:
+						start = tmp.upper().find(v.upper())
+					else:
+						start = tmp.find(v)
+
+					newval = self.data[data_keys[v]].pop()
+					#sys.stderr.write("Using %s\n" % newval)
 					if newval is None:
-						newval = self.data[v].misstr
-					
+						newval = self.data[data_keys[v]].misstr
+
 					end = len(newval)
-					
+					#sys.stderr.write("Newval: %s (%d)\n" % (newval, len(newval)))
+					#sys.stderr.write("line: %s\n" % tmp)
+					#sys.stderr.write("Before: Start: %d; End: %d; Len: %d\n" % (start, end, len(v)))
 					if end < len(v):
 						end = len(v) # make sure the replacement eats the whole variable
+					#sys.stderr.write("After: Start: %d; End: %d; Len: %d\n" % (start, end, len(v)))
 					if start+end > len(tmp):
 						# we need to extend the line
 						tmp = tmp + " "*end
-					#print start
 					tmp2 = list(tmp)
+					#sys.stderr.write(repr(tmp2) + "\n")
 					for i in range(0,end):
 						if i < len(newval):tmp2[start+i] = newval[i]
 						else: tmp2[start+i] = " "
 					#tmp2[start:start+end] = newval
 					tmp = "".join(tmp2)
+
+					if self.compatibility:
+						tmpupper = tmp.upper()
+					else:
+						tmpupper = tmp
 			output.write( tmp +"\n" )
 
 	def run( self,basedate, local_vars: dict = None ):
