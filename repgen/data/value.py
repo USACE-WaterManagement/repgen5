@@ -1,16 +1,24 @@
 import pytz,datetime,sys
 import operator
 from inspect import isfunction
+import copy
+import math
+from decimal import Decimal,DivisionByZero,DecimalException,getcontext
 from ssl import SSLError
+import re
+from repgen.util import extra_operator
+
 # types
 string_types = ("".__class__,u"".__class__)
-number_types = (int,float,complex)
+number_types = (int,float,complex,Decimal)
 
 class Value:
 	shared = {
 		"picture" : "NNZ",
 		"misstr"  : "-M-",
 		"undef"   : "-?-",
+		"missdta"  : -901,
+		"missing": "MISSOK",	# How to treat missing values
 
 		# shared and updated between calls
 		"host" : None, # ip address/hostname or file name
@@ -48,15 +56,17 @@ class Value:
 		
 		# load the keywords for this instance
 		for key in Value.shared:
-			self.__dict__[key] = Value.shared[key] 
+			self.__dict__[key] = Value.shared[key]
 
-		if len( args ) == 1: 
+		if len( args ) == 1:
 			self.value = args[0]
+			if isinstance(args[0], list):
+				self.type = "GROUP"
 			return
 		elif len(args)> 0: raise Exception ("Only 1 non named value is allowed")
 
 		self.type = "TIMESERIES"
-		self.values = [ ] # will be a touple of (time stamp, value, quality )
+		self.values = [ ] # will be a tuple of (time stamp, value, quality )
 
 		if self.dbtype is None:
 			raise Exception("you must enter a scalar quantity if you aren't specifying a data source")
@@ -138,7 +148,7 @@ class Value:
 			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, str(self.dbint), str(self.dbdur), self.dbver) )
 
 			# Loop until we fetch some data, if missing is NOMISS
-			retry_count = 10			# Go back at most 10 days
+			retry_count = 10			# Go back at most this many weeks + 1
 			sstart = self.start
 			send = self.end
 
@@ -148,9 +158,13 @@ class Value:
 				# 'astimezone' would be the "proper" behavior, but 'replace' mimics repgen_4.
 				start = tz.localize(sstart.replace(tzinfo=None))
 				end = tz.localize(send.replace(tzinfo=None))
+				query = self.query
+				
+				if query is None:
+					query = ""
 
 				sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
-				query = f"/{self.query}/timeseries?"
+				query = f"/{query}/timeseries?"
 				params = urllib.urlencode( {
 					"name": ts_name,
 					"unit": units,
@@ -160,6 +174,7 @@ class Value:
 					"pageSize": -1,					# always fetch all results
 				})
 				try:
+					print("Fetching: %s" % self.host+query+params)
 					conn = None
 					headers = { 'Accept': "application/json;version=2" }
 					try:
@@ -172,7 +187,6 @@ class Value:
 						conn = httplib.HTTPConnection( self.host )
 						conn.request("GET", query+params, None, headers )
 
-					print("Fetching: %s" % query+params)
 					r1 = conn.getresponse()
 					data = r1.read()
 					data_dict = None
@@ -203,15 +217,23 @@ class Value:
 							_q = int(d[2])
 							self.values.append( ( _dt,_v,_q  ) )
 
-					if (len(self.values) == 0 or self.values[0][1] is None) and self.missing == "NOMISS":
-						sstart = sstart - datetime.timedelta(days=1)
-						retry_count = retry_count - 1
-						continue
+					if self.ismissing():
+						if self.missing == "NOMISS":
+							sstart = sstart - datetime.timedelta(weeks=1)
+							retry_count = retry_count - 1
+							continue
 
 					if self.start == self.end:
 						self.type = "SCALAR"
-						if len(self.values) > 0:
-							self.value = self.values[0][1]
+						if self.missing == "NOMISS":
+							# Get the last one, in case we fetched extra because of NOMISS
+							for v in reversed(self.values):
+								if v is not None and v[1] is not None:
+									self.value = v[1]
+									break
+						elif len(self.values) > 0:
+							self.value = self.values[-1][1]
+
 				except Exception as err:
 					print( repr(err) + " : " + str(err) )
 
@@ -224,54 +246,102 @@ class Value:
 	def __add__( self, other ):
 		return self.domath(operator.add,other)
 
-
 	def __sub__( self, other ):
 		return self.domath( operator.sub, other )
+
+	def __rsub__( self, other ):
+		return self.domath( extra_operator.rsub, other )
 
 	def __mul__( self, other ):
 		return self.domath( operator.mul, other)
 
-	def __truediv__(self,other):
-		return self.domath( operator.div,other)
+	def __rmul__( self, other ):
+		return self.domath( operator.mul, other)
 
-	
+	def __truediv__(self,other):
+		return self.domath( operator.truediv,other)
+
+
 	def domath(self,op,other):
 		typ = Value.shared["dbtype"]
 		tmp = Value(dbtype="copy")
+		tmp.picture=self.picture
 		Value.shared["dbtype"]=typ
 		print( "Doing Op %s on %s with other %s" % (repr(op),repr(self),repr(other) ) )
 		if isinstance( other, number_types ) and self.type=="TIMESERIES":
 			for v in self.values:
-				if (v is not None) and (other is not None):
-					tmp.values.append( (v[0],op(v[1], other),v[2]) )
+				if (v is not None) and (v[1] is not None) and (other is not None):
+					if isinstance(v[1], Decimal) and not isinstance(other, Decimal):
+						tmp.values.append( (v[0],op(v[1], Decimal.from_float(other)),v[2]) )
+					else:
+						tmp.values.append( (v[0],op(v[1], other),v[2]) )
 				else:
 					tmp.values.append( ( v[0], None, v[2] ) )
-		elif isinstance( other, (int,float,complex,datetime.timedelta) ) and self.type=="SCALAR":
+		elif isinstance( other, (*number_types,datetime.timedelta) ) and self.type=="SCALAR":
 			if (self.value is not None) and (other is not None):
-				tmp.value = op(self.value,other)
+				if self.ismissing() or self.ismissing(other):
+					tmp.value = self.missdta
+				else:
+					if isinstance(self.value, Decimal) and not isinstance(other, Decimal):
+						tmp.value = op(self.value,Decimal.from_float(other))
+					else:
+						tmp.value = op(self.value,other)
+			else:
+				tmp.value = None
+			tmp.type="SCALAR"
+		elif isinstance( other, (*number_types,datetime.timedelta) ) and self.type=="TIMESERIES" and len(self.values) == 1:
+			if (self.values[0] is not None) and (other is not None):
+				if self.ismissing() or self.ismissing(other):
+					tmp.value = self.missdta
+				else:
+					tmp.value = op(self.values[0][1],other)
 			else:
 				tmp.value = None
 			tmp.type="SCALAR"
 		elif isinstance( other, Value ):
 			if self.type == "SCALAR" and other.type == "SCALAR":
-				if (self.value is not None) and (other.value is not None):
+				if self.known() and other.known():
 					tmp.value = op(self.value,other.value)
 				else:
-					tmp.value = None
+					if self.value is None or other.value is None:
+						tmp.value = None
+					else:
+						if self.missing == "MISSOK":
+							tmp.value = self.missdta
+						else:
+							tmp.value = None
 				tmp.type = "SCALAR"
 			elif self.type =="TIMESERIES" and other.type == "SCALAR":
+				old_trap = getcontext().traps[DivisionByZero]
+				getcontext().traps[DivisionByZero] = False
 				for v in self.values:
 					if (v[1] is not None) and (other.value is not None):
-						tmp.values.append( (v[0], op(v[1],other.value), v[1] ) )
+						if self.ismissing(v[1]) or self.ismissing(other):
+							tmp.values.append( (v[0], self.missdta, 5) )
+						else:
+							try:
+								tmp.values.append( (v[0], op(v[1],other.value), v[2] ) )
+							except (DivisionByZero,ZeroDivisionError):
+								tmp.values.append( (v[0], float('NaN'), v[2] ) )
 					else:
-						tmp.values.append( (v[0], None, v[1] ) )
+						tmp.values.append( (v[0], None, v[2] ) )
+				getcontext().traps[DivisionByZero] = old_trap
 			elif self.type =="SCALAR" and other.type == "TIMESERIES":
+				old_trap = getcontext().traps[DivisionByZero]
+				getcontext().traps[DivisionByZero] = False
 				for v in other.values:
 					if (v[1] is not None) and (self.value is not None):
-						tmp.values.append( (v[0], op(v[1],self.value), v[1] ) )
+						try:
+							tmp.values.append( (v[0], op(v[1],self.value), v[2] ) )
+						except (DivisionByZero,ZeroDivisionError):
+							tmp.values.append( (v[0], float('NaN'), v[2] ) )
 					else:
-						tmp.values.append( (v[0], None, v[1] ) )
-						
+						if self.ismissing() or self.ismissing(v[1]):
+							tmp.values.append( (v[0], self.missdta, 5) )
+						else:
+							tmp.values.append( (v[0], None, v[2] ) )
+				getcontext().traps[DivisionByZero] = old_trap
+
 			elif self.type=="TIMESERIES" and other.type == "TIMESERIES":
 			# loop through both arrays
 				# for now just implement intersection
@@ -281,16 +351,86 @@ class Value:
 							if (v_left[1] is not None) and (v_right[1] is not None):
 								tmp.values.append( (v_left[0],op( v_left[1], v_right[1] ), v_left[2] ) )
 							else:
-								tmp.values.append( (v_left[0], None, v_left[2] ) )
+								if self.ismissing(v_left[0]) or self.ismissing(v_right[1]):
+									tmp.values.append( (v_left[0], self.missdta, 5) )
+								else:
+									tmp.values.append( (v_left[0], None, v_left[2] ) )
 			else:
 				return NotImplemented
 		else:
 			return NotImplemented
 		return tmp
-		
-	
 
-		
+	# Only implement comparisons against SCALAR quantities
+	# equality will also compare strings
+	def __eq__(self, other):
+		if isinstance(other, Value):
+			if self.type == "SCALAR" and other.type == "SCALAR":
+				return self.value == other.value
+		elif isinstance(other, (*number_types, str)) and self.type == "SCALAR":
+			return self.value == other
+		return NotImplemented
+
+	def __gt__(self, other):
+		if isinstance(self.value, str):
+			return False
+		if isinstance(other, Value):
+			if self.type == "SCALAR" and other.type == "SCALAR":
+				return other.value is not None and self.value is not None and self.value > other.value
+			elif self.type == "TIMESERIES" and len(self.values) <= 1 and other.type == "SCALAR":
+				return other.value is not None and len(self.values) > 1 and self.values[0] is not None and self.values[0] > other.value
+			elif self.type == "SCALAR" and other.type == "TIMESERIES" and len(other.values) <= 1:
+				return len(other.values) > 0 and self.value > other.value[1]
+			elif self.type == "TIMESERIES" and len(self.values) <= 1 and other.type == "TIMESERIES" and len(other.values) <= 1:
+				return len(other.values) > 0 and len(self.values) > 1 and self.values[0] is not None and other.values[0] is not None and self.values[0] > other.value[0]
+
+		elif isinstance(other, number_types) and self.type == "SCALAR":
+			return self.value is not None and self.value > other
+		elif isinstance(other, number_types) and self.type == "TIMESERIES" and len(self.values) <= 1:
+			return self.value is not None and len(self.values) > 0 and self.values[0] is not None and self.values[0] > other
+		return NotImplemented
+
+	def __ge__(self, other):
+		if isinstance(self.value, str):
+			return False
+		if isinstance(other, Value):
+			if self.type == "SCALAR" and other.type == "SCALAR":
+				return other.value is not None and self.value is not None and self.value >= other.value
+		elif isinstance(other, number_types) and self.type == "SCALAR":
+			return self.value is not None and self.value >= other
+		elif isinstance(other, number_types) and self.type == "TIMESERIES" and len(self.values) <= 1:
+			return len(self.values) > 0 and self.values[0] is not None and (self.values[0] - other) > 0.01
+		return NotImplemented
+
+	def __lt__(self, other):
+		if isinstance(self.value, str):
+			return False
+		if isinstance(other, Value):
+			if self.type == "SCALAR" and other.type == "SCALAR":
+				return other.value is not None and self.value is not None and self.value < other.value
+			elif self.type == "TIMESERIES" and len(self.values) <= 1 and other.type == "SCALAR":
+				return other.value is not None and len(self.values) > 1 and self.values[0] is not None and self.values[0] < other.value
+			elif self.type == "SCALAR" and other.type == "TIMESERIES" and len(other.values) <= 1:
+				return len(other.values) > 0 and self.value < other.value[1]
+			elif self.type == "TIMESERIES" and len(self.values) <= 1 and other.type == "TIMESERIES" and len(other.values) <= 1:
+				return len(other.values) > 0 and len(self.values) > 1 and self.values[0] is not None and other.values[0] is not None and self.values[0] < other.value[0]
+
+		elif isinstance(other, number_types) and self.type == "SCALAR":
+			return self.value is not None and self.value < other
+		return NotImplemented
+
+	def __le__(self, other):
+		if isinstance(self.value, str):
+			return False
+		if isinstance(other, Value):
+			if self.type == "SCALAR" and other.type == "SCALAR":
+				return other.value is not None and self.value is not None and (self.value - other.value) < 0.01
+		elif isinstance(other, number_types) and self.type == "SCALAR":
+			return self.value is not None and (self.value - other) < 0.01
+		elif isinstance(other, number_types) and self.type == "TIMESERIES" and len(self.values) <= 1:
+			return len(self.values) > 0 and self.values[0] is not None and (self.values[0] - other) < 0.01
+		return NotImplemented
+
 	def __str__(self):
 		if self.type=="SCALAR":
 			return self.format(self.value)
@@ -301,10 +441,31 @@ class Value:
 
 	def format(self,value):
 		#print repr(value)
-		if isinstance(value, number_types):
-			return self.picture % value
-		elif isinstance(value, datetime.datetime) :
+		if self.ismissing(value) or isinstance(value, list):
+			return self.misstr
 
+		if isinstance(value, number_types):
+			# The picture might have prefix or suffix text, e.g, "   %4.1f V"
+			# Split that out
+			specifier_start = self.picture.find('%')
+			if specifier_start == -1: return self.picture					# If there's no '%', just return the picture itself
+
+			prefix = self.picture[0:specifier_start]
+			picture = re.search(r"%([0-9.,+-]+[bcdoxXneEfFgG%])", self.picture).group(1)
+			suffix = self.picture[self.picture.index(picture) + len(picture):]
+
+			if isinstance(value, (Decimal,float)) and not math.isfinite(value):
+				result = prefix + self.undef + suffix
+			else:
+				if self.ismissing(value):
+					result = prefix + self.misstr + suffix
+				elif value is None:
+					result = prefix + self.undef + suffix
+				else:
+					result = prefix + format(value + 0, picture) + suffix	# Add 0 to correct any negative 0 values
+			return result
+		elif isinstance(value, datetime.datetime) :
+			
 			if "%K" in self.picture:
 				tmp = self.picture.replace("%K","%H")
 				tmpdt = value.replace(hour=value.hour)
@@ -312,9 +473,14 @@ class Value:
 					tmp = tmp.replace("%H","24")
 					tmpdt = tmpdt - datetime.timedelta(hours=1) # get into the previous data
 				return tmpdt.strftime(tmp)
-				
+
 				# special case, 2400 hours needs to be displayed
 			return value.strftime(self.picture)
+		elif isinstance(value, str):
+			return value
+		else:
+			return self.undef
+
 	# will need implementations of add, radd, mult, div, etc for use in math operations.
 	def pop(self):
 		if self.type == "SCALAR":
@@ -326,21 +492,27 @@ class Value:
 			try:
 				#print repr(self.values[self.index-1])
 				return self.format(self.values[self.index-1][1])
+			except IndexError:
+				# If data is missing, just return the undefined string value
+				return self.undef
 			except Exception as err:
 				print(repr(err) + " : " + str(err), file=sys.stderr)
-				return self.misstr
+				return self.undef
 
 	def datatimes(self):
 		"""
 			Returns a new Value where the values are replaced by the datetimes
-		
 		"""
 		typ = Value.shared["dbtype"]
 		tmp = Value(dbtype="copy")
 		Value.shared["dbtype"]=typ
-		
-		for v in self.values:
-			tmp.values.append( (v[0],v[0],v[2]) )
+
+		if self.type == "TIMESERIES":
+			for v in self.values:
+				tmp.values.append( (v[0],v[0],v[2]) )
+		elif self.type == "SCALAR":
+			tmp.start = tmp.end = tmp.time = self.time
+			tmp.values.append( (self.time, self.time, None) )
 		return tmp
 
 	def qualities(self):
@@ -360,9 +532,52 @@ class Value:
 		else:
 			raise Exception("Not implemented for the requested change")
 
+	# This implements the ELEMENT() repgen function
+	def element(self, nearest, dtarg, missval):
+		"""
+			Returns the element at the specified datetime. Searches forward or backard if BEFORE or AFTER is passed.
+		"""
+		if self.type =="TIMESERIES":
+			typ = Value.shared["dbtype"]
+			tmp = Value(dbtype="copy")
+			tmp.value = None
+			tmp.type = "SCALAR"
+
+			dt = dtarg
+			if isinstance(dtarg,Value):
+				dt = dtarg.value
+				if not dt.tzinfo: dt = dtarg.tz.localize(dt)
+
+			# If the passed in argument doesn't have a time zone, add one
+			if not dt.tzinfo:
+				dt = self.tz.localize(dt)
+			try:
+				tmp.value = self[dt][1]
+			except:
+				if missval == "MISSOK":
+					tmp.value = tmp.misstr
+				elif missval == "NOMISS":
+					if nearest == "AT":
+						return tmp	# Undefined
+					else:
+						if nearest == "BEFORE":
+							for v in reversed(self.values):
+								if v[0] <= dt and v[1] is not None:
+									tmp.value = v[1]
+									tmp.start = tmp.end = tmp.time = v[0]
+									break
+						elif nearest == "AFTER":
+							for v in self.values:
+								if v[0] >= dt and v[1] is not None:
+									tmp.value = v[1]
+									tmp.start = tmp.end = tmp.time = v[0]
+									break
+			return tmp
+		else:
+			raise Exception("operation only valid on a time series")
+
 	def last(self):
 		if self.type =="TIMESERIES":
-			
 			typ = Value.shared["dbtype"]
 			tmp = Value(dbtype="copy")
 			Value.shared["dbtype"]=typ
@@ -370,45 +585,102 @@ class Value:
 			tmp.type ="SCALAR"
 			try:
 				tmp.value = self.values[ len(self.values)-1 ] [1]
+				tmp.start = tmp.end = tmp.time = self.values[ len(self.values)-1 ] [0]
 			except Exception as err:
-				print >>sys.stderr, "Issue with getting last value -> %s : %s" % (repr(err),str(err))
+				print("Issue with getting last value -> %s : %s" % (repr(err),str(err)), file=sys.stderr)
 			return tmp
 		else:
-			raise Exception("operation only valid on a time series")
-	
+			return None
+
 	def __getitem__( self, arg ):
 			dt = arg
-			if isinstance(arg,Value):
-				dt = arg.value
+			is_slice = False
+			start = None
+			end = None
+
+			if isinstance(arg,slice):
+				is_slice = True
+				start = arg.start
+				end = arg.stop
+				dt = start
+
+			if isinstance(dt,Value):
+				dt = self.tz.localize(dt.value)
+			if not is_slice:
+				start = end = dt
+
+			if isinstance(start,Value):
+				start = start.value
+				start = start.replace(tzinfo=None)
+				start = self.tz.localize(start)
+			if isinstance(end,Value):
+				end = end.value
+				end = end.replace(tzinfo=None)
+				end = self.tz.localize(end)
+
+			# If the passed in argument doesn't have a time zone, add one
+			if isinstance(dt, datetime.datetime) and not dt.tzinfo:
+				dt = self.tz.localize(dt)
+
 			if self.type == "TIMESERIES":
 				typ = Value.shared["dbtype"]
 				tmp = Value(dbtype="copy")
 				Value.shared["dbtype"]=typ
 				tmp.value = None
-				tmp.type ="SCALAR"
-				haveval =False
-				for v in self.values:
-					if v[0] == dt:
-						tmp.value = v[1]
-						haveval = True
-						break
+				if is_slice: tmp.type = "TIMESERIES"
+				else: tmp.type = "SCALAR"
+				haveval = False
+				tmp.missing = self.missing
+
+				if isinstance(dt,int):
+					try:
+						if is_slice:
+							for x in range(start, end):
+								try:
+									tmp.values.append(self.values[x])
+									haveval = True
+								except IndexError:
+									# Ignore missing values in the range
+									pass
+						else:
+							tmp.value = self.values[dt][1]
+							tmp.end = tmp.start = tmp.time = self.values[dt][0]
+							haveval = True
+					except IndexError:
+						pass
+				else:
+					for v in self.values:
+						if is_slice:
+							if v[0] >= start and v[0] <= end:
+								tmp.values.append(v)
+								haveval = True
+						else:
+							if v[0] == dt:
+								tmp.value = v[1]
+								tmp.end = tmp.start = tmp.time = v[0]
+								haveval = True
+								break
+
 				if haveval == True:
 					return tmp
 				else:
-					raise KeyError("no value at %s" % str(dt) )
+					if self.missing == "EXACT":
+						return tmp
+					elif self.missing == "MISSOK":
+						return tmp
 			else:
 				raise Exception("date index only valid on a timeseries")
 
 	"""
 		The following are static methods as they can be applied to multiple time series/values at a time
 
-		all functions should process a keyword treat which determines how the function will reponsd
+		all functions should process a keyword treat which determines how the function will respond
 		to missing values
 
 		valid values for treat will be the following:
 
 		a number   - if a value is missing (None) use this number in its place
-		a touple of numbers - if a value is missing, substitude in order of the arguments these replacement values
+		a tuple of numbers - if a value is missing, substitute in order of the arguments these replacement values
 		"IGNORE"   - operate as if that row/value wasn't there
 		"MISS"     - if any given value is missing, the result is missing (This is the default)
 	
@@ -473,8 +745,8 @@ class Value:
 				res = None
 				try:
 					res = function( *vars )
-				except Exception as err:					
-					print >> sys.stderr, "Failed to compute a values %s : %s" % (repr(err),repr(str))
+				except Exception as err:
+					print("Failed to compute a values %s : %s" % (repr(err),repr(str)), file=sys.stderr)
 				if isinstance( res, (list,tuple)):
 					for i in range(len(res)):
 						values[i].values.append( (t,res[i],0) )
@@ -482,11 +754,93 @@ class Value:
 					values[0].values.append( ( t,res,0) )
 
 		return values
-	@staticmethod	
+
+	@staticmethod
+	def min( *args, **kwarg ):
+		"""
+			this is an exception to the one timeseries rule.
+			Find the minimum of all passed in values
+		"""
+		tmp = Value.mktmp()
+		tmp.value = None
+		tmp.type="SCALAR"
+		treat=Value.gettreat(**kwarg)
+
+		for arg in args:
+			if isinstance( arg, number_types ):
+				if tmp.value is None or tmp.value > arg:
+					tmp.value = arg
+			elif arg.type =="SCALAR":
+				if arg.value is not None and (tmp.value is None or tmp.value > arg.value):
+					tmp.value = arg.value
+				else:
+					if isinstance( treat, number_types):
+						if tmp.value is None or tmp.value > arg:
+							tmp.value = treat
+					elif treat=="MISS":
+						tmp.value = None
+						return tmp
+					# else, move to the next value
+			elif arg.type == "TIMESERIES":
+				for row in arg.values:
+					v = row[1]
+					if tmp.value is None or (v is not None and tmp.value > v):
+						tmp.value = v
+					else:
+						if isinstance( treat, number_types):
+							tmp.value = treat
+						elif treat=="MISS":
+							tmp.value = None
+							return tmp
+
+		return tmp
+
+	@staticmethod
+	def max( *args, **kwarg ):
+		"""
+			this is an exception to the one timeseries rule.
+			Find the minimum of all passed in values
+		"""
+		tmp = Value.mktmp()
+		tmp.value = None
+		tmp.type="SCALAR"
+		treat=Value.gettreat(**kwarg)
+
+		for arg in args:
+			if isinstance( arg, number_types ):
+				if tmp.value is None or tmp.value < arg:
+					tmp.value = arg
+			elif arg.type =="SCALAR":
+				if arg.value is not None:
+					if tmp.value is None or tmp.value < arg.value:
+						tmp.value = arg.value
+				else:
+					if isinstance( treat, number_types):
+						if tmp.value is None or tmp.value < arg:
+							tmp.value = treat
+					elif treat=="MISS":
+						tmp.value = None
+						return tmp
+					# else, move to the next value
+			elif arg.type == "TIMESERIES":
+				for row in arg.values:
+					v = row[1]
+					if tmp.value is None or (v is not None and tmp.value < v):
+						tmp.value = v
+					else:
+						if isinstance( treat, number_types):
+							tmp.value = treat
+						elif treat=="MISS":
+							tmp.value = None
+							return tmp
+
+		return tmp
+
+	@staticmethod
 	def sum( *args, **kwarg ):
 		"""
 			this is an exception to the one timeseries rule.
-			we assume the user wants whatever values passed summed up into 
+			we assume the user wants whatever values passed summed up into
 			one value
 		"""
 		tmp = Value.mktmp()
@@ -497,28 +851,37 @@ class Value:
 		for arg in args:
 			if isinstance( arg, number_types ):
 				tmp.value += arg
-			if arg.type =="SCALAR":
-				if arg.value is not None:
-					tmp.value += arg.value
-				else:
-					if isinstance( treat, number_types):
-						tmp.value += treat
-					elif treat=="MISS":
-						tmp.value = None
-						return tmp
-					# else, move to the next value
-			elif arg.type == "TIMESERIES":
-				for row in arg.values:
-					v = row[1]
-					if v is not None:
-						tmp.value += v
+			if isinstance( arg, Value ):
+				if arg.type =="SCALAR":
+					if arg.value is not None:
+						if arg.ismissing() and treat == "MISS":
+							tmp.value = Value.shared["missdta"]
+							break
+						tmp.value += arg.value
 					else:
-						if isinstance( treat, number_types):
+						# Undefined values are ignored
+						if len(arg.values) == 1 and arg.values[0][1] is not None:
+							if arg.ismissing(arg.values[0][1]) and treat == "MISS":
+								tmp.value = Value.shared["missdta"]
+								break
+							tmp.value += arg.values[0][1]
+						elif isinstance( treat, number_types):
 							tmp.value += treat
-						elif treat=="MISS":
-							tmp.value = None
-							return tmp
-			
+					# else, move to the next value
+				elif arg.type == "TIMESERIES":
+					for row in arg.values:
+						v = row[1]
+						if v is not None:
+							if arg.ismissing(v) and treat == "MISS":
+								tmp.value = Value.shared["missdta"]
+								break
+							tmp.value += v
+						else:
+							if isinstance( treat, number_types):
+								tmp.value += treat
+				elif arg.type == "GROUP":
+					tmp.value += Value.sum(*arg.value).value
+
 		return tmp
 
 	@staticmethod
@@ -531,41 +894,69 @@ class Value:
 		if len(args) > 1:
 			for arg in args:
 				if arg.type=="TIMESERIES":
-					raise Exception("Time series not allowed with mulitple values")
-		
+					raise Exception("Time series not allowed with multiple values")
+
 		if len(args) == 1:
 			if args[0].type == "SCALAR":
 				tmp.value = args[0].value
+			elif args[0].type == "GROUP":
+				for val in args[0].value:
+					if val.type == "SCALAR":
+						if val.known():
+							tmp.value += val.value
+							numvals += 1
+						elif treat == "MISS":
+							tmp.value = args[0].missdta
+							return tmp
+						elif treat == "ZERO":
+							numvals += 1
+					else:
+						raise Exception("GROUPed data can only be used with SCALARs.")
+				if numvals == 0 and args[0].missing == "MISSOK":
+					tmp.value = args[0].missdta
 			else: # time series
 				for row in args[0].values:
 					v = row[1]
-					if v is not None:
+					if args[0].known(v):
 						tmp.value += v
 						numvals += 1
 					elif treat == "MISS":
-						tmp.value = None
+						tmp.value = args[0].missdta
 						return tmp
+					elif treat == "ZERO":
+						numvals += 1
+				# What is the defined behavior in repgen4?
+				if numvals == 0 and args[0].missing == "MISSOK":
+					tmp.value = args[0].missdta
 
-				tmp.value = tmp.value/float(numvals)
 		else:
 			for arg in args:
 				if isinstance( arg, number_types ):
 					tmp.value += arg
 					numvals += 1
 				else:
-					if arg.value is not None:
+					if arg.known():
 						tmp.value += arg.value
 						numvals += 1
 					elif treat=="MISS":
-						tmp.value = None
+						tmp.value = args[0].missdta
 						return tmp
+					elif treat == "ZERO":
+						numvals += 1
+
+		if numvals == 0:
+			return tmp
+
+		if isinstance(tmp.value, Decimal):
+			tmp.value = tmp.value/Decimal.from_float(float(numvals))
+		else:
 			tmp.value = tmp.value/float(numvals)
 		return tmp
 		
 
 	@staticmethod
 	def count(*args ):
-		"""		
+		"""
 			This function ignores the only 1 timeseries rule and just counts the number of non-missing
 			values in all the variables passed in.
 			It also doesn't take any keywords
@@ -582,20 +973,18 @@ class Value:
 				for row in arg.values:
 					if row[1] is not None:
 						tmp.value+=1
-			
 		
 		return tmp
 
 	@staticmethod
 	def accum(arg,**kwarg ):
-		"""	
+		"""
 			This function requires a single time series and nothing else
 
 			treat
 			number = use the number
 			ignore = current value is missing, but otherwise keep accumulating
 			miss = stop accumulating after the first missing input
-			
 		"""
 		tmp = Value.mktmp()
 		tmp.type="TIMESERIES"
@@ -608,30 +997,152 @@ class Value:
 			cur = None
 			
 			if v is not None and not ((previous is None) and (treat=="MISS")) :
-				accum += v				
+				accum += v
 				cur = accum
-			elif v is None and ((previous is None) and (treat=="MISS")): 
+			elif v is None and ((previous is None) and (treat=="MISS")):
 				cur = None
 			elif isinstance(treat, number_types):
 				accum += v
 			else:
 				cur = None
-		
+
 			previous=v
-				
-		
+
+
 			tmp.values.append( (dt,cur,q) )
 		return tmp
 
 	@staticmethod
+	def diff(arg,**kwarg ):
+		"""
+			This function requires a single time series and nothing else
+
+			treat
+			number = use the number
+			ignore = current value is missing, but otherwise keep accumulating
+			miss = stop accumulating after the first missing input
+
+		"""
+		tmp = Value.mktmp()
+		tmp.type="TIMESERIES"
+		tmp.values = []
+		treat = Value.gettreat(**kwarg)
+		accum = 0
+		previous = None
+		treat_val = 0
+
+		if isinstance(treat, number_types):
+			treat_val = float(treat)
+
+		for row in arg.values:
+			dt,v,q = row
+			qual = q
+			cur = None
+
+			if v is not None and previous is not None:
+				cur = v - previous
+			elif v is None and previous is not None:
+				if treat == "ZERO":
+					cur = treat_val - previous
+				elif treat == "MISS":
+					cur = None
+					qual = 5
+			elif v is not None and previous is not None:
+				if treat == "ZERO":
+					cur = v - treat_val
+				elif treat == "MISS":
+					cur = None
+					qual = 5
+			else:
+				if treat == "ZERO":
+					cur = 0
+				elif treat == "MISS":
+					cur = None
+					qual = 5
+
+			previous = v
+			tmp.values.append( (dt,cur,qual) )
+		return tmp
+
+	def roundpos(self, place):
+		"""
+			Rounds the variable to the specified 'place', where place is a power of 10 exponent.
+			For example, -1 means round to the nearest tenths place (0.1).
+		"""
+		tmp = Value.mktmp()
+		tmp.value = 0
+		tmp.type = self.type
+		place_decimal = 0
+		place_float = 0
+
+		if isinstance(place, Value):
+			if place.type != "SCALAR": raise ValueError("Cannot specify a timeseries as the decimal rounding place.")
+			place = place.value
+
+		if not isinstance(place, number_types): raise ValueError("Decimal rounding place must be a number.")
+		place_decimal = Decimal(10) ** place		# Convert integer places to floating value supported by quantize (-1 -> 0.1)
+		place_float = -place						# Python decimal place is inverted from repgen4
+		
+		if self.type == "SCALAR" and self.value is not None:
+			if isinstance(self.value, Decimal):
+				tmp.value = Decimal(self.value).quantize(place_decimal)
+			else:
+				tmp.value = round(float(self.value), place_float)
+		elif self.type =="TIMESERIES":
+			for d,v,q in self.values:
+				if v is not None:
+					if isinstance(v, Decimal):
+						v = Decimal(v).quantize(place_decimal)
+					else:
+						v = round(float(v), place_float)
+				tmp.values.append([d,v,q])
+		
+		return tmp
+
+	# Returns true if SCALAR and value is defined, or TIMESERIES and there's at least one value
+	# if value is set to the classname, use the instance's value
+	def known(self, value=__qualname__):
+		if isinstance(value, str) and value == Value.__name__:
+			if self.type == "SCALAR":
+				return self.value is not None and not self.ismissing()
+			elif self.type == "TIMESERIES":
+				if self.values is not None:
+					for v in self.values:
+						if v[1] is not None and not self.ismissing(v[1]):
+							return True
+			# TODO: GROUP
+		else:
+			return value is not None and not self.ismissing(value)
+		return False
+
+	# assumes data is not None (undefined)
+	# undefined data is not missing
+	# if value is set to the classname, use the instance's value
+	def ismissing(self, value=__qualname__):
+		if isinstance(value, str) and value == Value.__name__:
+			if self.type == "SCALAR" and not self.ismissing(self.value):
+				return False
+			elif self.type == "TIMESERIES":
+				for val in self.values:
+					if not self.ismissing(val[1]):
+						return False
+			# TODO: GROUP
+			return True
+		else:
+			if isinstance(self.missdta, list):
+				return value in self.missdta
+			else:
+				return value == self.missdta
+
+	@staticmethod
 	def gettimes( *args,**kwargs ):
-		# build a new last that has the interestion or union (user specified, just implement intersection for now
+		# build a new last that has the intersection or union (user specified, just implement intersection for now
 		# scalar values will just get copied in time, we do need to maintain the order of the input args.
-		timesets = []	
+		timesets = []
 		times = []
 		for arg in args:
 			if isinstance( arg, Value) and arg.type == "TIMESERIES":
-				timesets.append( set( [x[0] for x in arg.values ]) )	
+				timesets.append( set( [x[0] for x in arg.values ]) )
 		if len(timesets) > 0:
 			if len(timesets)==1:
 				times = list(timesets[0])
