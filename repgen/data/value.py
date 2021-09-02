@@ -1,6 +1,7 @@
 import pytz,datetime,sys
 import operator
 from inspect import isfunction
+from ssl import SSLError
 # types
 string_types = ("".__class__,u"".__class__)
 number_types = (int,float,complex)
@@ -13,17 +14,15 @@ class Value:
 
 		# shared and updated between calls
 		"host" : None, # ip address/hostname or file name
-		"port" : None,
 		"dbtype" : None, # file or spkjson
+		"query": None,
 		"tz" : pytz.utc,
 		"start": None,
 		"end": None,
 		"interval": None,
 		"value": None, # this value is only used for generating time series
 	}
-	
 
-	
 	def __init__( self, *args, **kwargs ):
 		self.index = None
 		self.type="SCALAR"
@@ -55,10 +54,10 @@ class Value:
 			self.value = args[0]
 			return
 		elif len(args)> 0: raise Exception ("Only 1 non named value is allowed")
-		
-		self.type = "TIMESERIES"	
+
+		self.type = "TIMESERIES"
 		self.values = [ ] # will be a touple of (time stamp, value, quality )
-		
+
 		if self.dbtype is None:
 			raise Exception("you must enter a scalar quantity if you aren't specifying a data source")
 		elif self.dbtype.upper() == "FILE":
@@ -72,24 +71,15 @@ class Value:
 				if isinstance(self.value, number_types):
 					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
 				elif isinstance(self.value, Value ):
-					self.value = self.value.value 
+					self.value = self.value.value
 					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
 				elif isfunction(self.value):
 					self.values.append( ( current_t.astimezone(self.tz),self.value(),0 ) )
-					
-				current_t = current_t + self.interval
-			
-		elif self.dbtype.upper() == "SPKJSON":
-			try:
-				import json
-			except:
-				try:
-					import simplejson as json
-				except:
-					print >>sys.stderr, "To run this program you either need to update to a newer python, or install the simplejson module."
 
-			import http.client as httplib, urllib.parse as urllib
-	
+				current_t = current_t + self.interval
+		elif self.dbtype.upper() == "SPKJSON":
+			import json, http.client as httplib, urllib.parse as urllib
+
 			fmt = "%d-%b-%Y %H%M"
 			tz = self.tz
 			units= self.dbunits
@@ -105,8 +95,9 @@ class Value:
 				"tz": str(self.tz)
 			})
 			try:
-				conn = httplib.HTTPConnection( self.host + ":" + str(self.port))
+				conn = httplib.HTTPConnection( self.host )
 				conn.request("GET", query+params )
+				print("Fetching: %s" % query+params)
 				r1 = conn.getresponse()
 				data =r1.read()
 
@@ -118,12 +109,14 @@ class Value:
 					_t = float(d[0])/1000.0 # spkjson returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
 					# this seems to work to have the data in the right time
 					# will need to keep an eye on it though
+					# The Unix timestamp is in local time (timezone passed in URL)
 					_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
-					#print _dt
 					#_dt = _dt.astimezone(self.tz)
 					_dt = _dt.replace(tzinfo=self.tz)
+					#print("_dt: %s" % repr(_dt))
 					#print _dt
 					if d[1] is not None:
+						#print("Reading value: %s" % d[1])
 						_v = float(d[1]) # does not currently implement text operations
 					else:
 						_v = None
@@ -135,9 +128,98 @@ class Value:
 					self.value = self.values[0][1]
 			except Exception as err:
 				print( repr(err) + " : " + str(err) )
+		elif self.dbtype.upper() == "JSON":
+			import json, http.client as httplib, urllib.parse as urllib
+
+			#fmt = "%d-%b-%Y %H%M"
+			fmt = "%Y-%m-%dT%H:%M:%S"
+			tz = self.tz
+			units = self.dbunits
+			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, str(self.dbint), str(self.dbdur), self.dbver) )
+
+			# Loop until we fetch some data, if missing is NOMISS
+			retry_count = 10			# Go back at most 10 days
+			sstart = self.start
+			send = self.end
+
+			while(retry_count > 0):
+				# Convert time to destination timezone
+				# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
+				# 'astimezone' would be the "proper" behavior, but 'replace' mimics repgen_4.
+				start = tz.localize(sstart.replace(tzinfo=None))
+				end = tz.localize(send.replace(tzinfo=None))
+
+				sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
+				query = f"/{self.query}/timeseries?"
+				params = urllib.urlencode( {
+					"name": ts_name,
+					"unit": units,
+					"begin": start.strftime(fmt),
+					"end":   end.strftime(fmt),
+					"timezone": str(tz),
+					"pageSize": -1,					# always fetch all results
+				})
+				try:
+					conn = None
+					headers = { 'Accept': "application/json;version=2" }
+					try:
+						from repgen.util.urllib2_tls import TLS1Connection
+						conn = TLS1Connection( self.host )
+						conn.request("GET", query+params, None, headers )
+					except SSLError:
+						print("Falling back to non-SSL")
+						# SSL not supported (could be standalone instance)
+						conn = httplib.HTTPConnection( self.host )
+						conn.request("GET", query+params, None, headers )
+
+					print("Fetching: %s" % query+params)
+					r1 = conn.getresponse()
+					data = r1.read()
+					data_dict = None
+
+					try:
+						data_dict = json.loads(data)
+					except json.JSONDecodeError as err:
+						print(str(err))
+						print(repr(data))
+
+					# get the depth
+					prev_t = 0
+					#print repr(data_dict)
+
+					if len(data_dict["values"]) > 0:
+						for d in data_dict["values"]:
+							_t = float(d[0])/1000.0 # json returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
+							_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
+							_dt = _dt.astimezone(self.tz)
+							#_dt = _dt.replace(tzinfo=self.tz)
+							#print("_dt: %s" % repr(_dt))
+							#print _dt
+							if d[1] is not None:
+								#print("Reading value: %s" % d[1])
+								_v = float(d[1]) # does not currently implement text operations
+							else:
+								_v = None
+							_q = int(d[2])
+							self.values.append( ( _dt,_v,_q  ) )
+
+					if (len(self.values) == 0 or self.values[0][1] is None) and self.missing == "NOMISS":
+						sstart = sstart - datetime.timedelta(days=1)
+						retry_count = retry_count - 1
+						continue
+
+					if self.start == self.end:
+						self.type = "SCALAR"
+						if len(self.values) > 0:
+							self.value = self.values[0][1]
+				except Exception as err:
+					print( repr(err) + " : " + str(err) )
+
+				break
+
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
-			
+
 	# math functions
 	def __add__( self, other ):
 		return self.domath(operator.add,other)

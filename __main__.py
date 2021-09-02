@@ -1,10 +1,9 @@
-import sys,time,datetime,pytz,tempfile,shutil,os,operator
-from inspect import isfunction
-import math
+import sys,time,datetime,pytz,tempfile,shutil,os,re
 from repgen.data.value import Value
 from repgen.report import Report
 
 version = "5.0.1"
+
 # setup base time, ex
 # default formats
 def parseArgs():
@@ -16,11 +15,10 @@ def parseArgs():
 	parser.add_option( '-o', '--out', dest='out_file', default="-", help="OUTput file with filled report", metavar="REPOUTPUT")
 	parser.add_option( '-d', '--date', dest='base_date', default=_d, help="base date for data", metavar="DDMMMYYY" )
 	parser.add_option( '-t', '--time', dest='base_time', default=_t, help="base time for data", metavar="HHMM")
-	parser.add_option( '-a', '--host', dest='host', default='localhost', help="host for data connections", metavar='IP ADDRESS OR HOSTNAME')
-	parser.add_option( '-p', '--port', dest='port', default=80, help="port for data connection", metavar='0-65535')
+	parser.add_option( '-a', '--address', dest='host', default='localhost', help="location for data connections", metavar='IP Address:port, hostname:port, or query URL base (for JSON)')
 	parser.add_option( '-z', '--tz', dest='tz', default='UTC', help="default timezone", metavar='Time Zone Name')
 	parser.add_option( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
-	parser.add_option( '-V', '--Version',dest='show_ver',action='store_true',default=False, help="print version number")
+	parser.add_option( '-V', '--version',dest='show_ver',action='store_true',default=False, help="print version number")
 	parser.add_option( '-f', '--file', dest='data_file', default=None, help="Variable data file", metavar="DATAFILE" )
 	return parser.parse_args()[0]
 
@@ -33,9 +31,19 @@ if __name__ == "__main__":
 		sys.exit(0)
 
 	report_file = config.in_file
-	Value(1,host=config.host, port= int(config.port),tz=pytz.timezone(config.tz) )
-	
-	f = open(report_file) 
+	host = config.host
+	query = None
+
+	# Check for protocol (e.g. https://)
+	# We don't actually care about it, so discard it (repgen only works with http or https)
+	match = re.match(r"(https?:\/\/)?(.+)", host)
+	host = match.group(2)
+	if '/' in host:
+		(host, query) = host.split('/', 1)
+
+	Value(1,host=host, query=query, tz=pytz.timezone(config.tz))
+
+	f = open(report_file)
 	report_data = f.read()
 	f.close()
 	#os.environ['TZ'] = config.tz
@@ -97,7 +105,6 @@ if __name__ == "__main__":
 	else:
 		fd,tmpname = tempfile.mkstemp(text=True)
 		output = os.fdopen(fd,"w")
-
 	
 	report.fill_report(output)
 
