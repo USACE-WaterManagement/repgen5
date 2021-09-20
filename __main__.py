@@ -80,7 +80,7 @@ if __name__ == "__main__":
 				key = prefix + line
 			else:
 				# Check to see if the read in value is really a number, and convert it if so
-				val = line.strip('"')
+				val = line.strip('"') if '=' not in line else line
 				try:
 					if '.' in val:
 						val = float(val)

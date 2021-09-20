@@ -44,6 +44,10 @@ class Value:
 		# update the shared keywords
 		for key in kwargs:
 			value = kwargs[key]
+			# If the value is wrapped in quotes, it's most likely wrong (possibly value was read from a file where it had quotes).
+			if isinstance(value, str) and len(value) > 0 and value[0] == '"' and value[-1] == '"':
+				value = value[1:-1]
+
 			if key.lower()=="tz" and isinstance(value, string_types):
 				value = pytz.timezone(value)
 			if (key.lower() == "start" or key.lower() == "end" or key.lower() == "time")  and isinstance(value,(Value)):	
@@ -87,6 +91,48 @@ class Value:
 					self.values.append( ( current_t.astimezone(self.tz),self.value(),0 ) )
 
 				current_t = current_t + self.interval
+		elif self.dbtype.upper() == "TEXT":
+			def parse_slice(value):
+				# From: https://stackoverflow.com/a/54421070, modified to support repgen4 range format
+				"""
+				Parses a `slice()` from string, like `start:stop:step`. Older repgen4 syntax `start-end` is also supported.
+				The `:` format is 0-based, the `-` format is 1-based (and end value is inclusive).
+				"""
+				old_format = False
+				if ':' not in value: old_format = True
+
+				if value:
+					parts = re.split('-|:', value)
+					if len(parts) == 1:
+						# treat a single value as an explicit array index (start:start+1)
+						parts = [parts[0], parts[0]]
+					# else: slice(start, stop[, step])
+				else:
+					# slice()
+					parts = []
+
+				slc = [int(p) if p else None for p in parts]
+				if old_format and slc[0]: slc[0] -= 1
+				return slice(*slc)
+
+			# This reads the specific scalar value from the specified file, at the specified line and columns
+			self.type = "SCALAR"
+			if not self.file:
+				raise FileNotFoundError("dbtype TEXT specified, but no file to read from.")
+			with open(self.file) as inp:
+				lines = inp.readlines()
+				line = "".join(lines[parse_slice(self.line if hasattr(self, 'line') else ':')])
+
+				# COL hopefully isn't specified if multiple lines are
+				if line.count('\n') > 1 and hasattr(self, 'col') and re.search(':|-', self.col):
+					raise ValueError(f"LINE has a ranged argument '{self.line}', with COL specified '{self.col}'.")
+
+				self.value = line[parse_slice(self.col if hasattr(self, 'col') else ':')]
+
+				# Check to see if the data is numeric
+				try: self.value = Decimal(self.value)		# Use Decimal to ensure the value is read exactly as it appears
+				except DecimalException: pass
+				
 		elif self.dbtype.upper() == "SPKJSON":
 			import json, http.client as httplib, urllib.parse as urllib
 
