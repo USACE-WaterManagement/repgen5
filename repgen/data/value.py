@@ -8,6 +8,14 @@ from ssl import SSLError
 import re
 from repgen.util import extra_operator
 
+try:
+	# Relativedelta supports months and years, but is external library
+	from dateutil.relativedelta import relativedelta as timedelta
+except:
+	# Included with python, but doesn't support longer granularity than weeks.
+	# This can cause issues for leap years if not accounted for.
+	from datetime import timedelta
+
 # types
 string_types = ("".__class__,u"".__class__)
 number_types = (int,float,complex,Decimal)
@@ -31,7 +39,50 @@ class Value:
 		"value": None, # this value is only used for generating time series
 	}
 
+	#region Properties
+	def __get_time(self):
+		if self.start == self.end: return self.start
+		else: return None
+	def __set_time(self, value: datetime.datetime):
+		self.start = self.end = value
+
+	# 'time' can only be set if 'start' and 'end' are the same value, so just wrap it in a property.
+	time = property(__get_time, __set_time)	# type: datetime.datetime
+	#endregion
+
 	def __init__( self, *args, **kwargs ):
+		def processDateTime(value, date_key, time_key):
+			if isinstance(value, str) or isinstance(value, int):
+				is_24 = False
+
+				if str(value).startswith("2400"):
+					is_24 = True
+					value = str(value).replace("2400", "0000", 1)
+
+				# Datetime
+				for fmt in ["%H%M %d%m%Y", "%H%M %d%m%y"]:
+					try:
+						value = datetime.datetime.strptime(str(value), fmt)
+						break
+					except ValueError: pass
+
+				# Date only
+				for fmt in ["%d%m%Y", "%d%m%y"]:
+					try:
+						value = datetime.datetime.strptime(str(value), fmt).date()
+						break
+					except ValueError: pass
+
+				# Time only
+				for fmt in ["%H%M", "%H:%M"]:
+					try:
+						value = datetime.datetime.strptime(str(value), fmt).time()
+						break
+					except ValueError: pass
+
+				Value.shared[key.lower()] = value
+			return value
+
 		self.index = None
 		self.type="SCALAR"
 		self.value = None
@@ -50,14 +101,49 @@ class Value:
 
 			if key.lower()=="tz" and isinstance(value, string_types):
 				value = pytz.timezone(value)
-			if (key.lower() == "start" or key.lower() == "end" or key.lower() == "time")  and isinstance(value,(Value)):	
-				value = value.value # internally we want the actual datetime
-			if key.lower() == "time":
-				Value.shared["start"] = value
-				Value.shared["end"] = value
-			
+			if (key.lower() == "start" or key.lower() == "end" or key.lower().endswith("time") or key.lower().endswith("date")):
+				if isinstance(value,(Value)):
+					if value.type == 'TIMESERIES' and len(value.values) == 1:
+						value = value.values[0][0]
+					else:
+						value = value.value # internally we want the actual datetime
+
+				value = processDateTime(value, key[0:-4] + "date", key[0:-4] + "time")
+
+				if key.lower().startswith('s'):
+					Value.shared["start"] = value
+				elif key.lower().startswith('e'):
+					Value.shared["end"] = value
+				else:
+					Value.shared["start"] = value
+					Value.shared["end"] = value
+
 			Value.shared[key.lower()] = value
-		
+
+		# Correct any split date/times
+		if not isinstance(Value.shared["start"], datetime.datetime):
+			date = None
+			time = None
+
+			if "sdate" in Value.shared: date = Value.shared["sdate"]
+			elif "date" in Value.shared: date = Value.shared["date"]
+			if "stime" in Value.shared: time = Value.shared["stime"]
+			elif "time" in Value.shared: time = Value.shared["time"]
+
+			if date and time:
+				Value.shared["start"] = datetime.datetime.combine(date, time)
+
+		if not isinstance(Value.shared["end"], datetime.datetime):
+			date = None
+			time = None
+
+			if "edate" in Value.shared: date = Value.shared["edate"]
+			elif "date" in Value.shared: date = Value.shared["date"]
+			if "etime" in Value.shared: time = Value.shared["etime"]
+			elif "time" in Value.shared: time = Value.shared["time"]
+			if date and time:
+				Value.shared["end"] = datetime.datetime.combine(date, time)
+
 		# load the keywords for this instance
 		for key in Value.shared:
 			self.__dict__[key] = Value.shared[key]
@@ -140,15 +226,19 @@ class Value:
 			tz = self.tz
 			units= self.dbunits
 			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, self.dbint, self.dbdur, self.dbver) )
-			
-			sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,self.start.strftime(fmt),self.end.strftime(fmt),str(tz),units))
+
+			# Convert time to destination timezone
+			start = self.start.astimezone(tz)
+			end = self.end.astimezone(tz)
+
+			sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
 			query = "/fcgi-bin/get_ts.py?"
 			params = urllib.urlencode( {
 				"site": ts_name,
 				"units": units,
-				"start_time": self.start.strftime(fmt),
-				"end_time":   self.end.strftime(fmt),
-				"tz": str(self.tz)
+				"start_time": start.strftime(fmt),
+				"end_time":   end.strftime(fmt),
+				"tz": str(tz)
 			})
 			try:
 				conn = httplib.HTTPConnection( self.host )
@@ -179,7 +269,7 @@ class Value:
 					_q = int(d[2])
 					self.values.append( ( _dt,_v,_q  ) )
 
-				if self.start == self.end:
+				if self.time:
 					self.type = "SCALAR"
 					self.value = self.values[0][1]
 			except Exception as err:
@@ -265,11 +355,11 @@ class Value:
 
 					if self.ismissing():
 						if self.missing == "NOMISS":
-							sstart = sstart - datetime.timedelta(weeks=1)
+							sstart = sstart - timedelta(weeks=1)
 							retry_count = retry_count - 1
 							continue
 
-					if self.start == self.end:
+					if self.time:
 						self.type = "SCALAR"
 						if self.missing == "NOMISS":
 							# Get the last one, in case we fetched extra because of NOMISS
@@ -323,7 +413,7 @@ class Value:
 						tmp.values.append( (v[0],op(v[1], other),v[2]) )
 				else:
 					tmp.values.append( ( v[0], None, v[2] ) )
-		elif isinstance( other, (*number_types,datetime.timedelta) ) and self.type=="SCALAR":
+		elif isinstance( other, (*number_types,datetime.timedelta,timedelta) ) and self.type=="SCALAR":
 			if (self.value is not None) and (other is not None):
 				if self.ismissing() or self.ismissing(other):
 					tmp.value = self.missdta
@@ -335,7 +425,7 @@ class Value:
 			else:
 				tmp.value = None
 			tmp.type="SCALAR"
-		elif isinstance( other, (*number_types,datetime.timedelta) ) and self.type=="TIMESERIES" and len(self.values) == 1:
+		elif isinstance( other, (*number_types,datetime.timedelta,timedelta) ) and self.type=="TIMESERIES" and len(self.values) == 1:
 			if (self.values[0] is not None) and (other is not None):
 				if self.ismissing() or self.ismissing(other):
 					tmp.value = self.missdta
@@ -509,19 +599,33 @@ class Value:
 					result = prefix + self.undef + suffix
 				else:
 					result = prefix + format(value + 0, picture) + suffix	# Add 0 to correct any negative 0 values
+			if self.ucformat: result = result.upper()
 			return result
 		elif isinstance(value, datetime.datetime) :
-			
+			result = None
 			if "%K" in self.picture:
 				tmp = self.picture.replace("%K","%H")
 				tmpdt = value.replace(hour=value.hour)
-				if value.hour == 0 and value.minute==0:
+				if not tmpdt.tzinfo:
+					tmpdt = self.tz.localize(tmpdt)
+				tmpdt = tmpdt.astimezone(self.tz)	# Make sure datetime is in the requested timezone for display
+				if tmpdt.hour == 0 and tmpdt.minute==0:
 					tmp = tmp.replace("%H","24")
-					tmpdt = tmpdt - datetime.timedelta(hours=1) # get into the previous data
-				return tmpdt.strftime(tmp)
-
-				# special case, 2400 hours needs to be displayed
-			return value.strftime(self.picture)
+					tmpdt = tmpdt - timedelta(days=1) # get into the previous date
+				result = tmpdt.strftime(tmp)
+			elif value.hour == 0 and value.minute == 0 and value.second == 0 and not "%H" in self.picture:
+				# If the time is exactly midnight, but not printing the time,
+				# subtract a day for displaying the correct date
+				tmpdt = value - timedelta(days=1) # get into the previous date
+				if not tmpdt.tzinfo:
+					tmpdt = self.tz.localize(tmpdt)
+				tmpdt = tmpdt.astimezone(self.tz)	# Make sure datetime is in the requested timezone for display
+				result = tmpdt.strftime(self.picture)
+			else:
+				result = value.strftime(self.picture)
+			# If compat option was set, upper case the dates in the report
+			if self.ucformat: result = result.upper()
+			return result
 		elif isinstance(value, str):
 			return value
 		else:
@@ -557,7 +661,7 @@ class Value:
 			for v in self.values:
 				tmp.values.append( (v[0],v[0],v[2]) )
 		elif self.type == "SCALAR":
-			tmp.start = tmp.end = tmp.time = self.time
+			tmp.time = self.time
 			tmp.values.append( (self.time, self.time, None) )
 		return tmp
 
@@ -610,13 +714,13 @@ class Value:
 							for v in reversed(self.values):
 								if v[0] <= dt and v[1] is not None:
 									tmp.value = v[1]
-									tmp.start = tmp.end = tmp.time = v[0]
+									tmp.time = v[0]
 									break
 						elif nearest == "AFTER":
 							for v in self.values:
 								if v[0] >= dt and v[1] is not None:
 									tmp.value = v[1]
-									tmp.start = tmp.end = tmp.time = v[0]
+									tmp.time = v[0]
 									break
 			return tmp
 		else:
@@ -631,7 +735,7 @@ class Value:
 			tmp.type ="SCALAR"
 			try:
 				tmp.value = self.values[ len(self.values)-1 ] [1]
-				tmp.start = tmp.end = tmp.time = self.values[ len(self.values)-1 ] [0]
+				tmp.time = self.values[ len(self.values)-1 ] [0]
 			except Exception as err:
 				print("Issue with getting last value -> %s : %s" % (repr(err),str(err)), file=sys.stderr)
 			return tmp
@@ -690,7 +794,7 @@ class Value:
 									pass
 						else:
 							tmp.value = self.values[dt][1]
-							tmp.end = tmp.start = tmp.time = self.values[dt][0]
+							tmp.time = self.values[dt][0]
 							haveval = True
 					except IndexError:
 						pass
@@ -703,7 +807,7 @@ class Value:
 						else:
 							if v[0] == dt:
 								tmp.value = v[1]
-								tmp.end = tmp.start = tmp.time = v[0]
+								tmp.time = v[0]
 								haveval = True
 								break
 

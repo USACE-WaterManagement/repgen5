@@ -1,5 +1,11 @@
-import sys,time,datetime,pytz,tempfile,shutil,os,operator
+import sys,time,datetime,pytz,tempfile,shutil,os,operator,calendar,re
 from repgen.data.value import Value
+try:
+	# Relativedelta supports months and years, but is external library
+	from dateutil.relativedelta import relativedelta as timedelta
+except:
+	# Included with python, but doesn't support longer granularity than days.
+	from datetime import timedelta
 
 class Report:
 	def __init__(self, report, file_name, compatibility):
@@ -94,7 +100,7 @@ class Report:
 						tmpupper = tmp.upper()
 					else:
 						tmpupper = tmp
-			output.write( tmp +"\n" )
+			output.write( tmp + "\n" )
 
 	def run( self, basedate, local_vars: dict = None ):
 		# setup the base data
@@ -102,14 +108,20 @@ class Report:
 		my_locals = {
 			"BASDATE": Value(basedate,picture="%Y%b%d %H%M"),
 			"BTM": Value(basedate,picture="%Y%b%d %H%M"),
-			"CURDATE": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M"),
-			"CTM": Value(datetime.datetime.now(Value.shared["tz"]),picture="%Y%b%d %H%M")
+			"CURDATE": Value(datetime.datetime.now(tz=Value.shared["tz"]).replace(tzinfo=None),picture="%Y%b%d %H%M"),
+			"CTM": Value(datetime.datetime.now(tz=Value.shared["tz"]).replace(tzinfo=None),picture="%Y%b%d %H%M"),
 		}
 
 		# If locals were passed in, set them too
 		if local_vars:
 			for key, value in local_vars.items():
 				my_locals[key] = value
+
+		print("Timezone: %s" % Value.shared["tz"])
+		print("BASDATE: %s" % repr(my_locals["BASDATE"]))
+		print("BTM: %s" % repr(my_locals["BTM"]))
+		print("CURDATE: %s" % repr(my_locals["CURDATE"]))
+		print("CTM: %s" % repr(my_locals["CTM"]))
 
 		# Compile the report, so source and line number information can be reported to the user
 		exec(compile(self.datadef, self.repfilename, "exec"), globals(), my_locals)
