@@ -89,6 +89,31 @@ class Value:
 		self.values = []
 		self.picture="%s"
 
+		if len(args) == 1 and isinstance(args[0], Value):
+			# This is emulating a "copy constructor" which does a deep copy.
+			value = copy.deepcopy(args[0])
+			self.index = value.index
+			self.type = value.type
+			self.value = value.value
+			self.values = value.values
+			self.picture = value.picture
+			self.dbtype = value.dbtype
+			self.query = value.query
+			self.missdta = value.missdta
+			self.missing = value.missing
+
+			if value.type == "SCALAR" and isinstance(value.value, Value):
+				self.value = value.value.value
+			# If times were passed in as a method result, they might in a Value object
+			if isinstance(value.start, Value):
+				value.start = value.start.value
+			if isinstance(value.end, Value):
+				value.end = value.end.value
+
+			self.start = value.start
+			self.end = value.end
+			self.__dict__ = value.__dict__
+
 		# go through the keyword args,
 		# set them as static variables for the next call
 
@@ -118,6 +143,9 @@ class Value:
 					Value.shared["start"] = value
 					Value.shared["end"] = value
 
+			if key.lower() == "value":
+				key = "missing"
+
 			Value.shared[key.lower()] = value
 
 		# Correct any split date/times
@@ -145,11 +173,19 @@ class Value:
 				Value.shared["end"] = datetime.datetime.combine(date, time)
 
 		# load the keywords for this instance
+		if len(args) == 1 and isinstance(args[0], Value):
+			for key in Value.shared:
+				if not key in ["time", "start", "end", "value"]:
+					self.__dict__[key] = Value.shared[key]
+			return
+
 		for key in Value.shared:
-			self.__dict__[key] = Value.shared[key]
+			if key != "value":
+				self.__dict__[key] = Value.shared[key]
 
 		if len( args ) == 1:
-			self.value = args[0]
+			if not isinstance(args[0], Value):
+				self.value = args[0]
 			if isinstance(args[0], list):
 				self.type = "GROUP"
 			return
