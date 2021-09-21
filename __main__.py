@@ -104,13 +104,16 @@ if __name__ == "__main__":
 		output = sys.stdout
 	else:
 		fd,tmpname = tempfile.mkstemp(text=True)
-		output = os.fdopen(fd,"w")
+		output = os.fdopen(fd,"wt")
 	
 	report.fill_report(output)
 
 	if config.out_file != "-":
 		output.close()
 		shutil.move(tmpname,config.out_file)
+		mask = os.umask(0)
+		os.chmod(config.out_file, 0o777 & (~mask))
+		os.umask(mask)
 
 
 	# read the report file

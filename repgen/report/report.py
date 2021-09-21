@@ -2,7 +2,7 @@ import sys,time,datetime,pytz,tempfile,shutil,os,operator
 from repgen.data.value import Value
 
 class Report:
-	def __init__(self,report, file_name, compatibility):
+	def __init__(self, report, file_name, compatibility):
 		self.repfilename = file_name
 		self.repfile = report
 		self.replines = []
@@ -10,12 +10,12 @@ class Report:
 		self.compatibility = compatibility
 		self.data = {}
 
-		lines = report.splitlines()
+		lines = map(lambda s: s.strip('\r'),  report.split(sep='\n'))
 		deflines = []
 		state="none"
 		for line in lines:
+			deflines.append( "" )		# Append blank line to align definition line numbers
 			if state == "none":
-				deflines.append( "" )		# Append blank line to align definition line numbers
 				if "#FORM" in line.upper():
 					print( "Found Report Section",file=sys.stderr)
 					state="INREP"
@@ -23,7 +23,6 @@ class Report:
 					print( "Found Definition Section", file=sys.stderr)
 					state="INDEF"
 			elif state == "INREP":
-				deflines.append( "" )		# Append blank line to align definition line numbers
 				if "#ENDFORM" in line.upper():
 					print( "End of Report", file=sys.stderr)
 					state = "none"
@@ -34,12 +33,12 @@ class Report:
 					print("End of Report", file=sys.stderr)
 					state = "none"
 					continue
-				deflines.append( line )
+				deflines[-1] = line		# replace existing blank line
 
 		self.datadef = "\n".join(deflines)
 	
 
-	def fill_report(self, output ):
+	def fill_report(self, output):
 		values = sorted(self.data.keys())
 		#values.sort()
 		values.reverse() # need to be able to match the longest first
@@ -97,7 +96,7 @@ class Report:
 						tmpupper = tmp
 			output.write( tmp +"\n" )
 
-	def run( self,basedate, local_vars: dict = None ):
+	def run( self, basedate, local_vars: dict = None ):
 		# setup the base data
 		#
 		my_locals = {
@@ -113,7 +112,7 @@ class Report:
 				my_locals[key] = value
 
 		# Compile the report, so source and line number information can be reported to the user
-		exec(compile(self.datadef, self.repfilename, "exec"),globals(),my_locals )
+		exec(compile(self.datadef, self.repfilename, "exec"), globals(), my_locals)
 
 		# loop through my_locals and add them
 		# to a dictionary with the % in front of the them
