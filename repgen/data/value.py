@@ -353,7 +353,8 @@ class Value:
 						from repgen.util.urllib2_tls import TLS1Connection
 						conn = TLS1Connection( self.host )
 						conn.request("GET", query+params, None, headers )
-					except SSLError:
+					except SSLError as err:
+						print(type(err).__name__ + " : " + str(err))
 						print("Falling back to non-SSL")
 						# SSL not supported (could be standalone instance)
 						conn = httplib.HTTPConnection( self.host )
@@ -361,6 +362,11 @@ class Value:
 
 					r1 = conn.getresponse()
 					data = r1.read()
+					
+					if r1.status != 200:
+						print("HTTP Error " + str(r1.status) + ": " + str(data))
+						return
+
 					data_dict = None
 
 					try:

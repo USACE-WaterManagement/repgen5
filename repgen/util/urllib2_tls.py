@@ -26,7 +26,7 @@ class TLS1Connection(httplib.HTTPSConnection):
 
         # This is the only difference; default wrap_socket uses SSLv23
         self.sock = ssl.wrap_socket(sock, self.key_file, self.cert_file,
-                ssl_version=ssl.PROTOCOL_TLSv1)
+                ssl_version=ssl.PROTOCOL_TLSv1_2)
 
 class TLS1Handler(urllib2.HTTPSHandler):
     """Like HTTPSHandler but more specific"""
