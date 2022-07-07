@@ -146,7 +146,7 @@ if __name__ == "__main__":
 	if config.out_file == "-":
 		output = sys.stdout
 	else:
-		fd,tmpname = tempfile.mkstemp(text=True)
+		fd,tmpname = tempfile.mkstemp(text=True, prefix="repgen-")
 		output = os.fdopen(fd,"wt")
 	
 	# build the report
@@ -156,5 +156,5 @@ if __name__ == "__main__":
 		output.close()
 		shutil.move(tmpname,config.out_file)
 		mask = os.umask(0)
-		os.chmod(config.out_file, 0o777 & (~mask))
+		os.chmod(config.out_file, 0o666 & (~mask))
 		os.umask(mask)
