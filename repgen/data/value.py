@@ -7,6 +7,7 @@ from decimal import Decimal,DivisionByZero,DecimalException,getcontext
 from ssl import SSLError
 import re
 from repgen.util import extra_operator
+import signal
 
 try:
 	# Relativedelta supports months and years, but is external library
@@ -20,23 +21,32 @@ except:
 string_types = ("".__class__,u"".__class__)
 number_types = (int,float,complex,Decimal)
 
+def handler(signum, frame):
+	sys.stderr.write(f'Signal handler called with signal ${signum}\n')
+	raise TimeoutError('Timeout opening socket connection.')
+
+# Failsafe for timeout
+if sys.platform != "win32":
+	signal.signal(signal.SIGALRM, handler)
+
 class Value:
 	shared = {
 		"picture" : "NNZ",
 		"misstr"  : "-M-",
 		"undef"   : "-?-",
 		"missdta"  : -901,
-		"missing": "MISSOK",	# How to treat missing values
+		"missing": "MISSOK",  # How to treat missing values
 
 		# shared and updated between calls
-		"host" : None, # ip address/hostname or file name
-		"dbtype" : None, # file or spkjson
+		"host" : None,        # ip address/hostname or file name
+		"dbtype" : None,      # file or spkjson
 		"query": None,
 		"tz" : pytz.utc,
 		"start": None,
 		"end": None,
 		"interval": None,
-		"value": None, # this value is only used for generating time series
+		"value": None,        # this value is only used for generating time series
+		"timeout": None,      # socket (http/ssl) timeout
 	}
 
 	#region Properties
@@ -349,16 +359,26 @@ class Value:
 					print("Fetching: %s" % self.host+query+params)
 					conn = None
 					headers = { 'Accept': "application/json;version=2" }
+
+					if sys.platform != "win32" and self.timeout:
+						# The SSL handshake can sometimes fail and hang indefinitely
+						# inflate the timeout slightly, so the socket has a chance to return a timeout error
+						# This is a failsafe to prevent a hung process
+						signal.alarm(int(self.timeout * 1.1) + 1)
+
 					try:
 						from repgen.util.urllib2_tls import TLS1Connection
-						conn = TLS1Connection( self.host )
+						conn = TLS1Connection( self.host, timeout=self.timeout )
 						conn.request("GET", query+params, None, headers )
 					except SSLError as err:
 						print(type(err).__name__ + " : " + str(err))
 						print("Falling back to non-SSL")
 						# SSL not supported (could be standalone instance)
-						conn = httplib.HTTPConnection( self.host )
+						conn = httplib.HTTPConnection( self.host, timeout=self.timeout )
 						conn.request("GET", query+params, None, headers )
+
+					if sys.platform != "win32" and self.timeout:
+						signal.alarm(0) # disable the alarm
 
 					r1 = conn.getresponse()
 					data = r1.read()

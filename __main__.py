@@ -21,6 +21,7 @@ def parseArgs():
 	parser.add_option( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
 	parser.add_option( '-V', '--version',dest='show_ver',action='store_true',default=False, help="print version number")
 	parser.add_option( '-f', '--file', dest='data_file', default=None, help="Variable data file", metavar="DATAFILE" )
+	parser.add_option( '', '--timeout', dest='timeout', type="float", default=None, help="Socket timeout, in seconds" )
 	return parser.parse_args()[0]
 
 # Pytz does't know all the aliases and abbreviations
@@ -82,7 +83,7 @@ if __name__ == "__main__":
 		tz = pytz.timezone(TIMEZONE_ALIASES.get(tz, tz))
 
 	# set some of the default values
-	Value(1, host=host, query=query, tz=tz, ucformat=config.compat)
+	Value(1, host=host, query=query, tz=tz, ucformat=config.compat, timeout=config.timeout)
 	
 	# read the report file
 	f = open(report_file)
