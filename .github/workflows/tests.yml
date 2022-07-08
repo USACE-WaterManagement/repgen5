@@ -19,7 +19,7 @@ jobs:
       - name: install requirements
         run: pip3 install -r tests/requirements.txt
       - name: run tests        
-        run: nose2 -v
+        run: pytest -v
   canpackage:
     runs-on: ubuntu-latest
     strategy:

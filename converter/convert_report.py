@@ -143,6 +143,9 @@ class Value:
 
     def __setitem__(self, key, value):
         print(f"Adding: {key}=>{value}")
+        if key.lower() == "value":
+            print(f"Renaming: {key}=>missing")
+            key = "missing"
         self.parameters[key] = value
 
     def __contains__(self, key):
@@ -276,6 +279,8 @@ def convert_picture_format(picture):
         result = result.replace(current, f"%{count}{triad_separator}.0f")
     count = 0
     decimal_count = 0
+
+    if "A" in result: error("WARNING: Possible ambiguous use of 'A' format, check conversion!")
 
     print("Picture converted '%s' -> '%s'" % (original_picture, result))
     return result
@@ -709,10 +714,7 @@ def map_ELEMENT(*args):
 
 #endregion
 
-if __name__ == "__main__":
-    input = sys.argv[1]
-    output = sys.argv[2]
-    in_variable = False
+def main(input: str, output: str):
     remapped_variables = {}             # If any variables had to be renamed, keep track of this mapping
 
     def getName(name: str):
@@ -752,12 +754,12 @@ if __name__ == "__main__":
             indent_level = 0
 
             def cleanup(indent=False):
-                global newline
-                global oldline
-                global is_value_decl
-                global value_printed
-                global value_declared
-                global current_value
+                nonlocal newline
+                nonlocal oldline
+                nonlocal is_value_decl
+                nonlocal value_printed
+                nonlocal value_declared
+                nonlocal current_value
 
                 if current_value:
                     print(f"Writing value: {current_value.name}; indent: {indent}; indent_level: {indent_level}")
@@ -1124,4 +1126,9 @@ if __name__ == "__main__":
                 writer.write(newline + "\n")
         print(f"Saving to: {output}")
 
+if __name__ == "__main__":
+    input = sys.argv[1]
+    output = sys.argv[2]
+    main(input, output)
+    
 # vim: ts=4 sw=4 expandtab

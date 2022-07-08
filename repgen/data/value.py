@@ -47,6 +47,7 @@ class Value:
 		"interval": None,
 		"value": None,        # this value is only used for generating time series
 		"timeout": None,      # socket (http/ssl) timeout
+		"ucformat": None,     # Upper-case date format (repgen4 compatibility)
 	}
 
 	#region Properties
@@ -153,9 +154,6 @@ class Value:
 					Value.shared["start"] = value
 					Value.shared["end"] = value
 
-			if key.lower() == "value":
-				key = "missing"
-
 			Value.shared[key.lower()] = value
 
 		# Correct any split date/times
@@ -185,32 +183,37 @@ class Value:
 		# load the keywords for this instance
 		if len(args) == 1 and isinstance(args[0], Value):
 			for key in Value.shared:
-				if not key in ["time", "start", "end", "value"]:
+				if key not in ["time", "start", "end", "value"]:
 					self.__dict__[key] = Value.shared[key]
 			return
 
 		for key in Value.shared:
-			if key != "value":
-				self.__dict__[key] = Value.shared[key]
+			self.__dict__[key] = Value.shared[key]
 
 		if len( args ) == 1:
 			if not isinstance(args[0], Value):
 				self.value = args[0]
 			if isinstance(args[0], list):
 				self.type = "GROUP"
-			return
-		elif len(args)> 0: raise Exception ("Only 1 non named value is allowed")
+				return
+		elif len(args) > 0:
+			raise ValueError("Only 1 non named value is allowed")
+		else:
+			self.type = "TIMESERIES"
 
-		self.type = "TIMESERIES"
 		self.values = [ ] # will be a tuple of (time stamp, value, quality )
 
+		if self.dbtype is None and self.value is not None:
+			return
+
 		if self.dbtype is None:
-			raise Exception("you must enter a scalar quantity if you aren't specifying a data source")
+			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
 		elif self.dbtype.upper() == "FILE":
 			pass
 		elif self.dbtype.upper() == "COPY":
 			pass
 		elif self.dbtype.upper() == "GENTS":
+			self.type = "TIMESERIES"
 			current_t = self.start
 			end_t = self.end
 			while current_t <= end_t:
