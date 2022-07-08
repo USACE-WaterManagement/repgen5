@@ -2,7 +2,7 @@ import sys,time,datetime,pytz,tempfile,shutil,os,re
 from repgen.data.value import Value
 from repgen.report import Report
 
-version = "5.0.1"
+version = "5.0.2"
 
 # setup base time, ex
 # default formats
