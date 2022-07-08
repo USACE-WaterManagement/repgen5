@@ -195,16 +195,12 @@ class Value:
 				self.value = args[0]
 			if isinstance(args[0], list):
 				self.type = "GROUP"
-				return
+			return
 		elif len(args) > 0:
 			raise ValueError("Only 1 non named value is allowed")
-		else:
-			self.type = "TIMESERIES"
 
+		self.type = "TIMESERIES"
 		self.values = [ ] # will be a tuple of (time stamp, value, quality )
-
-		if self.dbtype is None and self.value is not None:
-			return
 
 		if self.dbtype is None:
 			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")

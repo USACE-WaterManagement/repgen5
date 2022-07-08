@@ -280,7 +280,7 @@ def convert_picture_format(picture):
     count = 0
     decimal_count = 0
 
-    if "A" in result: error("WARNING: Possible ambiguous use of 'A' format, check conversion!")
+    if "AA" in result: error("WARNING: Possible ambiguous use of 'A' format, check conversion!")
 
     print("Picture converted '%s' -> '%s'" % (original_picture, result))
     return result
