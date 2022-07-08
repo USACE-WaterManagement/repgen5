@@ -652,7 +652,7 @@ class Value:
 			if specifier_start == -1: return self.picture					# If there's no '%', just return the picture itself
 
 			prefix = self.picture[0:specifier_start]
-			picture = re.search(r"%([0-9.,+-]+[bcdoxXneEfFgG%])", self.picture).group(1)
+			picture = re.search(r"%([0-9.,+-]*[bcdoxXneEfFgG%])", self.picture).group(1)
 			suffix = self.picture[self.picture.index(picture) + len(picture):]
 
 			if isinstance(value, (Decimal,float)) and not math.isfinite(value):
