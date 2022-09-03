@@ -1,4 +1,4 @@
-import pytz,datetime,sys
+import pytz,datetime,sys,time as ttime
 import operator
 from inspect import isfunction
 import copy
@@ -38,17 +38,20 @@ class Value:
 		"missing": "MISSOK",  # How to treat missing values
 
 		# shared and updated between calls
-		"host" : None,        # ip address/hostname or file name
-		"dbtype" : None,      # file or spkjson
+		"host" : None,          # ip address/hostname or file name
+		"dbtype" : None,        # file or spkjson
 		"query": None,
 		"tz" : pytz.utc,
 		"start": None,
 		"end": None,
 		"interval": None,
-		"value": None,        # this value is only used for generating time series
-		"timeout": None,      # socket (http/ssl) timeout
-		"ucformat": None,     # Upper-case date format (repgen4 compatibility)
+		"value": None,          # this value is only used for generating time series
+		"timeout": None,        # socket (http/ssl) timeout
+		"ucformat": None,       # Upper-case date format (repgen4 compatibility)
+		"use_alternate": False, # Alternate server in use, if primary is unavailable
 	}
+
+	conn = None
 
 	#region Properties
 	def __get_time(self):
@@ -109,7 +112,7 @@ class Value:
 			self.values = value.values
 			self.picture = value.picture
 			self.dbtype = value.dbtype
-			self.query = value.query
+			self.path = value.path
 			self.missdta = value.missdta
 			self.missing = value.missing
 
@@ -333,58 +336,108 @@ class Value:
 			sstart = self.start
 			send = self.end
 
+			# Convert time to destination timezone
+			# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
+			# 'astimezone' would be the "proper" behavior, but 'replace' mimics repgen_4.
+			start = tz.localize(sstart.replace(tzinfo=None))
+			end = tz.localize(send.replace(tzinfo=None))
+			path = self.path if not Value.shared["use_alternate"] else self.altpath
+			host = self.host if not Value.shared["use_alternate"] else self.althost
+			headers = { 'Accept': "application/json;version=2" }
+
+			params = urllib.urlencode( {
+				"name": ts_name,
+				"unit": units,
+				"begin": start.strftime(fmt),
+				"end":   end.strftime(fmt),
+				"office": self.dbofc if self.dbofc is not None else "",
+				"timezone": str(tz),
+				"pageSize": -1,					# always fetch all results
+			})
+
 			while(retry_count > 0):
-				# Convert time to destination timezone
-				# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
-				# 'astimezone' would be the "proper" behavior, but 'replace' mimics repgen_4.
-				start = tz.localize(sstart.replace(tzinfo=None))
-				end = tz.localize(send.replace(tzinfo=None))
-				query = self.query
-				
-				if query is None:
-					query = ""
-
 				sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
-				query = f"/{query}/timeseries?"
-				params = urllib.urlencode( {
-					"name": ts_name,
-					"unit": units,
-					"begin": start.strftime(fmt),
-					"end":   end.strftime(fmt),
-					"timezone": str(tz),
-					"pageSize": -1,					# always fetch all results
-				})
+
 				try:
-					print("Fetching: %s" % self.host+query+params)
-					conn = None
-					headers = { 'Accept': "application/json;version=2" }
+					data = None
+					retry_until_alternate = 3
+					while retry_until_alternate > 0:
+						retry_until_alternate -= 1
+						if path is None:
+							path = ""
 
-					if sys.platform != "win32" and self.timeout:
-						# The SSL handshake can sometimes fail and hang indefinitely
-						# inflate the timeout slightly, so the socket has a chance to return a timeout error
-						# This is a failsafe to prevent a hung process
-						signal.alarm(int(self.timeout * 1.1) + 1)
+						query = f"/{path}/timeseries?"
 
-					try:
-						from repgen.util.urllib2_tls import TLS1Connection
-						conn = TLS1Connection( self.host, timeout=self.timeout )
-						conn.request("GET", query+params, None, headers )
-					except SSLError as err:
-						print(type(err).__name__ + " : " + str(err))
-						print("Falling back to non-SSL")
-						# SSL not supported (could be standalone instance)
-						conn = httplib.HTTPConnection( self.host, timeout=self.timeout )
-						conn.request("GET", query+params, None, headers )
+						# The http(s) guess isn't perfect, but it's good enough. It's for display purposes only.
+						print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params)
 
-					if sys.platform != "win32" and self.timeout:
-						signal.alarm(0) # disable the alarm
+						try:
+							if self.conn is None:
+								if sys.platform != "win32" and self.timeout:
+									# The SSL handshake can sometimes fail and hang indefinitely
+									# inflate the timeout slightly, so the socket has a chance to return a timeout error
+									# This is a failsafe to prevent a hung process
+									signal.alarm(int(self.timeout * 1.1) + 1)
 
-					r1 = conn.getresponse()
-					data = r1.read()
-					
-					if r1.status != 200:
-						print("HTTP Error " + str(r1.status) + ": " + str(data))
-						return
+								try:
+									from repgen.util.urllib2_tls import TLS1Connection
+									self.conn = TLS1Connection( host, timeout=self.timeout )
+									self.conn.request("GET", "/" )
+								except SSLError as err:
+									print(type(err).__name__ + " : " + str(err))
+									print("Falling back to non-SSL")
+									# SSL not supported (could be standalone instance)
+									self.conn = httplib.HTTPConnection( host, timeout=self.timeout )
+									self.conn.request("GET", "/" )
+
+								# Test if the connection is valid
+								self.conn.getresponse().read()
+
+								if sys.platform != "win32" and self.timeout:
+									signal.alarm(0) # disable the alarm
+
+							self.conn.request("GET", query+params, None, headers )
+							r1 = self.conn.getresponse()
+							
+							# Grab the charset from the headers, and decode the response using that if set
+							# HTTP default charset is iso-8859-1 for text (RFC 2616), and utf-8 for JSON (RFC 4627)
+							parts = r1.getheader("Content-Type").split(";")
+							charset = "iso-8859-1" if parts[0].startswith("text") else "utf-8" # Default charset
+							
+							if len(parts) > 1:
+								for prop in parts:
+									prop_parts = prop.split("=")
+									if len(prop_parts) > 1 and prop_parts[0].lower() == "charset":
+										charset = prop_parts[1]
+
+							data = r1.read().decode(charset)
+
+							if r1.status == 200:
+								break
+							
+							print("HTTP Error " + str(r1.status) + ": " + data, file=sys.stderr)
+							if r1.status == 404:
+								json.loads(data)
+								# We don't care about the actual error, just if it's valid JSON
+								# Valid JSON means it was a RADAR response, so we treat it as a valid response, and won't retry.
+								break
+						except (httplib.NotConnected, httplib.ImproperConnectionState, httplib.BadStatusLine, ValueError, OSError) as e:
+							print(f"Error fetching: {e}", file=sys.stderr)
+							if retry_until_alternate == 0 and self.althost is not None and host != self.althost:
+								print("Trying alternate server", file=sys.stderr)
+								Value.shared["use_alternate"] = True
+								(host, path) = (self.althost, self.altpath)
+								self.conn = None
+								retry_until_alternate = 3
+							else:
+								print("Reconnecting to server and trying again", file=sys.stderr)
+								ttime.sleep(3)
+								try:
+									self.conn.close()
+								except:
+									pass
+								self.conn = None
+							continue
 
 					data_dict = None
 
@@ -398,7 +451,7 @@ class Value:
 					prev_t = 0
 					#print repr(data_dict)
 
-					if len(data_dict["values"]) > 0:
+					if data_dict.get("total", 0) > 0:
 						for d in data_dict["values"]:
 							_t = float(d[0])/1000.0 # json returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
 							_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
@@ -413,6 +466,8 @@ class Value:
 								_v = None
 							_q = int(d[2])
 							self.values.append( ( _dt,_v,_q  ) )
+					else:
+						print("No values were fetched.")
 
 					if self.ismissing():
 						if self.missing == "NOMISS":
