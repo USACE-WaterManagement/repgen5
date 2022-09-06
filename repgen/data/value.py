@@ -51,7 +51,8 @@ class Value:
 		"use_alternate": False, # Alternate server in use, if primary is unavailable
 	}
 
-	conn = None
+	# This isn't thread safe, not an issue yet though since repgen isn't multithreaded.
+	_conn = None
 
 	#region Properties
 	def __get_time(self):
@@ -372,7 +373,7 @@ class Value:
 						print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params)
 
 						try:
-							if self.conn is None:
+							if Value._conn is None:
 								if sys.platform != "win32" and self.timeout:
 									# The SSL handshake can sometimes fail and hang indefinitely
 									# inflate the timeout slightly, so the socket has a chance to return a timeout error
@@ -381,23 +382,23 @@ class Value:
 
 								try:
 									from repgen.util.urllib2_tls import TLS1Connection
-									self.conn = TLS1Connection( host, timeout=self.timeout )
-									self.conn.request("GET", "/" )
+									Value._conn = TLS1Connection( host, timeout=self.timeout )
+									Value._conn.request("GET", "/" )
 								except SSLError as err:
 									print(type(err).__name__ + " : " + str(err))
 									print("Falling back to non-SSL")
 									# SSL not supported (could be standalone instance)
-									self.conn = httplib.HTTPConnection( host, timeout=self.timeout )
-									self.conn.request("GET", "/" )
+									Value._conn = httplib.HTTPConnection( host, timeout=self.timeout )
+									Value._conn.request("GET", "/" )
 
 								# Test if the connection is valid
-								self.conn.getresponse().read()
+								Value._conn.getresponse().read()
 
 								if sys.platform != "win32" and self.timeout:
 									signal.alarm(0) # disable the alarm
 
-							self.conn.request("GET", query+params, None, headers )
-							r1 = self.conn.getresponse()
+							Value._conn.request("GET", query+params, None, headers )
+							r1 = Value._conn.getresponse()
 							
 							# Grab the charset from the headers, and decode the response using that if set
 							# HTTP default charset is iso-8859-1 for text (RFC 2616), and utf-8 for JSON (RFC 4627)
@@ -427,16 +428,16 @@ class Value:
 								print("Trying alternate server", file=sys.stderr)
 								Value.shared["use_alternate"] = True
 								(host, path) = (self.althost, self.altpath)
-								self.conn = None
+								Value._conn = None
 								retry_until_alternate = 3
 							else:
 								print("Reconnecting to server and trying again", file=sys.stderr)
 								ttime.sleep(3)
 								try:
-									self.conn.close()
+									Value._conn.close()
 								except:
 									pass
-								self.conn = None
+								Value._conn = None
 							continue
 
 					data_dict = None
