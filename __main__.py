@@ -24,6 +24,11 @@ def parseArgs():
 	parser.add_option( '-V', '--version',dest='show_ver',action='store_true',default=False, help="print version number")
 	parser.add_option( '-f', '--file', dest='data_file', default=None, help="Variable data file", metavar="DATAFILE" )
 	parser.add_option( '', '--timeout', dest='timeout', type="float", default=None, help="Socket timeout, in seconds" )
+
+	if len(sys.argv) == 1:
+		parser.print_help()
+		exit(2)
+
 	return parser.parse_args()[0]
 
 # Pytz does't know all the aliases and abbreviations
