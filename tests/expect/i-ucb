@@ -142,7 +142,7 @@ FDATE = Value(BASDATE,
 #                                 Define all ELEVATIONS
 PAOELEV = Value(
 	dbtype="json",
-	tz="MST7MDT",
+	DBTZ="MST7MDT",
 	DBLOC="Paonia",
 	DBPAR="Elev",
 	DBPTYP="Inst",

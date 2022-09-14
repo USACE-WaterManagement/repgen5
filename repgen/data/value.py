@@ -18,7 +18,7 @@ except:
 	from datetime import timedelta
 
 # types
-string_types = ("".__class__,u"".__class__)
+string_types = (b"".__class__,u"".__class__)
 number_types = (int,float,complex,Decimal)
 
 def handler(signum, frame):
@@ -41,7 +41,8 @@ class Value:
 		"host" : None,          # ip address/hostname or file name
 		"dbtype" : None,        # file or spkjson
 		"query": None,
-		"tz" : pytz.utc,
+		"tz" : pytz.utc,		# Display Timezone
+		#"dbtz" : pytz.utc,		# DB Timezone (tz used to fetch data). Not assigned unless explicitly defined by user or in report
 		"start": None,
 		"end": None,
 		"interval": None,
@@ -63,10 +64,18 @@ class Value:
 
 	# 'time' can only be set if 'start' and 'end' are the same value, so just wrap it in a property.
 	time = property(__get_time, __set_time)	# type: datetime.datetime
+
+	def __get_dbtz(self):
+		return getattr(self, "_dbtz", self.tz)
+	def __set_dbtz(self, value: datetime.datetime):
+		self._dbtz = value
+
+	# Just a wrapper to easily get the db timezone, or the display tz if not set
+	dbtz = property(__get_dbtz, __set_dbtz)	# type: tzinfo
 	#endregion
 
 	def __init__( self, *args, **kwargs ):
-		def processDateTime(value, date_key, time_key):
+		def processDateTime(value, key):
 			if isinstance(value, str) or isinstance(value, int):
 				is_24 = False
 
@@ -95,7 +104,10 @@ class Value:
 						break
 					except ValueError: pass
 
-				Value.shared[key.lower()] = value
+				# self.time is a property based on start and end, don't assign it directly
+				if key != "time" and key != "date":
+					Value.shared[key] = value
+
 			return value
 
 		self.index = None
@@ -139,26 +151,29 @@ class Value:
 			if isinstance(value, str) and len(value) > 0 and value[0] == '"' and value[-1] == '"':
 				value = value[1:-1]
 
-			if key.lower()=="tz" and isinstance(value, string_types):
+			lkey = key.lower()
+			if (lkey == "tz" or lkey == "dbtz") and isinstance(value, string_types):
 				value = pytz.timezone(value)
-			if (key.lower() == "start" or key.lower() == "end" or key.lower().endswith("time") or key.lower().endswith("date")):
+			elif (lkey == "start" or lkey == "end" or lkey.endswith("time") or lkey.endswith("date")):
 				if isinstance(value,(Value)):
 					if value.type == 'TIMESERIES' and len(value.values) == 1:
 						value = value.values[0][0]
 					else:
 						value = value.value # internally we want the actual datetime
 
-				value = processDateTime(value, key[0:-4] + "date", key[0:-4] + "time")
+				value = processDateTime(value, lkey)
 
-				if key.lower().startswith('s'):
+				if lkey.startswith('s'):
 					Value.shared["start"] = value
-				elif key.lower().startswith('e'):
+				elif lkey.startswith('e'):
 					Value.shared["end"] = value
 				else:
 					Value.shared["start"] = value
 					Value.shared["end"] = value
+				
+				continue
 
-			Value.shared[key.lower()] = value
+			Value.shared[lkey] = value
 
 		# Correct any split date/times
 		if not isinstance(Value.shared["start"], datetime.datetime):
@@ -187,12 +202,12 @@ class Value:
 		# load the keywords for this instance
 		if len(args) == 1 and isinstance(args[0], Value):
 			for key in Value.shared:
-				if key not in ["time", "start", "end", "value"]:
-					self.__dict__[key] = Value.shared[key]
+				if key not in ["time", "start", "end", "value", "dbtz"]:
+					setattr(self, key, Value.shared[key])
 			return
 
 		for key in Value.shared:
-			self.__dict__[key] = Value.shared[key]
+			setattr(self, key, Value.shared[key])	# use setattr so property setters are called, not replaced
 
 		if len( args ) == 1:
 			if not isinstance(args[0], Value):
@@ -218,12 +233,12 @@ class Value:
 			end_t = self.end
 			while current_t <= end_t:
 				if isinstance(self.value, number_types):
-					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
+					self.values.append( ( current_t.astimezone(self.dbtz),self.value,0 ) )
 				elif isinstance(self.value, Value ):
 					self.value = self.value.value
-					self.values.append( ( current_t.astimezone(self.tz),self.value,0 ) )
+					self.values.append( ( current_t.astimezone(self.dbtz),self.value,0 ) )
 				elif isfunction(self.value):
-					self.values.append( ( current_t.astimezone(self.tz),self.value(),0 ) )
+					self.values.append( ( current_t.astimezone(self.dbtz),self.value(),0 ) )
 
 				current_t = current_t + self.interval
 		elif self.dbtype.upper() == "TEXT":
@@ -272,7 +287,7 @@ class Value:
 			import json, http.client as httplib, urllib.parse as urllib
 
 			fmt = "%d-%b-%Y %H%M"
-			tz = self.tz
+			tz = self.dbtz
 			units= self.dbunits
 			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, self.dbint, self.dbdur, self.dbver) )
 
@@ -307,7 +322,7 @@ class Value:
 					# The Unix timestamp is in local time (timezone passed in URL)
 					_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
 					#_dt = _dt.astimezone(self.tz)
-					_dt = _dt.replace(tzinfo=self.tz)
+					_dt = _dt.replace(tzinfo=self.dbtz)
 					#print("_dt: %s" % repr(_dt))
 					#print _dt
 					if d[1] is not None:
@@ -328,7 +343,7 @@ class Value:
 
 			#fmt = "%d-%b-%Y %H%M"
 			fmt = "%Y-%m-%dT%H:%M:%S"
-			tz = self.tz
+			tz = self.dbtz
 			units = self.dbunits
 			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, str(self.dbint), str(self.dbdur), self.dbver) )
 
@@ -456,7 +471,7 @@ class Value:
 						for d in data_dict["values"]:
 							_t = float(d[0])/1000.0 # json returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
 							_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
-							_dt = _dt.astimezone(self.tz)
+							_dt = _dt.astimezone(self.dbtz)
 							#_dt = _dt.replace(tzinfo=self.tz)
 							#print("_dt: %s" % repr(_dt))
 							#print _dt
@@ -724,7 +739,7 @@ class Value:
 				tmp = self.picture.replace("%K","%H")
 				tmpdt = value.replace(hour=value.hour)
 				if not tmpdt.tzinfo:
-					tmpdt = self.tz.localize(tmpdt)
+					tmpdt = self.dbtz.localize(tmpdt)
 				tmpdt = tmpdt.astimezone(self.tz)	# Make sure datetime is in the requested timezone for display
 				if tmpdt.hour == 0 and tmpdt.minute==0:
 					tmp = tmp.replace("%H","24")
@@ -735,7 +750,7 @@ class Value:
 				# subtract a day for displaying the correct date
 				tmpdt = value - timedelta(days=1) # get into the previous date
 				if not tmpdt.tzinfo:
-					tmpdt = self.tz.localize(tmpdt)
+					tmpdt = self.dbtz.localize(tmpdt)
 				tmpdt = tmpdt.astimezone(self.tz)	# Make sure datetime is in the requested timezone for display
 				result = tmpdt.strftime(self.picture)
 			else:
@@ -813,11 +828,11 @@ class Value:
 			dt = dtarg
 			if isinstance(dtarg,Value):
 				dt = dtarg.value
-				if not dt.tzinfo: dt = dtarg.tz.localize(dt)
+				if not dt.tzinfo: dt = dtarg.dbtz.localize(dt)
 
 			# If the passed in argument doesn't have a time zone, add one
 			if not dt.tzinfo:
-				dt = self.tz.localize(dt)
+				dt = self.dbtz.localize(dt)
 			try:
 				tmp.value = self[dt][1]
 			except:
@@ -872,22 +887,22 @@ class Value:
 				dt = start
 
 			if isinstance(dt,Value):
-				dt = self.tz.localize(dt.value)
+				dt = self.dbtz.localize(dt.value)
 			if not is_slice:
 				start = end = dt
 
 			if isinstance(start,Value):
 				start = start.value
 				start = start.replace(tzinfo=None)
-				start = self.tz.localize(start)
+				start = self.dbtz.localize(start)
 			if isinstance(end,Value):
 				end = end.value
 				end = end.replace(tzinfo=None)
-				end = self.tz.localize(end)
+				end = self.dbtz.localize(end)
 
 			# If the passed in argument doesn't have a time zone, add one
 			if isinstance(dt, datetime.datetime) and not dt.tzinfo:
-				dt = self.tz.localize(dt)
+				dt = self.dbtz.localize(dt)
 
 			if self.type == "TIMESERIES":
 				typ = Value.shared["dbtype"]
