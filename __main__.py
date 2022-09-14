@@ -17,11 +17,18 @@ def parseArgs():
 	parser.add_option( '-d', '--date', dest='base_date', default=_d, help="base date for data", metavar="DDMMMYYY" )
 	parser.add_option( '-t', '--time', dest='base_time', default=_t, help="base time for data", metavar="HHMM")
 	parser.add_option( '-a', '--address', dest='host', default='localhost', help="location for data connections", metavar='IP Address:port, hostname:port, or query URL base (for JSON)')
+	parser.add_option( '-A', '--alternate', dest='alternate', default=None, help="alternate location for data connections, if the primary is unavailable (only for JSON)", metavar='IP Address:port, hostname:port, or query URL base (for JSON)')
 	parser.add_option( '-z', '--tz', dest='tz', default=_z, help="default timezone", metavar='Time Zone Name')
+	parser.add_option( '-O', '--office', dest='office', default=None, help="default office to use if not specified in report", metavar='OFFICE_ID')
 	parser.add_option( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
 	parser.add_option( '-V', '--version',dest='show_ver',action='store_true',default=False, help="print version number")
 	parser.add_option( '-f', '--file', dest='data_file', default=None, help="Variable data file", metavar="DATAFILE" )
 	parser.add_option( '', '--timeout', dest='timeout', type="float", default=None, help="Socket timeout, in seconds" )
+
+	if len(sys.argv) == 1:
+		parser.print_help()
+		exit(2)
+
 	return parser.parse_args()[0]
 
 # Pytz does't know all the aliases and abbreviations
@@ -47,6 +54,21 @@ TIMEZONE_ALIASES = {
 }
 
 if __name__ == "__main__":
+	def filterAddress(address):
+		if address is None:
+			return (None, None)
+
+		# Check for protocol (e.g. https://)
+		# We don't actually care about it, so discard it (repgen only works with http or https)
+		match = re.match(r"(https?:\/\/)?(.+)", address)
+		host = match.group(2)
+		query = None
+		if '/' in host:
+			parts = host.split('/', 1)
+			host = parts[0]
+			query = parts[1] if len(parts) > 1 else None
+
+		return (host, query)
 
 	config = parseArgs()
 
@@ -55,15 +77,9 @@ if __name__ == "__main__":
 		sys.exit(0)
 
 	report_file = config.in_file
-	host = config.host
-	query = None
 
-	# Check for protocol (e.g. https://)
-	# We don't actually care about it, so discard it (repgen only works with http or https)
-	match = re.match(r"(https?:\/\/)?(.+)", host)
-	host = match.group(2)
-	if '/' in host:
-		(host, query) = host.split('/', 1)
+	(host, path) = filterAddress(config.host)
+	(althost, altpath) = filterAddress(config.alternate)
 
 	tz = None
 
@@ -83,7 +99,7 @@ if __name__ == "__main__":
 		tz = pytz.timezone(TIMEZONE_ALIASES.get(tz, tz))
 
 	# set some of the default values
-	Value(1, host=host, query=query, tz=tz, ucformat=config.compat, timeout=config.timeout)
+	Value(1, host=host, path=path, tz=tz, ucformat=config.compat, timeout=config.timeout, althost=althost, altpath=altpath, dbofc=config.office)
 	
 	# read the report file
 	f = open(report_file)
