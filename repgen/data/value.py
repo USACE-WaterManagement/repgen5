@@ -337,26 +337,26 @@ class Value:
 			sstart = self.start
 			send = self.end
 
-			# Convert time to destination timezone
-			# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
-			# 'astimezone' would be the "proper" behavior, but 'replace' mimics repgen_4.
-			start = tz.localize(sstart.replace(tzinfo=None))
-			end = tz.localize(send.replace(tzinfo=None))
 			path = self.path if not Value.shared["use_alternate"] else self.altpath
 			host = self.host if not Value.shared["use_alternate"] else self.althost
 			headers = { 'Accept': "application/json;version=2" }
 
-			params = urllib.urlencode( {
-				"name": ts_name,
-				"unit": units,
-				"begin": start.strftime(fmt),
-				"end":   end.strftime(fmt),
-				"office": self.dbofc if self.dbofc is not None else "",
-				"timezone": str(tz),
-				"pageSize": -1,					# always fetch all results
-			})
-
 			while(retry_count > 0):
+				# Convert time to destination timezone
+				# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
+				# 'astimezone' would be the "proper" behavior, but 'replace' mimics repgen_4.
+				start = tz.localize(sstart.replace(tzinfo=None))
+				end = tz.localize(send.replace(tzinfo=None))
+				params = urllib.urlencode( {
+					"name": ts_name,
+					"unit": units,
+					"begin": start.strftime(fmt),
+					"end":   end.strftime(fmt),
+					"office": self.dbofc if self.dbofc is not None else "",
+					"timezone": str(tz),
+					"pageSize": -1,					# always fetch all results
+				})
+
 				sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
 
 				try:
