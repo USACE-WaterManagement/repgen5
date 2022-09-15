@@ -1,6 +1,7 @@
-import sys,time,datetime,pytz,tempfile,shutil,os,re
+import sys,time,datetime,pytz,tempfile,shutil,os
 from repgen.data.value import Value
 from repgen.report import Report
+from repgen.util import filterAddress
 
 version = "5.0.3"
 
@@ -20,8 +21,8 @@ def parseArgs():
 	parser.add_argument( '-t', '--time', dest='base_time', default=_t, help="base time for data", metavar="HHMM")
 	parser.add_argument( '-z', '--tz', dest='tz', default=_z, help="default timezone; equivalent to `TZ=timezone`", metavar='Time Zone Name')
 	parser.add_argument( '-O', '--office', dest='office', default=None, help="default office to use if not specified in report; equivalent to `DBOFC=OFFICE_ID`", metavar='OFFICE_ID')
-	parser.add_argument( '-a', '--address', dest='host', default='localhost', help="location for data connections", metavar='IP Address:port, hostname:port, or query URL base (for JSON)')
-	parser.add_argument( '-A', '--alternate', dest='alternate', default=None, help="alternate location for data connections, if the primary is unavailable (only for JSON)", metavar='IP Address:port, hostname:port, or query URL base (for JSON)')
+	parser.add_argument( '-a', '--address', dest='host', default='localhost', help="location for data connections; equivalent to `DB=hostname:port/path`", metavar='IP_or_hostname:port[/basepath]')
+	parser.add_argument( '-A', '--alternate', dest='alternate', default=None, help="alternate location for data connections, if the primary is unavailable (only for RADAR)", metavar='IP_or_hostname:port[/basepath]')
 	parser.add_argument( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
 	parser.add_argument( '--timeout', dest='timeout', type=float, default=None, help="Socket timeout, in seconds" )
 	# This provides repgen4 style KEY=VALUE argument passing on the command-line
@@ -91,22 +92,6 @@ TIMEZONE_ALIASES = {
 }
 
 if __name__ == "__main__":
-	def filterAddress(address):
-		if address is None:
-			return (None, None)
-
-		# Check for protocol (e.g. https://)
-		# We don't actually care about it, so discard it (repgen only works with http or https)
-		match = re.match(r"(https?:\/\/)?(.+)", address)
-		host = match.group(2)
-		query = None
-		if '/' in host:
-			parts = host.split('/', 1)
-			host = parts[0]
-			query = parts[1] if len(parts) > 1 else None
-
-		return (host, query)
-
 	config = parseArgs()
 	kwargs = parse_vars(config.set)[0]
 

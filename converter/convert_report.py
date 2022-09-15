@@ -954,9 +954,15 @@ def main(input: str, output: str):
                                 value = f'"{value}"'
 
                             # Special case, we need to convert DB= to dbtype=
-                            if key == "DB" and value == "%DB":
+                            if key == "DB":
+                                if value == "%DB":
                                     key = "dbtype"
-                                value = '"json"'
+                                    value = '"radar"'
+                                    error(f"WARNING: Oracle connectivity is not supported. Use dbtype='radar' with RADAR.")
+                                elif value.lower() == "local":
+                                    error(f"WARNING: LOCAL DB connectivity is not supported.")
+                                else:
+                                    error(f"WARNING: DB option unsupported. Use dbtype='radar' with RADAR.")
                             elif key == "STIME":
                                 key = "start"
                             elif key == "ETIME":

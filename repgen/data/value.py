@@ -6,7 +6,7 @@ import math
 from decimal import Decimal,DivisionByZero,DecimalException,getcontext
 from ssl import SSLError
 import re
-from repgen.util import extra_operator
+from repgen.util import extra_operator, filterAddress
 import signal
 
 try:
@@ -171,6 +171,17 @@ class Value:
 					Value.shared["start"] = value
 					Value.shared["end"] = value
 				
+				continue
+			elif lkey == "db":
+				# Parse the DB option and, if a URL, use it
+				# This will not cascade the specific "DB" entry, only it's component values (host, path)
+				# This currently isn't intended as a fully supported option, but for familiarity/compatibility
+				if value.lower() not in ["local", "%db"]:
+					(host, path) = filterAddress(value)
+					Value.shared["host"] = host
+					Value.shared["path"] = path
+				elif value.lower()  == "local":
+					raise NotImplementedError("LOCAL DB option not supported.")
 				continue
 
 			Value.shared[lkey] = value
@@ -338,7 +349,7 @@ class Value:
 					self.value = self.values[0][1]
 			except Exception as err:
 				print( repr(err) + " : " + str(err) )
-		elif self.dbtype.upper() == "JSON":
+		elif self.dbtype.upper() in ["JSON", "RADAR"]:
 			import json, http.client as httplib, urllib.parse as urllib
 
 			#fmt = "%d-%b-%Y %H%M"
