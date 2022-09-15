@@ -95,7 +95,7 @@ T06 = Value(T00+timedelta(hours=6))
 #     Define all Top of Conservation Storage values
 #
 BBTCS = Value(
-	dbtype="json",
+	dbtype="radar",
 	DBLOC="Black Butte",
 	DBPTYP="Inst",
 	DBPAR="Stor-Top Con",
@@ -107,7 +107,7 @@ BBTCS = Value(
 	UNDEF="      -NR-",
 	TIME=BASDATE,
 	DBUNITS="ac-ft",
-	tz="PST8PDT",
+	DBTZ="PST8PDT",
 )
 NHTCS = Value(
 	DBLOC="New Hogan",
@@ -232,7 +232,7 @@ FTCS12 = Value(
 	DBLOC="Folsom Lake",
 	DBINT=0,
 	DBVER="Calc-NWS",
-	tz="UTC",
+	DBTZ="UTC",
 	TIME=T12,
 	MISSTR="-NF-",
 	UNDEF="-NF-",
@@ -258,7 +258,7 @@ BBSTO = Value(
 	MISSTR="     -NR-",
 	UNDEF="     -NR-",
 	TIME=BASDATE,
-	tz="PST8PDT",
+	DBTZ="PST8PDT",
 	DBUNITS="ac-ft",
 )
 ENSTO = Value(
@@ -461,7 +461,7 @@ FLSTO12 = Value(
 	DBINT="1Hour",
 	DBVER="Raw-USBR-Combined",
 	TIME=T12,
-	tz="UTC",
+	DBTZ="UTC",
 	PICTURE="%7.0f",
 	MISSTR="-NF-",
 	UNDEF="-NF-",
@@ -1811,7 +1811,7 @@ BB10 = Value(
 	MISSTR="     -NR-",
 	UNDEF="     -NR-",
 	TIME=BASDATE,
-	tz="PST8PDT",
+	DBTZ="PST8PDT",
 	DBUNITS="ac-ft",
 )
 #	DBLOC="Black Butte-Pool" DBPAR=Elev DBPTYP=Inst DBDUR=0 DBVER=Calc-val
@@ -2381,7 +2381,7 @@ BBO = Value(
 	UNDEF="      -NR-",
 	TIME=BASDATE,
 	DBUNITS="cfs",
-	tz="PST8PDT",
+	DBTZ="PST8PDT",
 )
 NHO = Value(
 	DBLOC="New Hogan",
@@ -2501,7 +2501,7 @@ FOLO12 = Value(
 	DBVER="CDEC-confidential-raw",
 	MISSTR="    -NR-",
 	UNDEF="    -NR-",
-	tz="UTC",
+	DBTZ="UTC",
 	TIME=T12,
 )
 FOLO18 = Value(
@@ -2525,7 +2525,7 @@ BBI = Value(
 	UNDEF="      -NR-",
 	TIME=BASDATE,
 	DBUNITS="cfs",
-	tz="PST8PDT",
+	DBTZ="PST8PDT",
 )
 NHI = Value(
 	DBLOC="New Hogan",
@@ -2641,7 +2641,7 @@ FOLI12 = Value(
 	DBINT="1Hour",
 	DBPTYP="Ave",
 	DBDUR="1Hour",
-	tz="UTC",
+	DBTZ="UTC",
 	TIME=T12,
 )
 FOLI18 = Value(
@@ -2672,7 +2672,7 @@ EOSTO = Value(
 	MISSTR="     -NR-",
 	UNDEF="         ",
 	TIME=UTDATE,
-	tz="MST7MDT",
+	DBTZ="MST7MDT",
 	DBLOC="Echo",
 	DBPTYP="Inst",
 	DBPAR="Stor",

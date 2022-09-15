@@ -388,7 +388,7 @@ MID.value = MID.value.replace(hour=0,minute=0,second=0,microsecond=0)
 FCST_T = Value(
 	MISSTR="   ",
 	UNDEF="   ",
-	dbtype="json",
+	dbtype="radar",
 	DBLOC="Black Butte",
 	DBPAR="Flow-Reservoir inflow",
 	DBPTYP="Inst",
@@ -396,7 +396,7 @@ FCST_T = Value(
 	DBDUR=0,
 	DBVER="NWS-forecast-rev",
 	DBUNITS="cfs",
-	tz="PST8PDT",
+	DBTZ="PST8PDT",
 	start=STIME,
 	end=ETIME,
 	PICTURE="%6.0f",

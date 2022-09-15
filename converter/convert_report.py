@@ -944,7 +944,7 @@ def main(input: str, output: str):
                                         value = value.replace(match.group(0), func(dest, *args))
                                         print(f"Function mapped: '{match.group(0)}' -> '{value}'")
                                     else:
-                                        error(f"Error mapping function: {function}")
+                                        error(f"ERROR: Unable to map function: {function}")
                                 else:
                                     break
 
@@ -954,15 +954,19 @@ def main(input: str, output: str):
                                 value = f'"{value}"'
 
                             # Special case, we need to convert DB= to dbtype=
-                            if key == "DB" and value == "%DB":
-                                key = "dbtype"
-                                value = '"json"'
+                            if key == "DB":
+                                if value == "%DB":
+                                    key = "dbtype"
+                                    value = '"radar"'
+                                    error(f"WARNING: Oracle connectivity is not supported. Use dbtype='radar' with RADAR.")
+                                elif value.lower() == "local":
+                                    error(f"WARNING: LOCAL DB connectivity is not supported.")
+                                else:
+                                    error(f"WARNING: DB option unsupported. Use dbtype='radar' with RADAR.")
                             elif key == "STIME":
                                 key = "start"
                             elif key == "ETIME":
                                 key = "end"
-                            elif key == "DBTZ":
-                                key = "tz"
                             elif key == "TYPE":
                                 key = "dbtype"
 
