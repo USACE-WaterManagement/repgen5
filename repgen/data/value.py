@@ -781,7 +781,7 @@ class Value:
 				tmpdt = value.replace(hour=value.hour)
 				if not tmpdt.tzinfo:
 					tmpdt = self.dbtz.localize(tmpdt)
-				tmpdt = tmpdt.astimezone(self.tz)	# Make sure datetime is in the requested timezone for display
+				tmpdt = tmpdt.astimezone(self.dbtz)	# Make sure datetime is in the requested timezone for display
 				if tmpdt.hour == 0 and tmpdt.minute==0:
 					tmp = tmp.replace("%H","24")
 					tmpdt = tmpdt - timedelta(days=1) # get into the previous date
@@ -792,7 +792,7 @@ class Value:
 				tmpdt = value - timedelta(days=1) # get into the previous date
 				if not tmpdt.tzinfo:
 					tmpdt = self.dbtz.localize(tmpdt)
-				tmpdt = tmpdt.astimezone(self.tz)	# Make sure datetime is in the requested timezone for display
+				tmpdt = tmpdt.astimezone(self.dbtz)	# Make sure datetime is in the requested timezone for display
 				result = tmpdt.strftime(self.picture)
 			else:
 				result = value.strftime(self.picture)
