@@ -3,7 +3,7 @@ from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
 
-version = "5.0.4"
+version = "5.0.5"
 
 # setup base time, ex
 # default formats
