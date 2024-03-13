@@ -110,7 +110,12 @@ if __name__ == "__main__":
 
 	tz = None
 
-	if config.tz:
+	# Reload the timezone information based on passed in value
+	if hasattr(time, 'tzset') and config.tz:
+		# Windows doesn't support reloading timezone information
+		os.environ['TZ'] = config.tz
+		time.tzset()
+	elif config.tz:
 		tz = pytz.timezone(config.tz)
 
 	if not tz:
@@ -130,13 +135,11 @@ if __name__ == "__main__":
 
 	base_date = kwargs.get("DATE", config.base_date)
 	base_time = kwargs.get("TIME", config.base_time)
-	delta = datetime.timedelta()
 
-	if base_time == "2400": 
-		base_time = "0000"
-		delta = datetime.timedelta(days=1)
-
-	_t = datetime.datetime.strptime(base_date + " " + base_time , "%d%b%Y %H%M" ) + delta
+	if base_time == "2400": base_time = "0000"
+	_t = datetime.datetime.strptime(base_date + " " + base_time , "%d%b%Y %H%M" )
+	if config.base_time == "2400":
+		_t = _t + datetime.timedelta(days=1)
 
 	print( repr(_t) )
 

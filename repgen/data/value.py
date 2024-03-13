@@ -75,14 +75,10 @@ class Value:
 	#endregion
 
 	def __init__( self, *args, **kwargs ):
-		def processDateTime(value, key, extra_part=None):
-			is_24 = False
-			time = extra_part
-
-			if extra_part:
-				time, is_24 = processDateTime(extra_part, None)
-					
+		def processDateTime(value, key):
 			if isinstance(value, str) or isinstance(value, int):
+				is_24 = False
+
 				if str(value).startswith("2400"):
 					is_24 = True
 					value = str(value).replace("2400", "0000", 1)
@@ -109,22 +105,10 @@ class Value:
 					except ValueError: pass
 
 				# self.time is a property based on start and end, don't assign it directly
-				if key is not None and key != "time" and key != "date":
+				if key != "time" and key != "date":
 					Value.shared[key] = value
 
-			# If we have a time portion too, add that in
-			if time:
-				if isinstance(value, datetime.datetime):
-					# Check if midnight, if so, subtract a day from the returned date, so the "day" is correct.
-					if value.hour == 0 and value.minute == 0 and value.second == 0:
-						value = (value - timedelta(days=1)).date()
-					else:
-						value = value.date()
-				value = datetime.datetime.combine(value, time)
-				if is_24:
-					value = value + timedelta(days=+1)
-
-			return (value, is_24)
+			return value
 
 		self.index = None
 		self.type="SCALAR"
@@ -160,9 +144,6 @@ class Value:
 		# go through the keyword args,
 		# set them as static variables for the next call
 
-		pending_time = None
-		pending_date = None
-		
 		# update the shared keywords
 		for key in kwargs:
 			value = kwargs[key]
@@ -173,25 +154,14 @@ class Value:
 			lkey = key.lower()
 			if (lkey == "tz" or lkey == "dbtz") and isinstance(value, string_types):
 				value = pytz.timezone(value)
-			elif lkey == "start" or lkey == "end" or lkey.endswith("time") or lkey.endswith("date"):
+			elif (lkey == "start" or lkey == "end" or lkey.endswith("time") or lkey.endswith("date")):
 				if isinstance(value,(Value)):
 					if value.type == 'TIMESERIES' and len(value.values) == 1:
 						value = value.values[0][0]
 					else:
 						value = value.value # internally we want the actual datetime
 
-				if lkey.endswith("time"):
-					pending_time = value
-				elif lkey.endswith("date"):
-					pending_date = value
-
-				if pending_date and pending_time:
-					value, is24 = processDateTime(pending_date, lkey, pending_time)
-
-				value, is24 = processDateTime(value, lkey)
-				if is24 and pending_date is None:
-					# Skip this, process it later
-					continue
+				value = processDateTime(value, lkey)
 
 				if lkey.startswith('s'):
 					Value.shared["start"] = value
@@ -781,7 +751,7 @@ class Value:
 				tmpdt = value.replace(hour=value.hour)
 				if not tmpdt.tzinfo:
 					tmpdt = self.dbtz.localize(tmpdt)
-				tmpdt = tmpdt.astimezone(self.dbtz)	# Make sure datetime is in the requested timezone for display
+				tmpdt = tmpdt.astimezone(self.tz)	# Make sure datetime is in the requested timezone for display
 				if tmpdt.hour == 0 and tmpdt.minute==0:
 					tmp = tmp.replace("%H","24")
 					tmpdt = tmpdt - timedelta(days=1) # get into the previous date
@@ -792,7 +762,7 @@ class Value:
 				tmpdt = value - timedelta(days=1) # get into the previous date
 				if not tmpdt.tzinfo:
 					tmpdt = self.dbtz.localize(tmpdt)
-				tmpdt = tmpdt.astimezone(self.dbtz)	# Make sure datetime is in the requested timezone for display
+				tmpdt = tmpdt.astimezone(self.tz)	# Make sure datetime is in the requested timezone for display
 				result = tmpdt.strftime(self.picture)
 			else:
 				result = value.strftime(self.picture)

@@ -963,6 +963,10 @@ def main(input: str, output: str):
                                     error(f"WARNING: LOCAL DB connectivity is not supported.")
                                 else:
                                     error(f"WARNING: DB option unsupported. Use dbtype='radar' with RADAR.")
+                            elif key == "STIME":
+                                key = "start"
+                            elif key == "ETIME":
+                                key = "end"
                             elif key == "TYPE":
                                 key = "dbtype"
 
