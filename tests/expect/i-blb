@@ -397,13 +397,13 @@ FCST_T = Value(
 	DBVER="NWS-forecast-rev",
 	DBUNITS="cfs",
 	DBTZ="PST8PDT",
-	start=STIME,
-	end=ETIME,
+	STIME=STIME,
+	ETIME=ETIME,
 	PICTURE="%6.0f",
 )
 FCST = Value(
-	start=BTM,
-	end=ETIME,
+	STIME=BTM,
+	ETIME=ETIME,
 )
 STGI = Value(
 	DBLOC="Stony Gorge",
@@ -448,8 +448,8 @@ BP = Value(
 	DBPTYP="Inst",
 	DBDUR=0,
 	DBVER="Calc-val",
-	start=STIME,
-	end=BTM,
+	STIME=STIME,
+	ETIME=BTM,
 )
 INFLOW = Value(
 	DBPAR="Flow-Res In",
@@ -458,8 +458,8 @@ INFLOW = Value(
 	DBDUR="1Hour",
 	DBVER="Calc-val",
 	PICTURE="%6.0f",
-	start=STIME,
-	end=BTM,
+	STIME=STIME,
+	ETIME=BTM,
 	DBUNITS="cfs",
 )
 OUTFLOW = Value(
@@ -499,8 +499,8 @@ RELCHG = Value(
 	DBVER="Release-Val",
 	DBPAR="Flow-To",
 	DBUNITS="cfs",
-	start=STIME,
-	end=ETIME,
+	STIME=STIME,
+	ETIME=ETIME,
 )
 TIME = Value(FCST_T.datatimes(),
 	PICTURE="%d%b%Y %K%M",
