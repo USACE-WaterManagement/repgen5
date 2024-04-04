@@ -68,7 +68,7 @@ MONYR = Value(BASDATE,
 STIME = Value(BASDATE)
 STIME.value = STIME.value.replace(day=2)
 STIME.picture = "%B  %Y"
-EOM = Value(BASDATE.value.replace(day=calendar.monthrange(BASDATE.value.timetuple().tm_year, BASDATE.value.timetuple().tm_mon)[1],hour=0,minute=0,second=0,microsecond=0))
+EOM = Value(BASDATE.value.replace(year=BASDATE.value.timetuple().tm_year,month=BASDATE.value.timetuple().tm_mon,day=calendar.monthrange(BASDATE.value.timetuple().tm_year, BASDATE.value.timetuple().tm_mon)[1],hour=0,minute=0,second=0,microsecond=0))
 STMDAY = Value((STIME.value.timetuple().tm_year - 1900)*1000 + STIME.value.timetuple().tm_yday)
 EOMDAY = Value((EOM.value.timetuple().tm_year - 1900)*1000 + EOM.value.timetuple().tm_yday)
 YSTDAY = Value((CURDATE.value.timetuple().tm_year - 1900)*1000 + CURDATE.value.timetuple().tm_yday - 1)
