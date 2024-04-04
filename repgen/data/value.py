@@ -1103,9 +1103,9 @@ class Value:
 					print("Failed to compute a values %s : %s" % (repr(err),repr(str)), file=sys.stderr)
 				if isinstance( res, (list,tuple)):
 					for i in range(len(res)):
-						values[i].values.append( (t,res[i],0) )
+						values[i].values.append( (t,res[i],0 if res[i] is not None else 5) )
 				else:
-					values[0].values.append( ( t,res,0) )
+					values[0].values.append( ( t,res,0 if res is not None else 5) )
 
 		return values
 
