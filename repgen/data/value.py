@@ -447,32 +447,33 @@ class Value:
 						print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params)
 
 						try:
-							if Value._conn is None:
-								if sys.platform != "win32" and self.timeout:
-									# The SSL handshake can sometimes fail and hang indefinitely
-									# inflate the timeout slightly, so the socket has a chance to return a timeout error
-									# This is a failsafe to prevent a hung process
-									signal.alarm(int(self.timeout * 1.1) + 1)
+							if sys.platform != "win32" and self.timeout:
+								# The SSL handshake can sometimes fail and hang indefinitely
+								# inflate the timeout slightly, so the socket has a chance to return a timeout error
+								# This is a failsafe to prevent a hung process
+								signal.alarm(int(self.timeout * 1.1) + 1)
 
+							if Value._conn is None:
 								try:
 									from repgen.util.urllib2_tls import TLS1Connection
 									Value._conn = TLS1Connection( host, timeout=self.timeout )
-									Value._conn.request("GET", "/" )
+									Value._conn.request("GET", "/{path}" )
 								except SSLError as err:
 									print(type(err).__name__ + " : " + str(err))
 									print("Falling back to non-SSL")
 									# SSL not supported (could be standalone instance)
 									Value._conn = httplib.HTTPConnection( host, timeout=self.timeout )
-									Value._conn.request("GET", "/" )
+									Value._conn.request("GET", "/{path}" )
 
 								# Test if the connection is valid
 								Value._conn.getresponse().read()
 
-								if sys.platform != "win32" and self.timeout:
-									signal.alarm(0) # disable the alarm
-
 							Value._conn.request("GET", query+params, None, headers )
 							r1 = Value._conn.getresponse()
+
+							# getresponse can also hang sometimes, so keep alarm active until after we fetch the response
+							if sys.platform != "win32" and self.timeout:
+								signal.alarm(0) # disable the alarm
 							
 							# Grab the charset from the headers, and decode the response using that if set
 							# HTTP default charset is iso-8859-1 for text (RFC 2616), and utf-8 for JSON (RFC 4627)
