@@ -190,7 +190,7 @@ def convert_picture_format(picture):
     count = 0
     decimal = False
     decimal_count = 0
-    sign = False
+    sign = ""
     leading_zero = False
     first_zero_position = -1
     result = ""
@@ -236,7 +236,9 @@ def convert_picture_format(picture):
             char = picture[0]
             picture = picture[1:]
 
-            if char == "S": sign = True
+            if char == "S": 
+                sign = "+"
+                current = current + char
             else:
                 if char == 'N':
                     count = count + 1
@@ -275,9 +277,9 @@ def convert_picture_format(picture):
                 current = current + char
 
     if decimal_count > 0:
-        result = result.replace(current, f"%{count}{triad_separator}.{decimal_count}f")
+        result = result.replace(current, f"%{sign}{count}{triad_separator}.{decimal_count}f")
     elif count > 0:
-        result = result.replace(current, f"%{count}{triad_separator}.0f")
+        result = result.replace(current, f"%{sign}{count}{triad_separator}.0f")
     count = 0
     decimal_count = 0
 
