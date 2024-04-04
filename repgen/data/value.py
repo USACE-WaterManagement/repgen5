@@ -56,22 +56,22 @@ class Value:
 	_conn = None
 
 	#region Properties
-	def __get_time(self):
+	def __get_time(self) -> datetime.datetime:
 		if self.start == self.end: return self.start
 		else: return None
 	def __set_time(self, value: datetime.datetime):
 		self.start = self.end = value
 
 	# 'time' can only be set if 'start' and 'end' are the same value, so just wrap it in a property.
-	time = property(__get_time, __set_time)	# type: datetime.datetime
+	time: datetime.datetime = property(__get_time, __set_time)	# type: datetime.datetime
 
-	def __get_dbtz(self):
+	def __get_dbtz(self) -> datetime.tzinfo:
 		return getattr(self, "_dbtz", self.tz)
-	def __set_dbtz(self, value: datetime.datetime):
+	def __set_dbtz(self, value: datetime.tzinfo):
 		self._dbtz = value
 
 	# Just a wrapper to easily get the db timezone, or the display tz if not set
-	dbtz = property(__get_dbtz, __set_dbtz)	# type: tzinfo
+	dbtz: datetime.tzinfo = property(__get_dbtz, __set_dbtz)	# type: tzinfo
 	#endregion
 
 	def __init__( self, *args, **kwargs ):
@@ -270,18 +270,22 @@ class Value:
 			pass
 		elif self.dbtype.upper() == "GENTS":
 			self.type = "TIMESERIES"
-			current_t = self.start
-			end_t = self.end
+			tz = self.dbtz
+			current_t = tz.localize(self.start.replace(tzinfo=None))
+			end_t = tz.localize(self.end.replace(tzinfo=None))
 			while current_t <= end_t:
 				if isinstance(self.value, number_types):
-					self.values.append( ( current_t.astimezone(self.dbtz),self.value,0 ) )
+					self.values.append( ( current_t,self.value,0 ) )
 				elif isinstance(self.value, Value ):
 					self.value = self.value.value
-					self.values.append( ( current_t.astimezone(self.dbtz),self.value,0 ) )
+					self.values.append( ( current_t,self.value,0 ) )
 				elif isfunction(self.value):
-					self.values.append( ( current_t.astimezone(self.dbtz),self.value(),0 ) )
+					self.values.append( ( current_t,self.value(),0 ) )
+				elif self.value is None:
+					self.values.append( ( current_t,None,5 ) )
 
-				current_t = current_t + self.interval
+				# Add the interval as a naive date, so DST is obeyed (we want to add solar days, not x*24h days).
+				current_t =	tz.localize(datetime.datetime.combine(current_t.date(), current_t.time()) + self.interval)
 		elif self.dbtype.upper() == "TEXT":
 			def parse_slice(value):
 				# From: https://stackoverflow.com/a/54421070, modified to support repgen4 range format
@@ -388,10 +392,13 @@ class Value:
 			units = self.dbunits
 			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, str(self.dbint), str(self.dbdur), self.dbver) )
 
+			if self.start is None or self.end is None:
+				return
+			
 			# Loop until we fetch some data, if missing is NOMISS
 			retry_count = 10			# Go back at most this many weeks + 1
-			sstart = self.start
-			send = self.end
+			sstart = tz.normalize(tz.localize(self.start)) if self.start.tzinfo is None else self.start
+			send = tz.normalize(tz.localize(self.end)) if self.end.tzinfo is None else self.end
 
 			path = self.path if not Value.shared["use_alternate"] else self.altpath
 			host = self.host if not Value.shared["use_alternate"] else self.althost
@@ -400,9 +407,13 @@ class Value:
 			while(retry_count > 0):
 				# Convert time to destination timezone
 				# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
-				# 'astimezone' would be the "proper" behavior, but 'replace' mimics repgen_4.
-				start = tz.localize(sstart.replace(tzinfo=None))
-				end = tz.localize(send.replace(tzinfo=None))
+				# 'astimezone' is be the "proper" behavior, but 'replace' mimics repgen_4.
+				# This should *not* be a naive datetime
+				assert sstart.tzinfo is not None, "Naive datetime; start time should contain timezone"
+				assert send.tzinfo is not None, "Naive datetime; end time should contain timezone"
+				start = sstart.astimezone(tz)
+				end = send.astimezone(tz)
+				
 				params = urllib.urlencode( {
 					"name": ts_name,
 					"unit": units,
@@ -789,13 +800,17 @@ class Value:
 			elif value.hour == 0 and value.minute == 0 and value.second == 0 and not "%H" in self.picture:
 				# If the time is exactly midnight, but not printing the time,
 				# subtract a day for displaying the correct date
-				tmpdt = value - timedelta(days=1) # get into the previous date
+				tmpdt = value - timedelta(hours=1) # get into the previous date
 				if not tmpdt.tzinfo:
 					tmpdt = self.dbtz.localize(tmpdt)
 				tmpdt = tmpdt.astimezone(self.dbtz)	# Make sure datetime is in the requested timezone for display
 				result = tmpdt.strftime(self.picture)
 			else:
-				result = value.strftime(self.picture)
+				tmpdt = value
+				if not tmpdt.tzinfo:
+					tmpdt = self.dbtz.localize(tmpdt)
+				tmpdt = tmpdt.astimezone(self.dbtz)	# Make sure datetime is in the requested timezone for display
+				result = tmpdt.strftime(self.picture)
 			# If compat option was set, upper case the dates in the report
 			if self.ucformat: result = result.upper()
 			return result
@@ -835,6 +850,7 @@ class Value:
 				tmp.values.append( (v[0],v[0],v[2]) )
 		elif self.type == "SCALAR":
 			tmp.time = self.time
+			tmp.value = self.time
 			tmp.values.append( (self.time, self.time, None) )
 		return tmp
 
@@ -878,6 +894,7 @@ class Value:
 				tmp.value = self[dt][1]
 			except:
 				if missval == "MISSOK":
+					tmp.time = dt
 					tmp.value = tmp.misstr
 				elif missval == "NOMISS":
 					if nearest == "AT":
@@ -915,6 +932,18 @@ class Value:
 		else:
 			return None
 
+	def __setitem__( self, key, value ):
+		dt = key
+
+		if isinstance(dt, datetime.datetime) and not dt.tzinfo:
+			dt = self.dbtz.localize(dt)
+
+		if not isinstance(value, Value):
+			value = Value(value, time=dt)
+
+		self.type = "TIMESERIES"
+		self.values.append((dt, value.value, 0 if value.value is not None else 5))
+
 	def __getitem__( self, arg ):
 			dt = arg
 			is_slice = False
@@ -928,22 +957,24 @@ class Value:
 				dt = start
 
 			if isinstance(dt,Value):
-				dt = self.dbtz.localize(dt.value)
+				dt = dt.value
+
+			# If the passed in argument doesn't have a time zone, add one
+			if isinstance(dt, datetime.datetime):
+				if not dt.tzinfo:
+					dt = self.dbtz.localize(dt)
+				else:
+					dt = dt.astimezone(self.dbtz)
+
 			if not is_slice:
 				start = end = dt
 
 			if isinstance(start,Value):
 				start = start.value
-				start = start.replace(tzinfo=None)
-				start = self.dbtz.localize(start)
+				start = self.dbtz.localize(start) if start.tzinfo is None or start.tzinfo.utcoffset(start) is None else start.astimezone(self.dbtz)
 			if isinstance(end,Value):
 				end = end.value
-				end = end.replace(tzinfo=None)
-				end = self.dbtz.localize(end)
-
-			# If the passed in argument doesn't have a time zone, add one
-			if isinstance(dt, datetime.datetime) and not dt.tzinfo:
-				dt = self.dbtz.localize(dt)
+				end = self.dbtz.localize(end) if end.tzinfo is None or end.tzinfo.utcoffset(start) is None else end.astimezone(self.dbtz)
 
 			if self.type == "TIMESERIES":
 				typ = Value.shared["dbtype"]
