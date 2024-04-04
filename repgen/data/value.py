@@ -597,23 +597,35 @@ class Value:
 		Value.shared["dbtype"]=typ
 		print( "Doing Op %s on %s with other %s" % (repr(op),repr(self),repr(other) ) )
 		if isinstance( other, number_types ) and self.type=="TIMESERIES":
+			old_trap = getcontext().traps[DivisionByZero]
+			getcontext().traps[DivisionByZero] = False
 			for v in self.values:
 				if (v is not None) and (v[1] is not None) and (other is not None):
-					if isinstance(v[1], Decimal) and not isinstance(other, Decimal):
-						tmp.values.append( (v[0],op(v[1], Decimal.from_float(other)),v[2]) )
-					else:
-						tmp.values.append( (v[0],op(v[1], other),v[2]) )
+					try:
+						if isinstance(v[1], Decimal) and not isinstance(other, Decimal):
+							tmp.values.append( (v[0],op(v[1], Decimal.from_float(other)),v[2]) )
+						else:
+							tmp.values.append( (v[0],op(v[1], other),v[2]) )
+					except (ZeroDivisionError):
+						tmp.values.append( (v[0], float('NaN'), v[2] ) )
 				else:
 					tmp.values.append( ( v[0], None, v[2] ) )
+			getcontext().traps[DivisionByZero] = old_trap
 		elif isinstance( other, (*number_types,datetime.timedelta,timedelta) ) and self.type=="SCALAR":
 			if (self.value is not None) and (other is not None):
 				if self.ismissing() or self.ismissing(other):
 					tmp.value = self.missdta
 				else:
-					if isinstance(self.value, Decimal) and not isinstance(other, Decimal):
-						tmp.value = op(self.value,Decimal.from_float(other))
-					else:
-						tmp.value = op(self.value,other)
+					old_trap = getcontext().traps[DivisionByZero]
+					getcontext().traps[DivisionByZero] = False
+					try:
+						if isinstance(self.value, Decimal) and not isinstance(other, Decimal):
+							tmp.value = op(self.value,Decimal.from_float(other))
+						else:
+							tmp.value = op(self.value,other)
+					except (ZeroDivisionError):
+						tmp.value = float('NaN')
+					getcontext().traps[DivisionByZero] = old_trap
 			else:
 				tmp.value = None
 			tmp.type="SCALAR"
@@ -622,14 +634,26 @@ class Value:
 				if self.ismissing() or self.ismissing(other):
 					tmp.value = self.missdta
 				else:
-					tmp.value = op(self.values[0][1],other)
+					old_trap = getcontext().traps[DivisionByZero]
+					getcontext().traps[DivisionByZero] = False
+					try:
+						tmp.value = op(self.values[0][1],other)
+					except (ZeroDivisionError):
+						tmp.value = float('NaN')
+					getcontext().traps[DivisionByZero] = old_trap
 			else:
 				tmp.value = None
 			tmp.type="SCALAR"
 		elif isinstance( other, Value ):
 			if self.type == "SCALAR" and other.type == "SCALAR":
 				if self.known() and other.known():
-					tmp.value = op(self.value,other.value)
+					old_trap = getcontext().traps[DivisionByZero]
+					getcontext().traps[DivisionByZero] = False
+					try:
+						tmp.value = op(self.value,other.value)
+					except (ZeroDivisionError):
+						tmp.value = float('NaN')
+					getcontext().traps[DivisionByZero] = old_trap
 				else:
 					if self.value is None or other.value is None:
 						tmp.value = None
@@ -649,7 +673,7 @@ class Value:
 						else:
 							try:
 								tmp.values.append( (v[0], op(v[1],other.value), v[2] ) )
-							except (DivisionByZero,ZeroDivisionError):
+							except (ZeroDivisionError):
 								tmp.values.append( (v[0], float('NaN'), v[2] ) )
 					else:
 						tmp.values.append( (v[0], None, v[2] ) )
@@ -661,7 +685,7 @@ class Value:
 					if (v[1] is not None) and (self.value is not None):
 						try:
 							tmp.values.append( (v[0], op(v[1],self.value), v[2] ) )
-						except (DivisionByZero,ZeroDivisionError):
+						except (ZeroDivisionError):
 							tmp.values.append( (v[0], float('NaN'), v[2] ) )
 					else:
 						if self.ismissing() or self.ismissing(v[1]):
