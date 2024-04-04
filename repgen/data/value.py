@@ -213,7 +213,11 @@ class Value:
 				elif value.lower()  == "local":
 					raise NotImplementedError("LOCAL DB option not supported.")
 				continue
+			elif lkey == "copyshared":
+				# never copy these keywords
+				continue
 
+			setattr(self, lkey, value)
 			Value.shared[lkey] = value
 
 		# Correct any split date/times
@@ -242,6 +246,9 @@ class Value:
 
 		# load the keywords for this instance
 		if len(args) == 1 and isinstance(args[0], Value):
+			if kwargs is not None and kwargs.get('copyshared', True) == False:
+				return
+
 			for key in Value.shared:
 				if key not in ["time", "start", "end", "value", "dbtz"]:
 					setattr(self, key, Value.shared[key])
@@ -845,6 +852,7 @@ class Value:
 		tmp = Value(dbtype="copy")
 		Value.shared["dbtype"]=typ
 
+		tmp.type = self.type
 		if self.type == "TIMESERIES":
 			for v in self.values:
 				tmp.values.append( (v[0],v[0],v[2]) )
@@ -1044,7 +1052,6 @@ class Value:
 		
 	"""
 				
-
 	@staticmethod
 	def apply( function, *args, **kwargs ):
 		"""
@@ -1064,7 +1071,11 @@ class Value:
 		values = []
 		typ = Value.shared["dbtype"]
 		for i in range(0,returns):
-			tmp = Value(dbtype="copy")
+			# If the first argument is a Value object, copy it so the properties apply
+			if len(args) > 0 and isinstance(args[0], Value):
+				tmp = Value(args[0], copyshared=False)
+			else:
+				tmp = Value(dbtype="copy")
 			tmp.values = []
 			tmp.value = None
 			values.append( tmp )
@@ -1079,7 +1090,6 @@ class Value:
 			if isinstance( ret, (list,tuple) ):
 				for i in range(len(ret)):
 					values[i].value = ret[i]
-					
 			else:
 				values[0].value = ret
 		elif len(times) > 0:
