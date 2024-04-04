@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 ############################################################
 # Repgen 4 -> 5 report converter                           #
 # Author: Daniel Osborne <Daniel.T.Osborne@usace.army.mil> #
@@ -1159,4 +1160,4 @@ if __name__ == "__main__":
     output = sys.argv[2]
     main(input, output)
     
-# vim: ts=4 sw=4 expandtab
+# vim: ts=4 sw=4 expandtab fileencoding=utf-8
