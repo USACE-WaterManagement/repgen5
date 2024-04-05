@@ -1536,7 +1536,13 @@ class Value:
 			if len(timesets)==1:
 				times = list(timesets[0])
 			else:
-				times =list( timesets[0].intersection( *timesets[1:] ) ) # here we should check for intersection or union
+				op = kwargs.get("op", "intersection")
+				if op == "intersection":
+					times = list( timesets[0].intersection( *timesets[1:] ) ) # here we should check for intersection or union
+				elif op == "union":
+					times = list( timesets[0].union( *timesets[1:] ) ) # here we should check for intersection or union
+				else:
+					raise ValueError(op)
 
 		times.sort() # make sure everything is in time ascending order
 		return times
