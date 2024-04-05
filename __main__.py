@@ -11,8 +11,9 @@ def parseArgs():
 	import argparse
 	parser=argparse.ArgumentParser()
 	_z = os.environ.get("TZ", None)		# Get TZ from environment, if specified
-	_d = time.strftime("%d%b%Y", time.localtime())
-	_t = time.strftime("%H%M", time.localtime())
+	dt = datetime.datetime.now().astimezone()
+	_d = dt.strftime("%d%b%Y")
+	_t = dt.strftime("%H%M")
 	parser.add_argument( '-V', '--version',dest='show_ver',action='store_true',default=False, help="print version number")
 	parser.add_argument( '-i', '--in', dest='in_file', help="INput report file", metavar="REPFILE" )
 	parser.add_argument( '-o', '--out', dest='out_file', default="-", help="OUTput file with filled report", metavar="REPOUTPUT")
