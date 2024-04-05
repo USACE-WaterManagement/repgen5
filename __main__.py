@@ -124,7 +124,11 @@ if __name__ == "__main__":
 	Value(1, host=host, path=path, tz=tz, ucformat=config.compat, timeout=config.timeout, althost=althost, altpath=altpath, dbofc=config.office, **kwargs)
 	
 	# read the report file
-	f = open(report_file)
+	if report_file == '-': 
+		report_file = sys.stdin.name
+		f = sys.stdin
+	else:
+		f = open(report_file, 'rt')
 	report_data = f.read()
 	f.close()
 
