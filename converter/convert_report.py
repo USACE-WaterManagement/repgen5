@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 ############################################################
 # Repgen 4 -> 5 report converter                           #
 # Author: Daniel Osborne <Daniel.T.Osborne@usace.army.mil> #
@@ -189,7 +190,7 @@ def convert_picture_format(picture):
     count = 0
     decimal = False
     decimal_count = 0
-    sign = False
+    sign = ""
     leading_zero = False
     first_zero_position = -1
     result = ""
@@ -235,7 +236,9 @@ def convert_picture_format(picture):
             char = picture[0]
             picture = picture[1:]
 
-            if char == "S": sign = True
+            if char == "S": 
+                sign = "+"
+                current = current + char
             else:
                 if char == 'N':
                     count = count + 1
@@ -274,9 +277,9 @@ def convert_picture_format(picture):
                 current = current + char
 
     if decimal_count > 0:
-        result = result.replace(current, f"%{count}{triad_separator}.{decimal_count}f")
+        result = result.replace(current, f"%{sign}{count}{triad_separator}.{decimal_count}f")
     elif count > 0:
-        result = result.replace(current, f"%{count}{triad_separator}.0f")
+        result = result.replace(current, f"%{sign}{count}{triad_separator}.0f")
     count = 0
     decimal_count = 0
 
@@ -1159,4 +1162,4 @@ if __name__ == "__main__":
     output = sys.argv[2]
     main(input, output)
     
-# vim: ts=4 sw=4 expandtab
+# vim: ts=4 sw=4 expandtab fileencoding=utf-8
