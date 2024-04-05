@@ -11,8 +11,9 @@ def parseArgs():
 	import argparse
 	parser=argparse.ArgumentParser()
 	_z = os.environ.get("TZ", None)		# Get TZ from environment, if specified
-	_d = time.strftime("%d%b%Y", time.localtime())
-	_t = time.strftime("%H%M", time.localtime())
+	dt = datetime.datetime.now().astimezone()
+	_d = dt.strftime("%d%b%Y")
+	_t = dt.strftime("%H%M")
 	parser.add_argument( '-V', '--version',dest='show_ver',action='store_true',default=False, help="print version number")
 	parser.add_argument( '-i', '--in', dest='in_file', help="INput report file", metavar="REPFILE" )
 	parser.add_argument( '-o', '--out', dest='out_file', default="-", help="OUTput file with filled report", metavar="REPOUTPUT")
@@ -124,7 +125,11 @@ if __name__ == "__main__":
 	Value(1, host=host, path=path, tz=tz, ucformat=config.compat, timeout=config.timeout, althost=althost, altpath=altpath, dbofc=config.office, **kwargs)
 	
 	# read the report file
-	f = open(report_file)
+	if report_file == '-': 
+		report_file = sys.stdin.name
+		f = sys.stdin
+	else:
+		f = open(report_file, 'rt')
 	report_data = f.read()
 	f.close()
 
@@ -138,7 +143,7 @@ if __name__ == "__main__":
 
 	_t = datetime.datetime.strptime(base_date + " " + base_time , "%d%b%Y %H%M" ) + delta
 
-	print( repr(_t) )
+	print( repr(_t), file=sys.stderr )
 
 	basedate = _t
 

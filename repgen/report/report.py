@@ -117,11 +117,11 @@ class Report:
 			for key, value in local_vars.items():
 				my_locals[key] = value
 
-		print("Timezone: %s" % Value.shared["tz"])
-		print("BASDATE: %s" % repr(my_locals["BASDATE"]))
-		print("BTM: %s" % repr(my_locals["BTM"]))
-		print("CURDATE: %s" % repr(my_locals["CURDATE"]))
-		print("CTM: %s" % repr(my_locals["CTM"]))
+		print("Timezone: %s" % Value.shared["tz"], file=sys.stderr)
+		print("BASDATE: %s" % repr(my_locals["BASDATE"]), file=sys.stderr)
+		print("BTM: %s" % repr(my_locals["BTM"]), file=sys.stderr)
+		print("CURDATE: %s" % repr(my_locals["CURDATE"]), file=sys.stderr)
+		print("CTM: %s" % repr(my_locals["CTM"]), file=sys.stderr)
 
 		# Compile the report, so source and line number information can be reported to the user
 		exec(compile(self.datadef, self.repfilename, "exec"), globals(), my_locals)

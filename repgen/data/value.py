@@ -4,6 +4,7 @@ from inspect import isfunction
 import copy
 import math
 from decimal import Decimal,DivisionByZero,DecimalException,getcontext
+import ssl
 from ssl import SSLError
 import re
 from repgen.util import extra_operator, filterAddress
@@ -16,6 +17,10 @@ except:
 	# Included with python, but doesn't support longer granularity than weeks.
 	# This can cause issues for leap years if not accounted for.
 	from datetime import timedelta
+
+# need to enable legacy ciphers for public CDA instance
+ssl_ctx = ssl.create_default_context()
+ssl_ctx.set_ciphers('DEFAULT')
 
 # types
 string_types = (b"".__class__,u"".__class__)
@@ -359,7 +364,7 @@ class Value:
 			try:
 				conn = httplib.HTTPConnection( self.host )
 				conn.request("GET", query+params )
-				print("Fetching: %s" % query+params)
+				print("Fetching: %s" % query+params, file=sys.stderr)
 				r1 = conn.getresponse()
 				data =r1.read()
 
@@ -389,7 +394,7 @@ class Value:
 					self.type = "SCALAR"
 					self.value = self.values[0][1]
 			except Exception as err:
-				print( repr(err) + " : " + str(err) )
+				print( repr(err) + " : " + str(err), file=sys.stderr )
 		elif self.dbtype.upper() in ["JSON", "RADAR"]:
 			import json, http.client as httplib, urllib.parse as urllib
 
@@ -444,7 +449,7 @@ class Value:
 						query = f"/{path}/timeseries?"
 
 						# The http(s) guess isn't perfect, but it's good enough. It's for display purposes only.
-						print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params)
+						print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params, file=sys.stderr)
 
 						try:
 							if sys.platform != "win32" and self.timeout:
@@ -456,11 +461,11 @@ class Value:
 							if Value._conn is None:
 								try:
 									from repgen.util.urllib2_tls import TLS1Connection
-									Value._conn = TLS1Connection( host, timeout=self.timeout )
+									Value._conn = TLS1Connection( host, timeout=self.timeout, context=ssl_ctx )
 									Value._conn.request("GET", "/{path}" )
 								except SSLError as err:
-									print(type(err).__name__ + " : " + str(err))
-									print("Falling back to non-SSL")
+									print(type(err).__name__ + " : " + str(err), file=sys.stderr)
+									print("Falling back to non-SSL", file=sys.stderr)
 									# SSL not supported (could be standalone instance)
 									Value._conn = httplib.HTTPConnection( host, timeout=self.timeout )
 									Value._conn.request("GET", "/{path}" )
@@ -520,8 +525,8 @@ class Value:
 					try:
 						data_dict = json.loads(data)
 					except json.JSONDecodeError as err:
-						print(str(err))
-						print(repr(data))
+						print(str(err), file=sys.stderr)
+						print(repr(data), file=sys.stderr)
 
 					# get the depth
 					prev_t = 0
@@ -543,7 +548,7 @@ class Value:
 							_q = int(d[2])
 							self.values.append( ( _dt,_v,_q  ) )
 					else:
-						print("No values were fetched.")
+						print("No values were fetched.", file=sys.stderr)
 
 					if self.ismissing():
 						if self.missing == "NOMISS":
@@ -563,7 +568,7 @@ class Value:
 							self.value = self.values[-1][1]
 
 				except Exception as err:
-					print( repr(err) + " : " + str(err) )
+					print( repr(err) + " : " + str(err), file=sys.stderr )
 
 				break
 
@@ -595,7 +600,7 @@ class Value:
 		tmp = Value(dbtype="copy")
 		tmp.picture=self.picture
 		Value.shared["dbtype"]=typ
-		print( "Doing Op %s on %s with other %s" % (repr(op),repr(self),repr(other) ) )
+		print( "Doing Op %s on %s with other %s" % (repr(op),repr(self),repr(other) ), file=sys.stderr )
 		if isinstance( other, number_types ) and self.type=="TIMESERIES":
 			old_trap = getcontext().traps[DivisionByZero]
 			getcontext().traps[DivisionByZero] = False

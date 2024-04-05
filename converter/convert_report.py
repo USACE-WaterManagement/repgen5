@@ -9,16 +9,15 @@
 # Output will require manual examination and editing.      #
 ############################################################
 
-import sys
+import sys,os
 import re
 from datetime import datetime
-from typing import Match
 
 # Controls if #FORM data should be block-quoted, useful for debugging in an IDE and avoiding syntax errors in report definitions.
-BLOCKQUOTE_FORM = False
+BLOCKQUOTE_FORM = os.environ.get("BLOCKQUOTE_FORM", False)
 
 # If True, any statements that were converted will be preserved in the output as comments (prepended with '#-')
-SHOW_PREVIOUS = False
+SHOW_PREVIOUS = os.environ.get("SHOW_PREVIOUS", False)
 
 # The following is not recommended unless you know what you are doing.
 # These are flags, so multiple can be specified by adding them together (though not all are valid together).
@@ -28,7 +27,7 @@ SHOW_PREVIOUS = False
 #   1 = Use 1μs before specified time (23:59:59.999999 instead of 24:00)
 #   2 = Don't add a day for the calculation adjustment (SPK's battery reports)
 #   4 = Increment the starting day of the month by one (SPK's battery & monthly reports)
-DATE_HACK = 0
+DATE_HACK = os.environ.get("DATE_HACK", 0)
 
 ##############################################
 #### Careful changing anything below here ####
