@@ -218,7 +218,11 @@ class Value:
 				elif value.lower()  == "local":
 					raise NotImplementedError("LOCAL DB option not supported.")
 				continue
+			elif lkey == "copyshared":
+				# never copy these keywords
+				continue
 
+			setattr(self, lkey, value)
 			Value.shared[lkey] = value
 
 		# Correct any split date/times
@@ -247,6 +251,9 @@ class Value:
 
 		# load the keywords for this instance
 		if len(args) == 1 and isinstance(args[0], Value):
+			if kwargs is not None and kwargs.get('copyshared', True) == False:
+				return
+
 			for key in Value.shared:
 				if key not in ["time", "start", "end", "value", "dbtz"]:
 					setattr(self, key, Value.shared[key])
@@ -445,32 +452,33 @@ class Value:
 						print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params, file=sys.stderr)
 
 						try:
-							if Value._conn is None:
-								if sys.platform != "win32" and self.timeout:
-									# The SSL handshake can sometimes fail and hang indefinitely
-									# inflate the timeout slightly, so the socket has a chance to return a timeout error
-									# This is a failsafe to prevent a hung process
-									signal.alarm(int(self.timeout * 1.1) + 1)
+							if sys.platform != "win32" and self.timeout:
+								# The SSL handshake can sometimes fail and hang indefinitely
+								# inflate the timeout slightly, so the socket has a chance to return a timeout error
+								# This is a failsafe to prevent a hung process
+								signal.alarm(int(self.timeout * 1.1) + 1)
 
+							if Value._conn is None:
 								try:
 									from repgen.util.urllib2_tls import TLS1Connection
 									Value._conn = TLS1Connection( host, timeout=self.timeout, context=ssl_ctx )
-									Value._conn.request("GET", "/" )
+									Value._conn.request("GET", "/{path}" )
 								except SSLError as err:
 									print(type(err).__name__ + " : " + str(err), file=sys.stderr)
 									print("Falling back to non-SSL", file=sys.stderr)
 									# SSL not supported (could be standalone instance)
 									Value._conn = httplib.HTTPConnection( host, timeout=self.timeout )
-									Value._conn.request("GET", "/" )
+									Value._conn.request("GET", "/{path}" )
 
 								# Test if the connection is valid
 								Value._conn.getresponse().read()
 
-								if sys.platform != "win32" and self.timeout:
-									signal.alarm(0) # disable the alarm
-
 							Value._conn.request("GET", query+params, None, headers )
 							r1 = Value._conn.getresponse()
+
+							# getresponse can also hang sometimes, so keep alarm active until after we fetch the response
+							if sys.platform != "win32" and self.timeout:
+								signal.alarm(0) # disable the alarm
 							
 							# Grab the charset from the headers, and decode the response using that if set
 							# HTTP default charset is iso-8859-1 for text (RFC 2616), and utf-8 for JSON (RFC 4627)
@@ -594,23 +602,35 @@ class Value:
 		Value.shared["dbtype"]=typ
 		print( "Doing Op %s on %s with other %s" % (repr(op),repr(self),repr(other) ), file=sys.stderr )
 		if isinstance( other, number_types ) and self.type=="TIMESERIES":
+			old_trap = getcontext().traps[DivisionByZero]
+			getcontext().traps[DivisionByZero] = False
 			for v in self.values:
 				if (v is not None) and (v[1] is not None) and (other is not None):
-					if isinstance(v[1], Decimal) and not isinstance(other, Decimal):
-						tmp.values.append( (v[0],op(v[1], Decimal.from_float(other)),v[2]) )
-					else:
-						tmp.values.append( (v[0],op(v[1], other),v[2]) )
+					try:
+						if isinstance(v[1], Decimal) and not isinstance(other, Decimal):
+							tmp.values.append( (v[0],op(v[1], Decimal.from_float(other)),v[2]) )
+						else:
+							tmp.values.append( (v[0],op(v[1], other),v[2]) )
+					except (ZeroDivisionError):
+						tmp.values.append( (v[0], float('NaN'), v[2] ) )
 				else:
 					tmp.values.append( ( v[0], None, v[2] ) )
+			getcontext().traps[DivisionByZero] = old_trap
 		elif isinstance( other, (*number_types,datetime.timedelta,timedelta) ) and self.type=="SCALAR":
 			if (self.value is not None) and (other is not None):
 				if self.ismissing() or self.ismissing(other):
 					tmp.value = self.missdta
 				else:
-					if isinstance(self.value, Decimal) and not isinstance(other, Decimal):
-						tmp.value = op(self.value,Decimal.from_float(other))
-					else:
-						tmp.value = op(self.value,other)
+					old_trap = getcontext().traps[DivisionByZero]
+					getcontext().traps[DivisionByZero] = False
+					try:
+						if isinstance(self.value, Decimal) and not isinstance(other, Decimal):
+							tmp.value = op(self.value,Decimal.from_float(other))
+						else:
+							tmp.value = op(self.value,other)
+					except (ZeroDivisionError):
+						tmp.value = float('NaN')
+					getcontext().traps[DivisionByZero] = old_trap
 			else:
 				tmp.value = None
 			tmp.type="SCALAR"
@@ -619,14 +639,26 @@ class Value:
 				if self.ismissing() or self.ismissing(other):
 					tmp.value = self.missdta
 				else:
-					tmp.value = op(self.values[0][1],other)
+					old_trap = getcontext().traps[DivisionByZero]
+					getcontext().traps[DivisionByZero] = False
+					try:
+						tmp.value = op(self.values[0][1],other)
+					except (ZeroDivisionError):
+						tmp.value = float('NaN')
+					getcontext().traps[DivisionByZero] = old_trap
 			else:
 				tmp.value = None
 			tmp.type="SCALAR"
 		elif isinstance( other, Value ):
 			if self.type == "SCALAR" and other.type == "SCALAR":
 				if self.known() and other.known():
-					tmp.value = op(self.value,other.value)
+					old_trap = getcontext().traps[DivisionByZero]
+					getcontext().traps[DivisionByZero] = False
+					try:
+						tmp.value = op(self.value,other.value)
+					except (ZeroDivisionError):
+						tmp.value = float('NaN')
+					getcontext().traps[DivisionByZero] = old_trap
 				else:
 					if self.value is None or other.value is None:
 						tmp.value = None
@@ -646,7 +678,7 @@ class Value:
 						else:
 							try:
 								tmp.values.append( (v[0], op(v[1],other.value), v[2] ) )
-							except (DivisionByZero,ZeroDivisionError):
+							except (ZeroDivisionError):
 								tmp.values.append( (v[0], float('NaN'), v[2] ) )
 					else:
 						tmp.values.append( (v[0], None, v[2] ) )
@@ -658,7 +690,7 @@ class Value:
 					if (v[1] is not None) and (self.value is not None):
 						try:
 							tmp.values.append( (v[0], op(v[1],self.value), v[2] ) )
-						except (DivisionByZero,ZeroDivisionError):
+						except (ZeroDivisionError):
 							tmp.values.append( (v[0], float('NaN'), v[2] ) )
 					else:
 						if self.ismissing() or self.ismissing(v[1]):
@@ -850,6 +882,7 @@ class Value:
 		tmp = Value(dbtype="copy")
 		Value.shared["dbtype"]=typ
 
+		tmp.type = self.type
 		if self.type == "TIMESERIES":
 			for v in self.values:
 				tmp.values.append( (v[0],v[0],v[2]) )
@@ -1049,7 +1082,6 @@ class Value:
 		
 	"""
 				
-
 	@staticmethod
 	def apply( function, *args, **kwargs ):
 		"""
@@ -1069,7 +1101,11 @@ class Value:
 		values = []
 		typ = Value.shared["dbtype"]
 		for i in range(0,returns):
-			tmp = Value(dbtype="copy")
+			# If the first argument is a Value object, copy it so the properties apply
+			if len(args) > 0 and isinstance(args[0], Value):
+				tmp = Value(args[0], copyshared=False)
+			else:
+				tmp = Value(dbtype="copy")
 			tmp.values = []
 			tmp.value = None
 			values.append( tmp )
@@ -1084,7 +1120,6 @@ class Value:
 			if isinstance( ret, (list,tuple) ):
 				for i in range(len(ret)):
 					values[i].value = ret[i]
-					
 			else:
 				values[0].value = ret
 		elif len(times) > 0:
@@ -1108,9 +1143,9 @@ class Value:
 					print("Failed to compute a values %s : %s" % (repr(err),repr(str)), file=sys.stderr)
 				if isinstance( res, (list,tuple)):
 					for i in range(len(res)):
-						values[i].values.append( (t,res[i],0) )
+						values[i].values.append( (t,res[i],0 if res[i] is not None else 5) )
 				else:
-					values[0].values.append( ( t,res,0) )
+					values[0].values.append( ( t,res,0 if res is not None else 5) )
 
 		return values
 
@@ -1506,7 +1541,13 @@ class Value:
 			if len(timesets)==1:
 				times = list(timesets[0])
 			else:
-				times =list( timesets[0].intersection( *timesets[1:] ) ) # here we should check for intersection or union
+				op = kwargs.get("op", "intersection")
+				if op == "intersection":
+					times = list( timesets[0].intersection( *timesets[1:] ) ) # here we should check for intersection or union
+				elif op == "union":
+					times = list( timesets[0].union( *timesets[1:] ) ) # here we should check for intersection or union
+				else:
+					raise ValueError(op)
 
 		times.sort() # make sure everything is in time ascending order
 		return times
