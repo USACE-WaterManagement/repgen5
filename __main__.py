@@ -142,7 +142,7 @@ if __name__ == "__main__":
 
 	_t = datetime.datetime.strptime(base_date + " " + base_time , "%d%b%Y %H%M" ) + delta
 
-	print( repr(_t) )
+	print( repr(_t), file=sys.stderr )
 
 	basedate = _t
 
