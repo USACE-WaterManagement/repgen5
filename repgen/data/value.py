@@ -4,6 +4,7 @@ from inspect import isfunction
 import copy
 import math
 from decimal import Decimal,DivisionByZero,DecimalException,getcontext
+import ssl
 from ssl import SSLError
 import re
 from repgen.util import extra_operator, filterAddress
@@ -16,6 +17,10 @@ except:
 	# Included with python, but doesn't support longer granularity than weeks.
 	# This can cause issues for leap years if not accounted for.
 	from datetime import timedelta
+
+# need to enable legacy ciphers for public CDA instance
+ssl_ctx = ssl.create_default_context()
+ssl_ctx.set_ciphers('DEFAULT')
 
 # types
 string_types = (b"".__class__,u"".__class__)
@@ -449,7 +454,7 @@ class Value:
 
 								try:
 									from repgen.util.urllib2_tls import TLS1Connection
-									Value._conn = TLS1Connection( host, timeout=self.timeout )
+									Value._conn = TLS1Connection( host, timeout=self.timeout, context=ssl_ctx )
 									Value._conn.request("GET", "/" )
 								except SSLError as err:
 									print(type(err).__name__ + " : " + str(err), file=sys.stderr)

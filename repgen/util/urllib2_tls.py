@@ -1,6 +1,7 @@
 import http.client as httplib, urllib.request as urllib2
 import socket
 import ssl
+import sys
 # From: https://gist.github.com/flandr/74be22d1c3d7c1dfefdd
 
 # Python 2.6's urllib2 does not allow you to select the TLS dialect,
@@ -16,17 +17,23 @@ class TLS1Connection(httplib.HTTPSConnection):
 
     def connect(self):
         """Overrides HTTPSConnection.connect to specify TLS version"""
-        # Standard implementation from HTTPSConnection, which is not
-        # designed for extension, unfortunately
-        sock = socket.create_connection((self.host, self.port),
-                self.timeout, self.source_address)
-        if getattr(self, '_tunnel_host', None):
-            self.sock = sock
-            self._tunnel()
 
-        # This is the only difference; default wrap_socket uses SSLv23
-        self.sock = ssl.wrap_socket(sock, self.key_file, self.cert_file,
-                ssl_version=ssl.PROTOCOL_TLSv1_2)
+        ver = sys.version_info
+        if ver.major == 3 and ver.minor < 10:
+            # Standard implementation from HTTPSConnection, which is not
+            # designed for extension, unfortunately
+            sock = socket.create_connection((self.host, self.port),
+                    self.timeout, self.source_address)
+            if getattr(self, '_tunnel_host', None):
+                self.sock = sock
+                self._tunnel()
+
+            # This is the only difference; default wrap_socket uses SSLv23
+            self.sock = ssl.wrap_socket(sock, self.key_file, self.cert_file,
+                    ssl_version=ssl.PROTOCOL_TLSv1_2)
+        else:
+            # Version is new enough it's not a problem anymore
+            httplib.HTTPSConnection.connect(self)
 
 class TLS1Handler(urllib2.HTTPSHandler):
     """Like HTTPSHandler but more specific"""
