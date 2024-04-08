@@ -9,8 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
-        uses: actions/checkout@v4.1.1
-      - uses: actions/setup-python@v5.1.0
+        uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
         with:
           python-version: 3.8
           architecture: x64
@@ -25,7 +25,7 @@ jobs:
           echo "::set-output name=VERSION::$VER"
           echo "::set-output name=FILENAME::repgen-$VER"
       - name: tag repo
-        uses: actions/github-script@v7.0.1
+        uses: actions/github-script@v3
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
@@ -37,7 +37,7 @@ jobs:
             })
       - name: Create Release
         id: create_release
-        uses: actions/create-release@v1.14.0
+        uses: actions/create-release@v1
         env: 
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN }}
         with:
@@ -45,7 +45,7 @@ jobs:
           release_name: Release ${{steps.get_version.outputs.VERSION}}
       - name: Upload File
         id: upload-File
-        uses: actions/upload-release-asset@v1.1.3
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
