@@ -25,13 +25,8 @@ class Report:
 		for line in lines:
 			deflines.append( "" )		# Append blank line to align definition line numbers
 			if state == "none":
-				if "#FORM" in line.upper():
-					print( "Found Report Section",file=sys.stderr)
-					state="INREP"
-				elif "#DEF" in line.upper():
-					print( "Found Definition Section", file=sys.stderr)
-					state="INDEF"
-				elif "#FORMFILE" in line.upper():
+				# Check the longer hash commands first
+				if "#FORMFILE" in line.upper():
 					print( "Found Report File",file=sys.stderr)
 					state = "none"
 					self.repformfile = line.split("#FORMFILE ")[1].strip()
@@ -43,6 +38,12 @@ class Report:
 						self.repfile = f.read()
 					print(f"Read in file {self.repformfile}", file=sys.stderr)
 					self.replines = self.repfile.split("\n")
+				elif "#FORM" in line.upper():
+					print( "Found Report Section",file=sys.stderr)
+					state="INREP"
+				elif "#DEF" in line.upper():
+					print( "Found Definition Section", file=sys.stderr)
+					state="INDEF"
 			elif state == "INREP":
 				if "#ENDFORM" in line.upper():
 					print( "End of Report", file=sys.stderr)
@@ -120,13 +121,13 @@ class Report:
 	def _validate_report(self, report: str) -> None:
 		"""Validate the structure of a report.
 
-        Args:
-            report (str): The report .frm content to validate.
+		Args:
+			report (str): The report .frm content to validate.
 
-        Raises:
-            ValueError: If the report contains both a '#FORM/#ENDFORM' and a '#FORMFILE' tag.
-            ValueError: If the report does not contain a '#FORM'/'#ENDFORM' or '#FORMFILE' tag.
-        """
+		Raises:
+			ValueError: If the report contains both a '#FORM/#ENDFORM' and a '#FORMFILE' tag.
+			ValueError: If the report does not contain a '#FORM'/'#ENDFORM' or '#FORMFILE' tag.
+		"""
 		# TODO: What else should we be validating in a report?
 		# Pick one or the other, not both
 		if ("#FORM\n" in report or "#ENDFORM\n" in report) and "#FORMFILE" in report:
