@@ -82,7 +82,7 @@ And the contents of your `morning_report.html` might look something like this:
 * `%SCALAR` is a simple fixed value 
 * `%TS` are the first 3 values of a time series you've loaded.  
 
-*See [tests/test.input.python](https://github.com/usace-wm-swd/swt-repgen/blob/ba8d6f5353fa06e6737eb3bc6191778e3d87641b/repgen5/test.manual/test.input.python) for a full example*
+*See [tests/test.input.python](https://github.com/USACE-WaterManagement/repgen5/blob/c22a0af62df7cd3d756ce2788153fe2423e5bebe/test.manual/test.input.python) for a full example*
 
 
 ## Currently Implemented
