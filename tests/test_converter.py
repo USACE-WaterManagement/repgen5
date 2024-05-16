@@ -76,6 +76,7 @@ def test_value_builder_quoted():
 	("i-resstat", 0),
 	("i-blb", 0),
 	("i-base.battery", 6),
+	 ("i-base.battery.html_out", 6),
 ])
 def test_converter_file(capsys, reportname: str, hack_flags: int):
 
