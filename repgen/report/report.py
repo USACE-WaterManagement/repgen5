@@ -16,7 +16,9 @@ class Report:
 		self.datadef = ""
 		self.compatibility = compatibility
 		self.data = {}
-
+		
+		self._validate_report(report)
+		
 		lines = map(lambda s: s.strip('\r'),  report.split(sep='\n'))
 		deflines = []
 		state="none"
@@ -114,7 +116,25 @@ class Report:
 					else:
 						tmpupper = tmp
 			output.write( tmp + "\n" )
+			
+	def _validate_report(self, report: str) -> None:
+		"""Validate the structure of a report.
 
+        Args:
+            report (str): The report .frm content to validate.
+
+        Raises:
+            ValueError: If the report contains both a '#FORM/#ENDFORM' and a '#FORMFILE' tag.
+            ValueError: If the report does not contain a '#FORM'/'#ENDFORM' or '#FORMFILE' tag.
+        """
+		# TODO: What else should we be validating in a report?
+		# Pick one or the other, not both
+		if ("#FORM\n" in report or "#ENDFORM\n" in report) and "#FORMFILE" in report:
+			raise ValueError("\n\tReport contains both a #FORM/#ENDFORM and a #FORMFILE tag. You must choose ONE.\n")
+		# Have at least one or the other
+		if ("#FORM" not in report or "#ENDFORM" not in report) and "#FORMFILE" not in report:
+			raise ValueError("\n\tReport does not contain a #FORM or #FORMFILE tag.\n")
+		
 	def run( self, basedate, local_vars: dict = None ):
 		# setup the base data
 		#
