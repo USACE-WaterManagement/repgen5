@@ -10,6 +10,7 @@ except:
 class Report:
 	def __init__(self, report, file_name, compatibility):
 		self.repfilename = file_name
+		self.repformfile = ""
 		self.repfile = report
 		self.replines = []
 		self.datadef = ""
@@ -28,6 +29,18 @@ class Report:
 				elif "#DEF" in line.upper():
 					print( "Found Definition Section", file=sys.stderr)
 					state="INDEF"
+				elif "#FORMFILE" in line.upper():
+					print( "Found Report File",file=sys.stderr)
+					state = "none"
+					self.repformfile = line.split("#FORMFILE ")[1].strip()
+					if not os.path.isfile(self.repformfile):
+						if self.repformfile.startswith("."):
+							print("\n\tConsider using an absolute path for #FORMFILE full/path/to/your/template", file=sys.stderr)
+						raise FileNotFoundError(f"Could not find #FORMFILE {self.repformfile}! Exiting...")
+					with open(self.repformfile) as f:
+						self.repfile = f.read()
+					print(f"Read in file {self.repformfile}", file=sys.stderr)
+					self.replines = self.repfile.split("\n")
 			elif state == "INREP":
 				if "#ENDFORM" in line.upper():
 					print( "End of Report", file=sys.stderr)
