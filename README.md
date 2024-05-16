@@ -14,7 +14,7 @@ The program creates fixed form text reports from a time series database, and tex
     * Recommended for proper leap year adjustment for some date computations
 
 
-## Using
+## Usage
 The basic structure of a report input is as follows
 
 ```
@@ -31,9 +31,58 @@ arbitrary python code
 #ENDDEF
 
 ```
+### *Alternatively* - You can specify a `#FORMFILE full/file/path`
+This will provide you the ability to split your form into a **separate** file from the actual form definition. 
 
-Where %SCALAR is a simple fixed value and %TS are the first 3 values of a time series you've loaded.
-see test/test.input.python for a full example.
+__Example:__
+```
+#FORMFILE \path\to\file\morning_report.html
+
+#DEF
+arbitrary python code
+#ENDDEF
+```
+And the contents of your `morning_report.html` might look something like this:
+```html
+<html>
+<!-- Example HTML template for a table with syntax highlighting -->
+    <head>
+        <title>Title</title>
+        <style>
+            /* Custom Styles */
+
+            @media print {
+                /* Custom classes to apply when user clicks print */
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Title</h2>
+        <main>
+            Average %SCALAR
+            <table>
+                <thead>
+                    <tr><th class="col">Col 1</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>%TS</td></tr>
+                    <tr><td>%TS</td></tr>
+                    <tr><td>%TS</td></tr>
+                </tbody>
+            </table>
+        </main>
+        <script>
+            // JavaScript
+        </script>
+    </body>
+</html>
+```
+
+### Where: 
+* `%SCALAR` is a simple fixed value 
+* `%TS` are the first 3 values of a time series you've loaded.  
+
+*See [tests/test.input.python](https://github.com/USACE-WaterManagement/repgen5/blob/c22a0af62df7cd3d756ce2788153fe2423e5bebe/test.manual/test.input.python) for a full example*
 
 
 ## Currently Implemented

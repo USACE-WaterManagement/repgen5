@@ -1,4 +1,4 @@
-#FORMFILE tests\testfiles\forms\i-base.battery.txt
+#FORMFILE tests\testfiles\forms\i-base.battery.table.html
 
 #DEF
 # !ECHO

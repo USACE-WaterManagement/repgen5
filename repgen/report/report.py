@@ -10,19 +10,35 @@ except:
 class Report:
 	def __init__(self, report, file_name, compatibility):
 		self.repfilename = file_name
+		self.repformfile = ""
 		self.repfile = report
 		self.replines = []
 		self.datadef = ""
 		self.compatibility = compatibility
 		self.data = {}
-
+		
+		self._validate_report(report)
+		
 		lines = map(lambda s: s.strip('\r'),  report.split(sep='\n'))
 		deflines = []
 		state="none"
 		for line in lines:
 			deflines.append( "" )		# Append blank line to align definition line numbers
 			if state == "none":
-				if "#FORM" in line.upper():
+				# Check the longer hash commands first
+				if "#FORMFILE" in line.upper():
+					print( "Found Report File",file=sys.stderr)
+					state = "none"
+					self.repformfile = line.split("#FORMFILE ")[1].strip()
+					if not os.path.isfile(self.repformfile):
+						if self.repformfile.startswith("."):
+							print("\n\tConsider using an absolute path for #FORMFILE full/path/to/your/template", file=sys.stderr)
+						raise FileNotFoundError(f"Could not find #FORMFILE {self.repformfile}! Exiting...")
+					with open(self.repformfile) as f:
+						self.repfile = f.read()
+					print(f"Read in file {self.repformfile}", file=sys.stderr)
+					self.replines = self.repfile.split("\n")
+				elif "#FORM" in line.upper():
 					print( "Found Report Section",file=sys.stderr)
 					state="INREP"
 				elif "#DEF" in line.upper():
@@ -101,7 +117,25 @@ class Report:
 					else:
 						tmpupper = tmp
 			output.write( tmp + "\n" )
+			
+	def _validate_report(self, report: str) -> None:
+		"""Validate the structure of a report.
 
+		Args:
+			report (str): The report .frm content to validate.
+
+		Raises:
+			ValueError: If the report contains both a '#FORM/#ENDFORM' and a '#FORMFILE' tag.
+			ValueError: If the report does not contain a '#FORM'/'#ENDFORM' or '#FORMFILE' tag.
+		"""
+		# TODO: What else should we be validating in a report?
+		# Pick one or the other, not both
+		if ("#FORM\n" in report or "#ENDFORM\n" in report) and "#FORMFILE" in report:
+			raise ValueError("\n\tReport contains both a #FORM/#ENDFORM and a #FORMFILE tag. You must choose ONE.\n")
+		# Have at least one or the other
+		if ("#FORM" not in report or "#ENDFORM" not in report) and "#FORMFILE" not in report:
+			raise ValueError("\n\tReport does not contain a #FORM or #FORMFILE tag.\n")
+		
 	def run( self, basedate, local_vars: dict = None ):
 		# setup the base data
 		#
