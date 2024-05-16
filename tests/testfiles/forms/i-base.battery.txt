@@ -1,0 +1,36 @@
+Year/Month %MONYR
+Report As of %CURDATE              
+%TITLE
+           Loaded         Normal
+Day       min    max     min    max 
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
+%DY     %VLmin %VLmax  %VBmin %VBMax
