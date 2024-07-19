@@ -22,7 +22,7 @@ def filterAddress(address):
 		host = parts[0]
 		query = parts[1] if len(parts) > 1 else None
 	elif host.count(':') > 1:
-		raise ValueError(f"Oracle DB '{host}' is not supported. Use RADAR.")
+		raise ValueError(f"Oracle DB '{host}' is not supported. Use CDA.")
 	
 	# Check if port was specified, and add one if not
 	if ':' not in host:

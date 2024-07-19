@@ -54,7 +54,7 @@ Keyword | Description |
 picture | python format string or time format string, tells the system how to format the value |
 misstr  | what to display when a value is missing (None) |
 undef   | what to display when a value is undefined (this isn't implemented yet but was part of the original repgen program, general meaning is the time series you asked for doesn't actually exists the database being used) |
-dbtype  | copy,gents,spkjson,radar are the current valid values. This tells the system how it should interpret the supplied keywords |
+dbtype  | copy,gents,spkjson,cda are the current valid values. This tells the system how it should interpret the supplied keywords |
 
 Every time you set a keyword, Value stores the last used value. If a keyword doesn't need to change between values (e.g. they all need to render the same) you don't have to include it when creating the additional values.
 
@@ -92,7 +92,7 @@ picture is so that when the report is filled the time format will be used
 ##### Retrieve Time Series
 
 ```python
-ts = Value(dbtype="radar", 
+ts = Value(dbtype="cda", 
 	   dbloc="Black Butte-Outflow", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
 	   dbtz="UTC", dbunits="ft", dbofc="SPK" )
 ```
@@ -101,7 +101,7 @@ The start and end could also be used, in this example the start and end from the
 This allows you to get multiple time series of data by only changing the needed parameters.
 for example if we wanted the Stages (height of water in a channel) from several different locations we could to the following:
 ```python
-ts = Value(dbtype="radar", 
+ts = Value(dbtype="cda", 
 	   dbloc="Black Butte-Outflow", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
 	   dbtz="PST8PDT", dbunits="ft", dbofc="SPK"
 	   start=datetime.datetime.now()-datetime.timedelta(hours=4)
@@ -181,7 +181,7 @@ YRS = Value(50,
 	PICTURE="%2.0f",
 )
 ts1 = Value(
-	dbtype="radar",
+	dbtype="cda",
 	DBLOC="Black Butte-Pool", DBPAR="Stor", DBPTYP="Inst", DBINT="~1Day", DBDUR=0, DBVER="Calc-val",
 	DBUNITS="ac-ft", 
 	DBTZ="PST8PDT",
