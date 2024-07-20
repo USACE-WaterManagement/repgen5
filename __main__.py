@@ -88,10 +88,10 @@ def processSiteWorker(queue, tid):
 	None
 	"""
 	while True:
-		shef_id, dt, lookback = q.get(timeout=30)
+		shef_id, dt, lookback = queue.get(timeout=30)
 		try:
 			print(f"Processing {shef_id} via worker thread . . .")
-			processSite(alt_id, shef_id, dt)
+			#processSite(alt_id, shef_id, dt)
 		except KeyboardInterrupt:
 			print(f"Thread #{tid} received KeyboardInterrupt. Exiting...")
 		finally:
@@ -128,15 +128,17 @@ if __name__ == "__main__":
 		print(version)
 		sys.exit(0)
 		
-	thread_lock, queue = None, None
+	kwargs["thread_lock"], kwargs["queue"] = None, None
 	if config.parallel:
-		t = threading.Thread(target=processSiteWorker)
-		t.daemon = True
-		t.start()
+		results = []
 		# Sync the logger with the threads
-		thread_lock = threading.Lock()
+		kwargs["thread_lock"] = threading.Lock()
 		# Initialize the task queue
-		queue = Queue()
+		kwargs["queue"] = Queue()
+		thread = threading.Thread(target=processSiteWorker, args=(kwargs["queue"], results, kwargs["thread_lock"]))
+		thread.daemon = True
+		thread.start()
+		kwargs["thread"] = thread
 
 	report_file = kwargs.get("IN", config.in_file)
 	out_file = kwargs.get("REPORT", config.out_file)
@@ -167,6 +169,7 @@ if __name__ == "__main__":
 		report_file = sys.stdin.name
 		f = sys.stdin
 	else:
+		# TODO: change this to a context manager/with
 		f = open(report_file, 'rt')
 	report_data = f.read()
 	f.close()
@@ -189,6 +192,7 @@ if __name__ == "__main__":
 	# Read data file input
 	data_file = kwargs.get("FILE", config.data_file)
 	if data_file:
+		# TODO: context manager?
 		f_d = open(config.data_file)
 		key = None
 		prefix = ""

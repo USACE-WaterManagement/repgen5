@@ -103,9 +103,9 @@ CUR_DAY = BASDATE.value.day
 BASDATE_Elev_Pool_Stor = BASDATE.value.replace(hour=8,minute=0,second=0,microsecond=0)
 
 # elevations = Value()
-elevations = Value()
+elevations = []
 for project in PROJECTS:
-    elevations.values.append(Value(
+    elevations.append(Value(
         dbtype="radar",
         DBTZ="US/CENTRAL",
         tz="US/CENTRAL",

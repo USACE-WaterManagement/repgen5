@@ -425,6 +425,7 @@ class Value:
 				assert send.tzinfo is not None, "Naive datetime; end time should contain timezone"
 				start = sstart.astimezone(tz)
 				end = send.astimezone(tz)
+				print('queue', kwargs.get("queue"))
 				
 				params = urllib.urlencode( {
 					"name": ts_name,
