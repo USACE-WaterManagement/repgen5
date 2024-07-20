@@ -3,7 +3,11 @@ from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
 
+import threading
+from queue import Queue
+
 version = "5.0.5"
+THREAD_COUNT = 10
 
 # setup base time, ex
 # default formats
@@ -25,6 +29,7 @@ def parseArgs():
 	parser.add_argument( '-a', '--address', dest='host', default='localhost', help="location for data connections; equivalent to `DB=hostname:port/path`", metavar='IP_or_hostname:port[/basepath]')
 	parser.add_argument( '-A', '--alternate', dest='alternate', default=None, help="alternate location for data connections, if the primary is unavailable (only for RADAR)", metavar='IP_or_hostname:port[/basepath]')
 	parser.add_argument( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
+	parser.add_argument( '-p', '--parallel', dest="parallel", action="store_true", default=False, help=f"When this flag is setup Repgen5 will process requests in parallel with {THREAD_COUNT} threads." )
 	parser.add_argument( '--timeout', dest='timeout', type=float, default=None, help="Socket timeout, in seconds" )
 	# This provides repgen4 style KEY=VALUE argument passing on the command-line
 	parser.add_argument( 'set', default=[], help="Additional key=value pairs. e.g. `DBTZ=UTC DBOFC=HEC`", metavar="KEY=VALUE", nargs="*" )
@@ -37,38 +42,61 @@ def parseArgs():
 
 # https://stackoverflow.com/a/52014520
 def parse_var(s):
-    """
-    Parse a key, value pair, separated by '='
-    That's the reverse of ShellArgs.
+	"""
+	Parse a key, value pair, separated by '='
+	That's the reverse of ShellArgs.
 
-    On the command line (argparse) a declaration will typically look like:
-        foo=hello
-    or
-        foo="hello world"
-    """
-    items = s.split('=')
-    key = items[0].strip() # we remove blanks around keys, as is logical
-    if len(items) > 1:
-        # rejoin the rest:
-        value = '='.join(items[1:])
-    return (key, value)
+	On the command line (argparse) a declaration will typically look like:
+		foo=hello
+	or
+		foo="hello world"
+	"""
+	items = s.split('=')
+	key = items[0].strip() # we remove blanks around keys, as is logical
+	if len(items) > 1:
+		# rejoin the rest:
+		value = '='.join(items[1:])
+	return (key, value)
 
 def parse_vars(items):
-    """
-        Parse a series of key-value pairs and return a dictionary and 
-        a success boolean for whether each item was successfully parsed.
-    """
-    count = 0
-    d = {}
-    for item in items:
-        if "=" in item:
-            split_string = item.split("=")
-            d[split_string[0].strip().upper()] = split_string[1].strip()
-            count += 1
-        else:
-            print(f"Error: Invalid argument provided - {item}")
-        
-    return d, count == len(items)
+	"""
+		Parse a series of key-value pairs and return a dictionary and 
+		a success boolean for whether each item was successfully parsed.
+	"""
+	count = 0
+	d = {}
+	for item in items:
+		if "=" in item:
+			split_string = item.split("=")
+			d[split_string[0].strip().upper()] = split_string[1].strip()
+			count += 1
+		else:
+			print(f"Error: Invalid argument provided - {item}")
+		
+	return d, count == len(items)
+
+def processSiteWorker(queue, tid):
+	"""
+	Process site worker function that continuously retrieves tasks from a queue and processes them.
+	These will terminate gracefully when q.join() is called.
+
+	Parameters:
+	queue (Queue): Queue process
+	tid (int): The thread ID
+
+	Returns:
+	None
+	"""
+	while True:
+		shef_id, dt, lookback = q.get(timeout=30)
+		try:
+			print(f"Processing {shef_id} via worker thread . . .")
+			processSite(alt_id, shef_id, dt)
+		except KeyboardInterrupt:
+			print(f"Thread #{tid} received KeyboardInterrupt. Exiting...")
+		finally:
+			q.task_done()
+
 
 # Pytz doesn't know all the aliases and abbreviations
 # This works for Pacific, but untested in other locations that don't use DST.
@@ -99,6 +127,16 @@ if __name__ == "__main__":
 	if config.show_ver == True:
 		print(version)
 		sys.exit(0)
+		
+	thread_lock, queue = None, None
+	if config.parallel:
+		t = threading.Thread(target=processSiteWorker)
+		t.daemon = True
+		t.start()
+		# Sync the logger with the threads
+		thread_lock = threading.Lock()
+		# Initialize the task queue
+		queue = Queue()
 
 	report_file = kwargs.get("IN", config.in_file)
 	out_file = kwargs.get("REPORT", config.out_file)
