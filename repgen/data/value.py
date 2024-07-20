@@ -1183,7 +1183,7 @@ class Value:
 					else:
 						if isinstance( treat, number_types):
 							tmp.value = treat
-						elif treat=="MISS":
+						elif py=="MISS":
 							tmp.value = None
 							return tmp
 
