@@ -28,3 +28,12 @@ jobs:
       run: |
         mkdir -p docs
         pdoc repgen --output-dir docs
+    - name: Commit and Push Documentation
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add docs/
+        git commit -m "[AUTO] Update documentation"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
