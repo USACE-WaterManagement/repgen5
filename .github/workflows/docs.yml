@@ -1,0 +1,40 @@
+name: Generate Repgen5 Documentation
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  generate-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install pdoc
+      run: pip install pdoc
+
+    - name: Generate Documentation
+      run: |
+        mkdir -p docs
+        pdoc repgen --output-dir docs
+
+    - name: Commit and Push Documentation
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add docs/
+        git commit -m "Update documentation"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
