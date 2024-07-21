@@ -1,4 +1,4 @@
-import sys, pytz, datetime, tempfile, shutil, os
+import sys, pytz, datetime, tempfile, shutil, os, time
 
 from repgen.data.value import Value
 from repgen.report import Report
@@ -100,6 +100,7 @@ TIMEZONE_ALIASES = {
 }
 
 if __name__ == "__main__":
+	start_time = time.time()
 	config = parseArgs()
 	kwargs = parse_vars(config.set)[0]
 
@@ -107,21 +108,19 @@ if __name__ == "__main__":
 		print(__version__)
 		sys.exit(0)
 		
-	kwargs["thread_lock"], kwargs["queue"] = None, None
+	kwargs["queue"] = None
 	# Enable IO bound process multi-threading 
 	#  if the user has a need for speed
+	threads = []
 	if config.parallel:
-		results = []
-		kwargs["threads"] = {}
 		# Initialize the task queue 
 		kwargs["queue"] = Queue()
 		# Setup worker threads
-		threads = []
 		for _ in range(THREAD_COUNT):
-			thread = threading.Thread(target=processSiteWorker, args=(kwargs["queue"], kwargs["thread_lock"], results))
+			thread = threading.Thread(target=processSiteWorker, args=(kwargs["queue"], ))
 			thread.daemon = True
 			thread.start()
-			kwargs["threads"][thread.name] =  thread
+			threads.append(thread)
 
 	report_file = kwargs.get("IN", config.in_file)
 	out_file = kwargs.get("REPORT", config.out_file)
@@ -210,11 +209,7 @@ if __name__ == "__main__":
 	# exec the definitions
 	report = Report(report_data, report_file, config.compat, **kwargs)
 	report.run(basedate, local_vars)
-	queue = kwargs.get("queue", None)
-	if queue:
-		print("Waiting for all tasks to be processed. . .")
-		queue.join()
-		print("All tasks processed!")
+	
 	output = None
 	tmpname = None
 
@@ -233,3 +228,4 @@ if __name__ == "__main__":
 		mask = os.umask(0)
 		os.chmod(out_file, 0o666 & (~mask))
 		os.umask(mask)
+	print(f"Report created after {round(time.time() - start_time, 3)}s")

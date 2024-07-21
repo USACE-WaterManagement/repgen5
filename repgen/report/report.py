@@ -9,7 +9,6 @@ except:
 
 class Report:
 	def __init__(self, report, file_name, compatibility, *args, **kwargs):
-		print(kwargs)
 		self.data = {}
 		self.datadef = ""
 		self.replines = []
@@ -18,7 +17,6 @@ class Report:
 		self.compatibility = compatibility
 		self.queue = kwargs.get("queue", None)
 		self.thread = kwargs.get("thread", None)
-		self.thread_lock = kwargs.get("thread_lock", None)
 
 		lines = map(lambda s: s.strip('\r'),  report.split(sep='\n'))
 		deflines = []
@@ -127,9 +125,13 @@ class Report:
 		print("CURDATE: %s" % repr(my_locals["CURDATE"]), file=sys.stderr)
 		print("CTM: %s" % repr(my_locals["CTM"]), file=sys.stderr)
 
+		max_call_size = 0
 		# Compile the report, so source and line number information can be reported to the user
 		exec(compile(self.datadef, self.repfilename, "exec"), globals(), my_locals)
-
+		if self.queue:
+			print("Waiting for all tasks to be processed. . .")
+			self.queue.join()
+			print("All tasks processed!")
 		# loop through my_locals and add them
 		# to a dictionary with the % in front of the them
 		# to mark location on the report
@@ -137,4 +139,5 @@ class Report:
 
 		for key in my_locals:
 			if isinstance(my_locals[key], Value ):
+				# TODO: this could cause a bug if someone is placing a % in the report with the same text after it i.e. css
 				self.data["%"+key] = my_locals[key]

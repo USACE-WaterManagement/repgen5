@@ -14,7 +14,6 @@ import signal
 # 3rd Party Libs
 import pytz
 
-
 try:
 	# Relativedelta supports months and years, but is external library
 	from dateutil.relativedelta import timedelta
@@ -26,6 +25,9 @@ except:
 # need to enable legacy ciphers for public CDA instance
 ssl_ctx = ssl.create_default_context()
 ssl_ctx.set_ciphers('DEFAULT')
+# fetchTimeseriesCDA requires ssl_ctx
+from repgen.workers.http import fetchTimeseriesCDA
+
 
 # types
 string_types = (b"".__class__,u"".__class__)
@@ -401,7 +403,13 @@ class Value:
 			except Exception as err:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
 		elif self.dbtype.upper() in ["JSON", "RADAR"]:
-			self.queue.put((self))
+			if self.queue:
+				self.queue.put((self))
+			else:
+				try:
+					fetchTimeseriesCDA(self)
+				except Exception as err:
+					print( repr(err) + " : " + str(err), file=sys.stderr )
 			
 
 		elif self.dbtype.upper() == "DSS":
