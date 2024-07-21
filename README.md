@@ -1,4 +1,4 @@
-# repgen5
+# repgen5 [![repgen5 tests](https://github.com/USACE-WaterManagement/repgen5/actions/workflows/tests.yml/badge.svg)](https://github.com/USACE-WaterManagement/repgen5/actions/workflows/tests.yml)
 
 This is a partial copy of HEC's (Hydrologic Engineering Center) repgen program.
 The program creates fixed form text reports from a time series database, and textfiles.
