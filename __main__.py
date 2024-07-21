@@ -1,9 +1,10 @@
-import sys,time,datetime,pytz,tempfile,shutil,os
+import sys, pytz, datetime, tempfile, shutil, os
+
 from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
 from repgen import __version__, THREAD_COUNT
-
+from repgen.workers.http import processSiteWorker
 import threading
 from queue import Queue
 
@@ -74,27 +75,6 @@ def parse_vars(items):
 		
 	return d, count == len(items)
 
-def processSiteWorker(queue, tid):
-	"""
-	Process site worker function that continuously retrieves tasks from a queue and processes them.
-	These will terminate gracefully when q.join() is called.
-
-	Parameters:
-	queue (Queue): Queue process
-	tid (int): The thread ID
-
-	Returns:
-	None
-	"""
-	while True:
-		shef_id, dt, lookback = queue.get(timeout=30)
-		try:
-			print(f"Processing {shef_id} via worker thread . . .")
-			#processSite(alt_id, shef_id, dt)
-		except KeyboardInterrupt:
-			print(f"Thread #{tid} received KeyboardInterrupt. Exiting...")
-		finally:
-			q.task_done()
 
 
 # Pytz doesn't know all the aliases and abbreviations
@@ -128,16 +108,20 @@ if __name__ == "__main__":
 		sys.exit(0)
 		
 	kwargs["thread_lock"], kwargs["queue"] = None, None
+	# Enable IO bound process multi-threading 
+	#  if the user has a need for speed
 	if config.parallel:
 		results = []
-		# Sync the logger with the threads
-		kwargs["thread_lock"] = threading.Lock()
-		# Initialize the task queue
+		kwargs["threads"] = {}
+		# Initialize the task queue 
 		kwargs["queue"] = Queue()
-		thread = threading.Thread(target=processSiteWorker, args=(kwargs["queue"], results, kwargs["thread_lock"]))
-		thread.daemon = True
-		thread.start()
-		kwargs["thread"] = thread
+		# Setup worker threads
+		threads = []
+		for _ in range(THREAD_COUNT):
+			thread = threading.Thread(target=processSiteWorker, args=(kwargs["queue"], kwargs["thread_lock"], results))
+			thread.daemon = True
+			thread.start()
+			kwargs["threads"][thread.name] =  thread
 
 	report_file = kwargs.get("IN", config.in_file)
 	out_file = kwargs.get("REPORT", config.out_file)
@@ -223,10 +207,14 @@ if __name__ == "__main__":
 				key = None
 
 		f_d.close()
-
 	# exec the definitions
-	report = Report(report_data, report_file, config.compat)
+	report = Report(report_data, report_file, config.compat, **kwargs)
 	report.run(basedate, local_vars)
+	queue = kwargs.get("queue", None)
+	if queue:
+		print("Waiting for all tasks to be processed. . .")
+		queue.join()
+		print("All tasks processed!")
 	output = None
 	tmpname = None
 

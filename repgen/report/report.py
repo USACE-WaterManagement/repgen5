@@ -8,13 +8,17 @@ except:
 	from datetime import timedelta
 
 class Report:
-	def __init__(self, report, file_name, compatibility):
-		self.repfilename = file_name
-		self.repfile = report
-		self.replines = []
-		self.datadef = ""
-		self.compatibility = compatibility
+	def __init__(self, report, file_name, compatibility, *args, **kwargs):
+		print(kwargs)
 		self.data = {}
+		self.datadef = ""
+		self.replines = []
+		self.repfile = report
+		self.repfilename = file_name
+		self.compatibility = compatibility
+		self.queue = kwargs.get("queue", None)
+		self.thread = kwargs.get("thread", None)
+		self.thread_lock = kwargs.get("thread_lock", None)
 
 		lines = map(lambda s: s.strip('\r'),  report.split(sep='\n'))
 		deflines = []
