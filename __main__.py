@@ -107,20 +107,7 @@ if __name__ == "__main__":
 	if config.show_ver == True:
 		print(__version__)
 		sys.exit(0)
-		
-	kwargs["queue"] = None
-	# Enable IO bound process multi-threading 
-	#  if the user has a need for speed
-	threads = []
-	if config.parallel:
-		# Initialize the task queue 
-		kwargs["queue"] = Queue()
-		# Setup worker threads
-		for _ in range(THREAD_COUNT):
-			thread = threading.Thread(target=processSiteWorker, args=(kwargs["queue"], ))
-			thread.daemon = True
-			thread.start()
-			threads.append(thread)
+	
 
 	report_file = kwargs.get("IN", config.in_file)
 	out_file = kwargs.get("REPORT", config.out_file)
@@ -145,7 +132,20 @@ if __name__ == "__main__":
 
 	# set some of the default values
 	Value(1, host=host, path=path, tz=tz, ucformat=config.compat, timeout=config.timeout, althost=althost, altpath=altpath, dbofc=config.office, **kwargs)
-	
+		
+	kwargs["queue"] = None
+	# Enable IO bound process multi-threading 
+	#  if the user has a need for speed
+	threads = []
+	if config.parallel:
+		# Initialize the task queue 
+		kwargs["queue"] = Queue()
+		# Setup worker threads
+		for _ in range(THREAD_COUNT):
+			thread = threading.Thread(target=processSiteWorker, args=(kwargs["queue"], ))
+			thread.daemon = True
+			thread.start()
+			threads.append(thread)
 	# read the report file
 	if report_file == '-': 
 		report_file = sys.stdin.name
