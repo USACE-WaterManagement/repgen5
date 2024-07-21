@@ -1,6 +1,6 @@
 @echo off
 
-c:\Python38\python.exe . ^
+python.exe . ^
     -a https://cwms-data.usace.army.mil/cwms-data ^
     -i tests/swt/testfiles/test.frm ^
     -O SWT ^

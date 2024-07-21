@@ -109,9 +109,9 @@ for project in PROJECTS:
         DBUNITS="ft",
     )
     # TODO: Fix threading issue in deepcopy
-    # DT = Value(elev.datatimes(),
-	# 	PICTURE="%d%b%Y %K%M",
-	# )
+    DT = Value(elev.datatimes(),
+		PICTURE="%d%b%Y %K%M",
+	)
     # Dynamically add the project to the locals for printing to the form
     locals().update(
         {
