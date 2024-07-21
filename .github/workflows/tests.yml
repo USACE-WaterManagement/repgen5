@@ -3,7 +3,6 @@ on:
   pull_request:
     branches: [ main ]
 
-
 jobs:
   tests:
     runs-on: ubuntu-20.04
@@ -16,9 +15,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version}}
           architecture: x64
-      - name: install requirements
+      - name: Install requirements
         run: pip3 install -r tests/requirements.txt
-      - name: run tests        
+      - name: Make shell script executable
+        run: chmod +x tests/swt/scripts/run.sh
+      - name: Run tests
         run: pytest -v
   canpackage:
     runs-on: ubuntu-20.04
@@ -31,10 +32,9 @@ jobs:
         with:
           python-version: ${{ matrix.python-version}}
           architecture: x64
-      - name: install requirements
+      - name: Install requirements
         run: pip3 install -r tests/requirements.txt
-      - name: package
+      - name: Package
         run: ./package.sh
-      - name: run package
+      - name: Run package
         run: python build/repgen.zip -i test.manual/test.if
-

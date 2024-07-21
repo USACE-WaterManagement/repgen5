@@ -83,7 +83,7 @@ CUR_YEAR = BASDATE.value.year
 CUR_MONTH = BASDATE.value.month
 CUR_DAY = BASDATE.value.day
 
-BASDATE_8AM = BASDATE.value.replace(hour=8, minute=0, second=0, microsecond=0)
+BASDATE_8AM = BASDATE.value.replace(year=2024, month=6, day=21, hour=8, minute=0, second=0, microsecond=0)
 BASDATE_8AM_YESTERDAY = BASDATE_8AM - datetime.timedelta(hours=24)
 
 for project in PROJECTS:
