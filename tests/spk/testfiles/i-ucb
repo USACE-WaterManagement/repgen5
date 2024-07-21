@@ -1,0 +1,871 @@
+#FORM
+ Corps of Engineers Reservoir Report for Upper Colorado Basin Reservoirs
+ Data Ending 2400 hours   %BASDATE
+ Report Generated %CTM
+
+                 Pool              Storage
+                 Elev   Storage    Change     Outflow  Inflow
+               (ft-msl)  (acft)    (acft)      (cfs)    (cfs)
+
+ Paonia:       %PAOELEV %PAOSTOR   %PAOSDEL    %PAOOUT  %PAOIN
+
+ Blue Mesa:    %BLMELEV %BLMSTOR   %BLMSDEL    %BLMOUT  %BLMIN
+
+ Vallecito:    %VALELEV %VALSTOR   %VALSDEL    %VALOUT  %VALIN
+
+ Lemon:        %LEMELEV %LEMSTOR   %LEMSDEL    %LEMOUT  %LEMIN
+
+ Ridgway:      %RDGELEV %RDGSTOR   %RDGSDEL    %RDGOUT  %RDGIN
+
+ Starvation:   %STRELEV %STRSTOR   %STRSDEL    %STROUT  %STRIN
+
+ Red Fleet:    %RDFELEV %RDFSTOR   %RDFSDEL    %RDFOUT  %RDFIN
+ _______________________________________________________________________________
+ Miscellaneous Flows                 %FDATE
+                                       Daily       Daily        Daily
+                                    Average(cfs)  Max(cfs)     Min(cfs)
+ Paonia:
+    Muddy Creek near Paonia        %MAQR       %MAQX        %MAQN
+    N Fork Gunnison near Somerset  %NGQR       %NGQX        %NGQN
+
+ Blue Mesa:
+    Taylor below Taylor Park Res.  %TYQR       %TYQX        %TYQN
+    East at Almont                 %EAQR       %EAQX        %EAQN
+    Taylor at Almont               %TAQR       %TAQX        %TAQN
+    Gunnison near Gunnison         %GUQR       %GUQX        %GUQN
+    Gunnison at Delta              %CCQR       %CCQX        %CCQN
+    Colorado near Stateline        %STQR       %STQX        %STQN
+    Gunnison below Gunnison Tunnel %GBQR       %GBQX        %GBQN
+    Gunnison near Grand Junction   %GJQR       %GJQX        %GJQN
+
+ Vallecito:
+    Vallecito near Bayfield        %VCQR       %VCQX        %VCQN
+    Los Pinos near Ignacio         %PIQR       %PIQX        %PIQN
+
+ Lemon:
+
+ Ridgway:
+    Uncompahgre near Ridgway       %UAQR       %UAQX        %UAQN
+    Uncompahgre below Ridgway      %UBQR       %UBQX        %UBQN
+    Uncompahgre at Coloma          %UCQR       %UCQX        %UCQN
+    Uncompahgre near Delta         %URQR       %URQX        %URQN
+    Dallas Creek near Ridgeway     %DAQR       %DAQX        %DAQN
+
+ Starvation:
+     Strawberry at Pinnacles       %SPQR       %SPQX        %SPQN
+     Currant Cr near Fruitland     %CFQR       %CFQX        %CFQN
+     Strawberry near Duchesne      %SDQR       %SDQX        %SDQN
+     Duchesne near Tabiona         %DTQR       %DTQX        %DTQN
+     Rock Cr near Mountain Home    %RMQR       %RMQX        %RMQN
+
+Red Fleet:
+    Big Brush Cr above Red Fleet   %BRQR       %BRQX        %BRQN
+    Green River near Jensen        %GRQR       %GRQX        %GRQN
+   
+  *** ALL DATA PROVIDED BY USBR SALT LAKE CITY & USGS ***
+
+ SNOTEL Data for Sites above Section 7 Reservoirs
+ Data Ending 2400 hours   %BASDATE
+ Report Generated %CTM
+
+                                                               24 Hour Change
+                          Accumulated Snow                    Ending %FDATE
+                             (weqv-inch)   date    @ time        (weqv-inch)
+ Paonia:
+       North Lost Trial     %SMH         %DSMH                   %SMHI
+       McClure Pass         %BCD         %DBCD                   %BCDI
+       Park Reservoir       %PPP         %DPPP                   %PPPI
+       Overland Reservoir   %OVR         %DOVR                   %OVRI
+
+ Blue Mesa:
+       Butte                %CC1         %DCC1                   %CC1I
+       Park Cone            %CC2         %DCC2                   %CC2I
+       Porphyry Creek       %PRC         %DPRC                   %PRCI
+       Slumgullion          %SLG         %DSLG                   %SLGI
+       Columbine            %CLB         %DCLB                   %CLBI
+       Mesa Lake            %MSL         %DMSL                   %MSLI
+
+ Vallecito:
+       Vallecito            %PCS         %DPCS                   %PCSI
+       Beartown             %BRT         %DBRT                   %BRTI
+       Chamita              %CHA         %DCHA                   %CHAI
+       Hopewell             %HPW         %DHPW                   %HPWI
+       Middle Cr            %MDL         %DMDL                   %MDLI
+       Upper Rio Grande     %URG         %DURG                   %URGI
+
+ Lemon:
+       Cascade              %BLP         %DBLP                   %BLPI
+       Mineral Creek        %BLT         %DBLT                   %BLTI
+       Molas Lake           %DBP         %DDBP                   %DBPI
+       Red Mountain Pass    %RMP         %DRMP                   %RMPI
+       Spud Mountain        %SPU         %DSPU                   %SPUI
+       Cumbres Trestle      %CUM         %DCUM                   %CUMI
+       Lone Cone            %LNC         %DLNC                   %LNCI
+       Wolf Creek Summit    %WCS         %DWCS                   %WCSI
+
+ Ridgway:
+       Idarando             %IDA         %DIDA                   %IDAI
+       Columbine Pass       %COL         %DCOL                   %COLI
+       El Diente Peak       %EDP         %DEDP                   %EDPI
+       Lizzard Head         %LZH         %DLZH                   %LZHI
+       Scotch Creek         %STC         %DSTC                   %STCI
+
+ Starvation:
+       Strawberry Divide    %STD         %DSTD                   %STDI
+       Daniels-Strawberry   %DAN         %DDAN                   %DANI
+       Currant Creek        %CUC         %DCUC                   %CUCI
+       Indian Canyon        %IND         %DIND                   %INDI
+
+ Red Fleet:
+       Kings Cabin          %CAB         %DCAB                   %CABI
+       Mosby Mountain       %MOS         %DMOS                   %MOSI
+       Hayden Fork          %HFK         %DHFK                   %HFKI
+       Monte Cristo         %MCR         %DMCR                   %MCRI
+       Trout Creek          %TRC         %DTRC                   %TRCI
+
+  *** ALL DATA PROVIDED BY NRCS ***
+
+#ENDFORM
+#                                 Set TABS to 18,35,50,65
+#DEF
+# !ECHO
+VALUE=EXACT
+%CTM                                 PICTURE=DDBAAABYYYYB@BZZZT
+%BASDATE=SETTIME(%BASDATE,TIME,2400) PICTURE=DDBAAABYYYY
+%FDATE=%BASDATE                      PICTURE=ZM/ZD/ZY
+#                                 Define all ELEVATIONS
+%PAOELEV
+	DB=%DB DBTZ=MST7MDT
+	DBLOC="Paonia"            DBPAR=Elev DBPTYP=Inst DBINT=~1Day DBDUR=0 DBVER="Raw-USBRSLC"
+	TIME=%BASDATE                     PICTURE=NNNZ.ZZ               MISSTR="   -NR-" UNDEF="   -NR-"
+	DBUNITS=ft
+#A=MUDDY CR       B=PAONIA         C=ELEV         E=1DAY         F=
+%BLMELEV
+	DBLOC="Blue Mesa"
+#A=GUNNISON       B=BLUE MESA
+%VALELEV
+	DBLOC="Vallecito"
+#A=LOS PINOS      B=VALLECITO
+%LEMELEV
+	DBLOC="Lemon"
+#A=FLORIDA        B=LEMON
+%RDGELEV
+	DBLOC="Ridgway"
+#A=UNCOMPAHGRE    B=RIDGWAY
+%RDFELEV
+	DBLOC="Red Fleet"
+#A=BRUSH CR       B=RED FLEET
+%STRELEV
+	DBLOC="Starvation"
+#A=STRAWBERRY     B=STARVATION
+##                                Define all STORAGES
+%PAOSTRS
+	DBLOC="Paonia" DBPAR=Stor DBVER="Rev-USBRSLC"
+	STIME=%BASDATE-35D  ETIME=%BASDATE    PICTURE=NNNNNNZ         MISSTR="   -NR-"
+	DBUNITS=ac-ft
+#A=MUDDY CR       B=PAONIA         C=STOR-RES EOP E=1DAY         F=
+%BLMSTRS
+	DBLOC="Blue Mesa"
+#A=GUNNISON       B=BLUE MESA
+%VALSTRS
+	DBLOC="Vallecito"
+#A=LOS PINOS      B=VALLECITO
+%LEMSTRS
+	DBLOC="Lemon" DBVER="Rev-USBRSLC"
+#A=FLORIDA        B=LEMON
+%RDGSTRS
+	DBLOC="Ridgway"
+#A=UNCOMPAHGRE    B=RIDGWAY
+%RDFSTRS
+	DBLOC="Red Fleet"
+#A=BRUSH CR       B=RED FLEET
+%STRSTRS
+	DBLOC="Starvation"
+#A=STRAWBERRY     B=STARVATION
+##
+%PAOSTOR=%PAOSTRS(END)
+%BLMSTOR=%BLMSTRS(END)
+%VALSTOR=%VALSTRS(END)
+%LEMSTOR=%LEMSTRS(END)
+%RDGSTOR=%RDGSTRS(END)
+%RDFSTOR=%RDFSTRS(END)
+%STRSTOR=%STRSTRS(END)
+##                                 Define all STORAGE CHANGES
+%PAOSDEL=%PAOSTOR-%PAOSTRS(%BASDATE-1D)
+%BLMSDEL=%BLMSTOR-%BLMSTRS(%BASDATE-1D)
+%VALSDEL=%VALSTOR-%VALSTRS(%BASDATE-1D)
+%LEMSDEL=%LEMSTOR-%LEMSTRS(%BASDATE-1D)
+%RDGSDEL=%RDGSTOR-%RDGSTRS(%BASDATE-1D)
+%RDFSDEL=%RDFSTOR-%RDFSTRS(%BASDATE-1D)
+%STRSDEL=%STRSTOR-%STRSTRS(%BASDATE-1D)
+##                                 Define all OUTFLOWS
+%PAOOUT
+	TIME=%BASDATE                 PICTURE=NNNNNNZ             MISSTR="   -NR-"
+	DBLOC="Paonia" DBPAR=Flow-Res Out DBPTYP=Ave DBINT=~1Day DBDUR=1Day DBVER="Raw-USBRSLC"
+	DBUNITS=cfs
+#FILE=/dat0/rtsc7db.dss         TYPE=DSS
+#A=MUDDY CR       B=PAONIA         C=FLOW-RES OUT E=1DAY         F=
+%BLMOUT
+	DBLOC="Blue Mesa"
+#A=GUNNISON       B=BLUE MESA
+%VALOUT
+	DBLOC="Vallecito"
+#A=LOS PINOS      B=VALLECITO
+%LEMOUT
+	DBLOC="Lemon"
+#A=FLORIDA        B=LEMON
+%RDGOUT
+	DBLOC="Ridgway"
+#A=UNCOMPAHGRE    B=RIDGWAY
+%RDFOUT
+	DBLOC="Red Fleet"
+#A=BRUSH CR       B=RED FLEET
+%STROUT
+	DBLOC="Starvation"
+#A=STRAWBERRY     B=STARVATION
+##                                 Define all INFLOWS
+%PAOIN
+	DBLOC="Paonia" DBPAR=Flow-Res In
+	TIME=%BASDATE                     PICTURE=NNNNNNZ             MISSTR="   -NR-"
+#FILE=/dat0/rtsc7db.dss         TYPE=DSS
+#A=MUDDY CR       B=PAONIA         C=FLOW-RES IN  E=1DAY         F=
+%BLMIN
+	DBLOC="Blue Mesa"
+#A=GUNNISON       B=BLUE MESA
+%VALIN
+	DBLOC="Vallecito"
+#A=LOS PINOS      B=VALLECITO
+%LEMIN
+	DBLOC="Lemon"
+#A=FLORIDA        B=LEMON
+%RDGIN
+	DBLOC="Ridgway"
+#A=UNCOMPAHGRE    B=RIDGWAY
+%RDFIN
+	DBLOC="Red Fleet"
+#A=BRUSH CR       B=RED FLEET
+%STRIN
+	DBLOC="Starvation"
+#A=STRAWBERRY     B=STARVATION
+##
+##
+##                  Define Daily Flow
+##
+##
+##
+%MAQR
+DATE=%BASDATE+7H   VALUE=NOMISS 
+	DBLOC="Muddy Cr-abv Paonia Res" DBPAR=Flow DBVER=Calc-usgs
+#FILE=/dat0/rtsc7db.dss               TYPE=DSS
+#A=MUDDY CR       B=NR PAONIA     C=FLOW       E=1DAY           F=
+PICTURE=NNNNNNNZ    MISSTR="    -NR-"
+%NGQR
+	DBLOC="NF Gunnison-nr Somerset"
+#A=NF GUNNISON    B=NR SOMERSET
+%TYQR
+	DBLOC="Taylor Park"
+#A=TAYLOR         B=BLW TAYLOR PARK
+%EAQR
+	DBLOC="East R-Almont"
+#A=EAST           B=AT ALMONT
+%TAQR
+	DBLOC="Taylor R-Almont"
+#A=TAYLOR         B=AT ALMONT
+%GUQR
+	DBLOC="Gunnison R-nr Gunnison"
+#A=GUNNISON       B=NR GUNNISON
+%CCQR
+	DBLOC="Gunnison R-at Delta"
+#A=GUNNISON       B=AT DELTA
+%STQR
+	DBLOC="Colorado R-nr CO-UT State Line"
+#A=COLORADO       B=NR STATELINE
+%GBQR
+	DBLOC="Gunnison R-blw Gunnison Tunnel"
+#A=GUNNISON       B=BLW GUNNISON TUN
+%GJQR
+	DBLOC="Gunnison R-nr Grand Junction"
+#A=GUNNISON       B=NR GRAND JCT
+%UAQR
+	DBLOC="Uncompahgre R-Nr Ridgway"
+#A=UNCOMPAHGRE    B=NR RIDGEWAY
+%UBQR
+	DBLOC="Ridgway"
+#A=UNCOMPAHGRE    B=BLW RIDGWAY
+%UCQR
+	DBLOC="Uncompahgre R-at Colona"
+#A=UNCOMPAHGRE    B=AT COLOMA
+%URQR
+	DBLOC="Uncompahgre R-at Delta"
+#A=UNCOMPAHGRE    B=NR DELTA
+%DAQR
+	DBLOC="Dallas Cr-nr Ridgway"
+#A=DALLAS CR      B=NR RIDGEWAY
+%VCQR
+	DBLOC="Vallecito-nr Bayfield"
+%PIQR
+	DBLOC="Los Pinos R-nr Ignacio"
+%BRQR
+	DBLOC="Big Brush Cr-abv Red Fleet Res"
+%GRQR
+	DBLOC="Green R-nr Jensen"
+%SPQR
+	DBLOC="Strawberry R-Pinnacles nr Fruitland"
+%CFQR
+	DBLOC="Currant Cr-nr Fruitland"
+%SDQR
+	DBLOC="Strawberry R-nr Duchesne"
+%DTQR
+	DBLOC="Duchesne R-nr Tabiona"
+%RMQR
+	DBLOC="Rock Cr-nr Mountain Home"
+##
+##
+##
+##                  Define Daily Maximum Flow
+##
+##
+##
+%MAQX
+DATE=%BASDATE+7H    VALUE=NOMISS
+	DBLOC="Muddy Cr-abv Paonia Res" DBPTYP=Max
+#FILE=/dat0/rtsc7db.dss               TYPE=DSS
+#A=MUDDY CR       B=NR PAONIA     C=FLOW MAX   E=1DAY           F=
+PICTURE=NNNNNNNZ    MISSTR="    -NR-"
+#%MDQX
+#A=MUDDY CR       B=NR SOMERSET
+%NGQX
+	DBLOC="NF Gunnison-nr Somerset"
+#A=NF GUNNISON    B=NR SOMERSET
+%TYQX
+	DBLOC="Taylor Park"
+#A=TAYLOR         B=BLW TAYLOR PARK
+%EAQX
+	DBLOC="East R-Almont"
+#A=EAST           B=AT ALMONT
+%TAQX
+	DBLOC="Taylor R-Almont"
+#A=TAYLOR         B=AT ALMONT
+%GUQX
+	DBLOC="Gunnison R-nr Gunnison"
+#A=GUNNISON       B=NR GUNNISON
+%CCQX
+	DBLOC="Gunnison R-at Delta"
+#A=GUNNISON       B=AT DELTA
+%STQX
+	DBLOC="Colorado R-nr CO-UT State Line"
+#A=COLORADO       B=NR STATELINE
+%GBQX
+	DBLOC="Gunnison R-blw Gunnison Tunnel"
+#A=GUNNISON       B=BLW GUNNISON TUN
+%GJQX
+	DBLOC="Gunnison R-nr Grand Junction"
+#A=GUNNISON       B=NR GRAND JCT
+#%GDQX
+#A=GUNNISON       B=TUN DIV S CANAL
+#%LPQX
+#A=LOS PINOS      B=NR BAYFIELD
+#%FAQX
+#A=FLORIDA        B=ABV LEMON
+#%FBQX
+#A=FLORIDA        B=BLW LEMON
+%UAQX
+	DBLOC="Uncompahgre R-Nr Ridgway"
+#A=UNCOMPAHGRE    B=NR RIDGEWAY
+%UBQX
+	DBLOC="Ridgway"
+#A=UNCOMPAHGRE    B=BLW RIDGWAY
+%UCQX
+	DBLOC="Uncompahgre R-at Colona"
+#A=UNCOMPAHGRE    B=AT COLOMA
+%URQX
+	DBLOC="Uncompahgre R-at Delta"
+#A=UNCOMPAHGRE    B=NR DELTA
+#%UNQX
+#A=UNCOMPAHGRE    B=NR OLATHE
+%DAQX
+	DBLOC="Dallas Cr-nr Ridgway"
+#A=DALLAS CR      B=NR RIDGEWAY
+%VCQX
+        DBLOC="Vallecito-nr Bayfield"
+%PIQX
+        DBLOC="Los Pinos R-nr Ignacio"
+%BRQX
+        DBLOC="Big Brush Cr-abv Red Fleet Res"
+%GRQX
+        DBLOC="Green R-nr Jensen"
+%SPQX
+        DBLOC="Strawberry R-Pinnacles nr Fruitland"
+%CFQX
+        DBLOC="Currant Cr-nr Fruitland"
+%SDQX
+        DBLOC="Strawberry R-nr Duchesne"
+%DTQX
+        DBLOC="Duchesne R-nr Tabiona"
+%RMQX
+        DBLOC="Rock Cr-nr Mountain Home"
+								 
+##
+##
+##                  Define Daily Minimum Flow
+##
+##
+##
+##
+%MAQN
+DATE=%BASDATE+7H    VALUE=NOMISS
+#FILE=/dat0/rtsc7db.dss               TYPE=DSS
+	DBLOC="Muddy Cr-abv Paonia Res" DBPTYP=Min
+#A=MUDDY CR       B=NR PAONIA     C=FLOW MIN   E=1DAY           F=
+PICTURE=NNNNNNNZ    MISSTR="    -NR-"
+#%MDQN
+#A=MUDDY CR       B=NR SOMERSET
+%NGQN
+	DBLOC="NF Gunnison-nr Somerset"
+#A=NF GUNNISON    B=NR SOMERSET
+%TYQN
+	DBLOC="Taylor Park"
+#A=TAYLOR         B=BLW TAYLOR PARK
+%EAQN
+	DBLOC="East R-Almont"
+#A=EAST           B=AT ALMONT
+%TAQN
+	DBLOC="Taylor R-Almont"
+#A=TAYLOR         B=AT ALMONT
+%GUQN
+	DBLOC="Gunnison R-nr Gunnison"
+#A=GUNNISON       B=NR GUNNISON
+%CCQN
+	DBLOC="Gunnison R-at Delta"
+#A=GUNNISON       B=AT DELTA
+%STQN
+	DBLOC="Colorado R-nr CO-UT State Line"
+#A=COLORADO       B=NR STATELINE
+%GBQN
+	DBLOC="Gunnison R-blw Gunnison Tunnel"
+#A=GUNNISON       B=BLW GUNNISON TUN
+%GJQN
+	DBLOC="Gunnison R-nr Grand Junction"
+#A=GUNNISON       B=NR GRAND JCT
+#%GDQN
+#A=GUNNISON       B=TUN DIV S CANAL
+#%LPQN
+#A=LOS PINOS      B=NR BAYFIELD
+#%FAQN
+#A=FLORIDA        B=ABV LEMON
+#%FBQN
+#A=FLORIDA        B=BLW LEMON
+%UAQN
+	DBLOC="Uncompahgre R-Nr Ridgway"
+#A=UNCOMPAHGRE    B=NR RIDGEWAY
+%UBQN
+	DBLOC="Ridgway"
+#A=UNCOMPAHGRE    B=BLW RIDGWAY
+%UCQN
+	DBLOC="Uncompahgre R-at Colona"
+#A=UNCOMPAHGRE    B=AT COLOMA
+%URQN
+	DBLOC="Uncompahgre R-at Delta"
+#A=UNCOMPAHGRE    B=NR DELTA
+#%UNQN
+#A=UNCOMPAHGRE    B=NR OLATHE
+%DAQN
+	DBLOC="Dallas Cr-nr Ridgway"
+#A=DALLAS CR      B=NR RIDGEWAY
+%VCQN
+        DBLOC="Vallecito-nr Bayfield"
+%PIQN
+        DBLOC="Los Pinos R-nr Ignacio"
+%BRQN
+        DBLOC="Big Brush Cr-abv Red Fleet Res"
+%GRQN
+        DBLOC="Green R-nr Jensen"
+%SPQN
+        DBLOC="Strawberry R-Pinnacles nr Fruitland"
+%CFQN
+        DBLOC="Currant Cr-nr Fruitland"
+%SDQN
+        DBLOC="Strawberry R-nr Duchesne"
+%DTQN
+        DBLOC="Duchesne R-nr Tabiona"
+%RMQN
+        DBLOC="Rock Cr-nr Mountain Home"
+					
+##
+##
+##
+##
+##
+##                                 Define SNOTEL WEQV @ or before 0700
+#
+%SMH
+TIME=%BASDATE   VALUE=NOMISS   PICTURE=NNNNNZ.Z        MISSTR="    -NR-"
+DBLOC="North Lost Trail" DBPAR=Depth-SWE DBPTYP=Inst DBINT=1Hour DBDUR=0 DBVER="NRCS-raw"
+         DBUNITS=in
+#FILE=/dat0/slcdcol.dss             TYPE=DSS
+#A=COLORADO       B=NORTH LOST TRAIL    C=SNOW-WEQV    E=IR-MONTH     F=
+%BCD
+DBLOC="Mc Clure Pass"
+#A=GUNNISON       B=MCCLURE
+%CC1
+DBLOC="Butte Snow Gage"
+#A=GUNNISON       B=BUTTE
+%CC2
+DBLOC="Park Cone"
+#A=GUNNISON       B=PARK CONE
+%PCS
+DBLOC="Vallecito"
+#A=LOS PINOS      B=VALLECITO
+%BLP
+DBLOC="Cascade #2"
+#A=ANIMAS         B=CASCADE
+%BLT
+DBLOC="Mineral Cr"
+#A=ANIMAS         B=MINERAL CR
+%DBP
+DBLOC="Molas Lake"
+#A=ANIMAS         B=MOLAS LAKE
+%PPP
+DBLOC="Park Reservoir"
+#A=GUNNISON       B=PARK
+%PRC
+DBLOC="Porphyry Cr"
+#A=GUNNISON       B=PORPHYRY CR
+%SLG
+DBLOC="Slumgullion"
+#A=GUNNISON       B=SLUMGULLION
+%BRT
+DBLOC="Beartown"
+#A=RIO GRANDE     B=BEARTOWN
+%RMP
+DBLOC="Red MountainPass"
+#A=ANIMAS         B=RED MTN PASS
+%SPU
+DBLOC="Spud Mountain"
+#A=ANIMAS         B=SPUD MTN
+%IDA
+DBLOC="Idarado"
+#A=GUNNISON       B=IDARANDO
+%COL
+DBLOC="Columbine Pass"
+#A=GUNNISON       B=COLUMBINE
+%STD
+DBLOC="StrawberryDivide"
+#A=UINTAH         B=STRAWBERRY DIV
+%DAN
+DBLOC="Daniels-Strawberry"
+#A=UINTAH         B=DANIELS-STRWBERY
+%CUC
+DBLOC="Currant Cr"
+#A=UINTAH         B=CURRANT CR
+%IND
+DBLOC="Indian Canyon"
+#A=UINTAH         B=INDIAN CANYON
+%OVR
+DBLOC="Overland Res"
+#A=GUNNISON       B=OVERLAND
+%CAB
+DBLOC="Kings Cabin"
+#A=UINTAH         B=KINGS CABIN
+%MOS
+DBLOC="Mosby Mountain"
+#A=UINTAH         B=MOSBY MTN
+%CLB
+DBLOC="Columbine"
+#A=GUNNISON       B=COLUMBINE
+%MSL
+DBLOC="Mesa Lake"
+#A=GUNNISON       B=MESA LAKE
+%CHA
+DBLOC="Chamita"
+#A=SAN JUAN       B=CHAMITA
+%HPW
+DBLOC="Hopewell"
+#A=RIO CHAMA      B=HOPEWELL
+%MDL
+DBLOC="Middle Cr"
+#A=RIO GRANDE     B=MIDDLE DR
+%URG
+DBLOC="Upper Rio Grande"
+#A=RIO GRANDE     B=UPPER RIO GRANDE
+%CUM
+DBLOC="Cumbres Trestle"
+#A=SAN JUAN       B=CUMBRES TRESTLE
+%LNC
+DBLOC="Lone Cone"
+#A=SAN MIGUEL     B=LONE CONE
+%WCS
+DBLOC="Wolf Cr Summit"
+#A=SAN JUAN       B=WOLF CR SUMMIT
+%EDP
+DBLOC="El Diente Peak"
+#A=DOLORES        B=EL DIENTE PEAK
+%LZH
+DBLOC="Lizard Head"
+#A=DOLORES        B=LIZZARD HEAD
+%STC
+DBLOC="Scotch Cr"
+#A=DOLORES        B=SCOTCH CR
+%HFK
+DBLOC="Hayden Fork"
+#A=BEAR           B=HAYDEN FORK
+%MCR
+DBLOC="Monte Cristo"
+#A=BEAR           B=MONTE CRISTO
+%TRC
+DBLOC="Trout Cr"
+#A=GREEN          B=TROUT CR
+#
+##
+#
+%DMOS=DATATIME(%MOS)               PICTURE=ZDAAAZZZYB@BZZ:ZT
+%DOVR=DATATIME(%OVR)
+%DSMH=DATATIME(%SMH)
+%DBCD=DATATIME(%BCD)
+%DCC1=DATATIME(%CC1)
+%DCC2=DATATIME(%CC2)
+%DPCS=DATATIME(%PCS)
+%DBLP=DATATIME(%BLP)
+%DDBP=DATATIME(%DBP)
+%DBLT=DATATIME(%BLT)
+%DPPP=DATATIME(%PPP)
+%DPRC=DATATIME(%PRC)
+%DSLG=DATATIME(%SLG)
+%DBRT=DATATIME(%BRT)
+%DRMP=DATATIME(%RMP)
+%DSPU=DATATIME(%SPU)
+%DIDA=DATATIME(%IDA)
+%DCOL=DATATIME(%COL)
+%DSTD=DATATIME(%STD)
+%DDAN=DATATIME(%DAN)
+%DCUC=DATATIME(%CUC)
+%DIND=DATATIME(%IND)
+%DCAB=DATATIME(%CAB)
+%DCLB=DATATIME(%CLB)
+%DMSL=DATATIME(%MSL)
+%DCHA=DATATIME(%CHA)
+%DHPW=DATATIME(%HPW)
+%DMDL=DATATIME(%MDL)
+%DURG=DATATIME(%URG)
+%DCUM=DATATIME(%CUM)
+%DLNC=DATATIME(%LNC)
+%DWCS=DATATIME(%WCS)
+%DEDP=DATATIME(%EDP)
+%DLZH=DATATIME(%LZH)
+%DSTC=DATATIME(%STC)
+%DHFK=DATATIME(%HFK)
+%DMCR=DATATIME(%MCR)
+%DTRC=DATATIME(%TRC)
+#
+##                                    Define SNOTEL INCREMENTAL WEQV
+#  
+%SMHSWES
+DBLOC="North Lost Trail" DBPAR="Depth-SWE" DBVER="NRCS-raw"
+STIME=%BASDATE-7D  ETIME=%BASDATE      PICTURE=NNNNZ.Z         MISSTR="   -NR-"
+DBUNITS=in
+#FILE=/dat0/slcdcol.dss               TYPE=DSS
+#A=COLORADO       B=NORTH LOST TRAIL   C=SNOW-WEQV INC    E=1DAY      F=
+%BCDSWES
+DBLOC="Mc Clure Pass"
+#A=GUNNISON       B=MCCLURE
+%CC1SWES
+DBLOC="Butte Snow Gage"
+#A=GUNNISON       B=BUTTE
+%CC2SWES
+DBLOC="Park Cone"
+#A=GUNNISON       B=PARK CONE
+%PCSSWES
+DBLOC="Vallecito"
+#A=LOS PINOS      B=VALLECITO
+%BLPSWES
+DBLOC="Cascade #2"
+#A=ANIMAS         B=CASCADE
+%BLTSWES
+DBLOC="Mineral Cr"
+#A=ANIMAS         B=MINERAL CR
+%DBPSWES
+DBLOC="Molas Lake"
+#A=ANIMAS         B=MOLAS LAKE
+%PPPSWES
+DBLOC="Park Reservoir"
+#A=GUNNISON       B=PARK
+%PRCSWES
+DBLOC="Porphyry Cr"
+#A=GUNNISON       B=PORPHYRY CR
+%SLGSWES
+DBLOC="Slumgullion"
+#A=GUNNISON       B=SLUMGULLION
+%BRTSWES
+DBLOC="Beartown"
+#A=RIO GRANDE     B=BEARTOWN
+%RMPSWES
+DBLOC="Red MountainPass"
+#A=ANIMAS         B=RED MTN PASS
+%SPUSWES
+DBLOC="Spud Mountain"
+#A=ANIMAS         B=SPUD MTN
+%IDASWES
+DBLOC="Idarado"
+#A=GUNNISON       B=IDARANDO
+%COLSWES
+DBLOC="Columbine Pass"
+#A=GUNNISON       B=COLUMBINE
+%STDSWES
+DBLOC="StrawberryDivide"
+#A=UINTAH         B=STRAWBERRY DIV
+%DANSWES
+DBLOC="Daniels-Strawberry"
+#A=UINTAH         B=DANIELS-STRWBERY
+%CUCSWES
+DBLOC="Currant Cr"
+#A=UINTAH         B=CURRANT CR
+%INDSWES
+DBLOC="Indian Canyon"
+#A=UINTAH         B=INDIAN CANYON
+%OVRSWES
+DBLOC="Overland Res"
+#A=GUNNISON       B=OVERLAND
+%CABSWES
+DBLOC="Kings Cabin"
+#A=UINTAH         B=KINGS CABIN
+%MOSSWES
+DBLOC="Mosby Mountain"
+#A=UINTAH         B=MOSBY MTN
+%CLBSWES
+DBLOC="Columbine"
+#A=GUNNISON       B=COLUMBINE
+%MSLSWES
+DBLOC="Mesa Lake"
+#A=GUNNISON       B=MESA LAKE
+%CHASWES
+DBLOC="Chamita"
+#A=SAN JUAN       B=CHAMITA
+%HPWSWES
+DBLOC="Hopewell"
+#A=RIO CHAMA      B=HOPEWELL
+%MDLSWES
+DBLOC="Middle Cr"
+#A=RIO GRANDE     B=MIDDLE DR
+%URGSWES
+DBLOC="Upper Rio Grande"
+#A=RIO GRANDE     B=UPPER RIO GRANDE
+%CUMSWES
+DBLOC="Cumbres Trestle"
+#A=SAN JUAN       B=CUMBRES TRESTLE
+%LNCSWES
+DBLOC="Lone Cone"
+#A=SAN MIGUEL     B=LONE CONE
+%WCSSWES
+DBLOC="Wolf Cr Summit"
+#A=SAN JUAN       B=WOLF CR SUMMIT
+%EDPSWES
+DBLOC="El Diente Peak"
+#A=DOLORES        B=EL DIENTE PEAK
+%LZHSWES
+DBLOC="Lizard Head"
+#A=DOLORES        B=LIZZARD HEAD
+%STCSWES
+DBLOC="Scotch Cr"
+#A=DOLORES        B=SCOTCH CR
+%HFKSWES
+DBLOC="Hayden Fork"
+#A=BEAR           B=HAYDEN FORK
+%MCRSWES
+DBLOC="Monte Cristo"
+#A=BEAR           B=MONTE CRISTO
+%TRCSWES
+DBLOC="Trout Cr"
+#A=GREEN          B=TROUT CR
+#
+#Define end value
+%SMHSWEE = %SMHSWES(END)
+UNDEF="   -NR-"                   PICTURE=NNNNZ.Z         MISSTR="   -NR-"
+%BCDSWEE = %BCDSWES(END)
+%CC1SWEE = %CC1SWES(END)
+%CC2SWEE = %CC2SWES(END)
+%PCSSWEE = %PCSSWES(END)
+%BLPSWEE = %BLPSWES(END)
+%BLTSWEE = %BLTSWES(END)
+%DBPSWEE = %DBPSWES(END)
+%PPPSWEE = %PPPSWES(END)
+%PRCSWEE = %PRCSWES(END)
+%SLGSWEE = %SLGSWES(END)
+%BRTSWEE = %BRTSWES(END)
+%RMPSWEE = %RMPSWES(END)
+%SPUSWEE = %SPUSWES(END)
+%IDASWEE = %IDASWES(END)
+%COLSWEE = %COLSWES(END)
+%STDSWEE = %STDSWES(END)
+%DANSWEE = %DANSWES(END)
+%CUCSWEE = %CUCSWES(END)
+%INDSWEE = %INDSWES(END)
+%OVRSWEE = %OVRSWES(END)
+%CABSWEE = %CABSWES(END)
+%MOSSWEE = %MOSSWES(END)
+%CLBSWEE = %CLBSWES(END)
+%MSLSWEE = %MSLSWES(END)
+%CHASWEE = %CHASWES(END)
+%HPWSWEE = %HPWSWES(END)
+%MDLSWEE = %MDLSWES(END)
+%URGSWEE = %URGSWES(END)
+%CUMSWEE = %CUMSWES(END)
+%LNCSWEE = %LNCSWES(END)
+%WCSSWEE = %WCSSWES(END)
+%EDPSWEE = %EDPSWES(END)
+%LZHSWEE = %LZHSWES(END)
+%STCSWEE = %STCSWES(END)
+%HFKSWEE = %HFKSWES(END)
+%MCRSWEE = %MCRSWES(END)
+%TRCSWEE = %TRCSWES(END)
+#
+#Calculate 24 Hour Change 
+%SMHI = %SMHSWEE - %SMHSWES(%BASDATE-1D)
+UNDEF="   -NR-"                   PICTURE=NNNNZ.Z         MISSTR="   -NR-"
+%BCDI = %BCDSWEE - %BCDSWES(%BASDATE-1D)
+%CC1I = %CC1SWEE - %CC1SWES(%BASDATE-1D)
+%CC2I = %CC2SWEE - %CC2SWES(%BASDATE-1D)
+%PCSI = %PCSSWEE - %PCSSWES(%BASDATE-1D)
+%BLPI = %BLPSWEE - %BLPSWES(%BASDATE-1D)
+%BLTI = %BLTSWEE - %BLTSWES(%BASDATE-1D)
+%DBPI = %DBPSWEE - %DBPSWES(%BASDATE-1D)
+%PPPI = %PPPSWEE - %PPPSWES(%BASDATE-1D)
+%PRCI = %PRCSWEE - %PRCSWES(%BASDATE-1D)
+%SLGI = %SLGSWEE - %SLGSWES(%BASDATE-1D)
+%BRTI = %BRTSWEE - %BRTSWES(%BASDATE-1D)
+%RMPI = %RMPSWEE - %RMPSWES(%BASDATE-1D)
+%SPUI = %SPUSWEE - %SPUSWES(%BASDATE-1D)
+%IDAI = %IDASWEE - %IDASWES(%BASDATE-1D)
+%COLI = %COLSWEE - %COLSWES(%BASDATE-1D)
+%STDI = %STDSWEE - %STDSWES(%BASDATE-1D)
+%DANI = %DANSWEE - %DANSWES(%BASDATE-1D)
+%CUCI = %CUCSWEE - %CUCSWES(%BASDATE-1D)
+%INDI = %INDSWEE - %INDSWES(%BASDATE-1D)
+%OVRI = %OVRSWEE - %OVRSWES(%BASDATE-1D)
+%CABI = %CABSWEE - %CABSWES(%BASDATE-1D)
+%MOSI = %MOSSWEE - %MOSSWES(%BASDATE-1D)
+%CLBI = %CLBSWEE - %CLBSWES(%BASDATE-1D)
+%MSLI = %MSLSWEE - %MSLSWES(%BASDATE-1D)
+%CHAI = %CHASWEE - %CHASWES(%BASDATE-1D)
+%HPWI = %HPWSWEE - %HPWSWES(%BASDATE-1D)
+%MDLI = %MDLSWEE - %MDLSWES(%BASDATE-1D)
+%URGI = %URGSWEE - %URGSWES(%BASDATE-1D)
+%CUMI = %CUMSWEE - %CUMSWES(%BASDATE-1D)
+%LNCI = %LNCSWEE - %LNCSWES(%BASDATE-1D)
+%WCSI = %WCSSWEE - %WCSSWES(%BASDATE-1D)
+%EDPI = %EDPSWEE - %EDPSWES(%BASDATE-1D)
+%LZHI = %LZHSWEE - %LZHSWES(%BASDATE-1D)
+%STCI = %STCSWEE - %STCSWES(%BASDATE-1D)
+%HFKI = %HFKSWEE - %HFKSWES(%BASDATE-1D)
+%MCRI = %MCRSWEE - %MCRSWES(%BASDATE-1D)
+%TRCI = %TRCSWEE - %TRCSWES(%BASDATE-1D)
+#
+##                                 Define DAILY INCREMENTAL PRECIP
+##  %BLMPPT
+##  TIME=%BASDATE      PICTURE=NNNNZ.ZZ            MISSTR="    -NR-"
+##  FILE=/dat0/rtsc7db.dss             TYPE=DSS
+##  A=GUNNISON       B=BLUE MESA    C=PRECIP-INC     E=1DAY      F=
+##  %VALPPT
+##  A=LOS PINOS      B=VALLECITO
+##  %PAOPPT
+##  A=MUDDY CR    B=PAONIA
+#ENDDEF

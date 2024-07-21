@@ -1,0 +1,2821 @@
+#FORM
+Data Ending,  %BASDATE                                                   , created      %CTM
+,                        Gross Pool,  Current Storage, % Full  ,      , 10 year Ave   ,Space Available , Top Con      , Inflow        , Outflow    , Enchroached, Enchroached %
+    Sacramento R basin
+Shasta (SC7),             %SHAG      , %SHASTO     , %SHA      ,      , %SHA10P        ,  %SHAA         , %SHATCS      , %SHAI          , %SHAO     , %SHAS     , %SHAF
+Black Butte (COE),        %BBG       , %BBSTO      , %BLB      ,      , %BB10P         ,  %BBTA         , %BBTCS       , %BBI           , %BBO      , %BBTS     , %BLBF 
+Oroville (SC7),           %OROG      , %OROSTO     , %ORO      ,      , %ORO10P        ,  %OROA         , %OROTCS      , %OROI          , %OROO     , %OROS     , %OROF
+New Bullards Bar (SC7),   %NBBG      , %NBBSTO     , %NBB      ,      , %NBB10P        ,  %NBBA         , %NBBTCS      , %NBBI          , %NBBO     , %NBBS     , %NBBF
+Englebright (COE),        %ENG       , %ENSTO      , %ENX      ,      , %EN10P         ,  %ENA          , %ENTCS       , %ENI           , %ENO      , %ENS      , 
+Indian Valley (SC7),      %INDG      , %INDSTO     , %IND      ,      , %IND10P        ,  %INDA         , %INDTCS      , %INDI          , %INDO     , %INDS     , %INDF
+Folsom (SC7)|daily,       %FOLG      , %FOLSTO     , %FOL      ,      , %FOL10P        ,  %FOLA         ,              , %FOLI          , %FOLO     ,           , 
+Folsom (SC7)|12,          %FOLG      , %FLSTO12    , %FOL12    ,      ,                ,  %FOLA12       , %FTCS12      , %FOLI12        , %FOLO12   , %FOLS12   , %FOLF12
+Folsom (SC7)|18,          %FOLG      , %FLSTO18    , %FOL18    ,      ,                ,  %FOLA18       , %FTCS18      , %FOLI18        , %FOLO18   , %FOLS18   , %FOLF18
+Folsom (SC7)|00,          %FOLG      , %FLSTO00    , %FOL00    ,      ,                ,  %FOLA00       , %FTCS00      , %FOLI00        , %FOLO00   , %FOLS00   , %FOLF00
+Folsom (SC7)|06,          %FOLG      , %FLSTO06    , %FOL06    ,      ,                ,  %FOLA06       , %FTCS06      , %FOLI06        , %FOLO06   , %FOLS06   , %FOLF06
+    San Joaquin River Basin
+Camanche (SC7),           %CAMG      , %CAMSTO     , %CAM      ,      , %CAM10P        ,  %CAMA         , %CAMTCS      , %CAMI          , %CAMO     , %CAMS     , %CAMF
+New Hogan (COE),          %NHG       , %NHSTO      , %NHX      ,      , %NH10P         ,  %NHA          , %NHTCS       , %NHI           , %NHO      , %NHS      , %NHGF
+Farmington (COE),         %FMG       , %FMSTO      , %FRM      ,      , %FM10P         ,  %FMA          , %FMTCS       , %FMI           , %FMO      , %FMS      , %FRMF
+New Melones (SC7),        %NWMG      , %NWMSTO     , %NWM      ,      , %NWM10P        ,  %NWMA         , %NWMTCS      , %NWMI          , %NWMO     , %NWMS     , %NWMF
+Tulloch (SC7),            %TULG      , %TULSTO     , %TUL      ,      , %TUL10P        ,  %TULA         , %TULTCS      , %TULI          , %TULO     , %TULS     , %TULF
+Don Pedro (SC7),          %DONG      , %DONSTO     , %DON      ,      , %DON10P        ,  %DONA         , %DONTCS      , %DONI          , %DONO     , %DONS     , %DONF
+New Exchequer(SC7),       %NEXG      , %NEXSTO     , %NEX      ,      , %NEX10P        ,  %NEXA         , %NEXTCS      , %NEXI          , %NEXO     , %NEXS     , %NEXF
+Burns (COE),              %BNG       , %BNSTO      , %BUR      ,      , %BN10P         ,  %BNA          , %BNTCS       , %BNI           , %BNO      , %BNS      , %BURF
+Bear (COE),               %BRG       , %BRSTO      , %BAR      ,      , %BR10P         ,  %BRA          , %BRTCS       , %BRI           , %BNO      , %BRS      , %BARF
+Owens (COE),              %OWG       , %OWSTO      , %OWN      ,      , %OW10P         ,  %OWA          , %OWTCS       , %OWI           , %OWO      , %OWS      , %OWNF
+Mariposa (COE),           %MRG       , %MRSTO      , %MAR      ,      , %MR10P         ,  %MRA          , %MRTCS       , %MRI           , %MRO      , %MRS      , %MARF
+Los Banos (SC7),          %LOSG      , %LOSSTO     , %LOS      ,      , %LOS10P        ,  %LOSA         , %LOSTCS      , %LOSI          , %LOSO     , %LOSS     , %LOSF
+Buchanan/Eastman (COE),   %BUG       , %BUSTO      , %BUC      ,      , %BU10P         ,  %BCA          , %BUTCS       , %BUI           , %BUO      , %BCS      , %BUCF
+Hidden/Hensley (COE),     %HDG       , %HDSTO      , %HID      ,      , %HD10P         ,  %HDA          , %HDTCS       , %HDI           , %HDO      , %HDS      , %HIDF
+Friant/Millerton (SC7),   %FRIG      , %FRISTO     , %FRI      ,      , %FRI10P        ,  %FRIA         , %FRITCS      , %FRII          , %FRIO     , %FRIS     , %FRIF
+Big Dry Creek (SC7),      %BDCG      , %BDCSTO     , %BDC      ,      , %BDC10P        ,  %BDCA         , %BDCTCS      , %BDCI          , %BDCO     , %BDCS     , %BDCF
+    Tulare Lakebed Basin
+Pine Flat (COE),          %PFG       , %PFSTO      , %PNF      ,      , %PF10P         ,  %PFA          , %PFTCS       , %PFI           , %PFO      , %PFS      , %PNFF
+Terminus/Kaweah (COE),    %TMG       , %TMSTO      , %TRM      ,      , %TM10P         ,  %TMA          , %TMTCS       , %TMI           , %TMO      , %TMS      , %TRMF
+Success (COE),            %SCG       , %SCSTO      , %SCC      ,      , %SC10P         ,  %SCA          , %SCTCS       , %SCI           , %SCO      , %SCS      , %SCCF
+Isabella (COE),           %IBG       , %IBSTO      , %ISB      ,      , %IB10P         ,  %IBA          , %IBTCS       , %IBI           , %IBO      , %IBS      , %ISBZ
+    Truckee River Basin
+Martis Creek (COE),       %MRTG      , %MRTSTO     , %MRT      ,      , %MRT10P        ,  %MRTA         , %MRTTCS      , %MRTI          , %MRTO     , %MRTS     , %MRTF
+Prosser (SC7),            %PRSG      , %PRSSTO     , %PRS      ,      , %PRS10P        ,  %PRSA         , %PRSTCS      , %PRSI          , %PRSO     , %PRSS     , %PRSF
+Boca (SC7),               %BOCG      , %BOCSTO     , %BOC      ,      , %BOC10P        ,  %BOCA         , %BOCTCS      , %BOCI          , %BOCO     , %BOCS     , %BOCF
+Stampede (SC7),           %STMG      , %STMSTO     , %STM      ,      , %STM10P        ,  %STMA         , %STMTCS      , %STMI          , %STMO     , %STMS     , %STMF
+    SPN RESERVOIRS
+Coyote/Mendocino (COE),   %COG       , %COSTO      , %COY      ,      , %CO10P         ,  %COA          , %COTCS       , %COI           , %COO      , %COS      , %COYF
+Warm Springs/Sonoma (COE),%WSG       , %WSSTO      , %WRS      ,      , %WS10P         ,  %WSA          , %WSTCS       , %WSI           , %WSO      , %WSS      , %WRSF
+Del Valle (SC7),          %DELG      , %DELSTO     , %DEL      ,      , %DEL10P        ,  %DELA         , %DELTCS      , %DELI          , %DELO     , %DELS     , %DELF
+    Great Basin, NOTE:, Due to Processing Difficulties all UT/CO is 1 day behind
+Pineview (SC7),           %PVG       , %PVSTO      , %PVP      ,      , %PV10P          ,  %PVSA         , %PVTCS       , %PNVIN        , %PNVOUT    , %PVS     , %PVF
+East Canyon (SC7),        %ECG       , %ECSTO      , %ECP      ,      , %EC10P          ,  %ECSA         , %ECTCS       , %ESTIN        , %ESTOUT    , %ECS     , %ECF
+Lost Creek (SC7),         %LCG       , %LCSTO      , %LCP      ,      , %LC10P          ,  %LCSA         , %LCTCS       , %LSCIN        , %LSCOUT    , %LCS     , %LCF
+Echo+Rockport (SC7),      %ERG       , %ERTCS      , %ERP      ,      , %ER10P          ,  %ERSA         , %ERTCS       ,               ,            , %ERS     , %ERF
+Echo (SC7),               %EOG       , %EOSTO      , %EOP      ,      , %EO10P          ,  %EOSA         , %EOTCS       , %ECHIN        , %ECHOUT    , %EOS     , %EOF
+Wanship/Rockport (SC7),   %RKG       , %RKSTO      , %RKP      ,      , %RK10P          ,  %RKSA         , %RKTCS       , %RKPIN        , %RKPOUT    , %RKS     , %RKF
+Little Dell (SC7),        %LDG       , %LDSTO      , %LDP      ,      , %LD10P          ,  %LDSA         , %LDTCS       , %LDLIN        , %LDLOUT    , %LDS     , %LDF
+Mountain Dell (SC7),      %MDG       , %MDSTO      , %MDP      ,      , %MD10P          ,  %MDSA         , %MDTCS       , %MNDIN        , %MNDOUT    , %MDS     , %MDF
+Jordanelle (SC7),         %JRG       , %JRSTO      , %JRP      ,      , %JR10P          ,  %JRSA         , %JRTCS       , %JRDIN        , %JRDOUT    , %JRS     , %JRF
+    Upper Colorado
+Red Fleet (SC7),          %RFG       , %RFSTO      , %RFP      ,      , %RF10P          ,  %RFSA         , %RFTCS       , %RDFIN        , %RDFOUT    , %RFS     , %RFF
+Starvation (SC7),         %STVG      , %STSTO      , %STP      ,      , %ST10P          ,  %STSA         , %STTCS       , %STRIN        , %STROUT    , %STS     , %STF
+Poania (SC7),             %PNG       , %PNSTO      , %PNP      ,      , %PN10P          ,  %PNSA         , %PNTCS       , %PAOIN        , %PAOOUT    , %PNS     , %PNVF
+Blue Mesa (SC7),          %BMG       , %BMSTO      , %BMP      ,      , %BM10P          ,  %BMSA         , %BMTCS       , %BLMIN        , %BLMOUT    , %BMS     , %BMF
+Ridgeway (SC7),           %RGG       , %RGSTO      , %RGP      ,      , %RG10P          ,  %RGSA         , %RGTCS       , %RDGIN        , %RDGOUT    , %RGS     , %RGF
+Lemon (SC7),              %LMG       , %LMSTO      , %LMP      ,      , %LM10P          ,  %LMSA         , %LMTCS       , %LEMIN        , %LEMOUT    , %LMS     , %LMF
+Vallecito (SC7),          %VLG       , %VLSTO      , %VLP      ,      , %VL10P          ,  %VLSA         , %VLTCS       , %VALIN        , %VALOUT    , %VLS     , %VLF
+
+#ENDFORM
+#DEF
+# !ECHO
+!~FUNCTION
+#
+#     All values are to be read in at the exact time specified,
+#     without searching backwards or forwards.
+#
+VALUE = EXACT
+#
+#     Define PICTURE's for various times to be displayed.
+#     Force %BASDATE to midnight.
+#
+%CTM                    PICTURE=DDBAAABYYYYB@BZZZT
+%BASDATE = SETTIME(%BASDATE, TIME, 2400)
+                        PICTURE = ZD AAA ZZZY ZZZT
+%T12 = %BASDATE+12H
+ PICTURE=ZDAAAZZZYBZZZT
+%T18 = %T12+6H
+%T00 = %T18+6H
+%T06 = %T00+6H
+#
+#     Define all Rain Flood Parameters
+#
+#
+#     Define all Top of Conservation Storage values
+#
+%BBTCS
+	DB=%DB
+	DBLOC="Black Butte" DBPTYP=Inst DBPAR=Stor-Top Con DBVER=Calc-val DBINT=~1Day DBDUR=0
+	PICTURE = "NNNNNNNNNZ"
+	MISSTR =  "      -NR-"
+	UNDEF =   "      -NR-"
+	TIME = %BASDATE
+	DBUNITS=ac-ft
+	DBTZ=PST8PDT
+%NHTCS
+	DBLOC="New Hogan"
+%BUTCS
+	DBLOC="Eastman Lake"
+%HDTCS
+	DBLOC="Hensley Lake"
+%PFTCS
+	DBLOC="Pine Flat Lake"
+%TMTCS
+	DBLOC="Lake Kaweah"
+%SCTCS
+	DBLOC="Success Lake"
+%IBTCS
+	DBLOC="Lake Isabella"
+%COTCS
+	DBLOC="Lake Mendocino" DBVER=Calc-val-High Option
+%WSTCS
+	DBLOC="Lake Sonoma" DBVER=Calc-val
+%MRTTCS
+	DBLOC="Martis Creek"
+%FMTCS = 0
+%BNTCS = 0
+%BRTCS = 0
+%OWTCS = 0
+%MRTCS = 0
+%ENTCS = 70000
+%SHATCS
+	DBLOC="Shasta" DBVER=Calc-usbr
+#   FILE = /dat0/rtsc7db.dss               TYPE=DSS
+#   A=SACRAMENTO     B=SHASTA
+#   A=AMERICAN       B=FOLSOM
+%SACTCS
+	DBLOC="Folsom Lake" DBVER=Calc-cdec SAFCA
+#   A=AMERICAN       B=FOLSOM                                     F=SAFCA
+	   MISSTR =  "    -NR-"
+	   UNDEF =   "    -NR-"
+# move picture,etc back up here
+%OROTCS
+	DBLOC="Oroville Dam" DBVER=Calc-cdec
+   MISSTR = "     -NR-"
+   UNDEF =  "     -NR-"
+	
+#   A=FEATHER        B=OROVILLE
+%LOSTCS
+	DBLOC="Los Banos" 
+#   A=LOS BANOS CR   B=LOS BANOS
+#   A=MOKELUMNE      B=CAMANCHE
+#   A=MERCED         B=NEW EXCHEQUER
+%NWMTCS
+	DBLOC="New Melones"
+#   A=STANISLAUS     B=NEW MELONES
+%TULTCS
+	DBLOC="Tulloch"
+#   A=STANISLAUS     B=TULLOCH
+%DELTCS
+	DBLOC="Del Valle" DBVER=Calc-val
+#   A=ALAMEDA CR     B=DEL VALLE
+%DONTCS
+	DBLOC="Don Pedro" DBVER=Calc-manual
+#   A=TUOLUMNE       B=NEW DON PEDRO
+%CAMTCS
+	DBLOC="Camanche"
+%EBMTCS = %CAMTCS
+%NEXTCS
+	DBLOC="New Exchequer"
+%PRSTCS
+	DBLOC="Prosser"
+#   A=PROSSER CR     B=PROSSER CR
+%BOCTCS
+	DBLOC="Boca"
+#   A=LITTLE TRUCKEE B=BOCA
+%STMTCS
+	DBLOC="Stampede"
+#   A=LITTLE TRUCKEE B=STAMPEDE
+%NBBTCS
+	DBLOC="New Bullards Bar" DBVER=Calc-usbr
+%FRITCS
+	DBLOC="Friant Dam" DBVER=Calc-usbr
+#   A=SAN JOAQUIN    B=FRIANT                                     F=
+#   A=NORTH YUBA     B=NEW BULLARDS BAR
+%INDTCS
+	DBLOC="Indian Valley" DBVER=Calc-usgs
+#   A=NF CACHE CR    B=INDIAN VALLEY
+%BDCTCS = 200
+%FTCS12
+	DBLOC="Folsom Lake" DBINT=0 DBVER="Calc-NWS"
+	DBTZ=UTC
+	TIME=%T12
+	MISSTR="-NF-"
+	UNDEF="-NF-"
+%FTCS18
+	TIME=%T18
+%FTCS00
+	TIME=%T00
+%FTCS06
+	TIME=%T00
+#
+#     Define all current Storage values
+#
+%BBSTO
+	DBLOC="Black Butte-Pool" DBPAR=Stor DBINT=~1Day DBVER=Calc-val
+	PICTURE = "NNNNNNNNZ"
+	MISSTR =  "     -NR-"
+	UNDEF =   "     -NR-" 
+	TIME = %BASDATE
+	DBTZ=PST8PDT
+	DBUNITS=ac-ft
+%ENSTO
+	DBLOC="Englebright Lake-Pool"
+%NHSTO
+	DBLOC="New Hogan-Pool"
+%BUSTO
+	DBLOC="Eastman Lake-Pool"
+%HDSTO
+	DBLOC="Hensley lake-Pool"
+%PFSTO
+	DBLOC="Pine Flat Lake-Pool"
+%TMSTO
+	DBLOC="Lake Kaweah-Pool"
+%SCSTO
+	DBLOC="Success Lake-Pool"
+%IBSTO
+	DBLOC="Lake Isabella-Pool"
+%COSTO
+	DBLOC="Lake Mendocino-Pool"
+%WSSTO
+	DBLOC="Lake Sonoma-Pool"
+%MRTSTO
+	DBLOC="Martis Creek-Pool"
+%FMSTO
+	DBLOC="Farmington Dam-Pool"
+%BNSTO
+	DBLOC="Burns-Pool"
+%BRSTO
+	DBLOC="Bear-Pool"
+%OWSTO
+	DBLOC="Owens-Pool"
+%MRSTO
+	DBLOC="Mariposa-Pool"
+%EPKSTO
+	DBLOC="East Park" DBVER=Thumb-raw
+%STGSTO
+	DBLOC="Stony Gorge"
+%CRTSTO
+	DBLOC="Courtright" DBVER=Thumb-raw
+	
+#   A=KINGS          B=COURTRIGHT     F=
+%WSHSTO
+	DBLOC="Wishon"
+#   A=KINGS          B=WISHON
+%SHASTO
+	DBLOC="Shasta" DBVER=Raw-USBR-Combined
+#   FILE = /dat0/rtsc7db.dss               TYPE=DSS
+#   A=SACRAMENTO     B=SHASTA         F=
+%FOLSTO
+	DBLOC="Folsom Lake"
+#   A=AMERICAN       B=FOLSOM
+#%SACSTO = %FOLSTO
+#   A=SAN JOAQUIN    B=FRIANT
+%OROSTO
+	DBLOC="Oroville Dam" DBVER=Calc-cdec
+#   A=FEATHER        B=OROVILLE
+%NBBSTO
+	DBLOC="New Bullards Bar" DBVER=Calc-cdec
+#   A=NORTH YUBA     B=NEW BULLARDS BAR
+%INDSTO
+	DBLOC="Indian Valley" DBVER=Calc-usgs
+#   A=NF CACHE CR    B=INDIAN VALLEY
+%UNVSTO
+	DBLOC="Union Valley" DBVER=Calc-cdec
+#   A=AMERICAN       B=UNION VALLEY
+%FMDSTO
+	DBLOC="French Meadows" DBVER=Calc-confidential
+#   A=AMERICAN       B=FRENCH MEADOWS
+%HHLSTO
+	DBLOC="Hell Hole"
+#   A=AMERICAN       B=HELL HOLE
+%NWMSTO
+	DBLOC="New Melones" DBVER=Raw-USBR-Combined
+#   A=STANISLAUS     B=NEW MELONES
+%BRDSTO
+	DBLOC="Beardsley Lake"
+#   A=STANISLAUS     B=BEARDSLEY
+%DNLSTO
+	DBLOC="Donnells"
+#   A=STANISLAUS     B=DONNELLS
+%TULSTO
+	DBLOC="Tulloch" 
+#   A=STANISLAUS     B=TULLOCH
+%FRISTO
+	DBLOC="Friant Dam"
+%MAMSTO
+	DBLOC="Mammoth Pool"
+#   A=SAN JOAQUIN    B=MAMMOTH POOL
+%MTSSTO
+	DBLOC="Friant Dam" DBPAR=Stor-Total Upstream
+#   A=SAN JOAQUIN    B=FRIANT        C=STOR-TOT U\S
+%CAMSTO
+	DBLOC="Camanche" DBPAR=Stor DBVER=MANUAL
+#   A=MOKELUMNE      B=CAMANCHE
+%DONSTO
+	DBLOC="Don Pedro"
+#   A=TUOLUMNE       B=NEW DON PEDRO
+%NEXSTO
+	DBLOC="New Exchequer"
+#   A=MERCED         B=NEW EXCHEQUER
+%PRDSTO
+	DBLOC="Pardee"
+#   A=MOKELUMNE      B=PARDEE
+%EBMSTO = (%CAMSTO + %PRDSTO)
+%SSPSTO
+	DBLOC="Salt Springs"
+#   A=MOKELUMNE      B=SALT SPRINGS
+%LBRSTO
+	DBLOC="Lower Bear"
+#   A=MOKELUMNE      B=LOWER BEAR
+%HTHSTO
+	DBLOC="Hetch Hetchy"
+#   A=TUOLUMNE       B=HETCH HETCHY
+%CHVSTO
+	DBLOC="Cherry Valley"
+#   A=TUOLUMNE       B=CHERRY VALLEY
+%LKLSTO
+	DBLOC="Lake Eleanor"
+#   A=TUOLUMNE       B=ELEANOR
+%DELSTO
+	DBLOC="Del Valle"
+#   A=ALAMEDA CR     B=DEL VALLE
+%PRSSTO
+	DBLOC="Prosser"
+#   A=PROSSER CR     B=PROSSER CR
+%BOCSTO
+	DBLOC="Boca"
+#   A=LITTLE TRUCKEE B=BOCA
+%STMSTO
+	DBLOC="Stampede"
+#   A=LITTLE TRUCKEE B=STAMPEDE
+%BDCSTO
+	DBLOC="Big Dry Cr"
+%LOSSTO
+	DBLOC="Los Banos"
+%FLSTO12
+	DBLOC="Folsom Lake" DBINT=1Hour DBVER=Raw-USBR-Combined
+	TIME=%T12
+	DBTZ=UTC
+	PICTURE="NNNNNNZ"
+	MISSTR="-NF-"
+	UNDEF="-NF-"
+%FLSTO18
+	TIME=%T18
+%FLSTO00
+	TIME=%T00
+%FLSTO06
+	TIME=%T06
+#   A=LOS BANOS CR   B=LOS BANOS
+#   A=BIG DRY CR     B=BIG DRY CR
+#
+#
+#     Gross Pools (acft) for Corps Reservoirs
+#
+%BBG =   136200
+         PICTURE=NNNNNNZ
+%ENG =    70000
+%NHG =   317100
+%BUG =   150000
+%HDG =    90000
+%PFG =  1000000
+%TMG =   185600
+%SCG =    84095
+#%IBG =   568100
+%IBG =   361250
+%MRTG=    20400
+%COG =   116500
+%WSG =   381000
+%FMG =    52000
+%BNG =     6800
+%BRG =     7700
+%OWG =     3600
+%MRG =    15000
+%EPG =    50900
+%SGG =    50000
+%UVG =   235100
+%FRG =   110700
+%HHG =   207600
+%CTG =   123300
+%WHG =   128600
+%EBG =   615050
+#
+#
+#
+#     Gross Pool (acft) for SEC7 Reservoirs
+#     NOTE:  Uses the same PICTURE as the Corps Reservoirs
+#
+%SHAG=    4552100
+%OROG=    3538000
+%NBBG=     966000
+%INDG=     300600
+%FOLG=     966823
+%SACG=     %FOLG
+%CAMG=     417100
+%NWMG=    2420000
+%DONG=    2030000
+%NEXG=    1024600
+%FRIG=     520500
+%LOSG=      34600
+%DELG=      77000
+%TULG=      67000
+%PRSG=      29800
+%BOCG=      41100
+%STMG=     226500
+%BDCG=      30200
+%PDG =     197950
+         PICTURE=NNNNNNZ
+%SSG =     140000
+%LBG =      49000
+%BDG =      97800
+%DNG =      64300
+%HEG =     360400
+%CVG =     268200
+%LEG =      26000
+%MAG =     122700
+%TSG =     628500
+%TSG2 =    251900
+
+# Gross Pool for UT/CO
+%EOG=      73900
+	PICTURE=  NNNNNZ
+%ERG=     136062
+%RKG=      62100
+%LCG=      22500
+%ECG=      51200
+%PVG=     110200
+%STVG=     167300
+%VLG=     129700
+%LMG=      40100
+%BMG=     940800
+%PNG=      17500
+%RFG=      26000
+%RGG=      84400
+%JRG=     314000
+%LDG=      20500
+%MDG=       3200
+%MPG=     117200
+%CRG=      25200
+
+#
+#     Define Percent of Gross Pool
+#
+#     Compute % full based on current storage and gross pool not
+#     accounting for any forecasts, irrigation demnads or other
+#     factors that would change the theoretical value.
+#     NOTE:  The variable names should always be shorter than the
+#            PICTURE -- otherwise the text to the right of the
+#            variable will be compressed (see REPGEN Manual
+#            Section 4.2 "Report Form".)  So we used names of the
+#            format %<3-letter-project-mnemonic> to keep names at
+#            four letters.
+#
+   %BLB = %BBSTO / %BBG * 100.0
+          PICTURE=BNNZ
+#     NOTE:  New Hogan was re-named to %NHX so that it does not
+#            conflict with %NHG (New Hogan gross pool) variable above.
+   %ENX = %ENSTO / %ENG * 100.0
+   %NHX = %NHSTO / %NHG * 100.0
+   %BUC = %BUSTO / %BUG * 100.0
+   %HID = %HDSTO / %HDG * 100.0
+   %PNF = %PFSTO / %PFG * 100.0
+   %TRM = %TMSTO / %TMG * 100.0
+   %SCC = %SCSTO / %SCG * 100.0
+   %ISB = %IBSTO / %IBG * 100.0
+   %COY = %COSTO / %COG * 100.0
+   %WRS = %WSSTO / %WSG * 100.0
+   %FRM = %FMSTO / %FMG * 100.0
+   %BUR = %BNSTO / %BNG * 100.0
+   %BAR = %BRSTO / %BRG * 100.0
+   %OWN = %OWSTO / %OWG * 100.0
+   %MAR = %MRSTO / %MRG * 100.0
+   %SHA = %SHASTO / %SHAG * 100.0
+   %FOL = %FOLSTO / %FOLG * 100.0
+   %FOL12 = %FLSTO12/%FOLG * 100.0
+       UNDEF="-NF-"
+       MISSTR="-NF-"
+   %FOL18 = %FLSTO18/%FOLG * 100.0
+   %FOL00 = %FLSTO00/%FOLG * 100.0
+   %FOL06 = %FLSTO06/%FOLG * 100.0
+   #%SAC = %SACSTO / %SACG * 100.0
+   %FRI = %FRISTO / %FRIG * 100.0
+       UNDEF="-NR-"
+       MISSTR="-NR-"
+   %ORO = %OROSTO / %OROG * 100.0
+   %LOS = %LOSSTO / %LOSG * 100.0
+   %NBB = %NBBSTO / %NBBG * 100.0
+   %CAM = %CAMSTO / %CAMG * 100.0
+   %DON = %DONSTO / %DONG * 100.0
+   %NEX = %NEXSTO / %NEXG * 100.0
+   %NWM = %NWMSTO / %NWMG * 100.0
+   %TUL = %TULSTO / %TULG * 100.0
+   %IND = %INDSTO / %INDG * 100.0
+   %DEL = %DELSTO / %DELG * 100.0
+   %MRT = %MRTSTO / %MRTG * 100.0
+   %PRS = %PRSSTO / %PRSG * 100.0
+   %BOC = %BOCSTO / %BOCG * 100.0
+   %STM = %STMSTO / %STMG * 100.0
+   %BDC = %BDCSTO / %BDCG * 100.0
+   %EPK = %EPKSTO / %EPG  * 100.0
+   %STG = %STGSTO / %SGG  * 100.0
+   %UNV = %UNVSTO / %UVG  * 100.0
+   %FMD = %FMDSTO / %FRG  * 100.0
+   %HHL = %HHLSTO / %HHG  * 100.0
+   %PRD = %PRDSTO / %PDG  * 100.0
+   %SSP = %SSPSTO / %SSG  * 100.0
+   %LBR = %LBRSTO / %LBG  * 100.0
+   %BRD = %BRDSTO / %BDG  * 100.0
+   %DNL = %DNLSTO / %DNG  * 100.0
+   %HTH = %HTHSTO / %HEG  * 100.0
+   %CHV = %CHVSTO / %CVG  * 100.0
+   %LKL = %LKLSTO / %LEG  * 100.0
+   %MAM = %MAMSTO / %MAG  * 100.0
+   %MTS = %MTSSTO / %TSG  * 100.0
+   %CRT = %CRTSTO / %CTG  * 100.0
+   %WSH = %WSHSTO / %WHG  * 100.0
+   %EBM = %EBMSTO / %EBG  * 100.0
+#
+#     Generate Percent Encroached for any reservoir whose Storage
+#     exceeds its Top of Conservation Storage.
+#     Encroachment is computed as a percentage of flood control
+#     space in use.
+#     VERY IMPORTANT:  All variable names should be exactly 5 characters
+#            (including the %), and the string of blanks should be
+#            exactly the same length (i.e. 5 blanks).  Otherwise, the
+#            report line will get screwed up.
+#     NOTE:  The %DUMF variable is needed only to set the PICTURE
+#            for the %xxxF variables.
+#
+%DUMF=0.0   PICTURE="NNZ"
+#IF %BBSTO > %BBTCS AND %BBG > %BBTCS
+      %BLBZ = ( (%BBSTO-%BBTCS) / (%BBG-%BBTCS) ) * 100.0 PICTURE="NNZ"
+#ELSE
+      %BLBZ = 0 PICTURE="NNZ"
+#ENDIF
+#IF %ENSTO > %ENTCS AND %ENG > %ENTCS
+      %ENGZ = ( (%ENSTO-%ENTCS) / (%ENG-%ENTCS) ) * 100.0
+#ELSE
+      %ENGZ = 0
+#ENDIF
+#IF %NHSTO > %NHTCS AND %NHG > %NHTCS
+      %NHGZ = ( (%NHSTO-%NHTCS) / (%NHG-%NHTCS) ) * 100.0
+#ELSE
+      %NHGZ = 0
+#ENDIF
+#IF %BUSTO > %BUTCS AND %BUG > %BUTCS
+      %BUCZ = ( (%BUSTO-%BUTCS) / (%BUG-%BUTCS) ) * 100.0
+#ELSE
+      %BUCZ = 0
+#ENDIF
+#IF %HDSTO > %HDTCS AND %HDG > %HDTCS
+      %HIDZ = ( (%HDSTO-%HDTCS) / (%HDG-%HDTCS) ) * 100.0
+#ELSE
+      %HIDZ = 0
+#ENDIF
+#IF %PFSTO > %PFTCS AND %PFG > %PFTCS
+      %PNFZ = ( (%PFSTO-%PFTCS) / (%PFG-%PFTCS) ) * 100.0
+#ELSE
+      %PNFZ = 0
+#ENDIF
+#IF %TMSTO > %TMTCS AND %TMG > %TMTCS
+      %TRMZ = ( (%TMSTO-%TMTCS) / (%TMG-%TMTCS) ) * 100.0
+#ELSE
+      %TRMZ = 0
+#ENDIF
+#IF %SCSTO > %SCTCS AND %SCG > %SCTCS
+      %SCCZ = ( (%SCSTO-%SCTCS) / (%SCG-%SCTCS) ) * 100.0
+#ELSE
+      %SCCZ = 0
+#ENDIF
+#IF %IBSTO > %IBTCS AND %IBG > %IBTCS
+      %ISBZ = ( (%IBSTO-%IBTCS) / (%IBG-%IBTCS) ) * 100.0
+#ELSE
+      %ISBZ = 0
+#ENDIF
+#IF %COSTO > %COTCS AND %COG > %COTCS
+      %COYZ = ( (%COSTO-%COTCS) / (%COG-%COTCS) ) * 100.0
+#ELSE
+      %COYZ = 0
+#ENDIF
+#IF %WSSTO > %WSTCS AND %WSG > %WSTCS
+      %WRSZ = ( (%WSSTO-%WSTCS) / (%WSG-%WSTCS) ) * 100.0
+#ELSE
+      %WRSZ = 0
+#ENDIF
+#IF %FMSTO > %FMTCS AND %FMG > %FMTCS
+      %FRMZ = ( (%FMSTO-%FMTCS) / (%FMG-%FMTCS) ) * 100.0
+#ELSE
+      %FRMZ = 0
+#ENDIF
+#IF %BNSTO > %BNTCS AND %BNG > %BNTCS
+      %BURZ = ( (%BNSTO-%BNTCS) / (%BNG-%BNTCS) ) * 100.0
+#ELSE
+      %BURZ = 0
+#ENDIF
+#IF %BRSTO > %BRTCS AND %BRG > %BRTCS
+      %BARZ = ( (%BRSTO-%BRTCS) / (%BRG-%BRTCS) ) * 100.0
+#ELSE
+      %BARZ = 0
+#ENDIF
+#IF %OWSTO > %OWTCS AND %OWG > %OWTCS
+      %OWNZ = ( (%OWSTO-%OWTCS) / (%OWG-%OWTCS) ) * 100.0
+#ELSE
+      %OWNZ = 0
+#ENDIF
+#IF %MRSTO > %MRTCS AND %MRG > %MRTCS
+      %MARZ = ( (%MRSTO-%MRTCS) / (%MRG-%MRTCS) ) * 100.0
+#ELSE
+      %MARZ = 0
+#ENDIF
+#IF %SHASTO > %SHATCS AND %SHAG > %SHATCS
+      %SHAZ = ( (%SHASTO-%SHATCS) / (%SHAG-%SHATCS) ) * 100.0 PICTURE="NNZ"
+#ELSE
+      %SHAZ = 0 PICTURE="NNZ"
+#ENDIF
+#IF %FLSTO12 > %FTCS12 AND %FOLG > %FTCS12
+      %FOLZ12 = ( (%FLSTO12-%FTCS12) / (%FOLG-%FTCS12) ) * 100.0
+#ELSE
+      %FOLZ12 = 0
+#ENDIF
+#IF %FLSTO18 > %FTCS18 AND %FOLG > %FTCS18
+      %FOLZ18 = ( (%FLSTO18-%FTCS18) / (%FOLG-%FTCS18) ) * 100.0
+#ELSE
+      %FOLZ18 = 0
+#ENDIF
+#IF %FLSTO00 > %FTCS00 AND %FOLG > %FTCS00
+
+      %FOLZ00 = ( (%FLSTO00-%FTCS00) / (%FOLG-%FTCS00) ) * 100.0
+#ELSE
+      %FOLZ00 = 0
+#ENDIF
+#IF %FLSTO06 > %FTCS06 AND %FOLG > %FTCS06
+      %FOLZ06 = ( (%FLSTO06-%FTCS06) / (%FOLG-%FTCS06) ) * 100.0
+#ELSE
+      %FOLZ06 = 0
+#ENDIF
+##IF %SACSTO > %SACTCS AND %SACG > %SACTCS
+#      %SACZ = ( (%SACSTO-%SACTCS) / (%SACG-%SACTCS) ) * 100.0
+##ELSE
+      %SACZ = 0
+##ENDIF
+#IF %FRISTO > %FRITCS AND %FRIG > %FRITCS
+      %FRIZ = ( (%FRISTO-%FRITCS) / (%FRIG-%FRITCS) ) * 100.0
+#ELSE
+      %FRIZ = 0
+#ENDIF
+#IF %OROSTO > %OROTCS AND %OROG > %OROTCS
+      %OROZ = ( (%OROSTO-%OROTCS) / (%OROG-%OROTCS) ) * 100.0
+#ELSE
+      %OROZ = 0
+#ENDIF
+#IF %LOSSTO > %LOSTCS AND %LOSG > %LOSTCS
+      %LOSZ = ( (%LOSSTO-%LOSTCS) / (%LOSG-%LOSTCS) ) * 100.0
+#ELSE
+      %LOSZ = 0
+#ENDIF
+#IF %NBBSTO > %NBBTCS AND %NBBG > %NBBTCS
+      %NBBZ = ( (%NBBSTO-%NBBTCS) / (%NBBG-%NBBTCS) ) * 100.0
+#ELSE
+      %NBBZ = 0
+#ENDIF
+#IF %CAMSTO > %CAMTCS AND %CAMG > %CAMTCS
+      %CAMZ = ( (%CAMSTO-%CAMTCS) / (%CAMG-%CAMTCS) ) * 100.0
+#ELSE
+      %CAMZ = 0
+#ENDIF
+#IF %DONSTO > %DONTCS AND %DONG > %DONTCS
+      %DONZ = ( (%DONSTO-%DONTCS) / (%DONG-%DONTCS) ) * 100.0
+#ELSE
+      %DONZ = 0
+#ENDIF
+#IF %NEXSTO > %NEXTCS AND %NEXG > %NEXTCS
+      %NEXZ = ( (%NEXSTO-%NEXTCS) / (%NEXG-%NEXTCS) ) * 100.0
+#ELSE
+      %NEXZ = 0
+#ENDIF
+#IF %NWMSTO > %NWMTCS AND %NWMG > %NWMTCS
+      %NWMZ = ( (%NWMSTO-%NWMTCS) / (%NWMG-%NWMTCS) ) * 100.0
+#ELSE
+      %NWMZ = 0
+#ENDIF
+#IF %TULSTO > %TULTCS AND %TULG > %TULTCS
+      %TULZ = ( (%TULSTO-%TULTCS) / (%TULG-%TULTCS) ) * 100.0
+#ELSE
+      %TULZ = 0
+#ENDIF
+#IF %INDSTO > %INDTCS AND %INDG > %INDTCS
+      %INDZ = ( (%INDSTO-%INDTCS) / (%INDG-%INDTCS) ) * 100.0
+#ELSE
+      %INDZ = 0
+#ENDIF
+#IF %DELSTO > %DELTCS AND %DELG > %DELTCS
+      %DELZ = ( (%DELSTO-%DELTCS) / (%DELG-%DELTCS) ) * 100.0
+#ELSE
+      %DELZ = 0
+#ENDIF
+#IF %MRTSTO > %MRTTCS AND %MRTG > %MRTTCS
+      %MRTZ = ( (%MRTSTO-%MRTTCS) / (%MRTG-%MRTTCS) ) * 100.0
+#ELSE
+      %MRTZ = 0
+#ENDIF
+#IF %PRSSTO > %PRSTCS AND %PRSG > %PRSTCS
+      %PRSZ = ( (%PRSSTO-%PRSTCS) / (%PRSG-%PRSTCS) ) * 100.0
+#ELSE
+      %PRSZ = 0
+#ENDIF
+#IF %BOCSTO > %BOCTCS AND %BOCG > %BOCTCS
+      %BOCZ = ( (%BOCSTO-%BOCTCS) / (%BOCG-%BOCTCS) ) * 100.0
+#ELSE
+      %BOCZ = 0
+#ENDIF
+#IF %STMSTO > %STMTCS AND %STMG > %STMTCS
+      %STMZ = ( (%STMSTO-%STMTCS) / (%STMG-%STMTCS) ) * 100.0
+#ELSE
+      %STMZ = 0
+#ENDIF
+#IF %BDCSTO > %BDCTCS AND %BDCG > %BDCTCS
+      %BDCZ = ( (%BDCSTO-%BDCTCS) / (%BDCG-%BDCTCS) ) * 100.0
+#ELSE
+      %BDCZ = 0
+#ENDIF
+#IF %CAMSTO > %CAMTCS
+      %EBMA = (%CAMG- %CAMTCS)
+      %EBMB = (%PDG - %PRDSTO)
+      %EBMZ = ( (%CAMSTO-%CAMTCS) / (%EBMA + %EBMB) ) * 100.0
+#ELSE
+      %EBMZ = 0
+#ENDIF
+#
+#     Define %encroached format
+#     Anything >= 99.5 will round to 100 and overflow the B(NZ) format
+#
+#IF     %BLBZ >= 99.5
+      %BLBF = %BLBZ  PICTURE = (NNZ)
+#ELSEIF %BLBZ >=  0.0
+      %BLBF = %BLBZ  PICTURE = (NNZ)
+##ELSE
+#      %BLBF =" (  0) " PICTURE = AAAAA
+#ENDIF
+#SHOW %BLBZ
+#SHOW %BLBF
+#IF     %NHGZ >= 99.5
+      %NHGF = %NHGZ  PICTURE = (NNZ)
+#ELSEIF %NHGZ >=  0.0
+      %NHGF = %NHGZ  PICTURE = (NNZ)
+#ELSE
+      %NHGF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %NHGZ
+#SHOW %NHGF
+#IF     %BUCZ >= 99.5
+      %BUCF = %BUCZ  PICTURE = (NNZ)
+#ELSEIF %BUCZ >=  0.0
+      %BUCF = %BUCZ  PICTURE = (NNZ)
+#ELSE
+      %BUCF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %BUCZ
+#SHOW %BUCF
+#IF     %HIDZ >= 99.5
+      %HIDF = %HIDZ  PICTURE = (NNZ)
+#ELSEIF %HIDZ >=  0.0
+      %HIDF = %HIDZ  PICTURE = (NNZ)
+#ELSE
+      %HIDF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %HIDZ
+#SHOW %HIDF
+#IF     %PNFZ >= 99.5
+      %PNFF = %PNFZ  PICTURE = (NNZ)
+#ELSEIF %PNFZ >=  0.0
+      %PNFF = %PNFZ  PICTURE = (NNZ)
+#ELSE
+      %PNFF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %PNFZ
+#SHOW %PNFF
+#IF     %TRMZ >= 99.5
+      %TRMF = %TRMZ  PICTURE = (NNZ)
+#ELSEIF %TRMZ >=  0.0
+      %TRMF = %TRMZ  PICTURE = (NNZ)
+#ELSE
+      %TRMF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %TRMZ
+#SHOW %TRMF
+#IF     %SCCZ >= 99.5
+      %SCCF = %SCCZ  PICTURE = (NNZ)
+#ELSEIF %SCCZ >=  0.0
+      %SCCF = %SCCZ  PICTURE = (NNZ)
+#ELSE
+      %SCCF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %SCCZ
+#SHOW %SCCF
+#    #IF     %ISBZ >= 99.5
+#          %ISBF = %ISBZ  PICTURE = (NNZ)
+#    #ELSEIF %ISBZ >   0.0
+#          %ISBF = %ISBZ  PICTURE = B(NZ)
+#    #ELSE
+#          %ISBF ="     " PICTURE = AAAAA
+#    #ENDIF
+#    #SHOW %ISBZ
+#    #SHOW %ISBF
+#IF     %COYZ >= 99.5
+      %COYF = %COYZ  PICTURE = (NNZ)
+#ELSEIF %COYZ >=  0.0
+      %COYF = %COYZ  PICTURE = (NNZ)
+#ELSE
+      %COYF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %COYZ
+#SHOW %COYF
+#IF     %WRSZ >= 99.5
+      %WRSF = %WRSZ  PICTURE = (NNZ)
+#ELSEIF %WRSZ >=  0.0
+      %WRSF = %WRSZ  PICTURE = (NNZ)
+#ELSE
+      %WRSF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %WRSZ
+#SHOW %WRSF
+#IF     %FRMZ >= 99.5
+      %FRMF = %FRMZ  PICTURE = (NNZ)
+#ELSEIF %FRMZ >=  0.0
+      %FRMF = %FRMZ  PICTURE = (NNZ)
+#ELSE
+      %FRMF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %FRMZ
+#SHOW %FRMF
+#IF     %BURZ >= 99.5
+      %BURF = %BURZ  PICTURE = (NNZ)
+#ELSEIF %BURZ >=  0.0
+      %BURF = %BURZ  PICTURE = (NNZ)
+#ELSE
+      %BURF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %BURZ
+#SHOW %BURF
+#IF     %BARZ >= 99.5
+      %BARF = %BARZ  PICTURE = (NNZ)
+#ELSEIF %BARZ >=  0.0
+      %BARF = %BARZ  PICTURE = (NNZ)
+#ELSE
+      %BARF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %BARZ
+#SHOW %BARF
+#IF     %OWNZ >= 99.5
+      %OWNF = %OWNZ  PICTURE = (NNZ)
+#ELSEIF %OWNZ >=  0.0
+      %OWNF = %OWNZ  PICTURE = (NNZ)
+#ELSE
+      %OWNF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %OWNZ
+#SHOW %OWNF
+#IF     %MARZ >= 99.5
+      %MARF = %MARZ  PICTURE = (NNZ)
+#ELSEIF %MARZ >=  0.0
+      %MARF = %MARZ  PICTURE = (NNZ)
+#ELSE
+      %MARF ="     " PICTURE = AAAAA
+#ENDIF
+#SHOW %MARZ
+#SHOW %MARF
+#IF     %SHAZ >= 99.5
+      %SHAF = %SHAZ  PICTURE = (NNZ)
+#ELSEIF %SHAZ >=  0.0
+      %SHAF = %SHAZ  PICTURE = (NNZ)
+#ELSE
+      %SHAF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %SHAZ
+##SHOW %SHAF
+#IF     %FOLZ12 >= 99.5
+      %FOLF12 = %FOLZ12  PICTURE = (NNZ)
+#ELSEIF %FOLZ12 >=  0.0
+      %FOLF12 = %FOLZ12  PICTURE = (NNZ)
+#ELSE
+      %FOLF12 ="     " PICTURE = AAAAA
+#ENDIF
+#IF     %FOLZ18 >= 99.5
+      %FOLF18 = %FOLZ18  PICTURE = (NNZ)
+#ELSEIF %FOLZ18 >=  0.0
+      %FOLF18 = %FOLZ18  PICTURE = (NNZ)
+#ELSE
+      %FOLF18 ="     " PICTURE = AAAAA
+#ENDIF
+#IF     %FOLZ00 >= 99.5
+      %FOLF00 = %FOLZ00  PICTURE = (NNZ)
+#ELSEIF %FOLZ00 >=  0.0
+      %FOLF00 = %FOLZ00  PICTURE = (NNZ)
+#ELSE
+      %FOLF00 ="     " PICTURE = AAAAA
+#ENDIF
+#IF     %FOLZ06 >= 99.5
+      %FOLF06 = %FOLZ06  PICTURE = (NNZ)
+#ELSEIF %FOLZ06 >=  0.0
+      %FOLF06 = %FOLZ06  PICTURE = (NNZ)
+#ELSE
+      %FOLF06 ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %FOLZ
+##SHOW %FOLF
+#IF     %SACZ >= 99.5
+      %SACF = %SACZ  PICTURE = (NNZ)
+#ELSEIF %SACZ >=  0.0
+      %SACF = %SACZ  PICTURE = (NNZ)
+#ELSE
+      %SACF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %SACZ
+##SHOW %SACF
+#IF     %FRIZ >= 99.5
+      %FRIF = %FRIZ  PICTURE = (NNZ)
+#ELSEIF %FRIZ >=  0.0
+      %FRIF = %FRIZ  PICTURE = (NNZ)
+#ELSE
+      %FRIF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %FRIZ
+##SHOW %FRIF
+#IF     %OROZ >= 99.5
+      %OROF = %OROZ  PICTURE = (NNZ)
+#ELSEIF %OROZ >=  0.0
+      %OROF = %OROZ  PICTURE = (NNZ)
+#ELSE
+      %OROF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %OROZ
+##SHOW %OROF
+#IF     %LOSZ >= 99.5
+      %LOSF = %LOSZ  PICTURE = (NNZ)
+#ELSEIF %LOSZ >=  0.0
+      %LOSF = %LOSZ  PICTURE = (NNZ)
+#ELSE
+      %LOSF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %LOSZ
+##SHOW %LOSF
+#IF     %NBBZ >= 99.5
+      %NBBF = %NBBZ  PICTURE = (NNZ)
+#ELSEIF %NBBZ >=  0.0
+      %NBBF = %NBBZ  PICTURE = (NNZ)
+#ELSE
+      %NBBF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %NBBZ
+##SHOW %NBBF
+#IF     %CAMZ >= 99.5
+      %CAMF = %CAMZ  PICTURE = (NNZ)
+#ELSEIF %CAMZ >=  0.0
+      %CAMF = %CAMZ  PICTURE = (NNZ)
+#ELSE
+      %CAMF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %CAMZ
+##SHOW %CAMF
+#IF     %DONZ >= 99.5
+      %DONF = %DONZ  PICTURE = (NNZ)
+#ELSEIF %DONZ >=  0.0
+      %DONF = %DONZ  PICTURE = (NNZ)
+#ELSE
+      %DONF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %DONZ
+##SHOW %DONF
+#IF     %NEXZ >= 99.5
+      %NEXF = %NEXZ  PICTURE = (NNZ)
+#ELSEIF %NEXZ >=  0.0
+      %NEXF = %NEXZ  PICTURE = (NNZ)
+#ELSE
+      %NEXF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %NEXZ
+##SHOW %NEXF
+#IF     %NWMZ >= 99.5
+      %NWMF = %NWMZ  PICTURE = (NNZ)
+#ELSEIF %NWMZ >=  0.0
+      %NWMF = %NWMZ  PICTURE = (NNZ)
+#ELSE
+      %NWMF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %NWMZ
+##SHOW %NWMF
+#IF     %TULZ >= 99.5
+      %TULF = %TULZ  PICTURE = (NNZ)
+#ELSEIF %TULZ >=  0.0
+      %TULF = %TULZ  PICTURE = (NNZ)
+#ELSE
+      %TULF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %TULZ
+##SHOW %TULF
+#IF     %INDZ >= 99.5
+      %INDF = %INDZ  PICTURE = (NNZ)
+#ELSEIF %INDZ >=  0.0
+      %INDF = %INDZ  PICTURE = (NNZ)
+#ELSE
+      %INDF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %INDZ
+##SHOW %INDF
+#IF     %DELZ >= 99.5
+      %DELF = %DELZ  PICTURE = (NNZ)
+#ELSEIF %DELZ >=  0.0
+      %DELF = %DELZ  PICTURE = (NNZ)
+#ELSE
+      %DELF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %DELZ
+##SHOW %DELF
+#IF     %MRTZ >= 99.5
+      %MRTF = %MRTZ  PICTURE = (NNZ)
+#ELSEIF %MRTZ >=  0.0
+      %MRTF = %MRTZ  PICTURE = (NNZ)
+#ELSE
+      %MRTF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %MRTZ
+##SHOW %MRTF
+#IF     %PRSZ >= 99.5
+      %PRSF = %PRSZ  PICTURE = (NNZ)
+#ELSEIF %PRSZ >=  0.0
+      %PRSF = %PRSZ  PICTURE = (NNZ)
+#ELSE
+      %PRSF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %PRSZ
+##SHOW %PRSF
+#IF     %BOCZ >= 99.5
+      %BOCF = %BOCZ  PICTURE = (NNZ)
+#ELSEIF %BOCZ >=  0.0
+      %BOCF = %BOCZ  PICTURE = (NNZ)
+#ELSE
+      %BOCF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %BOCZ
+##SHOW %BOCF
+#IF     %STMZ >= 99.5
+      %STMF = %STMZ  PICTURE = (NNZ)
+#ELSEIF %STMZ >=  0.0
+      %STMF = %STMZ  PICTURE = (NNZ)
+#ELSE
+      %STMF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %STMZ
+##SHOW %STMF
+#IF     %BDCZ >= 99.5
+      %BDCF = %BDCZ  PICTURE = (NNZ)
+#ELSEIF %BDCZ >=  0.0
+      %BDCF = %BDCZ  PICTURE = (NNZ)
+#ELSE
+      %BDCF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %BDCZ
+##SHOW %BDCF
+#IF     %EBMZ >= 99.5
+      %EBMF = %EBMZ  PICTURE = (NNZ)
+#ELSEIF %EBMZ >=  0.0
+      %EBMF = %EBMZ  PICTURE = (NNZ)
+#ELSE
+      %EBMF ="     " PICTURE = AAAAA
+#ENDIF
+##SHOW %EBMZ
+##SHOW %EBMF
+##IF     %ABSZ >= 99.5
+#      %ABSF = %ABSZ  PICTURE = (NNZ)
+##ELSEIF %ABSZ >=  0.0
+#      %ABSF = %ABSZ  PICTURE = (NNZ)
+##ELSE
+#      %ABSF =" ( x0)" PICTURE = AAAA
+##ENDIF
+##SHOW %ABSZ
+##SHOW %ABSF
+##IF     %BBSZ >= 99.5
+#      %BBSF = %BBSZ  PICTURE = (NNZ)
+##ELSEIF %BBSZ >=  0.0
+#      %BBSF = %BBSZ  PICTURE = (NNZ)
+##ELSE
+#      %BBSF ="     " PICTURE = AAAAA
+##ENDIF
+##SHOW %BBSZ
+##SHOW %BBSF
+##IF     %CBSZ >= 99.5
+#      %CBSF = %CBSZ  PICTURE = (NNZ)
+##ELSEIF %CBSZ >=  0.0
+#      %CBSF = %CBSZ  PICTURE = (NNZ)
+##ELSE
+#      %CBSF ="     " PICTURE = AAAAA
+##ENDIF
+##SHOW %CBSZ
+##SHOW %CBSF
+##IF     %DBSZ >= 99.5
+#      %DBSF = %DBSZ  PICTURE = (NNZ)
+##ELSEIF %DBSZ >=  0.0
+#      %DBSF = %DBSZ  PICTURE = (NNZ)
+##ELSE
+#      %DBSF ="     " PICTURE = AAAAA
+##ENDIF
+##SHOW %DBSZ
+##SHOW %DBSF
+##IF     %EBSZ >= 99.5
+#      %EBSF = %EBSZ  PICTURE = (NNZ)
+##ELSEIF %EBSZ >=  0.0
+#      %EBSF = %EBSZ  PICTURE = (NNZ)
+##ELSE
+#      %EBSF ="     " PICTURE = AAAAA
+##ENDIF
+#SHOW %EBSZ
+#SHOW %EBSF
+#
+#
+#     Define Space Used Above Top Conservation Storage
+#
+#     Define Space Used Above TCS for the non-snowmelt reservoirs.
+#     IF we are in snowmelt season (01Feb to 31Jul) THEN
+#         Define Space Used Above TCS for the snowmelt reservoirs as N/A
+#         (i.e. Not Applicable)
+#     ELSE
+#         Display Space Used Above TCS for the snowmelt reservoirs.
+#     ENDIF
+#
+%BBSP =   %BBSTO - %BBTCS
+   PICTURE = "NNNNNNNNNZ"
+   MISSTR =  "      -NR-"
+   UNDEF =   "      -NR-"
+%ENSP =   %ENSTO - %ENTCS
+%NHSP =   %NHSTO - %NHTCS
+%BUSP =   %BUSTO - %BUTCS
+%HDSP =   %HDSTO - %HDTCS
+%COSP =   %COSTO - %COTCS
+%WSSP =   %WSSTO - %WSTCS
+%FMSP =   %FMSTO - %FMTCS
+%MRTSP =   %MRTSTO - %MRTTCS
+%BURSP =   %BNSTO - %BNTCS
+%BARSP =   %BRSTO - %BRTCS
+%OWNSP =   %OWSTO - %OWTCS
+%MARSP =   %MRSTO - %MRTCS
+%SHASP =   %SHASTO - %SHATCS
+%FOLSP12 =   %FLSTO12 - %FTCS12
+%FOLSP18 =   %FLSTO18 - %FTCS18
+%FOLSP00 =   %FLSTO00 - %FTCS00
+%FOLSP06 =   %FLSTO06 - %FTCS06
+#%SACSP =   %SACSTO - %SACTCS
+%OROSP =   %OROSTO - %OROTCS
+%LOSSP =   %LOSSTO - %LOSTCS
+%NBBSP =   %NBBSTO - %NBBTCS
+%TULSP =   %TULSTO - %TULTCS
+%INDSP =   %INDSTO - %INDTCS
+%DELSP =   %DELSTO - %DELTCS
+%BDCSP =   %BDCSTO - %BDCTCS
+  #IF %CAMSTO > %CAMTCS
+       %EBMSP =   %EBMSTO - %EBMTCS
+  #ELSE
+       %EBMSP = "          "
+  #ENDIF
+#  %MMMDD = MONOFYR(%BASDATE) * 100 + DAY(%BASDATE)
+#  #IF 0201 =< %MMMDD  AND  %MMMDD =< 0731
+#     %PFSP  = "       N/A"
+#     %TMSP  = "       N/A"
+#     %SCSP  = "       N/A"
+#     %IBSP  = "       N/A"
+#     %FRISP = "       N/A"
+#     %CAMSP = "       N/A"
+#     %DONSP = "       N/A"
+#     %NEXSP = "       N/A"
+#     %NWMSP = "       N/A"
+#     %PRSSP = "       N/A"
+#     %BOCSP = "       N/A"
+#     %STMSP = "       N/A"
+#  #ELSE
+   %PFSP =   %PFSTO - %PFTCS
+   %TMSP =   %TMSTO - %TMTCS
+   %SCSP =   %SCSTO - %SCTCS
+   %IBSP =   %IBSTO - %IBTCS
+   %FRISP =   %FRISTO - %FRITCS
+   %CAMSP =   %CAMSTO - %CAMTCS
+   %DONSP =   %DONSTO - %DONTCS
+   %NEXSP =   %NEXSTO - %NEXTCS
+   %NWMSP =   %NWMSTO - %NWMTCS
+   %PRSSP =   %PRSSTO - %PRSTCS
+   %BOCSP =   %BOCSTO - %BOCTCS
+   %STMSP =   %STMSTO - %STMTCS
+#
+  #IF %CAMSTO > %CAMTCS
+       %EBMSP =   %EBMSTO - %EBMTCS
+  #ELSE
+       %EBMSP = "          "
+  #ENDIF
+#  %MMMDD = MONOFYR(%BASDATE) * 100 + DAY(%BASDATE)
+#  #IF 0201 =< %MMMDD  AND  %MMMDD =< 0731
+#     %PFSP  = "       N/A"
+#     %TMSP  = "       N/A"
+#     %SCSP  = "       N/A"
+#     %IBSP  = "       N/A"
+#     %FRISP = "       N/A"
+#     %CAMSP = "       N/A"
+#     %DONSP = "       N/A"
+#     %NEXSP = "       N/A"
+#     %NWMSP = "       N/A"
+#     %PRSSP = "       N/A"
+#     %BOCSP = "       N/A"
+#     %STMSP = "       N/A"
+#  #ELSE
+#
+#
+#
+#  Basin summations of total above top of conservation to include
+#  only encroached projects.
+#
+   #IF %ENSP =< 0
+        %ENS = 0
+   #ELSE
+        %ENS = %ENSP
+   #ENDIF
+   #IF %NHSP =< 0
+        %NHS = 0
+   #ELSE
+        %NHS = %NHSP
+   #ENDIF
+#
+   #IF %BUSP =< 0
+        %BCS = 0
+   #ELSE
+        %BCS = %BUSP
+   #ENDIF
+#
+   #IF %HDSP =< 0
+        %HDS = 0
+   #ELSE
+        %HDS = %HDSP
+   #ENDIF
+#
+   #IF %COSP =< 0
+        %COS = 0
+   #ELSE
+        %COS = %COSP
+   #ENDIF
+#
+   #IF %WSSP =< 0
+        %WSS = 0
+   #ELSE
+        %WSS = %WSSP
+   #ENDIF
+#
+   #IF %FMSP =< 0
+        %FMS = 0
+   #ELSE
+        %FMS = %FMSP
+   #ENDIF
+#
+   #IF %MRTSP =< 0
+        %MRTS = 0
+   #ELSE
+        %MRTS = %MRTSP
+   #ENDIF
+#
+   #IF %BURSP =< 0
+         %BNS = 0
+   #ELSE
+         %BNS = %BURSP
+   #ENDIF
+#
+   #IF %BARSP =< 0
+         %BRS = 0
+   #ELSE
+         %BRS = %BARSP
+   #ENDIF
+#
+   #IF %OWNSP =< 0
+         %OWS = 0
+   #ELSE
+         %OWS = %OWNSP
+   #ENDIF
+#
+   #IF %MARSP =< 0
+         %MRS = 0
+   #ELSE
+         %MRS = %MARSP
+   #ENDIF
+#
+   #IF %SHASP =< 0
+        %SHAS = 0
+   #ELSE
+        %SHAS = %SHASP
+   #ENDIF
+#
+   #IF %BBSP =< 0
+       %BBTS = 0
+   #ELSE
+       %BBTS = %BBSP
+   #ENDIF
+#
+   #IF %FOLSP12 =< 0
+        %FOLS12 = 0
+   #ELSE
+        %FOLS12 = %FOLSP12
+   #ENDIF
+   #IF %FOLSP18 =< 0
+        %FOLS18 = 0
+   #ELSE
+        %FOLS18 = %FOLSP18
+   #ENDIF
+   #IF %FOLSP00 =< 0
+        %FOLS00 = 0
+   #ELSE
+        %FOLS00 = %FOLSP00
+   #ENDIF
+   #IF %FOLSP06 =< 0
+        %FOLS06 = 0
+   #ELSE
+        %FOLS06 = %FOLSP06
+   #ENDIF
+#   #IF %SACSP =< 0
+#        %SACS = 0
+#   #ELSE
+#        %SACS = %SACSP
+#   #ENDIF
+##
+   #IF %OROSP =< 0
+        %OROS = 0
+   #ELSE
+        %OROS = %OROSP
+   #ENDIF
+##
+   #IF %LOSSP =< 0
+        %LOSS = 0
+   #ELSE
+        %LOSS = %LOSSP
+   #ENDIF
+##
+   #IF %NBBSP =< 0
+        %NBBS = 0
+   #ELSE
+        %NBBS = %NBBSP
+   #ENDIF
+##
+   #IF %TULSP =< 0
+        %TULS = 0
+   #ELSE
+        %TULS = %TULSP
+   #ENDIF
+#
+   #IF %INDSP =< 0
+        %INDS = 0
+   #ELSE
+        %INDS = %INDSP
+   #ENDIF
+##
+   #IF %DELSP =< 0
+        %DELS = 0
+   #ELSE
+        %DELS = %DELSP
+   #ENDIF
+##
+   #IF %BDCSP =< 0
+        %BDCS = 0
+   #ELSE
+        %BDCS = %BDCSP
+   #ENDIF
+##
+   #IF %PFSP =< 0
+        %PFS = 0
+   #ELSE
+        %PFS = %PFSP
+   #ENDIF
+#
+   #IF %TMSP =< 0
+        %TMS = 0
+   #ELSE
+        %TMS = %TMSP
+   #ENDIF
+#
+   #IF %SCSP =< 0
+        %SCS = 0
+   #ELSE
+        %SCS = %SCSP
+   #ENDIF
+#
+   #IF %IBSP =< 0
+        %IBS = 0
+   #ELSE
+        %IBS = %IBSP
+   #ENDIF
+#
+   #IF %FRISP =< 0
+        %FRIS = 0
+   #ELSE
+        %FRIS = %FRISP
+   #ENDIF
+##
+   #IF %CAMSP =< 0
+        %CAMS = 0
+   #ELSE
+        %CAMS = %CAMSP
+   #ENDIF
+##
+   #IF %DONSP =< 0
+        %DONS = 0
+   #ELSE
+        %DONS = %DONSP
+   #ENDIF
+##
+   #IF %NEXSP =< 0
+        %NEXS = 0
+   #ELSE
+        %NEXS = %NEXSP
+   #ENDIF
+##
+   #IF %NWMSP =< 0
+        %NWMS = 0
+   #ELSE
+        %NWMS = %NWMSP
+   #ENDIF
+##
+   #IF %PRSSP =< 0
+        %PRSS = 0
+   #ELSE
+        %PRSS = %PRSSP
+   #ENDIF
+##
+   #IF %BOCSP =< 0
+        %BOCS = 0
+   #ELSE
+        %BOCS = %BOCSP
+   #ENDIF
+##
+   #IF %STMSP =< 0
+        %STMS = 0
+   #ELSE
+        %STMS = %STMSP
+   #ENDIF
+#
+#  Summation of volumes above the allowable.
+#
+#
+%BB10
+	DBLOC="Black Butte-Pool" DBPAR=Stor DBPTYP=Ave DBINT=~1Day DBDUR=1Decade DBVER=Calc-val
+#	DBLOC="Black Butte-Pool" DBPAR=Elev DBPTYP=Inst DBDUR=0 DBVER=Calc-val
+	PICTURE = "NNNNNNNNZ"
+	MISSTR =  "     -NR-"
+	UNDEF =   "     -NR-" 
+	TIME = %BASDATE
+	DBTZ=PST8PDT
+	DBUNITS=ac-ft
+%EN10
+	DBLOC="Englebright Lake-Pool"
+%NH10
+	DBLOC="New Hogan-Pool"
+%BU10
+	DBLOC="Eastman Lake-Pool"
+%HD10
+	DBLOC="Hensley lake-Pool"
+%PF10
+	DBLOC="Pine Flat Lake-Pool"
+%TM10
+	DBLOC="Lake Kaweah-Pool"
+%SC10
+	DBLOC="Success Lake-Pool"
+%IB10
+	DBLOC="Lake Isabella-Pool"
+%CO10
+	DBLOC="Lake Mendocino-Pool"
+%WS10
+	DBLOC="Lake Sonoma-Pool"
+%MRT10
+	DBLOC="Martis Creek-Pool"
+%FM10
+	DBLOC="Farmington Dam-Pool"
+%BN10
+	DBLOC="Burns-Pool"
+%BR10
+	DBLOC="Bear-Pool"
+%OW10
+	DBLOC="Owens-Pool"
+%MR10
+	DBLOC="Mariposa-Pool"
+%EPK10
+	DBLOC="East Park" DBVER=Thumb-raw
+%STG10
+	DBLOC="Stony Gorge"
+%CRT10
+	DBLOC="Courtright" DBVER=Thumb-raw
+	
+#   A=KINGS          B=COURTRIGHT     F=
+%WSH10
+	DBLOC="Wishon"
+#   A=KINGS          B=WISHON
+%SHA10
+	DBLOC="Shasta" DBVER=Raw-USBR-Combined
+#   FILE = /dat0/rtsc7db.dss               TYPE=DSS
+#   A=SACRAMENTO     B=SHASTA         F=
+%FOL10
+	DBLOC="Folsom Lake"
+#   A=AMERICAN       B=FOLSOM
+#%SAC10 = %FOLSTO
+#   A=SAN JOAQUIN    B=FRIANT
+%ORO10
+	DBLOC="Oroville Dam" DBVER=Calc-cdec
+#   A=FEATHER        B=OROVILLE
+%NBB10
+	DBLOC="New Bullards Bar" DBVER=Calc-cdec
+#   A=NORTH YUBA     B=NEW BULLARDS BAR
+%IND10
+	DBLOC="Indian Valley" DBVER=Calc-usgs
+#   A=NF CACHE CR    B=INDIAN VALLEY
+%UNV10
+	DBLOC="Union Valley" DBVER=Calc-cdec
+#   A=AMERICAN       B=UNION VALLEY
+%FMD10
+	DBLOC="French Meadows" DBVER=Calc-confidential
+#   A=AMERICAN       B=FRENCH MEADOWS
+%HHL10
+	DBLOC="Hell Hole"
+#   A=AMERICAN       B=HELL HOLE
+%NWM10
+	DBLOC="New Melones" DBVER=Raw-USBR-Combined
+#   A=STANISLAUS     B=NEW MELONES
+%BRD10
+	DBLOC="Beardsley Lake"
+#   A=STANISLAUS     B=BEARDSLEY
+%DNL10
+	DBLOC="Donnells"
+#   A=STANISLAUS     B=DONNELLS
+%TUL10
+	DBLOC="Tulloch" 
+#   A=STANISLAUS     B=TULLOCH
+%FRI10
+	DBLOC="Friant Dam"
+%MAM10
+	DBLOC="Mammoth Pool"
+#   A=SAN JOAQUIN    B=MAMMOTH POOL
+%MTS10
+	DBLOC="Friant Dam" DBPAR=Stor-Total Upstream
+#   A=SAN JOAQUIN    B=FRIANT        C=10R-TOT U\S
+%CAM10
+	DBLOC="Camanche" DBPAR=Stor DBVER=MANUAL
+#   A=MOKELUMNE      B=CAMANCHE
+%DON10
+	DBLOC="Don Pedro"
+#   A=TUOLUMNE       B=NEW DON PEDRO
+%NEX10
+	DBLOC="New Exchequer"
+#   A=MERCED         B=NEW EXCHEQUER
+%PRD10
+	DBLOC="Pardee"
+#   A=MOKELUMNE      B=PARDEE
+%EBM10 = (%CAMSTO + %PRDSTO)
+%SSP10
+	DBLOC="Mokelumne R-Salt Springs"
+#   A=MOKELUMNE      B=SALT SPRINGS
+%LBR10
+	DBLOC="Lower Bear"
+#   A=MOKELUMNE      B=LOWER BEAR
+%HTH10
+	DBLOC="Hetch Hetchy"
+#   A=TUOLUMNE       B=HETCH HETCHY
+%CHV10
+	DBLOC="Cherry Valley"
+#   A=TUOLUMNE       B=CHERRY VALLEY
+%LKL10
+	DBLOC="Lake Eleanor"
+#   A=TUOLUMNE       B=ELEANOR
+%DEL10
+	DBLOC="Del Valle"
+#   A=ALAMEDA CR     B=DEL VALLE
+%PRS10
+	DBLOC="Prosser"
+#   A=PROSSER CR     B=PROSSER CR
+%BOC10
+	DBLOC="Boca"
+#   A=LITTLE TRUCKEE B=BOCA
+%STM10
+	DBLOC="Stampede"
+#   A=LITTLE TRUCKEE B=STAMPEDE
+%BDC10
+	DBLOC="Big Dry Cr"
+%LOS10
+	DBLOC="Los Banos"
+
+%SHA10P=(%SHASTO/%SHA10)*100
+	PICTURE = "NNNNNNNNZ"
+%BB10P=(%BBSTO/%BB10)*100
+%ORO10P=(%OROSTO/%ORO10)*100
+%NBB10P=(%NBBSTO/%NBB10)*100
+%EN10P=(%ENSTO/%EN10)*100
+%IND10P=(%INDSTO/%IND10)*100
+%FOL10P=(%FOLSTO/%FOL10)*100
+%CAM10P=(%CAMSTO/%CAM10)*100
+%NH10P=(%NHSTO/%NH10)*100
+%FM10P=(%FMSTO/%FM10)*100
+%NWM10P=(%NWMSTO/%NWM10)*100
+%TUL10P=(%TULSTO/%TUL10)*100
+%DON10P=(%DONSTO/%DON10)*100
+%NEX10P=(%NEXSTO/%NEX10)*100
+%BN10P=(%BNSTO/%BN10)*100
+%BR10P=(%BRSTO/%BR10)*100
+%OW10P=(%OWSTO/(%OW10+0.001))*100
+%MR10P=(%MRSTO/(%MR10+0.001))*100
+%LOS10P=(%LOSSTO/%LOS10)*100
+%BU10P=(%BUSTO/%BU10)*100
+%HD10P=(%HDSTO/%HD10)*100
+%FRI10P=(%FRISTO/%FRI10)*100
+%BDC10P=(%BDCSTO/%BDC10)*100
+
+%PF10P=(%PFSTO/%PF10)*100
+%TM10P=(%TMSTO/%TM10)*100
+%SC10P=(%SCSTO/%SC10)*100
+%IB10P=(%IBSTO/%IB10)*100
+
+%MRT10P=(%MRTSTO/%MRT10)*100
+%PRS10P=(%PRSSTO/%PRS10)*100
+%BOC10P=(%BOCSTO/%BOC10)*100
+%STM10P=(%STMSTO/%STM10)*100
+
+%CO10P=(%COSTO/%CO10)*100
+%WS10P=(%WSSTO/%WS10)*100
+%DEL10P=(%DELSTO/%DEL10)*100
+
+
+	
+%BBSA =   %BBG - %BBSTO
+   PICTURE = "NNNNNNNNNZ"
+   MISSTR =  "      -NR-"
+   UNDEF =   "      -NR-"
+%ENSA =   %ENG - %ENSTO
+%NHSA =   %NHG - %NHSTO
+%BUSA =   %BUG - %BUSTO
+%HDSA =   %HDG - %HDSTO
+%COSA =   %COG - %COSTO
+%WSSA =   %WSG - %WSSTO
+%FMSA =   %FMG - %FMSTO
+%MRTSA =   %MRTG - %MRTSTO
+%BURSA =   %BNG - %BNSTO
+%BARSA =   %BRG - %BRSTO
+%OWNSA =   %OWG - %OWSTO
+%MARSA =   %MRG - %MRSTO
+%SHASA =   %SHAG - %SHASTO
+%FOLSA =   %FOLG - %FOLSTO
+   MISSTR =  "      -NF-"
+   UNDEF =   "      -NF-"
+%FOLSA12 =   %FOLG - %FLSTO12
+%FOLSA18 =   %FOLG - %FLSTO18
+%FOLSA00 =   %FOLG - %FLSTO00
+%FOLSA06 =   %FOLG - %FLSTO06
+#%SACSA =   %SACG - %SACSTO
+%OROSA =   %OROG - %OROSTO
+   MISSTR =  "      -NR-"
+   UNDEF =   "      -NR-"
+%LOSSA =   %LOSG - %LOSSTO
+%NBBSA =   %NBBG - %NBBSTO
+%TULSA =   %TULG - %TULSTO
+%INDSA =   %INDG - %INDSTO
+%DELSA =   %DELG - %DELSTO
+%BDCSA =   %BDCG - %BDCSTO
+#  #IF %CAMG > %CAMSTO
+#       %EBMSA =   %EBMG - %EBMSTO
+#  #ELSE
+#       %EBMSA = "          "
+#  #ENDIF
+#  %MMMDD = MONOFYR(%BASDATE) * 100 + DAY(%BASDATE)
+#  #IF 0201 =< %MMMDD  AND  %MMMDD =< 0731
+#     %PFSA  = "       N/A"
+#     %TMSA  = "       N/A"
+#     %SCSA  = "       N/A"
+#     %IBSA  = "       N/A"
+#     %FRISA = "       N/A"
+#     %CAMSA = "       N/A"
+#     %DONSA = "       N/A"
+#     %NEXSA = "       N/A"
+#     %NWMSA = "       N/A"
+#     %PRSSA = "       N/A"
+#     %BOCSA = "       N/A"
+#     %STMSA = "       N/A"
+#  #ELSE
+   %PFSA =   %PFG - %PFSTO
+   %TMSA =   %TMG - %TMSTO
+   %SCSA =   %SCG - %SCSTO
+   %IBSA =   %IBG - %IBSTO
+   %FRISA =   %FRIG - %FRISTO
+   %CAMSA =   %CAMG - %CAMSTO
+   %DONSA =   %DONG - %DONSTO
+   %NEXSA =   %NEXG - %NEXSTO
+   %NWMSA =   %NWMG - %NWMSTO
+   %PRSSA =   %PRSG - %PRSSTO
+   %BOCSA =   %BOCG - %BOCSTO
+   %STMSA =   %STMG - %STMSTO
+#
+#  #IF %CAMG > %CAMSTO
+#       %EBMSA =   %EBMG - %EBMSTO
+#  #ELSE
+#       %EBMSA = "          "
+#  #ENDIF
+#  %MMMDD = MONOFYR(%BASDATE) * 100 + DAY(%BASDATE)
+#  #IF 0201 =< %MMMDD  AND  %MMMDD =< 0731
+#     %PFSA  = "       N/A"
+#     %TMSA  = "       N/A"
+#     %SCSA  = "       N/A"
+#     %IBSA  = "       N/A"
+#     %FRISA = "       N/A"
+#     %CAMSA = "       N/A"
+#     %DONSA = "       N/A"
+#     %NEXSA = "       N/A"
+#     %NWMSA = "       N/A"
+#     %PRSSA = "       N/A"
+#     %BOCSA = "       N/A"
+#     %STMSA = "       N/A"
+#  #ELSE
+#
+#
+#
+#  Basin summations of total above top of conservation to include
+#  only encroached projects.
+#
+   #IF %ENSA =< 0
+        %ENA = 0
+   #ELSE
+        %ENA = %ENSA
+   #ENDIF
+   #IF %NHSA =< 0
+        %NHA = 0
+   #ELSE
+        %NHA = %NHSA
+   #ENDIF
+#
+   #IF %BUSA =< 0
+        %BCA = 0
+   #ELSE
+        %BCA = %BUSA
+   #ENDIF
+#
+   #IF %HDSA =< 0
+        %HDA = 0
+   #ELSE
+        %HDA = %HDSA
+   #ENDIF
+#
+   #IF %COSA =< 0
+        %COA = 0
+   #ELSE
+        %COA = %COSA
+   #ENDIF
+#
+   #IF %WSSA =< 0
+        %WSA = 0
+   #ELSE
+        %WSA = %WSSA
+   #ENDIF
+#
+   #IF %FMSA =< 0
+        %FMA = 0
+   #ELSE
+        %FMA = %FMSA
+   #ENDIF
+#
+   #IF %MRTSA =< 0
+        %MRTA = 0
+   #ELSE
+        %MRTA = %MRTSA
+   #ENDIF
+#
+   #IF %BURSA =< 0
+         %BNA = 0
+   #ELSE
+         %BNA = %BURSA
+   #ENDIF
+#
+   #IF %BARSA =< 0
+         %BRA = 0
+   #ELSE
+         %BRA = %BARSA
+   #ENDIF
+#
+   #IF %OWNSA =< 0
+         %OWA = 0
+   #ELSE
+         %OWA = %OWNSA
+   #ENDIF
+#
+   #IF %MARSA =< 0
+         %MRA = 0
+   #ELSE
+         %MRA = %MARSA
+   #ENDIF
+#
+   #IF %SHASA =< 0
+        %SHAA = 0
+   #ELSE
+        %SHAA = %SHASA
+   #ENDIF
+#
+   #IF %BBSA =< 0
+       %BBTA = 0
+   #ELSE
+       %BBTA = %BBSA
+   #ENDIF
+#
+   #IF %FOLSA =< 0
+        %FOLA = 0
+   #ELSE
+        %FOLA = %FOLSA
+   #ENDIF
+   #IF %FOLSA12 =< 0
+        %FOLA12 = 0
+   #ELSE
+        %FOLA12 = %FOLSA12
+   #ENDIF
+   #IF %FOLSA18 =< 0
+        %FOLA18 = 0
+   #ELSE
+        %FOLA18 = %FOLSA18
+   #ENDIF
+   #IF %FOLSA00 =< 0
+        %FOLA00 = 0
+   #ELSE
+        %FOLA00 = %FOLSA00
+   #ENDIF
+   #IF %FOLSA06 =< 0
+        %FOLA06 = 0
+   #ELSE
+        %FOLA06 = %FOLSA06
+   #ENDIF
+#   #IF %SACSA =< 0
+#        %SACA = 0
+#   #ELSE
+#        %SACA = %SACSA
+#   #ENDIF
+##
+   #IF %OROSA =< 0
+        %OROA = 0
+   #ELSE
+        %OROA = %OROSA
+   #ENDIF
+##
+   #IF %LOSSA =< 0
+        %LOSA = 0
+   #ELSE
+        %LOSA = %LOSSA
+   #ENDIF
+##
+   #IF %NBBSA =< 0
+        %NBBA = 0
+   #ELSE
+        %NBBA = %NBBSA
+   #ENDIF
+##
+   #IF %TULSA =< 0
+        %TULA = 0
+   #ELSE
+        %TULA = %TULSA
+   #ENDIF
+#
+   #IF %INDSA =< 0
+        %INDA = 0
+   #ELSE
+        %INDA = %INDSA
+   #ENDIF
+##
+   #IF %DELSA =< 0
+        %DELA = 0
+   #ELSE
+        %DELA = %DELSA
+   #ENDIF
+##
+   #IF %BDCSA =< 0
+        %BDCA = 0
+   #ELSE
+        %BDCA = %BDCSA
+   #ENDIF
+##
+   #IF %PFSA =< 0
+        %PFA = 0
+   #ELSE
+        %PFA = %PFSA
+   #ENDIF
+#
+   #IF %TMSA =< 0
+        %TMA = 0
+   #ELSE
+        %TMA = %TMSA
+   #ENDIF
+#
+   #IF %SCSA =< 0
+        %SCA = 0
+   #ELSE
+        %SCA = %SCSA
+   #ENDIF
+#
+   #IF %IBSA =< 0
+        %IBA = 0
+   #ELSE
+        %IBA = %IBSA
+   #ENDIF
+#
+   #IF %FRISA =< 0
+        %FRIA = 0
+   #ELSE
+        %FRIA = %FRISA
+   #ENDIF
+##
+   #IF %CAMSA =< 0
+        %CAMA = 0
+   #ELSE
+        %CAMA = %CAMSA
+   #ENDIF
+##
+   #IF %DONSA =< 0
+        %DONA = 0
+   #ELSE
+        %DONA = %DONSA
+   #ENDIF
+##
+   #IF %NEXSA =< 0
+        %NEXA = 0
+   #ELSE
+        %NEXA = %NEXSA
+   #ENDIF
+##
+   #IF %NWMSA =< 0
+        %NWMA = 0
+   #ELSE
+        %NWMA = %NWMSA
+   #ENDIF
+##
+   #IF %PRSSA =< 0
+        %PRSA = 0
+   #ELSE
+        %PRSA = %PRSSA
+   #ENDIF
+##
+   #IF %BOCSA =< 0
+        %BOCA = 0
+   #ELSE
+        %BOCA = %BOCSA
+   #ENDIF
+##
+   #IF %STMSA =< 0
+        %STMA = 0
+   #ELSE
+        %STMA = %STMSA
+   #ENDIF
+%BBO
+	DBLOC="Black Butte" DBPTYP=Ave DBPAR=Flow-Res Out DBVER=Calc-val DBINT=~1Day DBDUR=1Day
+	PICTURE = "NNNNNNNNNZ"
+	MISSTR =  "      -NR-"
+	UNDEF =   "      -NR-"
+	TIME = %BASDATE
+	DBUNITS=cfs
+	DBTZ=PST8PDT
+%NHO
+	DBLOC="New Hogan"
+%BUO
+	DBLOC="Eastman Lake"
+%HDO
+	DBLOC="Hensley Lake"
+%PFO
+	DBLOC="Pine Flat Lake"
+%TMO
+	DBLOC="Lake Kaweah"
+%SCO
+	DBLOC="Success Lake"
+%IBO
+	DBLOC="Lake Isabella"
+%COO
+	DBLOC="Lake Mendocino"
+%WSO
+	DBLOC="Lake Sonoma"
+%MRTO
+	DBLOC="Martis Creek"
+%BNO  
+	DBLOC="Burns"
+%BRO 
+	DBLOC="Bear"
+%OWO 
+	DBLOC="Owens"
+%MRO 
+	DBLOC="Mariposa"
+%FMO 
+	DBLOC="Farmington Dam" DBVER=Calc-RCF+FRMQ
+%ENO
+	DBLOC="Englebright Lake" DBVER=Calc-thumb
+%SHAO
+	DBLOC="Shasta" DBVER=Calc-usbr
+%FOLO
+	DBLOC="Folsom Lake"
+	   MISSTR =  "    -NR-"
+	   UNDEF =   "    -NR-"
+%NWMO
+	DBLOC="New Melones"
+%TULO
+	DBLOC="Tulloch"
+%FRIO
+	DBLOC="Friant Dam" DBVER=Calc-usbr
+%OROO
+	DBLOC="Oroville Dam" DBVER=MANUAL
+   MISSTR = "     -NR-"
+   UNDEF =  "     -NR-"
+%INDO
+	DBLOC="Indian Valley" 
+%LOSO
+	DBLOC="Los Banos" 
+%DELO
+	DBLOC="Del Valle"
+%DONO
+	DBLOC="Don Pedro" 
+%CAMO
+	DBLOC="Camanche"
+%NEXO
+	DBLOC="New Exchequer"
+%PRSO
+	DBLOC="Prosser"
+%BOCO
+	DBLOC="Boca"
+%STMO
+	DBLOC="Stampede"
+%BDCO
+	DBLOC="Big Dry Cr"
+%NBBO
+	DBLOC="New Bullards Bar" DBVER=Calc-cdec
+%FOLO12
+	DBLOC="Folsom Lake" DBPAR="Flow-Reservoir Outflow" DBPTYP=Inst DBINT=1Hour DBDUR=0 DBVER=CDEC-confidential-raw
+	   MISSTR =  "    -NR-"
+	   UNDEF =   "    -NR-"
+	DBTZ=UTC
+	TIME=%T12
+%FOLO18
+	TIME=%T18
+%FOLO00
+	TIME=%T00
+%FOLO06
+	TIME=%T06
+
+%BBI
+	DBLOC="Black Butte" DBPTYP=Ave DBPAR=Flow-Res In DBVER=Calc-val DBINT=~1Day DBDUR=1Day DBVER=Calc-val
+	PICTURE = "NNNNNNNNNZ"
+	MISSTR =  "      -NR-"
+	UNDEF =   "      -NR-"
+	TIME = %BASDATE
+	DBUNITS=cfs
+	DBTZ=PST8PDT
+%NHI
+	DBLOC="New Hogan"
+%BUI
+	DBLOC="Eastman Lake"
+%HDI
+	DBLOC="Hensley Lake"
+%PFI
+	DBLOC="Pine Flat Lake"
+%TMI
+	DBLOC="Lake Kaweah"
+%SCI
+	DBLOC="Success Lake"
+%IBI
+	DBLOC="Lake Isabella"
+%COI
+	DBLOC="Lake Mendocino"
+%WSI
+	DBLOC="Lake Sonoma"
+%MRTI
+	DBLOC="Martis Creek"
+%BNI  
+	DBLOC="Burns"
+%BRI 
+	DBLOC="Bear"
+%OWI 
+	DBLOC="Owens"
+%MRI 
+	DBLOC="Mariposa"
+%FMI 
+	DBLOC="Farmington Dam" DBVER=Calc-RCF+FRMQ
+%ENI
+	DBLOC="Englebright Lake" DBVER=Calc-val
+%SHAI
+	DBLOC="Shasta" DBVER=Raw-USBR-Combined
+%FOLI
+	DBLOC="Folsom Lake"
+	   MISSTR =  "    -NR-"
+	   UNDEF =   "    -NR-"
+%NWMI
+	DBLOC="New Melones"
+%TULI
+	DBLOC="Tulloch"
+%FRII
+	DBLOC="Friant Dam"
+%OROI
+	DBLOC="Oroville Dam" DBVER=MANUAL
+   MISSTR = "     -NR-"
+   UNDEF =  "     -NR-"
+%INDI
+	DBLOC="Indian Valley" 
+%LOSI
+	DBLOC="Los Banos" 
+%DELI
+	DBLOC="Del Valle"
+%DONI
+	DBLOC="Don Pedro" 
+%CAMI
+	DBLOC="Camanche"
+%NEXI
+	DBLOC="New Exchequer"
+%PRSI
+	DBLOC="Prosser"
+%BOCI
+	DBLOC="Boca"
+%STMI
+	DBLOC="Stampede"
+%BDCI
+	DBLOC="Big Dry Cr"
+%NBBI
+	DBLOC="New Bullards Bar" DBVER=Calc-cdec
+%FOLI12
+	DBLOC="Folsom Lake" DBVER=Raw-USBR-Combined DBINT=1Hour DBPTYP=Ave DBDUR=1Hour
+	DBTZ=UTC
+	TIME=%T12
+%FOLI18
+	TIME=%T18
+%FOLI00
+	TIME=%T00
+%FOLI06
+	TIME=%T06
+#   A=SAN JOAQUIN    B=FRIANT                                     F=
+#   A=NORTH YUBA     B=NEW BULLARDS BAR
+%UTDATE=%BASDATE
+%T1 = %UTDATE-9Y
+   PICTURE = ZDAAAZZZY
+%T2 = %UTDATE-8Y
+%T3 = %UTDATE-7Y
+%T4 = %UTDATE-6Y
+%T5 = %UTDATE-5Y
+%T6 = %UTDATE-4Y
+%T7 = %UTDATE-3Y
+%T8 = %UTDATE-2Y
+%T9 = %UTDATE-1Y
+
+
+
+%EOSTO
+   PICTURE = " NNNNNNZ"
+   MISSTR = "     -NR-"
+   UNDEF =  "         "
+   TIME = %UTDATE
+#   FILE = /shared/rtsc7db.dss               TYPE=DSS
+   DBTZ=MST7MDT
+   DBLOC=Echo DBPTYP=Inst DBPAR=Stor DBINT=~1Day DBDUR=0 DBVER="Raw-USBRSLC"
+   DBUNITS=ac-ft
+   A=WEBER          B=ECHO           C=STOR-RES EOP    E=1DAY   F=
+%EO1
+	TIME=%T1
+%EO2
+	TIME=%T2
+%EO3
+	TIME=%T3
+%EO4
+	TIME=%T4
+%EO5
+	TIME=%T6
+%EO6
+	TIME=%T6
+%EO7
+	TIME=%T7
+%EO8
+	TIME=%T8
+%EO9
+	TIME=%T9
+%EO10=AVERAGE(IGNORE,%EOSTO,%EO1,%EO2,%EO3,%EO4,%EO5,%EO6,%EO7,%EO8,%EO9)
+
+%RKSTO
+	DBLOC=Rockport DBVER="Rev-USBRSLC"
+   TIME = %UTDATE
+%RK1
+	TIME=%T1
+%RK2
+	TIME=%T2
+%RK3
+	TIME=%T3
+%RK4
+	TIME=%T4
+%RK5
+	TIME=%T6
+%RK6
+	TIME=%T6
+%RK7
+	TIME=%T7
+%RK8
+	TIME=%T8
+%RK9
+	TIME=%T9
+%RK10=AVERAGE(IGNORE,%RKSTO,%RK1,%RK2,%RK3,%RK4,%RK5,%RK6,%RK7,%RK8,%RK9)
+%ERSTO
+	DBLoc="EchoRockport" 
+   TIME = %UTDATE
+%ER1
+	TIME=%T1
+%ER2
+	TIME=%T2
+%ER3
+	TIME=%T3
+%ER4
+	TIME=%T4
+%ER5
+	TIME=%T6
+%ER6
+	TIME=%T6
+%ER7
+	TIME=%T7
+%ER8
+	TIME=%T8
+%ER9
+	TIME=%T9
+%ER10=AVERAGE(IGNORE,%ERSTO,%ER1,%ER2,%ER3,%ER4,%ER5,%ER6,%ER7,%ER8,%ER9)
+%LCSTO
+	DBLOC="Lost Cr"
+   A=LOST CR        B=LOST CR
+   TIME = %UTDATE
+%LC1
+	TIME=%T1
+%LC2
+	TIME=%T2
+%LC3
+	TIME=%T3
+%LC4
+	TIME=%T4
+%LC5
+	TIME=%T6
+%LC6
+	TIME=%T6
+%LC7
+	TIME=%T7
+%LC8
+	TIME=%T8
+%LC9
+	TIME=%T9
+%LC10=AVERAGE(IGNORE,%LCSTO,%LC1,%LC2,%LC3,%LC4,%LC5,%LC6,%LC7,%LC8,%LC9)
+%ECSTO
+	DBLOC="East Canyon"
+    A=EAST CANYON CR B=EAST CANYON
+   TIME = %UTDATE
+%EC1
+	TIME=%T1
+%EC2
+	TIME=%T2
+%EC3
+	TIME=%T3
+%EC4
+	TIME=%T4
+%EC5
+	TIME=%T6
+%EC6
+	TIME=%T6
+%EC7
+	TIME=%T7
+%EC8
+	TIME=%T8
+%EC9
+	TIME=%T9
+%EC10=AVERAGE(IGNORE,%ECSTO,%EC1,%EC2,%EC3,%EC4,%EC5,%EC6,%EC7,%EC8,%EC9)
+%PVSTO
+	DBLOC=Pineview DBVER="Raw-USBRSLC"
+   A=OGDEN          B=PINEVIEW
+   TIME = %UTDATE
+%PV1
+	TIME=%T1
+%PV2
+	TIME=%T2
+%PV3
+	TIME=%T3
+%PV4
+	TIME=%T4
+%PV5
+	TIME=%T6
+%PV6
+	TIME=%T6
+%PV7
+	TIME=%T7
+%PV8
+	TIME=%T8
+%PV9
+	TIME=%T9
+%PV10=AVERAGE(IGNORE,%PVSTO,%PV1,%PV2,%PV3,%PV4,%PV5,%PV6,%PV7,%PV8,%PV9)
+%STSTO
+	DBLOC=Starvation DBVER="Rev-USBRSLC"
+   A=STRAWBERRY     B=STARVATION
+   TIME = %UTDATE
+%ST1
+	TIME=%T1
+%ST2
+	TIME=%T2
+%ST3
+	TIME=%T3
+%ST4
+	TIME=%T4
+%ST5
+	TIME=%T6
+%ST6
+	TIME=%T6
+%ST7
+	TIME=%T7
+%ST8
+	TIME=%T8
+%ST9
+	TIME=%T9
+%ST10=AVERAGE(IGNORE,%STSTO,%ST1,%ST2,%ST3,%ST4,%ST5,%ST6,%ST7,%ST8,%ST9)
+%VLSTO
+	DBLOC=Vallecito
+   A=LOS PINOS      B=VALLECITO
+   TIME = %UTDATE
+%VL1
+	TIME=%T1
+%VL2
+	TIME=%T2
+%VL3
+	TIME=%T3
+%VL4
+	TIME=%T4
+%VL5
+	TIME=%T6
+%VL6
+	TIME=%T6
+%VL7
+	TIME=%T7
+%VL8
+	TIME=%T8
+%VL9
+	TIME=%T9
+%VL10=AVERAGE(IGNORE,%VLSTO,%VL1,%VL2,%VL3,%VL4,%VL5,%VL6,%VL7,%VL8,%VL9)
+%LMSTO
+	DBLOC=Lemon DBVER="Rev-USBRSLC"
+   A=FLORIDA        B=LEMON
+   TIME = %UTDATE
+%LM1
+	TIME=%T1
+%LM2
+	TIME=%T2
+%LM3
+	TIME=%T3
+%LM4
+	TIME=%T4
+%LM5
+	TIME=%T6
+%LM6
+	TIME=%T6
+%LM7
+	TIME=%T7
+%LM8
+	TIME=%T8
+%LM9
+	TIME=%T9
+%LM10=AVERAGE(IGNORE,%LMSTO,%LM1,%LM2,%LM3,%LM4,%LM5,%LM6,%LM7,%LM8,%LM9)
+%BMSTO
+	DBLOC=Blue Mesa
+   A=GUNNISON       B=BLUE MESA
+   TIME = %UTDATE
+%BM1
+	TIME=%T1
+%BM2
+	TIME=%T2
+%BM3
+	TIME=%T3
+%BM4
+	TIME=%T4
+%BM5
+	TIME=%T6
+%BM6
+	TIME=%T6
+%BM7
+	TIME=%T7
+%BM8
+	TIME=%T8
+%BM9
+	TIME=%T9
+%BM10=AVERAGE(IGNORE,%BMSTO,%BM1,%BM2,%BM3,%BM4,%BM5,%BM6,%BM7,%BM8,%BM9)
+%PNSTO
+	DBLOC=Paonia
+   A=MUDDY CR       B=PAONIA
+   TIME = %UTDATE
+%PN1
+	TIME=%T1
+%PN2
+	TIME=%T2
+%PN3
+	TIME=%T3
+%PN4
+	TIME=%T4
+%PN5
+	TIME=%T6
+%PN6
+	TIME=%T6
+%PN7
+	TIME=%T7
+%PN8
+	TIME=%T8
+%PN9
+	TIME=%T9
+%PN10=AVERAGE(IGNORE,%PNSTO,%PN1,%PN2,%PN3,%PN4,%PN5,%PN6,%PN7,%PN8,%PN9)
+%RFSTO
+	DBLOC=Red Fleet
+   A=BRUSH CR       B=RED FLEET
+   TIME = %UTDATE
+%RF1
+	TIME=%T1
+%RF2
+	TIME=%T2
+%RF3
+	TIME=%T3
+%RF4
+	TIME=%T4
+%RF5
+	TIME=%T6
+%RF6
+	TIME=%T6
+%RF7
+	TIME=%T7
+%RF8
+	TIME=%T8
+%RF9
+	TIME=%T9
+%RF10=AVERAGE(IGNORE,%RFSTO,%RF1,%RF2,%RF3,%RF4,%RF5,%RF6,%RF7,%RF8,%RF9)
+%RGSTO
+	DBLOC=Ridgway
+   A=UNCOMPAHGRE    B=RIDGWAY
+   TIME = %UTDATE
+%RG1
+	TIME=%T1
+%RG2
+	TIME=%T2
+%RG3
+	TIME=%T3
+%RG4
+	TIME=%T4
+%RG5
+	TIME=%T6
+%RG6
+	TIME=%T6
+%RG7
+	TIME=%T7
+%RG8
+	TIME=%T8
+%RG9
+	TIME=%T9
+%RG10=AVERAGE(IGNORE,%RGSTO,%RG1,%RG2,%RG3,%RG4,%RG5,%RG6,%RG7,%RG8,%RG9)
+%JRSTO
+	DBLOC=Jordanelle
+   A=PROVO          B=JORDANELLE
+   TIME = %UTDATE
+%JR1
+	TIME=%T1
+%JR2
+	TIME=%T2
+%JR3
+	TIME=%T3
+%JR4
+	TIME=%T4
+%JR5
+	TIME=%T6
+%JR6
+	TIME=%T6
+%JR7
+	TIME=%T7
+%JR8
+	TIME=%T8
+%JR9
+	TIME=%T9
+%JR10=AVERAGE(IGNORE,%JRSTO,%JR1,%JR2,%JR3,%JR4,%JR5,%JR6,%JR7,%JR8,%JR9)
+%LDSTO
+	DBLOC=Little Dell DBVER="Raw-USBRSLC;MANUAL"
+   A=DELL CR        B=LITTLE DELL
+   TIME = %UTDATE
+%LD1
+	TIME=%T1
+%LD2
+	TIME=%T2
+%LD3
+	TIME=%T3
+%LD4
+	TIME=%T4
+%LD5
+	TIME=%T6
+%LD6
+	TIME=%T6
+%LD7
+	TIME=%T7
+%LD8
+	TIME=%T8
+%LD9
+	TIME=%T9
+%LD10=AVERAGE(IGNORE,%LDSTO,%LD1,%LD2,%LD3,%LD4,%LD5,%LD6,%LD7,%LD8,%LD9)
+%MDSTO
+	DBLOC=Mountain Dell
+   A=PARLEYS CR     B=MOUNTAIN DELL
+   TIME = %UTDATE
+%MD1
+	TIME=%T1
+%MD2
+	TIME=%T2
+%MD3
+	TIME=%T3
+%MD4
+	TIME=%T4
+%MD5
+	TIME=%T6
+%MD6
+	TIME=%T6
+%MD7
+	TIME=%T7
+%MD8
+	TIME=%T8
+%MD9
+	TIME=%T9
+%MD10=AVERAGE(IGNORE,%MDSTO,%MD1,%MD2,%MD3,%MD4,%MD5,%MD6,%MD7,%MD8,%MD9)
+# UT/CO %Full
+%EO10P=(%EOSTO/%EO10)*100
+	PICTURE="  NNNZ"
+%PV10P=(%PVSTO/%PV10)*100
+%EC10P=(%ECSTO/%EC10)*100
+%LC10P=(%LCSTO/%LC10)*100
+%RK10P=(%RKSTO/%RK10)*100
+%ER10P=(%ERSTO/%ER10)*100
+%LD10P=(%LDSTO/%LD10)*100
+%MD10P=(%MDSTO/%MD10)*100
+%JR10P=(%JRSTO/%JR10)*100
+%RF10P=(%RFSTO/%RF10)*100
+%ST10P=(%STSTO/%ST10)*100
+%PN10P=(%PNSTO/%PN10)*100
+%BM10P=(%BMSTO/%BM10)*100
+%RG10P=(%RGSTO/%RG10)*100
+%LM10P=(%LMSTO/%LM10)*100
+%VL10P=(%VLSTO/%VL10)*100
+
+%EOP = %EOSTO / %EOG * 100.0
+	PICTURE=" NNZ"
+   %RKP = %RKSTO / %RKG * 100.0
+   %ERP = %ERSTO / %ERG * 100.0
+   %LCP = %LCSTO / %LCG * 100.0
+   %ECP = %ECSTO / %ECG * 100.0
+   %PVP = %PVSTO / %PVG * 100.0
+   %STP = %STSTO / %STVG * 100.0
+   %VLP = %VLSTO / %VLG * 100.0
+   %LMP = %LMSTO / %LMG * 100.0
+   %BMP = %BMSTO / %BMG * 100.0
+   %PNP = %PNSTO / %PNG * 100.0
+   %RFP = %RFSTO / %RFG * 100.0
+   %RGP = %RGSTO / %RGG * 100.0
+   %JRP = %JRSTO / %JRG * 100.0
+   %LDP = %LDSTO / %LDG * 100.0
+   %MDP = %MDSTO / %MDG * 100.0
+#   %MPP = %MPSTO / %MPG * 100.0
+#   %CRP = %CRSTO / %CRG * 100.0
+%EOTCS
+   DBPAR="Stor-Top Con" DBVER="Rev-USBRSLC"
+   PICTURE = "  NNNNNZ"
+   MISSTR = "   -NR-"
+   UNDEF =  "   -NR-"
+   TIME = %BASDATE
+   DBLOC=Echo
+%RKTCS
+   DBLOC=Rockport
+%ERTCS
+   DBLOC=EchoRockport DBVER="Rev-USBRSLC;Adjusted"
+%LCTCS
+   DBLOC="Lost Cr" DBVER="Rev-USBRSLC"
+%ECTCS
+   DBLOC="East Canyon"
+%PVTCS
+   DBLOC="Pineview"
+%STTCS
+   DBLOC="Starvation"
+%VLTCS
+   DBLOC=Vallecito
+%LMTCS
+   DBLOC=Lemon
+%BMTCS
+   DBLOC="Blue Mesa"
+%PNTCS
+   DBLOC=Paonia
+%RFTCS
+   DBLOC="Red Fleet"
+%RGTCS
+   DBLOC=Ridgway
+%JRTCS
+	DBLOC=Jordanelle
+%LDTCS
+   DBLOC="Little Dell" DBVER="Calc-USBRSLC;MANUAL"
+%MDTCS
+   DBLOC="Mountain Dell"
+
+   %EOSP =   %EOSTO - %EOTCS
+   PICTURE = "  NNNNNNZ"
+   MISSTR = "    -NR-"
+   UNDEF =  "    -NR-"
+   %RKSP =   %RKSTO - %RKTCS
+   %ERSP =   %ERSTO - %ERTCS
+   %LCSP =   %LCSTO - %LCTCS
+   %ECSP =   %ECSTO - %ECTCS
+   %PVSP =   %PVSTO - %PVTCS
+   %STSP =   %STSTO - %STTCS
+   %VLSP =   %VLSTO - %VLTCS
+   %LMSP =   %LMSTO - %LMTCS
+   %BMSP =   %BMSTO - %BMTCS
+   %PNSP =   %PNSTO - %PNTCS
+   %RFSP =   %RFSTO - %RFTCS
+   %RGSP =   %RGSTO - %RGTCS
+   %JRSP =   %JRSTO - %JRTCS
+   %LDSP =   %LDSTO - %LDTCS
+   %MDSP =   %MDSTO - %MDTCS
+%DUMS = 0.0
+%EOS = MAX(MISS,%DUMS,%EOSP)
+%RKS = MAX(MISS,%DUMS,%RKSP)
+%ERS = MAX(MISS,%DUMS,%ERSP)
+%LCS = MAX(MISS,%DUMS,%LCSP)
+%ECS = MAX(MISS,%DUMS,%ECSP)
+%PVS = MAX(MISS,%DUMS,%PVSP)
+%STS = MAX(MISS,%DUMS,%STSP)
+%VLS = MAX(MISS,%DUMS,%VLSP)
+%LMS = MAX(MISS,%DUMS,%LMSP)
+%BMS = MAX(MISS,%DUMS,%BMSP)
+%PNS = MAX(MISS,%DUMS,%PNSP)
+%RFS = MAX(MISS,%DUMS,%RFSP)
+%RGS = MAX(MISS,%DUMS,%RGSP)
+%JRS = MAX(MISS,%DUMS,%JRSP)
+%LDS = MAX(MISS,%DUMS,%LDSP)
+%MDS = MAX(MISS,%DUMS,%MDSP)
+
+#SPACE AVAILABLE
+   %EOSA =   %EOG - %EOSTO
+   PICTURE =   NNNNNNZ
+   MISSTR = "    -NR-"
+   UNDEF =  "    -NR-"
+   %RKSA =   %RKG - %RKSTO
+   %ERSA =   %ERG - %ERSTO
+   %LCSA =   %LCG - %LCSTO
+   %ECSA =   %ECG - %ECSTO
+   %PVSA =   %PVG - %PVSTO
+   %STSA =   %STVG - %STSTO
+   %VLSA =   %VLG - %VLSTO
+   %LMSA =   %LMG - %LMSTO
+   %BMSA =   %BMG - %BMSTO
+   %PNSA =   %PNG - %PNSTO
+   %RFSA =   %RFG - %RFSTO
+   %RGSA =   %RGG - %RGSTO
+   %JRSA =   %JRG - %JRSTO
+   %LDSA =   %LDG - %LDSTO
+   %MDSA =   %MDG - %MDSTO
+%EOSA = MAX(MISS,%DUMS,%EOSA)
+%RKSA = MAX(MISS,%DUMS,%RKSA)
+%LCSA = MAX(MISS,%DUMS,%LCSA)
+%ECSA = MAX(MISS,%DUMS,%ECSA)
+%PVSA = MAX(MISS,%DUMS,%PVSA)
+%STSA = MAX(MISS,%DUMS,%STSA)
+%VLSA = MAX(MISS,%DUMS,%VLSA)
+%LMSA = MAX(MISS,%DUMS,%LMSA)
+%BMSA = MAX(MISS,%DUMS,%BMSA)
+%PNSA = MAX(MISS,%DUMS,%PNSA)
+%RFSA = MAX(MISS,%DUMS,%RFSA)
+%RGSA = MAX(MISS,%DUMS,%RGSA)
+%JRSA = MAX(MISS,%DUMS,%JRSA)
+%LDSA = MAX(MISS,%DUMS,%LDSA)
+%MDSA = MAX(MISS,%DUMS,%MDSA)
+
+   
+%DUMF=0.0 PICTURE=" NNZ"
+#IF %EOSTO > %EOTCS AND %EOG > %EOTCS
+      %EOF = ( (%EOSTO-%EOTCS) / (%EOG-%EOTCS) ) * 100.0
+
+#ELSE
+      %EOF = 0
+#ENDIF
+#IF %RKSTO > %RKTCS AND %RKG > %RKTCS
+      %RKF = ( (%RKSTO-%RKTCS) / (%RKG-%RKTCS) ) * 100.0
+#ELSE
+      %RKF = 0
+#ENDIF
+#IF %ERSTO > %ERTCS AND %ERG > %ERTCS
+      %ERF = ( (%ERSTO-%ERTCS) / (%ERG-%ERTCS) ) * 100.0
+#ELSE
+      %ERF = 0
+#ENDIF
+#IF %LCSTO > %LCTCS AND %LCG > %LCTCS
+      %LCF = ( (%LCSTO-%LCTCS) / (%LCG-%LCTCS) ) * 100.0
+#ELSE
+      %LCF = 0
+#ENDIF
+#IF %ECSTO > %ECTCS AND %ECG > %ECTCS
+      %ECF = ( (%ECSTO-%ECTCS) / (%ECG-%ECTCS) ) * 100.0
+#ELSE
+      %ECF = 0
+#ENDIF
+#IF %PVSTO > %PVTCS AND %PVG > %PVTCS
+      %PVF = ( (%PVSTO-%PVTCS) / (%PVG-%PVTCS) ) * 100.0
+#ELSE
+      %PVF = 0
+#ENDIF
+#IF %STSTO > %STTCS AND %STG > %STTCS
+      %STF = ( (%STSTO-%STTCS) / (%STG-%STTCS) ) * 100.0
+#ELSE
+      %STF = 0
+#ENDIF
+#IF %VLSTO > %VLTCS AND %VLG > %VLTCS
+      %VLF = ( (%VLSTO-%VLTCS) / (%VLG-%VLTCS) ) * 100.0
+#ELSE
+      %VLF = 0
+#ENDIF
+#IF %LMSTO > %LMTCS AND %LMG > %LMTCS
+      %LMF = ( (%LMSTO-%LMTCS) / (%LMG-%LMTCS) ) * 100.0
+#ELSE
+      %LMF = 0
+#ENDIF
+#IF %BMSTO > %BMTCS AND %BMG > %BMTCS
+      %BMF = ( (%BMSTO-%BMTCS) / (%BMG-%BMTCS) ) * 100.0
+#ELSE
+      %BMF = 0
+#ENDIF
+#IF %PNSTO > %PNTCS AND %PNG > %PNTCS
+      %PNVF = ( (%PNSTO-%PNTCS) / (%PNG-%PNTCS) ) * 100.0
+#ELSE
+      %PNVF = 0
+#ENDIF
+#IF %RFSTO > %RFTCS AND %RFG > %RFTCS
+      %RFF = ( (%RFSTO-%RFTCS) / (%RFG-%RFTCS) ) * 100.0
+#ELSE
+      %RFF = 0
+#ENDIF
+#IF %RGSTO > %RGTCS AND %RGG > %RGTCS
+      %RGF = ( (%RGSTO-%RGTCS) / (%RGG-%RGTCS) ) * 100.0
+#ELSE
+      %RGF = 0	
+#IF %JRSTO > %JRTCS AND %JRG > %JRTCS
+      %JRF = ( (%JRSTO-%JRTCS) / (%JRG-%JRTCS) ) * 100.0
+#ELSE
+      %JRF = 0
+#ENDIF
+#IF %LDSTO > %LDTCS AND %LDG > %LDTCS
+      %LDF = ( (%LDSTO-%LDTCS) / (%LDG-%LDTCS) ) * 100.0
+#ELSE
+      %LDF = 0
+#ENDIF
+#IF %MDSTO > %MDTCS AND %MDG > %MDTCS
+      %MDF = ( (%MDSTO-%MDTCS) / (%MDG-%MDTCS) ) * 100.0
+#ELSE
+      %MDF = 0
+#ENDIF
+
+# UT/GRB inflows
+%RKPOUT
+  DBLOC=Rockport
+  DBPTYP=Ave
+  DBPAR="Flow-Res Out"
+  DBDUR=1DAY
+  DBVER="Raw-USBRSLC"
+  DBUNITS=cfs
+  TIME=%BASDATE                     PICTURE=NNNNNNZ             MISSTR="   -NR-"
+%ECHOUT
+	DBLOC=Echo
+%LSCOUT
+	DBLOC="Lost Cr"
+%ESTOUT
+	DBLOC="East Canyon"
+%PNVOUT
+	DBLOC=Pineview
+%LDLOUT
+	DBLOC="Little Dell" DBVER="Raw-USBRSLC;MANUAL"
+%MNDOUT
+	DBLOC="Mountain Dell"
+%JRDOUT
+	DBLOC="Jordanelle" DBVER="Raw-USBRSLC"
+%RDFOUT
+	DBLOC="Red Fleet"
+%STROUT
+	DBLOC=Starvation
+%PAOOUT
+	DBLOC=Paonia
+%BLMOUT
+	DBLOC="Blue Mesa"
+%RDGOUT
+	DBLOC=Ridgway
+%LEMOUT
+	DBLOC=Lemon
+%VALOUT
+	DBLOC=Vallecito
+#                                 Define all INFLOWS
+%RKPIN
+	DBLOC=Rockport
+  DBPAR="Flow-Res In"
+  TIME=%BASDATE                     PICTURE=NNNNNNZ             MISSTR="   -NR-"
+%ECHIN
+	DBLOC=Echo
+%LSCIN
+	DBLOC="Lost Cr"
+%ESTIN
+	DBLOC="East Canyon"
+%PNVIN
+	DBLOC=Pineview
+%LDLIN
+	DBLOC="Little Dell" DBVER="Raw-USBRSLC;MANUAL"
+%MNDIN
+	DBLOC="Mountain Dell"
+%JRDIN
+	DBLOC=Jordanelle DBVER="Raw-USBRSLC"
+%RDFIN
+        DBLOC="Red Fleet"
+%STRIN
+        DBLOC=Starvation
+%PAOIN
+        DBLOC=Paonia
+%BLMIN
+        DBLOC="Blue Mesa"
+%RDGIN
+        DBLOC=Ridgway
+%LEMIN
+        DBLOC=Lemon
+%VALIN
+        DBLOC=Vallecito
+#ENDDEF
