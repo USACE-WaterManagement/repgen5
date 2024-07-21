@@ -1,4 +1,5 @@
-import pytz,datetime,sys,time as ttime
+from repgen import __version__, THREAD_COUNT
+import datetime,sys,time as ttime
 import operator
 from inspect import isfunction
 import copy
@@ -9,6 +10,9 @@ from ssl import SSLError
 import re
 from repgen.util import extra_operator, filterAddress
 import signal
+# 3rd Party Libs
+import asyncio, pytz
+
 
 try:
 	# Relativedelta supports months and years, but is external library
@@ -414,7 +418,7 @@ class Value:
 
 			path = self.path if not Value.shared["use_alternate"] else self.altpath
 			host = self.host if not Value.shared["use_alternate"] else self.althost
-			headers = { 'Accept': "application/json;version=2" }
+			headers = { 'Accept': "application/json;version=2", "User-Agent": f"Repgen({__version__}), Python({sys.version})" }
 
 			while(retry_count > 0):
 				# Convert time to destination timezone

@@ -2,12 +2,11 @@ import sys,time,datetime,pytz,tempfile,shutil,os
 from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
+from repgen import __version__, THREAD_COUNT
 
 import threading
 from queue import Queue
 
-version = "5.0.5"
-THREAD_COUNT = 10
 
 # setup base time, ex
 # default formats
@@ -125,7 +124,7 @@ if __name__ == "__main__":
 	kwargs = parse_vars(config.set)[0]
 
 	if config.show_ver == True:
-		print(version)
+		print(__version__)
 		sys.exit(0)
 		
 	kwargs["thread_lock"], kwargs["queue"] = None, None
