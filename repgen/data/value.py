@@ -64,7 +64,6 @@ class Value:
 		"use_alternate": False, # Alternate server in use, if primary is unavailable
 	}
 
-	# This isn't thread safe, not an issue yet though since repgen isn't multithreaded.
 	_conn = None
 
 	#region Properties
