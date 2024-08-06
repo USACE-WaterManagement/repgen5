@@ -136,7 +136,15 @@ class Value:
 		self.value = None
 		self.values = []
 		self.picture="%s"
-
+		# Normalize the keyword names to lowercase
+		kwargs = {key.lower(): value for key, value in kwargs.items()}
+		# Pop the TSID from the kwargs, so it doesn't get passed to the constructor/deep copy
+		self.tsid = kwargs.pop("tsid", None)
+		if self.tsid:
+			if self.tsid.count('.') != 5:
+				raise ValueError("Invalid timeseries ID. Fully qualified TSID are in the form DBLOC.DBPAR.DBPTYP.DBINT.DBDUR.DBVER")
+			(kwargs["dbloc"], kwargs["dbpar"], kwargs["dbptyp"], kwargs["dbint"], kwargs["dbdur"], kwargs["dbver"]) = self.tsid.split(".")
+   
 		if len(args) == 1 and isinstance(args[0], Value):
 			# This is emulating a "copy constructor" which does a deep copy.
 			value = copy.deepcopy(args[0])
@@ -175,39 +183,38 @@ class Value:
 			if isinstance(value, str) and len(value) > 0 and value[0] == '"' and value[-1] == '"':
 				value = value[1:-1]
 
-			lkey = key.lower()
-			if (lkey == "tz" or lkey == "dbtz") and isinstance(value, string_types):
+			if (key == "tz" or key == "dbtz") and isinstance(value, string_types):
 				value = pytz.timezone(value)
-			elif lkey == "start" or lkey == "end" or lkey.endswith("time") or lkey.endswith("date"):
+			elif key == "start" or key == "end" or key.endswith("time") or key.endswith("date"):
 				if isinstance(value,(Value)):
 					if value.type == 'TIMESERIES' and len(value.values) == 1:
 						value = value.values[0][0]
 					else:
 						value = value.value # internally we want the actual datetime
 
-				if lkey.endswith("time"):
+				if key.endswith("time"):
 					pending_time = value
-				elif lkey.endswith("date"):
+				elif key.endswith("date"):
 					pending_date = value
 
 				if pending_date and pending_time:
-					value, is24 = processDateTime(pending_date, lkey, pending_time)
+					value, is24 = processDateTime(pending_date, key, pending_time)
 
-				value, is24 = processDateTime(value, lkey)
+				value, is24 = processDateTime(value, key)
 				if is24 and pending_date is None:
 					# Skip this, process it later
 					continue
 
-				if lkey.startswith('s'):
+				if key.startswith('s'):
 					Value.shared["start"] = value
-				elif lkey.startswith('e'):
+				elif key.startswith('e'):
 					Value.shared["end"] = value
 				else:
 					Value.shared["start"] = value
 					Value.shared["end"] = value
 				
 				continue
-			elif lkey == "db":
+			elif key == "db":
 				# Parse the DB option and, if a URL, use it
 				# This will not cascade the specific "DB" entry, only it's component values (host, path)
 				# This currently isn't intended as a fully supported option, but for familiarity/compatibility
@@ -218,12 +225,12 @@ class Value:
 				elif value.lower()  == "local":
 					raise NotImplementedError("LOCAL DB option not supported.")
 				continue
-			elif lkey == "copyshared":
+			elif key == "copyshared":
 				# never copy these keywords
 				continue
 
-			setattr(self, lkey, value)
-			Value.shared[lkey] = value
+			setattr(self, key, value)
+			Value.shared[key] = value
 
 		# Correct any split date/times
 		if not isinstance(Value.shared["start"], datetime.datetime):
