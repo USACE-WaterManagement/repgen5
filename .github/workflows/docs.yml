@@ -1,39 +1,38 @@
-name: Generate Repgen5 Documentation
+name: Build and Deploy Docs to Read the Docs
 
 on:
-  push:
-    branches:
-      - main
-      - docs/create
   pull_request:
     branches:
       - main
 
 jobs:
-  generate-docs:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v3
       with:
-        python-version: '3.x'
-    - name: Install pdoc & pytz
-      run: pip install pytz pdoc
+        python-version: '3.8'
 
-    - name: Generate Documentation
+    - name: Install dependencies
       run: |
-        mkdir -p docs
-        pdoc repgen --output-dir docs
-    - name: Commit and Push Documentation
+        python -m pip install --upgrade pip
+        pip install -r docs/requirements.txt
+
+    - name: Build the docs
       run: |
-        git config --local user.email "actions@github.com"
-        git config --local user.name "GitHub Actions"
-        git add docs/
-        git commit -m "[AUTO] Update documentation"
-        git push
+        cd docs
+        make html
+
+    - name: Notify Read the Docs
+      run: |
+        curl -X POST -d "{\"branch\": \"${{ github.head_ref }}\"}" \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Token ${{ secrets.READTHEDOCS_TOKEN }}" \
+        https://readthedocs.org/api/v3/projects/repgen5/versions/${{ github.head_ref }}/builds/
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        READTHEDOCS_TOKEN: ${{ secrets.READTHEDOCS_TOKEN }}
