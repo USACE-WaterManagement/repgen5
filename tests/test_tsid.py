@@ -52,6 +52,7 @@ def test_repgen(capsys, reportname: str, office: str):
         script = os.path.join(SCRIPT_DIR, "run.sh")
         cmd = [script] + _rg_args
 
+    output = None
     try:
         result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
         output = result.stdout
