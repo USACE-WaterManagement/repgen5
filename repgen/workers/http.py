@@ -1,4 +1,4 @@
-from repgen import THREAD_TIMEOUT, PARAM_DT_FMT, MAX_CALL_SIZE, REPGEN_GITHUB_ISSUES_URL
+from repgen import THREAD_TIMEOUT, PARAM_DT_FMT, REPGEN_GITHUB_ISSUES_URL
 import time
 import json
 import sys
@@ -103,11 +103,6 @@ def fetchTimeseriesCDA(v_self):
 						# Test if the connection is valid
 						v_self._conn.getresponse().read()
 					
-					# locals().update({'max_call_size': locals().get('max_call_size', 0) + 1})
-					# print(locals().get("max_call_size"))
-					# if int(locals().get("max_call_size")) > MAX_CALL_SIZE:
-					# 	print(f"CALL STACK EXCEEDED. Submit ticket via: {REPGEN_GITHUB_ISSUES_URL}")
-					# 	sys.exit(1)
 					v_self._conn.request("GET", query+params, None, headers )
 					r1 = v_self._conn.getresponse()
 
@@ -214,14 +209,11 @@ def processSiteWorker(queue):
 	"""
 	while True:
 		value_self = queue.get(timeout=THREAD_TIMEOUT)
-		# lock = threading.Lock()
 		try:
 			if value_self is None:
 				break
-			# lock.acquire()
 			fetchTimeseriesCDA(value_self)
 		except Exception as err:
 			print( 'Thread Error:\n\t' + repr(err) + " : " + str(err), file=sys.stderr )
 		finally:
-			# lock.release()
 			queue.task_done()

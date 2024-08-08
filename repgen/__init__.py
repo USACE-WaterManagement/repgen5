@@ -6,7 +6,6 @@ __version__ = "5.1.0"
 # =========================================== #
 THREAD_COUNT = 15
 THREAD_TIMEOUT = 30 # Seconds to consider thread is still alive
-MAX_CALL_SIZE   = 200 # if the threads exceed this, kill it!
 # =========================================== #
 REPGEN_GITHUB_ISSUES_URL = "https://github.com/USACE-WaterManagement/repgen5/issues"
 # CDA Constants 
