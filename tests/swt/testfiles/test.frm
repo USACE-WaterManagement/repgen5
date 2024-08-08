@@ -88,6 +88,7 @@ BASDATE_8AM_YESTERDAY = BASDATE_8AM - datetime.timedelta(hours=24)
 
 for project in PROJECTS:
     # Fetch the Elev from CDA via Value()
+    print("get elev")
     elev = Value(
         dbtype="radar",
         DBTZ="US/CENTRAL",
@@ -105,6 +106,7 @@ for project in PROJECTS:
         UNDEF="~~",
         DBUNITS="ft",
     )
+    print('get datetime')
     # This will end up being the last elev to get looped. 
     # TODO: Consider creating a sep value for just the date range that should always exist
     DT = Value(elev.datatimes(),
@@ -113,9 +115,9 @@ for project in PROJECTS:
     # Dynamically add the project to the locals for printing to the form
     locals().update(
         {
-            project + "-elev": elev
+            project + "_elev": elev
         }
     )
-    print(project + "-elev")
+    print(project + "_elev")
 
 # ENDDEF
