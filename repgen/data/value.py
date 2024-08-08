@@ -7,6 +7,7 @@ import copy
 import math
 from decimal import Decimal,DivisionByZero,DecimalException,getcontext
 import ssl
+from repgen import queue
 
 import re
 from repgen.util import extra_operator, filterAddress
@@ -136,7 +137,6 @@ class Value:
 					value = value + timedelta(days=+1)
 
 			return (value, is_24)
-		self.queue = kwargs.get("queue", None)
 		self.index = None
 		self.type="SCALAR"
 		self.value = None
@@ -402,9 +402,10 @@ class Value:
 			except Exception as err:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
 		elif self.dbtype.upper() in ["JSON", "RADAR"]:
-			if self.queue:
-				self.queue.put((self))
+			if queue:
+				queue.put((self))
 			else:
+				print("no queue")
 				try:
 					fetchTimeseriesCDA(self)
 				except Exception as err:

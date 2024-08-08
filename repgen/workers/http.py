@@ -213,14 +213,15 @@ def processSiteWorker(queue):
 	results (list)
 	"""
 	while True:
-		v_self = queue.get(timeout=THREAD_TIMEOUT)
-		lock = threading.Lock()
+		value_self = queue.get(timeout=THREAD_TIMEOUT)
+		# lock = threading.Lock()
 		try:
-			lock.acquire()
-			fetchTimeseriesCDA(v_self)
+			if value_self is None:
+				break
+			# lock.acquire()
+			fetchTimeseriesCDA(value_self)
 		except Exception as err:
-			print( repr(err) + " : " + str(err), file=sys.stderr )
+			print( 'Thread Error:\n\t' + repr(err) + " : " + str(err), file=sys.stderr )
 		finally:
-			lock.release()
+			# lock.release()
 			queue.task_done()
-			break

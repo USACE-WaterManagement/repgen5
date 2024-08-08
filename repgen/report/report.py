@@ -1,5 +1,7 @@
 import sys,time,datetime,pytz,tempfile,shutil,os,operator,calendar,re
 from repgen.data.value import Value
+from repgen import queue, threads
+
 try:
 	# Relativedelta supports months and years, but is external library
 	from dateutil.relativedelta import relativedelta as timedelta
@@ -8,16 +10,15 @@ except:
 	from datetime import timedelta
 
 class Report:
-	def __init__(self, report, file_name, compatibility, *args, **kwargs):
+	def __init__(self, report, file_name, compatibility, parallel=False, *args, **kwargs):
 		self.data = {}
 		self.datadef = ""
 		self.replines = []
 		self.repfile = report
 		self.repfilename = file_name
 		self.compatibility = compatibility
-		self.queue = kwargs.get("queue", None)
+		self.parallel = parallel
 		self.thread = kwargs.get("thread", None)
-
 		lines = map(lambda s: s.strip('\r'),  report.split(sep='\n'))
 		deflines = []
 		state="none"
@@ -125,13 +126,16 @@ class Report:
 		print("CURDATE: %s" % repr(my_locals["CURDATE"]), file=sys.stderr)
 		print("CTM: %s" % repr(my_locals["CTM"]), file=sys.stderr)
 
-		max_call_size = 0
 		# Compile the report, so source and line number information can be reported to the user
 		exec(compile(self.datadef, self.repfilename, "exec"), globals(), my_locals)
-		if self.queue:
+		if self.parallel:
 			print("Waiting for all tasks to be processed. . .")
-			self.queue.join()
+			queue.join()
 			print("All tasks processed!")
+			for _ in range(len(threads)):
+				queue.put(None)
+			for thread in threads:
+				thread.join()
 		# loop through my_locals and add them
 		# to a dictionary with the % in front of the them
 		# to mark location on the report

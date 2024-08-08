@@ -6,8 +6,7 @@ from repgen.util import filterAddress
 from repgen import __version__, THREAD_COUNT
 from repgen.workers.http import processSiteWorker
 import threading
-from queue import Queue
-
+from repgen import queue, threads
 
 # setup base time, ex
 # default formats
@@ -103,7 +102,6 @@ if __name__ == "__main__":
 	start_time = time.time()
 	config = parseArgs()
 	kwargs = parse_vars(config.set)[0]
-
 	if config.show_ver == True:
 		print(__version__)
 		sys.exit(0)
@@ -133,19 +131,18 @@ if __name__ == "__main__":
 	# set some of the default values
 	Value(1, host=host, path=path, tz=tz, ucformat=config.compat, timeout=config.timeout, althost=althost, altpath=altpath, dbofc=config.office, **kwargs)
 		
-	kwargs["queue"] = None
 	# Enable IO bound process multi-threading 
 	#  if the user has a need for speed
-	threads = []
 	if config.parallel:
 		# Initialize the task queue 
-		kwargs["queue"] = Queue()
+		print("Creating ", THREAD_COUNT, ' threads')
 		# Setup worker threads
 		for _ in range(THREAD_COUNT):
-			thread = threading.Thread(target=processSiteWorker, args=(kwargs["queue"], ))
+			thread = threading.Thread(target=processSiteWorker, args=(queue, ))
 			thread.daemon = True
 			thread.start()
 			threads.append(thread)
+		print("Created ", len(threads))
 	# read the report file
 	if report_file == '-': 
 		report_file = sys.stdin.name
@@ -207,7 +204,7 @@ if __name__ == "__main__":
 
 		f_d.close()
 	# exec the definitions
-	report = Report(report_data, report_file, config.compat, **kwargs)
+	report = Report(report_data, report_file, config.compat, config.parallel, **kwargs)
 	report.run(basedate, local_vars)
 	
 	output = None
