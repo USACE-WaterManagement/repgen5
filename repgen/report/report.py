@@ -1,5 +1,7 @@
 import sys,time,datetime,pytz,tempfile,shutil,os,operator,calendar,re
 from repgen.data.value import Value
+import repgen 
+
 try:
 	# Relativedelta supports months and years, but is external library
 	from dateutil.relativedelta import relativedelta as timedelta
@@ -8,14 +10,15 @@ except:
 	from datetime import timedelta
 
 class Report:
-	def __init__(self, report, file_name, compatibility):
-		self.repfilename = file_name
-		self.repfile = report
-		self.replines = []
-		self.datadef = ""
-		self.compatibility = compatibility
+	def __init__(self, report, file_name, compatibility, parallel=False, *args, **kwargs):
 		self.data = {}
-
+		self.datadef = ""
+		self.replines = []
+		self.repfile = report
+		self.repfilename = file_name
+		self.compatibility = compatibility
+		self.parallel = parallel
+		self.thread = kwargs.get("thread", None)
 		lines = map(lambda s: s.strip('\r'),  report.split(sep='\n'))
 		deflines = []
 		state="none"
@@ -125,7 +128,14 @@ class Report:
 
 		# Compile the report, so source and line number information can be reported to the user
 		exec(compile(self.datadef, self.repfilename, "exec"), globals(), my_locals)
-
+		if self.parallel:
+			print("Waiting for all tasks to be processed. . .")
+			repgen.queue.join()
+			print("All tasks processed!")
+			for _ in range(len(repgen.threads)):
+				repgen.queue.put(None)
+			for thread in repgen.threads:
+				thread.join()
 		# loop through my_locals and add them
 		# to a dictionary with the % in front of the them
 		# to mark location on the report
@@ -133,4 +143,5 @@ class Report:
 
 		for key in my_locals:
 			if isinstance(my_locals[key], Value ):
+				# TODO: this could cause a bug if someone is placing a % in the report with the same text after it i.e. css
 				self.data["%"+key] = my_locals[key]

@@ -36,20 +36,24 @@ Day       min    max     min    max
 %DY     %VLmin %VLmax  %VBmin %VBMax
 %DY     %VLmin %VLmax  %VBmin %VBMax
 #ENDFORM
+# Generated with dateutil.relativedelta support.
 #DEF
 # !ECHO
-!-FUNCTION
+#
 UNDEF="????"
 #
 #     Force the %BASDATE to a midnight value, so that TIME= does not have to be
 #     specified on the command line.
 #
-%BASDATE = SETTIME( %BASDATE, TIME, 2400 )
+BASDATE.value = BASDATE.value.replace(hour=0,minute=0,second=0,microsecond=0)
 #
-%CURDATE
-   PICTURE=DD AAA YYYY @ ZZZT
-%MONYR = %BASDATE
-   PICTURE = AAAAAAAAABBYYYY
+CURDATE.undef = "????"
+Value.shared["undef"] = "????"
+CURDATE.picture = "%d %b %Y @ %K%M"
+Value.shared["picture"] = "%d %b %Y @ %K%M"
+MONYR = Value(BASDATE,
+	PICTURE="%B  %Y",
+)
 #
 #     Compute the beginning and ending days of the report.  Data is available
 #     only up thru yesterday.  Therefore,
@@ -61,48 +65,74 @@ UNDEF="????"
 #         Produce a report for the entire month consisting all No Reports
 #     ENDIF
 #
-%STIME = SETTIME( %BASDATE, DAY, 1)
-%EOM   = EOM( %BASDATE )
-%STMDAY = (YEAR(%STIME  ) - 1900)*1000 + DAYOFYR(%STIME  )
-%EOMDAY = (YEAR(%EOM    ) - 1900)*1000 + DAYOFYR(%EOM    )
-%YSTDAY = (YEAR(%CURDATE) - 1900)*1000 + DAYOFYR(%CURDATE) - 1
-#IF %YSTDAY >= %EOMDAY
-      %ETIME = %EOM
-#ELSEIF %YSTDAY > %STMDAY
-      %TEMP  = SETTIME( %CURDATE, TIME, 2400)
-      %ETIME = TIME(%TEMP - 1D)
-#ELSE
-      %ETIME = %EOM
-#ENDIF
-#
-#
-%ETIME=%ETIME+1D
-%TITLE=^b
-%VLmin
-	DB=%DB
-	DBLOC=^a
-	DBPAR=Volt-Load DBPTYP=Min DBINT=~1Day DBDUR=0 DBVER=Calc-val
-	STIME=%STIME ETIME=%ETIME
-	DBUNITS=volt
-	PICTURE="   NN.Z"
-	UNDEF  ="      m"
-	MISSTR ="      m"
-%VLmax
-	DBPTYP=Max
-%VBmax
-	DBPAR=Volt-Batt 
-%VBmin
-	DBPTYP=Min
+STIME = Value(BASDATE)
+STIME.value = STIME.value.replace(day=2)
+STIME.picture = "%B  %Y"
+EOM = Value(BASDATE.value.replace(year=BASDATE.value.timetuple().tm_year,month=BASDATE.value.timetuple().tm_mon,day=calendar.monthrange(BASDATE.value.timetuple().tm_year, BASDATE.value.timetuple().tm_mon)[1],hour=0,minute=0,second=0,microsecond=0))
+STMDAY = Value((STIME.value.timetuple().tm_year - 1900)*1000 + STIME.value.timetuple().tm_yday)
+EOMDAY = Value((EOM.value.timetuple().tm_year - 1900)*1000 + EOM.value.timetuple().tm_yday)
+YSTDAY = Value((CURDATE.value.timetuple().tm_year - 1900)*1000 + CURDATE.value.timetuple().tm_yday - 1)
+if YSTDAY >= EOMDAY:
+	ETIME = Value(EOM,
+		PICTURE="%B  %Y",
+	)
+elif YSTDAY > STMDAY:
+	TEMP = Value(CURDATE)
+	TEMP.value = TEMP.value.replace(hour=0,minute=0,second=0,microsecond=0)
+	ETIME = Value(TEMP-timedelta(days=1),
+		PICTURE="%B  %Y",
+	)
+else:
+	ETIME = Value(EOM,
+		PICTURE="%B  %Y",
+	)
 	
-%TMP DBLOC="Markers-Placeholder" DBPAR=Count DBPTYP=Inst DBINT=~1Day DBDUR=0 DBVER=ALL
-	DBUNITS=unit
-	STIME=%STIME-1D ETIME=%ETIME
-
-%DY=DATATIME(%TMP)
-  PICTURE="BBDD"
- UNDEF   ="   X"
- MISSTR  ="   X"
-
+#
+#
+ETIME = Value(ETIME+timedelta(days=1),
+	PICTURE="%B  %Y",
+)
+TITLE = Value(_b)
+VLmin = Value(
+	dbtype="radar",
+	DBLOC=_a,
+	DBPAR="Volt-Load",
+	DBPTYP="Min",
+	DBINT="~1Day",
+	DBDUR=0,
+	DBVER="Calc-val",
+	STIME=STIME,
+	ETIME=ETIME,
+	DBUNITS="volt",
+	PICTURE="   %4.1f",
+	UNDEF="      m",
+	MISSTR="      m",
+)
+VLmax = Value(
+	DBPTYP="Max",
+)
+VBmax = Value(
+	DBPAR="Volt-Batt",
+)
+VBmin = Value(
+	DBPTYP="Min",
+)
+TMP = Value(
+	DBLOC="Markers-Placeholder",
+	DBPAR="Count",
+	DBPTYP="Inst",
+	DBINT="~1Day",
+	DBDUR=0,
+	DBVER="ALL",
+	DBUNITS="unit",
+	STIME=STIME-timedelta(days=1),
+	ETIME=ETIME,
+)
+DY = Value(TMP.datatimes(),
+	PICTURE="  %d",
+	UNDEF="   X",
+	MISSTR="   X",
+)
 #
 #
 #ENDDEF

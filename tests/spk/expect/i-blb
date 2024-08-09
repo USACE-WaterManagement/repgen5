@@ -1,0 +1,508 @@
+#FORM
+Generated, %CTM
+Type,  TIME            ,Inflow    ,EPK Inflow,STG Inflow,Outflow     ,Stor     ,Elev    ,EPK Stor  ,EPK Elev  ,STG Stor  ,STG Elev  ,Precip (Mean Areal),Precip Lower,Precip Upper,Rel Change
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+O, %TIME               ,%INFLOW   ,          ,          ,%OUTFLOW    ,%STOR    ,%ELEV   ,%EPKS     ,%EPKE     ,%STGS     ,%STGE     ,%BP                ,            ,            ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+F, %TIME               ,%FCST     ,%EPKI     ,%STGI     ,            ,        ,         ,%EPKSF    ,%EPKEF    ,%STGSF    ,%STGSF    ,%MEANF             ,%BPL        ,%BPU        ,%RELCHG
+#ENDFORM
+# Generated with dateutil.relativedelta support.
+#DEF
+# !ECHO
+#
+#
+#     Compute the end and start times to read 48 hourly values on the hour.
+#     The ending time is the time specified by the user on the command line.
+#
+ETIME = Value(BTM+timedelta(hours=114),
+	PICTURE="%d %b %Y @ %K:%M",
+)
+STIME = Value(BTM-timedelta(days=10),
+	PICTURE="%d %b %Y @ %K:%M",
+)
+CTM.picture = "%d %b %Y @ %K:%M"
+Value.shared["picture"] = "%d %b %Y @ %K:%M"
+BASDATE.picture = "%d %b %Y @ %K:%M"
+Value.shared["picture"] = "%d %b %Y @ %K:%M"
+MID = Value(BTM)
+MID.value = MID.value.replace(hour=0,minute=0,second=0,microsecond=0)
+#
+#     Read 48 hours of values for the time-series to be displayed
+#
+FCST_T = Value(
+	MISSTR="   ",
+	UNDEF="   ",
+	dbtype="radar",
+	DBLOC="Black Butte",
+	DBPAR="Flow-Reservoir inflow",
+	DBPTYP="Inst",
+	DBINT="1Hour",
+	DBDUR=0,
+	DBVER="NWS-forecast-rev",
+	DBUNITS="cfs",
+	DBTZ="PST8PDT",
+	STIME=STIME,
+	ETIME=ETIME,
+	PICTURE="%6.0f",
+)
+FCST = Value(
+	STIME=BTM,
+	ETIME=ETIME,
+)
+STGI = Value(
+	DBLOC="Stony Gorge",
+)
+EPKI = Value(
+	DBLOC="East Park",
+)
+EPKEF = Value(
+	DBPAR="Elev",
+	DBUNITS="ft",
+	PICTURE="%7.2f",
+)
+STGEF = Value(
+	DBLOC="Stony Gorge",
+)
+STGSF = Value(
+	DBPAR="Stor",
+	DBUNITS="ac-ft",
+	PICTURE="%5.0f",
+)
+EPKSF = Value(
+	DBLOC="East Park",
+)
+MEANF = Value(
+	DBLOC="Black Butte",
+	DBPAR="Precip-INC",
+	DBPTYP="Total",
+	DBDUR="1Hour",
+	PICTURE="%6.3f",
+	DBUNITS="in",
+)
+#="----"
+BPL = Value(
+	DBLOC="Black Butte-Lower Zone",
+)
+BPU = Value(
+	DBLOC="Black Butte-Upper Zone",
+)
+BP = Value(
+	DBLOC="Black Butte",
+	DBPAR="Precip-Basin",
+	DBPTYP="Inst",
+	DBDUR=0,
+	DBVER="Calc-val",
+	STIME=STIME,
+	ETIME=BTM,
+)
+INFLOW = Value(
+	DBPAR="Flow-Res In",
+	DBPTYP="AVE",
+	DBINT="1Hour",
+	DBDUR="1Hour",
+	DBVER="Calc-val",
+	PICTURE="%6.0f",
+	STIME=STIME,
+	ETIME=BTM,
+	DBUNITS="cfs",
+)
+OUTFLOW = Value(
+	DBPAR="Flow-Res Out",
+)
+STOR = Value(
+	DBLOC="Black Butte-Pool",
+	DBPAR="Stor",
+	DBPTYP="Inst",
+	DBINT="1Hour",
+	DBDUR=0,
+	DBUNITS="ac-ft",
+	PICTURE="%6.0f",
+)
+EPKS = Value(
+	DBLOC="East Park",
+	DBVER="Raw-CDEC-Combined",
+)
+STGS = Value(
+	DBLOC="Stony Gorge",
+)
+STGE = Value(
+	DBPAR="Elev",
+	DBUNITS="ft",
+	PICTURE="%7.2f",
+)
+EPKE = Value(
+	DBLOC="East Park",
+)
+ELEV = Value(
+	DBLOC="Black Butte-Pool",
+	DBVER="Calc-val",
+)
+AREAL = Value("    ")
+RELCHG = Value(
+	DBLOC="Black Butte",
+	DBVER="Release-Val",
+	DBPAR="Flow-To",
+	DBUNITS="cfs",
+	STIME=STIME,
+	ETIME=ETIME,
+)
+TIME = Value(FCST_T.datatimes(),
+	PICTURE="%d%b%Y %K%M",
+)
+#ENDDEF

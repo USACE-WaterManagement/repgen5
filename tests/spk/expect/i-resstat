@@ -1,0 +1,3588 @@
+#FORM
+Data Ending,  %BASDATE                                                   , created      %CTM
+,                        Gross Pool,  Current Storage, % Full  ,      , 10 year Ave   ,Space Available , Top Con      , Inflow        , Outflow    , Enchroached, Enchroached %
+    Sacramento R basin
+Shasta (SC7),             %SHAG      , %SHASTO     , %SHA      ,      , %SHA10P        ,  %SHAA         , %SHATCS      , %SHAI          , %SHAO     , %SHAS     , %SHAF
+Black Butte (COE),        %BBG       , %BBSTO      , %BLB      ,      , %BB10P         ,  %BBTA         , %BBTCS       , %BBI           , %BBO      , %BBTS     , %BLBF 
+Oroville (SC7),           %OROG      , %OROSTO     , %ORO      ,      , %ORO10P        ,  %OROA         , %OROTCS      , %OROI          , %OROO     , %OROS     , %OROF
+New Bullards Bar (SC7),   %NBBG      , %NBBSTO     , %NBB      ,      , %NBB10P        ,  %NBBA         , %NBBTCS      , %NBBI          , %NBBO     , %NBBS     , %NBBF
+Englebright (COE),        %ENG       , %ENSTO      , %ENX      ,      , %EN10P         ,  %ENA          , %ENTCS       , %ENI           , %ENO      , %ENS      , 
+Indian Valley (SC7),      %INDG      , %INDSTO     , %IND      ,      , %IND10P        ,  %INDA         , %INDTCS      , %INDI          , %INDO     , %INDS     , %INDF
+Folsom (SC7)|daily,       %FOLG      , %FOLSTO     , %FOL      ,      , %FOL10P        ,  %FOLA         ,              , %FOLI          , %FOLO     ,           , 
+Folsom (SC7)|12,          %FOLG      , %FLSTO12    , %FOL12    ,      ,                ,  %FOLA12       , %FTCS12      , %FOLI12        , %FOLO12   , %FOLS12   , %FOLF12
+Folsom (SC7)|18,          %FOLG      , %FLSTO18    , %FOL18    ,      ,                ,  %FOLA18       , %FTCS18      , %FOLI18        , %FOLO18   , %FOLS18   , %FOLF18
+Folsom (SC7)|00,          %FOLG      , %FLSTO00    , %FOL00    ,      ,                ,  %FOLA00       , %FTCS00      , %FOLI00        , %FOLO00   , %FOLS00   , %FOLF00
+Folsom (SC7)|06,          %FOLG      , %FLSTO06    , %FOL06    ,      ,                ,  %FOLA06       , %FTCS06      , %FOLI06        , %FOLO06   , %FOLS06   , %FOLF06
+    San Joaquin River Basin
+Camanche (SC7),           %CAMG      , %CAMSTO     , %CAM      ,      , %CAM10P        ,  %CAMA         , %CAMTCS      , %CAMI          , %CAMO     , %CAMS     , %CAMF
+New Hogan (COE),          %NHG       , %NHSTO      , %NHX      ,      , %NH10P         ,  %NHA          , %NHTCS       , %NHI           , %NHO      , %NHS      , %NHGF
+Farmington (COE),         %FMG       , %FMSTO      , %FRM      ,      , %FM10P         ,  %FMA          , %FMTCS       , %FMI           , %FMO      , %FMS      , %FRMF
+New Melones (SC7),        %NWMG      , %NWMSTO     , %NWM      ,      , %NWM10P        ,  %NWMA         , %NWMTCS      , %NWMI          , %NWMO     , %NWMS     , %NWMF
+Tulloch (SC7),            %TULG      , %TULSTO     , %TUL      ,      , %TUL10P        ,  %TULA         , %TULTCS      , %TULI          , %TULO     , %TULS     , %TULF
+Don Pedro (SC7),          %DONG      , %DONSTO     , %DON      ,      , %DON10P        ,  %DONA         , %DONTCS      , %DONI          , %DONO     , %DONS     , %DONF
+New Exchequer(SC7),       %NEXG      , %NEXSTO     , %NEX      ,      , %NEX10P        ,  %NEXA         , %NEXTCS      , %NEXI          , %NEXO     , %NEXS     , %NEXF
+Burns (COE),              %BNG       , %BNSTO      , %BUR      ,      , %BN10P         ,  %BNA          , %BNTCS       , %BNI           , %BNO      , %BNS      , %BURF
+Bear (COE),               %BRG       , %BRSTO      , %BAR      ,      , %BR10P         ,  %BRA          , %BRTCS       , %BRI           , %BNO      , %BRS      , %BARF
+Owens (COE),              %OWG       , %OWSTO      , %OWN      ,      , %OW10P         ,  %OWA          , %OWTCS       , %OWI           , %OWO      , %OWS      , %OWNF
+Mariposa (COE),           %MRG       , %MRSTO      , %MAR      ,      , %MR10P         ,  %MRA          , %MRTCS       , %MRI           , %MRO      , %MRS      , %MARF
+Los Banos (SC7),          %LOSG      , %LOSSTO     , %LOS      ,      , %LOS10P        ,  %LOSA         , %LOSTCS      , %LOSI          , %LOSO     , %LOSS     , %LOSF
+Buchanan/Eastman (COE),   %BUG       , %BUSTO      , %BUC      ,      , %BU10P         ,  %BCA          , %BUTCS       , %BUI           , %BUO      , %BCS      , %BUCF
+Hidden/Hensley (COE),     %HDG       , %HDSTO      , %HID      ,      , %HD10P         ,  %HDA          , %HDTCS       , %HDI           , %HDO      , %HDS      , %HIDF
+Friant/Millerton (SC7),   %FRIG      , %FRISTO     , %FRI      ,      , %FRI10P        ,  %FRIA         , %FRITCS      , %FRII          , %FRIO     , %FRIS     , %FRIF
+Big Dry Creek (SC7),      %BDCG      , %BDCSTO     , %BDC      ,      , %BDC10P        ,  %BDCA         , %BDCTCS      , %BDCI          , %BDCO     , %BDCS     , %BDCF
+    Tulare Lakebed Basin
+Pine Flat (COE),          %PFG       , %PFSTO      , %PNF      ,      , %PF10P         ,  %PFA          , %PFTCS       , %PFI           , %PFO      , %PFS      , %PNFF
+Terminus/Kaweah (COE),    %TMG       , %TMSTO      , %TRM      ,      , %TM10P         ,  %TMA          , %TMTCS       , %TMI           , %TMO      , %TMS      , %TRMF
+Success (COE),            %SCG       , %SCSTO      , %SCC      ,      , %SC10P         ,  %SCA          , %SCTCS       , %SCI           , %SCO      , %SCS      , %SCCF
+Isabella (COE),           %IBG       , %IBSTO      , %ISB      ,      , %IB10P         ,  %IBA          , %IBTCS       , %IBI           , %IBO      , %IBS      , %ISBZ
+    Truckee River Basin
+Martis Creek (COE),       %MRTG      , %MRTSTO     , %MRT      ,      , %MRT10P        ,  %MRTA         , %MRTTCS      , %MRTI          , %MRTO     , %MRTS     , %MRTF
+Prosser (SC7),            %PRSG      , %PRSSTO     , %PRS      ,      , %PRS10P        ,  %PRSA         , %PRSTCS      , %PRSI          , %PRSO     , %PRSS     , %PRSF
+Boca (SC7),               %BOCG      , %BOCSTO     , %BOC      ,      , %BOC10P        ,  %BOCA         , %BOCTCS      , %BOCI          , %BOCO     , %BOCS     , %BOCF
+Stampede (SC7),           %STMG      , %STMSTO     , %STM      ,      , %STM10P        ,  %STMA         , %STMTCS      , %STMI          , %STMO     , %STMS     , %STMF
+    SPN RESERVOIRS
+Coyote/Mendocino (COE),   %COG       , %COSTO      , %COY      ,      , %CO10P         ,  %COA          , %COTCS       , %COI           , %COO      , %COS      , %COYF
+Warm Springs/Sonoma (COE),%WSG       , %WSSTO      , %WRS      ,      , %WS10P         ,  %WSA          , %WSTCS       , %WSI           , %WSO      , %WSS      , %WRSF
+Del Valle (SC7),          %DELG      , %DELSTO     , %DEL      ,      , %DEL10P        ,  %DELA         , %DELTCS      , %DELI          , %DELO     , %DELS     , %DELF
+    Great Basin, NOTE:, Due to Processing Difficulties all UT/CO is 1 day behind
+Pineview (SC7),           %PVG       , %PVSTO      , %PVP      ,      , %PV10P          ,  %PVSA         , %PVTCS       , %PNVIN        , %PNVOUT    , %PVS     , %PVF
+East Canyon (SC7),        %ECG       , %ECSTO      , %ECP      ,      , %EC10P          ,  %ECSA         , %ECTCS       , %ESTIN        , %ESTOUT    , %ECS     , %ECF
+Lost Creek (SC7),         %LCG       , %LCSTO      , %LCP      ,      , %LC10P          ,  %LCSA         , %LCTCS       , %LSCIN        , %LSCOUT    , %LCS     , %LCF
+Echo+Rockport (SC7),      %ERG       , %ERTCS      , %ERP      ,      , %ER10P          ,  %ERSA         , %ERTCS       ,               ,            , %ERS     , %ERF
+Echo (SC7),               %EOG       , %EOSTO      , %EOP      ,      , %EO10P          ,  %EOSA         , %EOTCS       , %ECHIN        , %ECHOUT    , %EOS     , %EOF
+Wanship/Rockport (SC7),   %RKG       , %RKSTO      , %RKP      ,      , %RK10P          ,  %RKSA         , %RKTCS       , %RKPIN        , %RKPOUT    , %RKS     , %RKF
+Little Dell (SC7),        %LDG       , %LDSTO      , %LDP      ,      , %LD10P          ,  %LDSA         , %LDTCS       , %LDLIN        , %LDLOUT    , %LDS     , %LDF
+Mountain Dell (SC7),      %MDG       , %MDSTO      , %MDP      ,      , %MD10P          ,  %MDSA         , %MDTCS       , %MNDIN        , %MNDOUT    , %MDS     , %MDF
+Jordanelle (SC7),         %JRG       , %JRSTO      , %JRP      ,      , %JR10P          ,  %JRSA         , %JRTCS       , %JRDIN        , %JRDOUT    , %JRS     , %JRF
+    Upper Colorado
+Red Fleet (SC7),          %RFG       , %RFSTO      , %RFP      ,      , %RF10P          ,  %RFSA         , %RFTCS       , %RDFIN        , %RDFOUT    , %RFS     , %RFF
+Starvation (SC7),         %STVG      , %STSTO      , %STP      ,      , %ST10P          ,  %STSA         , %STTCS       , %STRIN        , %STROUT    , %STS     , %STF
+Poania (SC7),             %PNG       , %PNSTO      , %PNP      ,      , %PN10P          ,  %PNSA         , %PNTCS       , %PAOIN        , %PAOOUT    , %PNS     , %PNVF
+Blue Mesa (SC7),          %BMG       , %BMSTO      , %BMP      ,      , %BM10P          ,  %BMSA         , %BMTCS       , %BLMIN        , %BLMOUT    , %BMS     , %BMF
+Ridgeway (SC7),           %RGG       , %RGSTO      , %RGP      ,      , %RG10P          ,  %RGSA         , %RGTCS       , %RDGIN        , %RDGOUT    , %RGS     , %RGF
+Lemon (SC7),              %LMG       , %LMSTO      , %LMP      ,      , %LM10P          ,  %LMSA         , %LMTCS       , %LEMIN        , %LEMOUT    , %LMS     , %LMF
+Vallecito (SC7),          %VLG       , %VLSTO      , %VLP      ,      , %VL10P          ,  %VLSA         , %VLTCS       , %VALIN        , %VALOUT    , %VLS     , %VLF
+
+#ENDFORM
+# Generated with dateutil.relativedelta support.
+#DEF
+# !ECHO
+#
+#
+#     All values are to be read in at the exact time specified,
+#     without searching backwards or forwards.
+#
+Value.shared["missing"] = "EXACT"
+#
+#     Define PICTURE's for various times to be displayed.
+#     Force %BASDATE to midnight.
+#
+CTM.picture = "%d %b %Y @ %K%M"
+Value.shared["picture"] = "%d %b %Y @ %K%M"
+BASDATE.value = BASDATE.value.replace(hour=0,minute=0,second=0,microsecond=0) + timedelta(days=1)    # Add a day to offset setting the time to 00, instead of 24
+BASDATE.picture = "%d %b %Y %K%M"
+Value.shared["picture"] = "%d %b %Y %K%M"
+T12 = Value(BASDATE+timedelta(hours=12),
+	PICTURE="%d%b%Y %K%M",
+)
+T18 = Value(T12+timedelta(hours=6))
+T00 = Value(T18+timedelta(hours=6))
+T06 = Value(T00+timedelta(hours=6))
+#
+#     Define all Rain Flood Parameters
+#
+#
+#     Define all Top of Conservation Storage values
+#
+BBTCS = Value(
+	dbtype="radar",
+	DBLOC="Black Butte",
+	DBPTYP="Inst",
+	DBPAR="Stor-Top Con",
+	DBVER="Calc-val",
+	DBINT="~1Day",
+	DBDUR=0,
+	PICTURE="%10.0f",
+	MISSTR="      -NR-",
+	UNDEF="      -NR-",
+	TIME=BASDATE,
+	DBUNITS="ac-ft",
+	DBTZ="PST8PDT",
+)
+NHTCS = Value(
+	DBLOC="New Hogan",
+)
+BUTCS = Value(
+	DBLOC="Eastman Lake",
+)
+HDTCS = Value(
+	DBLOC="Hensley Lake",
+)
+PFTCS = Value(
+	DBLOC="Pine Flat Lake",
+)
+TMTCS = Value(
+	DBLOC="Lake Kaweah",
+)
+SCTCS = Value(
+	DBLOC="Success Lake",
+)
+IBTCS = Value(
+	DBLOC="Lake Isabella",
+)
+COTCS = Value(
+	DBLOC="Lake Mendocino",
+	DBVER="Calc-val-High Option",
+)
+WSTCS = Value(
+	DBLOC="Lake Sonoma",
+	DBVER="Calc-val",
+)
+MRTTCS = Value(
+	DBLOC="Martis Creek",
+)
+FMTCS = Value(0)
+BNTCS = Value(0)
+BRTCS = Value(0)
+OWTCS = Value(0)
+MRTCS = Value(0)
+ENTCS = Value(70000)
+SHATCS = Value(
+	DBLOC="Shasta",
+	DBVER="Calc-usbr",
+)
+#   FILE = /dat0/rtsc7db.dss               TYPE=DSS
+#   A=SACRAMENTO     B=SHASTA
+#   A=AMERICAN       B=FOLSOM
+SACTCS = Value(
+	DBLOC="Folsom Lake",
+	DBVER="Calc-cdec SAFCA",
+	MISSTR="    -NR-",
+	UNDEF="    -NR-",
+)
+#   A=AMERICAN       B=FOLSOM                                     F=SAFCA
+# move picture,etc back up here
+OROTCS = Value(
+	DBLOC="Oroville Dam",
+	DBVER="Calc-cdec",
+	MISSTR="     -NR-",
+	UNDEF="     -NR-",
+)
+#   A=FEATHER        B=OROVILLE
+LOSTCS = Value(
+	DBLOC="Los Banos",
+)
+#   A=LOS BANOS CR   B=LOS BANOS
+#   A=MOKELUMNE      B=CAMANCHE
+#   A=MERCED         B=NEW EXCHEQUER
+NWMTCS = Value(
+	DBLOC="New Melones",
+)
+#   A=STANISLAUS     B=NEW MELONES
+TULTCS = Value(
+	DBLOC="Tulloch",
+)
+#   A=STANISLAUS     B=TULLOCH
+DELTCS = Value(
+	DBLOC="Del Valle",
+	DBVER="Calc-val",
+)
+#   A=ALAMEDA CR     B=DEL VALLE
+DONTCS = Value(
+	DBLOC="Don Pedro",
+	DBVER="Calc-manual",
+)
+#   A=TUOLUMNE       B=NEW DON PEDRO
+CAMTCS = Value(
+	DBLOC="Camanche",
+)
+EBMTCS = Value(CAMTCS)
+NEXTCS = Value(
+	DBLOC="New Exchequer",
+)
+PRSTCS = Value(
+	DBLOC="Prosser",
+)
+#   A=PROSSER CR     B=PROSSER CR
+BOCTCS = Value(
+	DBLOC="Boca",
+)
+#   A=LITTLE TRUCKEE B=BOCA
+STMTCS = Value(
+	DBLOC="Stampede",
+)
+#   A=LITTLE TRUCKEE B=STAMPEDE
+NBBTCS = Value(
+	DBLOC="New Bullards Bar",
+	DBVER="Calc-usbr",
+)
+FRITCS = Value(
+	DBLOC="Friant Dam",
+	DBVER="Calc-usbr",
+)
+#   A=SAN JOAQUIN    B=FRIANT                                     F=
+#   A=NORTH YUBA     B=NEW BULLARDS BAR
+INDTCS = Value(
+	DBLOC="Indian Valley",
+	DBVER="Calc-usgs",
+)
+#   A=NF CACHE CR    B=INDIAN VALLEY
+BDCTCS = Value(200)
+FTCS12 = Value(
+	DBLOC="Folsom Lake",
+	DBINT=0,
+	DBVER="Calc-NWS",
+	DBTZ="UTC",
+	TIME=T12,
+	MISSTR="-NF-",
+	UNDEF="-NF-",
+)
+FTCS18 = Value(
+	TIME=T18,
+)
+FTCS00 = Value(
+	TIME=T00,
+)
+FTCS06 = Value(
+	TIME=T00,
+)
+#
+#     Define all current Storage values
+#
+BBSTO = Value(
+	DBLOC="Black Butte-Pool",
+	DBPAR="Stor",
+	DBINT="~1Day",
+	DBVER="Calc-val",
+	PICTURE="%9.0f",
+	MISSTR="     -NR-",
+	UNDEF="     -NR-",
+	TIME=BASDATE,
+	DBTZ="PST8PDT",
+	DBUNITS="ac-ft",
+)
+ENSTO = Value(
+	DBLOC="Englebright Lake-Pool",
+)
+NHSTO = Value(
+	DBLOC="New Hogan-Pool",
+)
+BUSTO = Value(
+	DBLOC="Eastman Lake-Pool",
+)
+HDSTO = Value(
+	DBLOC="Hensley lake-Pool",
+)
+PFSTO = Value(
+	DBLOC="Pine Flat Lake-Pool",
+)
+TMSTO = Value(
+	DBLOC="Lake Kaweah-Pool",
+)
+SCSTO = Value(
+	DBLOC="Success Lake-Pool",
+)
+IBSTO = Value(
+	DBLOC="Lake Isabella-Pool",
+)
+COSTO = Value(
+	DBLOC="Lake Mendocino-Pool",
+)
+WSSTO = Value(
+	DBLOC="Lake Sonoma-Pool",
+)
+MRTSTO = Value(
+	DBLOC="Martis Creek-Pool",
+)
+FMSTO = Value(
+	DBLOC="Farmington Dam-Pool",
+)
+BNSTO = Value(
+	DBLOC="Burns-Pool",
+)
+BRSTO = Value(
+	DBLOC="Bear-Pool",
+)
+OWSTO = Value(
+	DBLOC="Owens-Pool",
+)
+MRSTO = Value(
+	DBLOC="Mariposa-Pool",
+)
+EPKSTO = Value(
+	DBLOC="East Park",
+	DBVER="Thumb-raw",
+)
+STGSTO = Value(
+	DBLOC="Stony Gorge",
+)
+CRTSTO = Value(
+	DBLOC="Courtright",
+	DBVER="Thumb-raw",
+)
+#   A=KINGS          B=COURTRIGHT     F=
+WSHSTO = Value(
+	DBLOC="Wishon",
+)
+#   A=KINGS          B=WISHON
+SHASTO = Value(
+	DBLOC="Shasta",
+	DBVER="Raw-USBR-Combined",
+)
+#   FILE = /dat0/rtsc7db.dss               TYPE=DSS
+#   A=SACRAMENTO     B=SHASTA         F=
+FOLSTO = Value(
+	DBLOC="Folsom Lake",
+)
+#   A=AMERICAN       B=FOLSOM
+#%SACSTO = %FOLSTO
+#   A=SAN JOAQUIN    B=FRIANT
+OROSTO = Value(
+	DBLOC="Oroville Dam",
+	DBVER="Calc-cdec",
+)
+#   A=FEATHER        B=OROVILLE
+NBBSTO = Value(
+	DBLOC="New Bullards Bar",
+	DBVER="Calc-cdec",
+)
+#   A=NORTH YUBA     B=NEW BULLARDS BAR
+INDSTO = Value(
+	DBLOC="Indian Valley",
+	DBVER="Calc-usgs",
+)
+#   A=NF CACHE CR    B=INDIAN VALLEY
+UNVSTO = Value(
+	DBLOC="Union Valley",
+	DBVER="Calc-cdec",
+)
+#   A=AMERICAN       B=UNION VALLEY
+FMDSTO = Value(
+	DBLOC="French Meadows",
+	DBVER="Calc-confidential",
+)
+#   A=AMERICAN       B=FRENCH MEADOWS
+HHLSTO = Value(
+	DBLOC="Hell Hole",
+)
+#   A=AMERICAN       B=HELL HOLE
+NWMSTO = Value(
+	DBLOC="New Melones",
+	DBVER="Raw-USBR-Combined",
+)
+#   A=STANISLAUS     B=NEW MELONES
+BRDSTO = Value(
+	DBLOC="Beardsley Lake",
+)
+#   A=STANISLAUS     B=BEARDSLEY
+DNLSTO = Value(
+	DBLOC="Donnells",
+)
+#   A=STANISLAUS     B=DONNELLS
+TULSTO = Value(
+	DBLOC="Tulloch",
+)
+#   A=STANISLAUS     B=TULLOCH
+FRISTO = Value(
+	DBLOC="Friant Dam",
+)
+MAMSTO = Value(
+	DBLOC="Mammoth Pool",
+)
+#   A=SAN JOAQUIN    B=MAMMOTH POOL
+MTSSTO = Value(
+	DBLOC="Friant Dam",
+	DBPAR="Stor-Total Upstream",
+)
+#   A=SAN JOAQUIN    B=FRIANT        C=STOR-TOT U\S
+CAMSTO = Value(
+	DBLOC="Camanche",
+	DBPAR="Stor",
+	DBVER="MANUAL",
+)
+#   A=MOKELUMNE      B=CAMANCHE
+DONSTO = Value(
+	DBLOC="Don Pedro",
+)
+#   A=TUOLUMNE       B=NEW DON PEDRO
+NEXSTO = Value(
+	DBLOC="New Exchequer",
+)
+#   A=MERCED         B=NEW EXCHEQUER
+PRDSTO = Value(
+	DBLOC="Pardee",
+)
+#   A=MOKELUMNE      B=PARDEE
+EBMSTO = Value((CAMSTO + PRDSTO))
+SSPSTO = Value(
+	DBLOC="Salt Springs",
+)
+#   A=MOKELUMNE      B=SALT SPRINGS
+LBRSTO = Value(
+	DBLOC="Lower Bear",
+)
+#   A=MOKELUMNE      B=LOWER BEAR
+HTHSTO = Value(
+	DBLOC="Hetch Hetchy",
+)
+#   A=TUOLUMNE       B=HETCH HETCHY
+CHVSTO = Value(
+	DBLOC="Cherry Valley",
+)
+#   A=TUOLUMNE       B=CHERRY VALLEY
+LKLSTO = Value(
+	DBLOC="Lake Eleanor",
+)
+#   A=TUOLUMNE       B=ELEANOR
+DELSTO = Value(
+	DBLOC="Del Valle",
+)
+#   A=ALAMEDA CR     B=DEL VALLE
+PRSSTO = Value(
+	DBLOC="Prosser",
+)
+#   A=PROSSER CR     B=PROSSER CR
+BOCSTO = Value(
+	DBLOC="Boca",
+)
+#   A=LITTLE TRUCKEE B=BOCA
+STMSTO = Value(
+	DBLOC="Stampede",
+)
+#   A=LITTLE TRUCKEE B=STAMPEDE
+BDCSTO = Value(
+	DBLOC="Big Dry Cr",
+)
+LOSSTO = Value(
+	DBLOC="Los Banos",
+)
+FLSTO12 = Value(
+	DBLOC="Folsom Lake",
+	DBINT="1Hour",
+	DBVER="Raw-USBR-Combined",
+	TIME=T12,
+	DBTZ="UTC",
+	PICTURE="%7.0f",
+	MISSTR="-NF-",
+	UNDEF="-NF-",
+)
+FLSTO18 = Value(
+	TIME=T18,
+)
+FLSTO00 = Value(
+	TIME=T00,
+)
+FLSTO06 = Value(
+	TIME=T06,
+)
+#   A=LOS BANOS CR   B=LOS BANOS
+#   A=BIG DRY CR     B=BIG DRY CR
+#
+#
+#     Gross Pools (acft) for Corps Reservoirs
+#
+BBG = Value(136200,
+	PICTURE="%7.0f",
+)
+ENG = Value(70000)
+NHG = Value(317100)
+BUG = Value(150000)
+HDG = Value(90000)
+PFG = Value(1000000)
+TMG = Value(185600)
+SCG = Value(84095)
+#%IBG =   568100
+IBG = Value(361250)
+MRTG = Value(20400)
+COG = Value(116500)
+WSG = Value(381000)
+FMG = Value(52000)
+BNG = Value(6800)
+BRG = Value(7700)
+OWG = Value(3600)
+MRG = Value(15000)
+EPG = Value(50900)
+SGG = Value(50000)
+UVG = Value(235100)
+FRG = Value(110700)
+HHG = Value(207600)
+CTG = Value(123300)
+WHG = Value(128600)
+EBG = Value(615050)
+#
+#
+#
+#     Gross Pool (acft) for SEC7 Reservoirs
+#     NOTE:  Uses the same PICTURE as the Corps Reservoirs
+#
+SHAG = Value(4552100)
+OROG = Value(3538000)
+NBBG = Value(966000)
+INDG = Value(300600)
+FOLG = Value(966823)
+SACG = Value(FOLG)
+CAMG = Value(417100)
+NWMG = Value(2420000)
+DONG = Value(2030000)
+NEXG = Value(1024600)
+FRIG = Value(520500)
+LOSG = Value(34600)
+DELG = Value(77000)
+TULG = Value(67000)
+PRSG = Value(29800)
+BOCG = Value(41100)
+STMG = Value(226500)
+BDCG = Value(30200)
+PDG = Value(197950,
+	PICTURE="%7.0f",
+)
+SSG = Value(140000)
+LBG = Value(49000)
+BDG = Value(97800)
+DNG = Value(64300)
+HEG = Value(360400)
+CVG = Value(268200)
+LEG = Value(26000)
+MAG = Value(122700)
+TSG = Value(628500)
+TSG2 = Value(251900)
+# Gross Pool for UT/CO
+EOG = Value(73900,
+	PICTURE="%6.0f",
+)
+ERG = Value(136062)
+RKG = Value(62100)
+LCG = Value(22500)
+ECG = Value(51200)
+PVG = Value(110200)
+STVG = Value(167300)
+VLG = Value(129700)
+LMG = Value(40100)
+BMG = Value(940800)
+PNG = Value(17500)
+RFG = Value(26000)
+RGG = Value(84400)
+JRG = Value(314000)
+LDG = Value(20500)
+MDG = Value(3200)
+MPG = Value(117200)
+CRG = Value(25200)
+#
+#     Define Percent of Gross Pool
+#
+#     Compute % full based on current storage and gross pool not
+#     accounting for any forecasts, irrigation demnads or other
+#     factors that would change the theoretical value.
+#     NOTE:  The variable names should always be shorter than the
+#            PICTURE -- otherwise the text to the right of the
+#            variable will be compressed (see REPGEN Manual
+#            Section 4.2 "Report Form".)  So we used names of the
+#            format %<3-letter-project-mnemonic> to keep names at
+#            four letters.
+#
+BLB = Value(BBSTO / BBG * 100.0,
+	PICTURE=" %3.0f",
+)
+#     NOTE:  New Hogan was re-named to %NHX so that it does not
+#            conflict with %NHG (New Hogan gross pool) variable above.
+ENX = Value(ENSTO / ENG * 100.0)
+NHX = Value(NHSTO / NHG * 100.0)
+BUC = Value(BUSTO / BUG * 100.0)
+HID = Value(HDSTO / HDG * 100.0)
+PNF = Value(PFSTO / PFG * 100.0)
+TRM = Value(TMSTO / TMG * 100.0)
+SCC = Value(SCSTO / SCG * 100.0)
+ISB = Value(IBSTO / IBG * 100.0)
+COY = Value(COSTO / COG * 100.0)
+WRS = Value(WSSTO / WSG * 100.0)
+FRM = Value(FMSTO / FMG * 100.0)
+BUR = Value(BNSTO / BNG * 100.0)
+BAR = Value(BRSTO / BRG * 100.0)
+OWN = Value(OWSTO / OWG * 100.0)
+MAR = Value(MRSTO / MRG * 100.0)
+SHA = Value(SHASTO / SHAG * 100.0)
+FOL = Value(FOLSTO / FOLG * 100.0)
+FOL12 = Value(FLSTO12/FOLG * 100.0,
+	UNDEF="-NF-",
+	MISSTR="-NF-",
+)
+FOL18 = Value(FLSTO18/FOLG * 100.0)
+FOL00 = Value(FLSTO00/FOLG * 100.0)
+FOL06 = Value(FLSTO06/FOLG * 100.0)
+#%SAC = %SACSTO / %SACG * 100.0
+FRI = Value(FRISTO / FRIG * 100.0,
+	UNDEF="-NR-",
+	MISSTR="-NR-",
+)
+ORO = Value(OROSTO / OROG * 100.0)
+LOS = Value(LOSSTO / LOSG * 100.0)
+NBB = Value(NBBSTO / NBBG * 100.0)
+CAM = Value(CAMSTO / CAMG * 100.0)
+DON = Value(DONSTO / DONG * 100.0)
+NEX = Value(NEXSTO / NEXG * 100.0)
+NWM = Value(NWMSTO / NWMG * 100.0)
+TUL = Value(TULSTO / TULG * 100.0)
+IND = Value(INDSTO / INDG * 100.0)
+DEL = Value(DELSTO / DELG * 100.0)
+MRT = Value(MRTSTO / MRTG * 100.0)
+PRS = Value(PRSSTO / PRSG * 100.0)
+BOC = Value(BOCSTO / BOCG * 100.0)
+STM = Value(STMSTO / STMG * 100.0)
+BDC = Value(BDCSTO / BDCG * 100.0)
+EPK = Value(EPKSTO / EPG  * 100.0)
+STG = Value(STGSTO / SGG  * 100.0)
+UNV = Value(UNVSTO / UVG  * 100.0)
+FMD = Value(FMDSTO / FRG  * 100.0)
+HHL = Value(HHLSTO / HHG  * 100.0)
+PRD = Value(PRDSTO / PDG  * 100.0)
+SSP = Value(SSPSTO / SSG  * 100.0)
+LBR = Value(LBRSTO / LBG  * 100.0)
+BRD = Value(BRDSTO / BDG  * 100.0)
+DNL = Value(DNLSTO / DNG  * 100.0)
+HTH = Value(HTHSTO / HEG  * 100.0)
+CHV = Value(CHVSTO / CVG  * 100.0)
+LKL = Value(LKLSTO / LEG  * 100.0)
+MAM = Value(MAMSTO / MAG  * 100.0)
+MTS = Value(MTSSTO / TSG  * 100.0)
+CRT = Value(CRTSTO / CTG  * 100.0)
+WSH = Value(WSHSTO / WHG  * 100.0)
+EBM = Value(EBMSTO / EBG  * 100.0)
+#
+#     Generate Percent Encroached for any reservoir whose Storage
+#     exceeds its Top of Conservation Storage.
+#     Encroachment is computed as a percentage of flood control
+#     space in use.
+#     VERY IMPORTANT:  All variable names should be exactly 5 characters
+#            (including the %), and the string of blanks should be
+#            exactly the same length (i.e. 5 blanks).  Otherwise, the
+#            report line will get screwed up.
+#     NOTE:  The %DUMF variable is needed only to set the PICTURE
+#            for the %xxxF variables.
+#
+DUMF = Value(0.0,
+	PICTURE="%3.0f",
+)
+if BBSTO > BBTCS and BBG > BBTCS:
+	BLBZ = Value(( (BBSTO-BBTCS) / (BBG-BBTCS) ) * 100.0,
+		PICTURE="%3.0f",
+	)
+else:
+	BLBZ = Value(0,
+		PICTURE="%3.0f",
+	)
+	
+if ENSTO > ENTCS and ENG > ENTCS:
+	ENGZ = Value(( (ENSTO-ENTCS) / (ENG-ENTCS) ) * 100.0)
+else:
+	ENGZ = Value(0)
+	
+if NHSTO > NHTCS and NHG > NHTCS:
+	NHGZ = Value(( (NHSTO-NHTCS) / (NHG-NHTCS) ) * 100.0)
+else:
+	NHGZ = Value(0)
+	
+if BUSTO > BUTCS and BUG > BUTCS:
+	BUCZ = Value(( (BUSTO-BUTCS) / (BUG-BUTCS) ) * 100.0)
+else:
+	BUCZ = Value(0)
+	
+if HDSTO > HDTCS and HDG > HDTCS:
+	HIDZ = Value(( (HDSTO-HDTCS) / (HDG-HDTCS) ) * 100.0)
+else:
+	HIDZ = Value(0)
+	
+if PFSTO > PFTCS and PFG > PFTCS:
+	PNFZ = Value(( (PFSTO-PFTCS) / (PFG-PFTCS) ) * 100.0)
+else:
+	PNFZ = Value(0)
+	
+if TMSTO > TMTCS and TMG > TMTCS:
+	TRMZ = Value(( (TMSTO-TMTCS) / (TMG-TMTCS) ) * 100.0)
+else:
+	TRMZ = Value(0)
+	
+if SCSTO > SCTCS and SCG > SCTCS:
+	SCCZ = Value(( (SCSTO-SCTCS) / (SCG-SCTCS) ) * 100.0)
+else:
+	SCCZ = Value(0)
+	
+if IBSTO > IBTCS and IBG > IBTCS:
+	ISBZ = Value(( (IBSTO-IBTCS) / (IBG-IBTCS) ) * 100.0)
+else:
+	ISBZ = Value(0)
+	
+if COSTO > COTCS and COG > COTCS:
+	COYZ = Value(( (COSTO-COTCS) / (COG-COTCS) ) * 100.0)
+else:
+	COYZ = Value(0)
+	
+if WSSTO > WSTCS and WSG > WSTCS:
+	WRSZ = Value(( (WSSTO-WSTCS) / (WSG-WSTCS) ) * 100.0)
+else:
+	WRSZ = Value(0)
+	
+if FMSTO > FMTCS and FMG > FMTCS:
+	FRMZ = Value(( (FMSTO-FMTCS) / (FMG-FMTCS) ) * 100.0)
+else:
+	FRMZ = Value(0)
+	
+if BNSTO > BNTCS and BNG > BNTCS:
+	BURZ = Value(( (BNSTO-BNTCS) / (BNG-BNTCS) ) * 100.0)
+else:
+	BURZ = Value(0)
+	
+if BRSTO > BRTCS and BRG > BRTCS:
+	BARZ = Value(( (BRSTO-BRTCS) / (BRG-BRTCS) ) * 100.0)
+else:
+	BARZ = Value(0)
+	
+if OWSTO > OWTCS and OWG > OWTCS:
+	OWNZ = Value(( (OWSTO-OWTCS) / (OWG-OWTCS) ) * 100.0)
+else:
+	OWNZ = Value(0)
+	
+if MRSTO > MRTCS and MRG > MRTCS:
+	MARZ = Value(( (MRSTO-MRTCS) / (MRG-MRTCS) ) * 100.0)
+else:
+	MARZ = Value(0)
+	
+if SHASTO > SHATCS and SHAG > SHATCS:
+	SHAZ = Value(( (SHASTO-SHATCS) / (SHAG-SHATCS) ) * 100.0,
+		PICTURE="%3.0f",
+	)
+else:
+	SHAZ = Value(0,
+		PICTURE="%3.0f",
+	)
+	
+if FLSTO12 > FTCS12 and FOLG > FTCS12:
+	FOLZ12 = Value(( (FLSTO12-FTCS12) / (FOLG-FTCS12) ) * 100.0)
+else:
+	FOLZ12 = Value(0)
+	
+if FLSTO18 > FTCS18 and FOLG > FTCS18:
+	FOLZ18 = Value(( (FLSTO18-FTCS18) / (FOLG-FTCS18) ) * 100.0)
+else:
+	FOLZ18 = Value(0)
+	
+if FLSTO00 > FTCS00 and FOLG > FTCS00:
+
+	FOLZ00 = Value(( (FLSTO00-FTCS00) / (FOLG-FTCS00) ) * 100.0)
+else:
+	FOLZ00 = Value(0)
+	
+if FLSTO06 > FTCS06 and FOLG > FTCS06:
+	FOLZ06 = Value(( (FLSTO06-FTCS06) / (FOLG-FTCS06) ) * 100.0)
+else:
+	FOLZ06 = Value(0)
+	
+##IF %SACSTO > %SACTCS AND %SACG > %SACTCS
+#      %SACZ = ( (%SACSTO-%SACTCS) / (%SACG-%SACTCS) ) * 100.0
+##ELSE
+SACZ = Value(0)
+##ENDIF
+if FRISTO > FRITCS and FRIG > FRITCS:
+	FRIZ = Value(( (FRISTO-FRITCS) / (FRIG-FRITCS) ) * 100.0)
+else:
+	FRIZ = Value(0)
+	
+if OROSTO > OROTCS and OROG > OROTCS:
+	OROZ = Value(( (OROSTO-OROTCS) / (OROG-OROTCS) ) * 100.0)
+else:
+	OROZ = Value(0)
+	
+if LOSSTO > LOSTCS and LOSG > LOSTCS:
+	LOSZ = Value(( (LOSSTO-LOSTCS) / (LOSG-LOSTCS) ) * 100.0)
+else:
+	LOSZ = Value(0)
+	
+if NBBSTO > NBBTCS and NBBG > NBBTCS:
+	NBBZ = Value(( (NBBSTO-NBBTCS) / (NBBG-NBBTCS) ) * 100.0)
+else:
+	NBBZ = Value(0)
+	
+if CAMSTO > CAMTCS and CAMG > CAMTCS:
+	CAMZ = Value(( (CAMSTO-CAMTCS) / (CAMG-CAMTCS) ) * 100.0)
+else:
+	CAMZ = Value(0)
+	
+if DONSTO > DONTCS and DONG > DONTCS:
+	DONZ = Value(( (DONSTO-DONTCS) / (DONG-DONTCS) ) * 100.0)
+else:
+	DONZ = Value(0)
+	
+if NEXSTO > NEXTCS and NEXG > NEXTCS:
+	NEXZ = Value(( (NEXSTO-NEXTCS) / (NEXG-NEXTCS) ) * 100.0)
+else:
+	NEXZ = Value(0)
+	
+if NWMSTO > NWMTCS and NWMG > NWMTCS:
+	NWMZ = Value(( (NWMSTO-NWMTCS) / (NWMG-NWMTCS) ) * 100.0)
+else:
+	NWMZ = Value(0)
+	
+if TULSTO > TULTCS and TULG > TULTCS:
+	TULZ = Value(( (TULSTO-TULTCS) / (TULG-TULTCS) ) * 100.0)
+else:
+	TULZ = Value(0)
+	
+if INDSTO > INDTCS and INDG > INDTCS:
+	INDZ = Value(( (INDSTO-INDTCS) / (INDG-INDTCS) ) * 100.0)
+else:
+	INDZ = Value(0)
+	
+if DELSTO > DELTCS and DELG > DELTCS:
+	DELZ = Value(( (DELSTO-DELTCS) / (DELG-DELTCS) ) * 100.0)
+else:
+	DELZ = Value(0)
+	
+if MRTSTO > MRTTCS and MRTG > MRTTCS:
+	MRTZ = Value(( (MRTSTO-MRTTCS) / (MRTG-MRTTCS) ) * 100.0)
+else:
+	MRTZ = Value(0)
+	
+if PRSSTO > PRSTCS and PRSG > PRSTCS:
+	PRSZ = Value(( (PRSSTO-PRSTCS) / (PRSG-PRSTCS) ) * 100.0)
+else:
+	PRSZ = Value(0)
+	
+if BOCSTO > BOCTCS and BOCG > BOCTCS:
+	BOCZ = Value(( (BOCSTO-BOCTCS) / (BOCG-BOCTCS) ) * 100.0)
+else:
+	BOCZ = Value(0)
+	
+if STMSTO > STMTCS and STMG > STMTCS:
+	STMZ = Value(( (STMSTO-STMTCS) / (STMG-STMTCS) ) * 100.0)
+else:
+	STMZ = Value(0)
+	
+if BDCSTO > BDCTCS and BDCG > BDCTCS:
+	BDCZ = Value(( (BDCSTO-BDCTCS) / (BDCG-BDCTCS) ) * 100.0)
+else:
+	BDCZ = Value(0)
+	
+if CAMSTO > CAMTCS:
+	EBMA = Value((CAMG- CAMTCS))
+	EBMB = Value((PDG - PRDSTO))
+	EBMZ = Value(( (CAMSTO-CAMTCS) / (EBMA + EBMB) ) * 100.0)
+else:
+	EBMZ = Value(0)
+	
+#
+#     Define %encroached format
+#     Anything >= 99.5 will round to 100 and overflow the B(NZ) format
+#
+if BLBZ >= 99.5:
+	BLBF = Value(BLBZ,
+		PICTURE="(%3.0f)",
+	)
+elif BLBZ >=  0.0:
+	BLBF = Value(BLBZ,
+		PICTURE="(%3.0f)",
+	)
+	##ELSE
+	#      %BLBF =" (  0) " PICTURE = AAAAA
+	
+#SHOW %BLBZ
+#SHOW %BLBF
+if NHGZ >= 99.5:
+	NHGF = Value(NHGZ,
+		PICTURE="(%3.0f)",
+	)
+elif NHGZ >=  0.0:
+	NHGF = Value(NHGZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	NHGF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %NHGZ
+#SHOW %NHGF
+if BUCZ >= 99.5:
+	BUCF = Value(BUCZ,
+		PICTURE="(%3.0f)",
+	)
+elif BUCZ >=  0.0:
+	BUCF = Value(BUCZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	BUCF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %BUCZ
+#SHOW %BUCF
+if HIDZ >= 99.5:
+	HIDF = Value(HIDZ,
+		PICTURE="(%3.0f)",
+	)
+elif HIDZ >=  0.0:
+	HIDF = Value(HIDZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	HIDF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %HIDZ
+#SHOW %HIDF
+if PNFZ >= 99.5:
+	PNFF = Value(PNFZ,
+		PICTURE="(%3.0f)",
+	)
+elif PNFZ >=  0.0:
+	PNFF = Value(PNFZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	PNFF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %PNFZ
+#SHOW %PNFF
+if TRMZ >= 99.5:
+	TRMF = Value(TRMZ,
+		PICTURE="(%3.0f)",
+	)
+elif TRMZ >=  0.0:
+	TRMF = Value(TRMZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	TRMF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %TRMZ
+#SHOW %TRMF
+if SCCZ >= 99.5:
+	SCCF = Value(SCCZ,
+		PICTURE="(%3.0f)",
+	)
+elif SCCZ >=  0.0:
+	SCCF = Value(SCCZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	SCCF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %SCCZ
+#SHOW %SCCF
+#    #IF     %ISBZ >= 99.5
+#          %ISBF = %ISBZ  PICTURE = (NNZ)
+#    #ELSEIF %ISBZ >   0.0
+#          %ISBF = %ISBZ  PICTURE = B(NZ)
+#    #ELSE
+#          %ISBF ="     " PICTURE = AAAAA
+#    #ENDIF
+#    #SHOW %ISBZ
+#    #SHOW %ISBF
+if COYZ >= 99.5:
+	COYF = Value(COYZ,
+		PICTURE="(%3.0f)",
+	)
+elif COYZ >=  0.0:
+	COYF = Value(COYZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	COYF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %COYZ
+#SHOW %COYF
+if WRSZ >= 99.5:
+	WRSF = Value(WRSZ,
+		PICTURE="(%3.0f)",
+	)
+elif WRSZ >=  0.0:
+	WRSF = Value(WRSZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	WRSF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %WRSZ
+#SHOW %WRSF
+if FRMZ >= 99.5:
+	FRMF = Value(FRMZ,
+		PICTURE="(%3.0f)",
+	)
+elif FRMZ >=  0.0:
+	FRMF = Value(FRMZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	FRMF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %FRMZ
+#SHOW %FRMF
+if BURZ >= 99.5:
+	BURF = Value(BURZ,
+		PICTURE="(%3.0f)",
+	)
+elif BURZ >=  0.0:
+	BURF = Value(BURZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	BURF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %BURZ
+#SHOW %BURF
+if BARZ >= 99.5:
+	BARF = Value(BARZ,
+		PICTURE="(%3.0f)",
+	)
+elif BARZ >=  0.0:
+	BARF = Value(BARZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	BARF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %BARZ
+#SHOW %BARF
+if OWNZ >= 99.5:
+	OWNF = Value(OWNZ,
+		PICTURE="(%3.0f)",
+	)
+elif OWNZ >=  0.0:
+	OWNF = Value(OWNZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	OWNF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %OWNZ
+#SHOW %OWNF
+if MARZ >= 99.5:
+	MARF = Value(MARZ,
+		PICTURE="(%3.0f)",
+	)
+elif MARZ >=  0.0:
+	MARF = Value(MARZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	MARF = Value("     ",
+		PICTURE="%B",
+	)
+	
+#SHOW %MARZ
+#SHOW %MARF
+if SHAZ >= 99.5:
+	SHAF = Value(SHAZ,
+		PICTURE="(%3.0f)",
+	)
+elif SHAZ >=  0.0:
+	SHAF = Value(SHAZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	SHAF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %SHAZ
+##SHOW %SHAF
+if FOLZ12 >= 99.5:
+	FOLF12 = Value(FOLZ12,
+		PICTURE="(%3.0f)",
+	)
+elif FOLZ12 >=  0.0:
+	FOLF12 = Value(FOLZ12,
+		PICTURE="(%3.0f)",
+	)
+else:
+	FOLF12 = Value("     ",
+		PICTURE="%B",
+	)
+	
+if FOLZ18 >= 99.5:
+	FOLF18 = Value(FOLZ18,
+		PICTURE="(%3.0f)",
+	)
+elif FOLZ18 >=  0.0:
+	FOLF18 = Value(FOLZ18,
+		PICTURE="(%3.0f)",
+	)
+else:
+	FOLF18 = Value("     ",
+		PICTURE="%B",
+	)
+	
+if FOLZ00 >= 99.5:
+	FOLF00 = Value(FOLZ00,
+		PICTURE="(%3.0f)",
+	)
+elif FOLZ00 >=  0.0:
+	FOLF00 = Value(FOLZ00,
+		PICTURE="(%3.0f)",
+	)
+else:
+	FOLF00 = Value("     ",
+		PICTURE="%B",
+	)
+	
+if FOLZ06 >= 99.5:
+	FOLF06 = Value(FOLZ06,
+		PICTURE="(%3.0f)",
+	)
+elif FOLZ06 >=  0.0:
+	FOLF06 = Value(FOLZ06,
+		PICTURE="(%3.0f)",
+	)
+else:
+	FOLF06 = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %FOLZ
+##SHOW %FOLF
+if SACZ >= 99.5:
+	SACF = Value(SACZ,
+		PICTURE="(%3.0f)",
+	)
+elif SACZ >=  0.0:
+	SACF = Value(SACZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	SACF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %SACZ
+##SHOW %SACF
+if FRIZ >= 99.5:
+	FRIF = Value(FRIZ,
+		PICTURE="(%3.0f)",
+	)
+elif FRIZ >=  0.0:
+	FRIF = Value(FRIZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	FRIF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %FRIZ
+##SHOW %FRIF
+if OROZ >= 99.5:
+	OROF = Value(OROZ,
+		PICTURE="(%3.0f)",
+	)
+elif OROZ >=  0.0:
+	OROF = Value(OROZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	OROF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %OROZ
+##SHOW %OROF
+if LOSZ >= 99.5:
+	LOSF = Value(LOSZ,
+		PICTURE="(%3.0f)",
+	)
+elif LOSZ >=  0.0:
+	LOSF = Value(LOSZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	LOSF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %LOSZ
+##SHOW %LOSF
+if NBBZ >= 99.5:
+	NBBF = Value(NBBZ,
+		PICTURE="(%3.0f)",
+	)
+elif NBBZ >=  0.0:
+	NBBF = Value(NBBZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	NBBF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %NBBZ
+##SHOW %NBBF
+if CAMZ >= 99.5:
+	CAMF = Value(CAMZ,
+		PICTURE="(%3.0f)",
+	)
+elif CAMZ >=  0.0:
+	CAMF = Value(CAMZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	CAMF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %CAMZ
+##SHOW %CAMF
+if DONZ >= 99.5:
+	DONF = Value(DONZ,
+		PICTURE="(%3.0f)",
+	)
+elif DONZ >=  0.0:
+	DONF = Value(DONZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	DONF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %DONZ
+##SHOW %DONF
+if NEXZ >= 99.5:
+	NEXF = Value(NEXZ,
+		PICTURE="(%3.0f)",
+	)
+elif NEXZ >=  0.0:
+	NEXF = Value(NEXZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	NEXF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %NEXZ
+##SHOW %NEXF
+if NWMZ >= 99.5:
+	NWMF = Value(NWMZ,
+		PICTURE="(%3.0f)",
+	)
+elif NWMZ >=  0.0:
+	NWMF = Value(NWMZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	NWMF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %NWMZ
+##SHOW %NWMF
+if TULZ >= 99.5:
+	TULF = Value(TULZ,
+		PICTURE="(%3.0f)",
+	)
+elif TULZ >=  0.0:
+	TULF = Value(TULZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	TULF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %TULZ
+##SHOW %TULF
+if INDZ >= 99.5:
+	INDF = Value(INDZ,
+		PICTURE="(%3.0f)",
+	)
+elif INDZ >=  0.0:
+	INDF = Value(INDZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	INDF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %INDZ
+##SHOW %INDF
+if DELZ >= 99.5:
+	DELF = Value(DELZ,
+		PICTURE="(%3.0f)",
+	)
+elif DELZ >=  0.0:
+	DELF = Value(DELZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	DELF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %DELZ
+##SHOW %DELF
+if MRTZ >= 99.5:
+	MRTF = Value(MRTZ,
+		PICTURE="(%3.0f)",
+	)
+elif MRTZ >=  0.0:
+	MRTF = Value(MRTZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	MRTF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %MRTZ
+##SHOW %MRTF
+if PRSZ >= 99.5:
+	PRSF = Value(PRSZ,
+		PICTURE="(%3.0f)",
+	)
+elif PRSZ >=  0.0:
+	PRSF = Value(PRSZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	PRSF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %PRSZ
+##SHOW %PRSF
+if BOCZ >= 99.5:
+	BOCF = Value(BOCZ,
+		PICTURE="(%3.0f)",
+	)
+elif BOCZ >=  0.0:
+	BOCF = Value(BOCZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	BOCF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %BOCZ
+##SHOW %BOCF
+if STMZ >= 99.5:
+	STMF = Value(STMZ,
+		PICTURE="(%3.0f)",
+	)
+elif STMZ >=  0.0:
+	STMF = Value(STMZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	STMF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %STMZ
+##SHOW %STMF
+if BDCZ >= 99.5:
+	BDCF = Value(BDCZ,
+		PICTURE="(%3.0f)",
+	)
+elif BDCZ >=  0.0:
+	BDCF = Value(BDCZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	BDCF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %BDCZ
+##SHOW %BDCF
+if EBMZ >= 99.5:
+	EBMF = Value(EBMZ,
+		PICTURE="(%3.0f)",
+	)
+elif EBMZ >=  0.0:
+	EBMF = Value(EBMZ,
+		PICTURE="(%3.0f)",
+	)
+else:
+	EBMF = Value("     ",
+		PICTURE="%B",
+	)
+	
+##SHOW %EBMZ
+##SHOW %EBMF
+##IF     %ABSZ >= 99.5
+#      %ABSF = %ABSZ  PICTURE = (NNZ)
+##ELSEIF %ABSZ >=  0.0
+#      %ABSF = %ABSZ  PICTURE = (NNZ)
+##ELSE
+#      %ABSF =" ( x0)" PICTURE = AAAA
+##ENDIF
+##SHOW %ABSZ
+##SHOW %ABSF
+##IF     %BBSZ >= 99.5
+#      %BBSF = %BBSZ  PICTURE = (NNZ)
+##ELSEIF %BBSZ >=  0.0
+#      %BBSF = %BBSZ  PICTURE = (NNZ)
+##ELSE
+#      %BBSF ="     " PICTURE = AAAAA
+##ENDIF
+##SHOW %BBSZ
+##SHOW %BBSF
+##IF     %CBSZ >= 99.5
+#      %CBSF = %CBSZ  PICTURE = (NNZ)
+##ELSEIF %CBSZ >=  0.0
+#      %CBSF = %CBSZ  PICTURE = (NNZ)
+##ELSE
+#      %CBSF ="     " PICTURE = AAAAA
+##ENDIF
+##SHOW %CBSZ
+##SHOW %CBSF
+##IF     %DBSZ >= 99.5
+#      %DBSF = %DBSZ  PICTURE = (NNZ)
+##ELSEIF %DBSZ >=  0.0
+#      %DBSF = %DBSZ  PICTURE = (NNZ)
+##ELSE
+#      %DBSF ="     " PICTURE = AAAAA
+##ENDIF
+##SHOW %DBSZ
+##SHOW %DBSF
+##IF     %EBSZ >= 99.5
+#      %EBSF = %EBSZ  PICTURE = (NNZ)
+##ELSEIF %EBSZ >=  0.0
+#      %EBSF = %EBSZ  PICTURE = (NNZ)
+##ELSE
+#      %EBSF ="     " PICTURE = AAAAA
+##ENDIF
+#SHOW %EBSZ
+#SHOW %EBSF
+#
+#
+#     Define Space Used Above Top Conservation Storage
+#
+#     Define Space Used Above TCS for the non-snowmelt reservoirs.
+#     IF we are in snowmelt season (01Feb to 31Jul) THEN
+#         Define Space Used Above TCS for the snowmelt reservoirs as N/A
+#         (i.e. Not Applicable)
+#     ELSE
+#         Display Space Used Above TCS for the snowmelt reservoirs.
+#     ENDIF
+#
+BBSP = Value(BBSTO - BBTCS,
+	PICTURE="%10.0f",
+	MISSTR="      -NR-",
+	UNDEF="      -NR-",
+)
+ENSP = Value(ENSTO - ENTCS)
+NHSP = Value(NHSTO - NHTCS)
+BUSP = Value(BUSTO - BUTCS)
+HDSP = Value(HDSTO - HDTCS)
+COSP = Value(COSTO - COTCS)
+WSSP = Value(WSSTO - WSTCS)
+FMSP = Value(FMSTO - FMTCS)
+MRTSP = Value(MRTSTO - MRTTCS)
+BURSP = Value(BNSTO - BNTCS)
+BARSP = Value(BRSTO - BRTCS)
+OWNSP = Value(OWSTO - OWTCS)
+MARSP = Value(MRSTO - MRTCS)
+SHASP = Value(SHASTO - SHATCS)
+FOLSP12 = Value(FLSTO12 - FTCS12)
+FOLSP18 = Value(FLSTO18 - FTCS18)
+FOLSP00 = Value(FLSTO00 - FTCS00)
+FOLSP06 = Value(FLSTO06 - FTCS06)
+#%SACSP =   %SACSTO - %SACTCS
+OROSP = Value(OROSTO - OROTCS)
+LOSSP = Value(LOSSTO - LOSTCS)
+NBBSP = Value(NBBSTO - NBBTCS)
+TULSP = Value(TULSTO - TULTCS)
+INDSP = Value(INDSTO - INDTCS)
+DELSP = Value(DELSTO - DELTCS)
+BDCSP = Value(BDCSTO - BDCTCS)
+if CAMSTO > CAMTCS:
+	EBMSP = Value(EBMSTO - EBMTCS)
+else:
+	EBMSP = Value("          ")
+	
+#  %MMMDD = MONOFYR(%BASDATE) * 100 + DAY(%BASDATE)
+#  #IF 0201 =< %MMMDD  AND  %MMMDD =< 0731
+#     %PFSP  = "       N/A"
+#     %TMSP  = "       N/A"
+#     %SCSP  = "       N/A"
+#     %IBSP  = "       N/A"
+#     %FRISP = "       N/A"
+#     %CAMSP = "       N/A"
+#     %DONSP = "       N/A"
+#     %NEXSP = "       N/A"
+#     %NWMSP = "       N/A"
+#     %PRSSP = "       N/A"
+#     %BOCSP = "       N/A"
+#     %STMSP = "       N/A"
+#  #ELSE
+PFSP = Value(PFSTO - PFTCS)
+TMSP = Value(TMSTO - TMTCS)
+SCSP = Value(SCSTO - SCTCS)
+IBSP = Value(IBSTO - IBTCS)
+FRISP = Value(FRISTO - FRITCS)
+CAMSP = Value(CAMSTO - CAMTCS)
+DONSP = Value(DONSTO - DONTCS)
+NEXSP = Value(NEXSTO - NEXTCS)
+NWMSP = Value(NWMSTO - NWMTCS)
+PRSSP = Value(PRSSTO - PRSTCS)
+BOCSP = Value(BOCSTO - BOCTCS)
+STMSP = Value(STMSTO - STMTCS)
+#
+if CAMSTO > CAMTCS:
+	EBMSP = Value(EBMSTO - EBMTCS)
+else:
+	EBMSP = Value("          ")
+	
+#  %MMMDD = MONOFYR(%BASDATE) * 100 + DAY(%BASDATE)
+#  #IF 0201 =< %MMMDD  AND  %MMMDD =< 0731
+#     %PFSP  = "       N/A"
+#     %TMSP  = "       N/A"
+#     %SCSP  = "       N/A"
+#     %IBSP  = "       N/A"
+#     %FRISP = "       N/A"
+#     %CAMSP = "       N/A"
+#     %DONSP = "       N/A"
+#     %NEXSP = "       N/A"
+#     %NWMSP = "       N/A"
+#     %PRSSP = "       N/A"
+#     %BOCSP = "       N/A"
+#     %STMSP = "       N/A"
+#  #ELSE
+#
+#
+#
+#  Basin summations of total above top of conservation to include
+#  only encroached projects.
+#
+if ENSP <= 0:
+	ENS = Value(0)
+else:
+	ENS = Value(ENSP)
+	
+if NHSP <= 0:
+	NHS = Value(0)
+else:
+	NHS = Value(NHSP)
+	
+#
+if BUSP <= 0:
+	BCS = Value(0)
+else:
+	BCS = Value(BUSP)
+	
+#
+if HDSP <= 0:
+	HDS = Value(0)
+else:
+	HDS = Value(HDSP)
+	
+#
+if COSP <= 0:
+	COS = Value(0)
+else:
+	COS = Value(COSP)
+	
+#
+if WSSP <= 0:
+	WSS = Value(0)
+else:
+	WSS = Value(WSSP)
+	
+#
+if FMSP <= 0:
+	FMS = Value(0)
+else:
+	FMS = Value(FMSP)
+	
+#
+if MRTSP <= 0:
+	MRTS = Value(0)
+else:
+	MRTS = Value(MRTSP)
+	
+#
+if BURSP <= 0:
+	BNS = Value(0)
+else:
+	BNS = Value(BURSP)
+	
+#
+if BARSP <= 0:
+	BRS = Value(0)
+else:
+	BRS = Value(BARSP)
+	
+#
+if OWNSP <= 0:
+	OWS = Value(0)
+else:
+	OWS = Value(OWNSP)
+	
+#
+if MARSP <= 0:
+	MRS = Value(0)
+else:
+	MRS = Value(MARSP)
+	
+#
+if SHASP <= 0:
+	SHAS = Value(0)
+else:
+	SHAS = Value(SHASP)
+	
+#
+if BBSP <= 0:
+	BBTS = Value(0)
+else:
+	BBTS = Value(BBSP)
+	
+#
+if FOLSP12 <= 0:
+	FOLS12 = Value(0)
+else:
+	FOLS12 = Value(FOLSP12)
+	
+if FOLSP18 <= 0:
+	FOLS18 = Value(0)
+else:
+	FOLS18 = Value(FOLSP18)
+	
+if FOLSP00 <= 0:
+	FOLS00 = Value(0)
+else:
+	FOLS00 = Value(FOLSP00)
+	
+if FOLSP06 <= 0:
+	FOLS06 = Value(0)
+else:
+	FOLS06 = Value(FOLSP06)
+	
+#   #IF %SACSP =< 0
+#        %SACS = 0
+#   #ELSE
+#        %SACS = %SACSP
+#   #ENDIF
+##
+if OROSP <= 0:
+	OROS = Value(0)
+else:
+	OROS = Value(OROSP)
+	
+##
+if LOSSP <= 0:
+	LOSS = Value(0)
+else:
+	LOSS = Value(LOSSP)
+	
+##
+if NBBSP <= 0:
+	NBBS = Value(0)
+else:
+	NBBS = Value(NBBSP)
+	
+##
+if TULSP <= 0:
+	TULS = Value(0)
+else:
+	TULS = Value(TULSP)
+	
+#
+if INDSP <= 0:
+	INDS = Value(0)
+else:
+	INDS = Value(INDSP)
+	
+##
+if DELSP <= 0:
+	DELS = Value(0)
+else:
+	DELS = Value(DELSP)
+	
+##
+if BDCSP <= 0:
+	BDCS = Value(0)
+else:
+	BDCS = Value(BDCSP)
+	
+##
+if PFSP <= 0:
+	PFS = Value(0)
+else:
+	PFS = Value(PFSP)
+	
+#
+if TMSP <= 0:
+	TMS = Value(0)
+else:
+	TMS = Value(TMSP)
+	
+#
+if SCSP <= 0:
+	SCS = Value(0)
+else:
+	SCS = Value(SCSP)
+	
+#
+if IBSP <= 0:
+	IBS = Value(0)
+else:
+	IBS = Value(IBSP)
+	
+#
+if FRISP <= 0:
+	FRIS = Value(0)
+else:
+	FRIS = Value(FRISP)
+	
+##
+if CAMSP <= 0:
+	CAMS = Value(0)
+else:
+	CAMS = Value(CAMSP)
+	
+##
+if DONSP <= 0:
+	DONS = Value(0)
+else:
+	DONS = Value(DONSP)
+	
+##
+if NEXSP <= 0:
+	NEXS = Value(0)
+else:
+	NEXS = Value(NEXSP)
+	
+##
+if NWMSP <= 0:
+	NWMS = Value(0)
+else:
+	NWMS = Value(NWMSP)
+	
+##
+if PRSSP <= 0:
+	PRSS = Value(0)
+else:
+	PRSS = Value(PRSSP)
+	
+##
+if BOCSP <= 0:
+	BOCS = Value(0)
+else:
+	BOCS = Value(BOCSP)
+	
+##
+if STMSP <= 0:
+	STMS = Value(0)
+else:
+	STMS = Value(STMSP)
+	
+#
+#  Summation of volumes above the allowable.
+#
+#
+BB10 = Value(
+	DBLOC="Black Butte-Pool",
+	DBPAR="Stor",
+	DBPTYP="Ave",
+	DBINT="~1Day",
+	DBDUR="1Decade",
+	DBVER="Calc-val",
+	PICTURE="%9.0f",
+	MISSTR="     -NR-",
+	UNDEF="     -NR-",
+	TIME=BASDATE,
+	DBTZ="PST8PDT",
+	DBUNITS="ac-ft",
+)
+#	DBLOC="Black Butte-Pool" DBPAR=Elev DBPTYP=Inst DBDUR=0 DBVER=Calc-val
+EN10 = Value(
+	DBLOC="Englebright Lake-Pool",
+)
+NH10 = Value(
+	DBLOC="New Hogan-Pool",
+)
+BU10 = Value(
+	DBLOC="Eastman Lake-Pool",
+)
+HD10 = Value(
+	DBLOC="Hensley lake-Pool",
+)
+PF10 = Value(
+	DBLOC="Pine Flat Lake-Pool",
+)
+TM10 = Value(
+	DBLOC="Lake Kaweah-Pool",
+)
+SC10 = Value(
+	DBLOC="Success Lake-Pool",
+)
+IB10 = Value(
+	DBLOC="Lake Isabella-Pool",
+)
+CO10 = Value(
+	DBLOC="Lake Mendocino-Pool",
+)
+WS10 = Value(
+	DBLOC="Lake Sonoma-Pool",
+)
+MRT10 = Value(
+	DBLOC="Martis Creek-Pool",
+)
+FM10 = Value(
+	DBLOC="Farmington Dam-Pool",
+)
+BN10 = Value(
+	DBLOC="Burns-Pool",
+)
+BR10 = Value(
+	DBLOC="Bear-Pool",
+)
+OW10 = Value(
+	DBLOC="Owens-Pool",
+)
+MR10 = Value(
+	DBLOC="Mariposa-Pool",
+)
+EPK10 = Value(
+	DBLOC="East Park",
+	DBVER="Thumb-raw",
+)
+STG10 = Value(
+	DBLOC="Stony Gorge",
+)
+CRT10 = Value(
+	DBLOC="Courtright",
+	DBVER="Thumb-raw",
+)
+#   A=KINGS          B=COURTRIGHT     F=
+WSH10 = Value(
+	DBLOC="Wishon",
+)
+#   A=KINGS          B=WISHON
+SHA10 = Value(
+	DBLOC="Shasta",
+	DBVER="Raw-USBR-Combined",
+)
+#   FILE = /dat0/rtsc7db.dss               TYPE=DSS
+#   A=SACRAMENTO     B=SHASTA         F=
+FOL10 = Value(
+	DBLOC="Folsom Lake",
+)
+#   A=AMERICAN       B=FOLSOM
+#%SAC10 = %FOLSTO
+#   A=SAN JOAQUIN    B=FRIANT
+ORO10 = Value(
+	DBLOC="Oroville Dam",
+	DBVER="Calc-cdec",
+)
+#   A=FEATHER        B=OROVILLE
+NBB10 = Value(
+	DBLOC="New Bullards Bar",
+	DBVER="Calc-cdec",
+)
+#   A=NORTH YUBA     B=NEW BULLARDS BAR
+IND10 = Value(
+	DBLOC="Indian Valley",
+	DBVER="Calc-usgs",
+)
+#   A=NF CACHE CR    B=INDIAN VALLEY
+UNV10 = Value(
+	DBLOC="Union Valley",
+	DBVER="Calc-cdec",
+)
+#   A=AMERICAN       B=UNION VALLEY
+FMD10 = Value(
+	DBLOC="French Meadows",
+	DBVER="Calc-confidential",
+)
+#   A=AMERICAN       B=FRENCH MEADOWS
+HHL10 = Value(
+	DBLOC="Hell Hole",
+)
+#   A=AMERICAN       B=HELL HOLE
+NWM10 = Value(
+	DBLOC="New Melones",
+	DBVER="Raw-USBR-Combined",
+)
+#   A=STANISLAUS     B=NEW MELONES
+BRD10 = Value(
+	DBLOC="Beardsley Lake",
+)
+#   A=STANISLAUS     B=BEARDSLEY
+DNL10 = Value(
+	DBLOC="Donnells",
+)
+#   A=STANISLAUS     B=DONNELLS
+TUL10 = Value(
+	DBLOC="Tulloch",
+)
+#   A=STANISLAUS     B=TULLOCH
+FRI10 = Value(
+	DBLOC="Friant Dam",
+)
+MAM10 = Value(
+	DBLOC="Mammoth Pool",
+)
+#   A=SAN JOAQUIN    B=MAMMOTH POOL
+MTS10 = Value(
+	DBLOC="Friant Dam",
+	DBPAR="Stor-Total Upstream",
+)
+#   A=SAN JOAQUIN    B=FRIANT        C=10R-TOT U\S
+CAM10 = Value(
+	DBLOC="Camanche",
+	DBPAR="Stor",
+	DBVER="MANUAL",
+)
+#   A=MOKELUMNE      B=CAMANCHE
+DON10 = Value(
+	DBLOC="Don Pedro",
+)
+#   A=TUOLUMNE       B=NEW DON PEDRO
+NEX10 = Value(
+	DBLOC="New Exchequer",
+)
+#   A=MERCED         B=NEW EXCHEQUER
+PRD10 = Value(
+	DBLOC="Pardee",
+)
+#   A=MOKELUMNE      B=PARDEE
+EBM10 = Value((CAMSTO + PRDSTO))
+SSP10 = Value(
+	DBLOC="Mokelumne R-Salt Springs",
+)
+#   A=MOKELUMNE      B=SALT SPRINGS
+LBR10 = Value(
+	DBLOC="Lower Bear",
+)
+#   A=MOKELUMNE      B=LOWER BEAR
+HTH10 = Value(
+	DBLOC="Hetch Hetchy",
+)
+#   A=TUOLUMNE       B=HETCH HETCHY
+CHV10 = Value(
+	DBLOC="Cherry Valley",
+)
+#   A=TUOLUMNE       B=CHERRY VALLEY
+LKL10 = Value(
+	DBLOC="Lake Eleanor",
+)
+#   A=TUOLUMNE       B=ELEANOR
+DEL10 = Value(
+	DBLOC="Del Valle",
+)
+#   A=ALAMEDA CR     B=DEL VALLE
+PRS10 = Value(
+	DBLOC="Prosser",
+)
+#   A=PROSSER CR     B=PROSSER CR
+BOC10 = Value(
+	DBLOC="Boca",
+)
+#   A=LITTLE TRUCKEE B=BOCA
+STM10 = Value(
+	DBLOC="Stampede",
+)
+#   A=LITTLE TRUCKEE B=STAMPEDE
+BDC10 = Value(
+	DBLOC="Big Dry Cr",
+)
+LOS10 = Value(
+	DBLOC="Los Banos",
+)
+SHA10P = Value((SHASTO/SHA10)*100,
+	PICTURE="%9.0f",
+)
+BB10P = Value((BBSTO/BB10)*100)
+ORO10P = Value((OROSTO/ORO10)*100)
+NBB10P = Value((NBBSTO/NBB10)*100)
+EN10P = Value((ENSTO/EN10)*100)
+IND10P = Value((INDSTO/IND10)*100)
+FOL10P = Value((FOLSTO/FOL10)*100)
+CAM10P = Value((CAMSTO/CAM10)*100)
+NH10P = Value((NHSTO/NH10)*100)
+FM10P = Value((FMSTO/FM10)*100)
+NWM10P = Value((NWMSTO/NWM10)*100)
+TUL10P = Value((TULSTO/TUL10)*100)
+DON10P = Value((DONSTO/DON10)*100)
+NEX10P = Value((NEXSTO/NEX10)*100)
+BN10P = Value((BNSTO/BN10)*100)
+BR10P = Value((BRSTO/BR10)*100)
+OW10P = Value((OWSTO/(OW10+0.001))*100)
+MR10P = Value((MRSTO/(MR10+0.001))*100)
+LOS10P = Value((LOSSTO/LOS10)*100)
+BU10P = Value((BUSTO/BU10)*100)
+HD10P = Value((HDSTO/HD10)*100)
+FRI10P = Value((FRISTO/FRI10)*100)
+BDC10P = Value((BDCSTO/BDC10)*100)
+PF10P = Value((PFSTO/PF10)*100)
+TM10P = Value((TMSTO/TM10)*100)
+SC10P = Value((SCSTO/SC10)*100)
+IB10P = Value((IBSTO/IB10)*100)
+MRT10P = Value((MRTSTO/MRT10)*100)
+PRS10P = Value((PRSSTO/PRS10)*100)
+BOC10P = Value((BOCSTO/BOC10)*100)
+STM10P = Value((STMSTO/STM10)*100)
+CO10P = Value((COSTO/CO10)*100)
+WS10P = Value((WSSTO/WS10)*100)
+DEL10P = Value((DELSTO/DEL10)*100)
+BBSA = Value(BBG - BBSTO,
+	PICTURE="%10.0f",
+	MISSTR="      -NR-",
+	UNDEF="      -NR-",
+)
+ENSA = Value(ENG - ENSTO)
+NHSA = Value(NHG - NHSTO)
+BUSA = Value(BUG - BUSTO)
+HDSA = Value(HDG - HDSTO)
+COSA = Value(COG - COSTO)
+WSSA = Value(WSG - WSSTO)
+FMSA = Value(FMG - FMSTO)
+MRTSA = Value(MRTG - MRTSTO)
+BURSA = Value(BNG - BNSTO)
+BARSA = Value(BRG - BRSTO)
+OWNSA = Value(OWG - OWSTO)
+MARSA = Value(MRG - MRSTO)
+SHASA = Value(SHAG - SHASTO)
+FOLSA = Value(FOLG - FOLSTO,
+	MISSTR="      -NF-",
+	UNDEF="      -NF-",
+)
+FOLSA12 = Value(FOLG - FLSTO12)
+FOLSA18 = Value(FOLG - FLSTO18)
+FOLSA00 = Value(FOLG - FLSTO00)
+FOLSA06 = Value(FOLG - FLSTO06)
+#%SACSA =   %SACG - %SACSTO
+OROSA = Value(OROG - OROSTO,
+	MISSTR="      -NR-",
+	UNDEF="      -NR-",
+)
+LOSSA = Value(LOSG - LOSSTO)
+NBBSA = Value(NBBG - NBBSTO)
+TULSA = Value(TULG - TULSTO)
+INDSA = Value(INDG - INDSTO)
+DELSA = Value(DELG - DELSTO)
+BDCSA = Value(BDCG - BDCSTO)
+#  #IF %CAMG > %CAMSTO
+#       %EBMSA =   %EBMG - %EBMSTO
+#  #ELSE
+#       %EBMSA = "          "
+#  #ENDIF
+#  %MMMDD = MONOFYR(%BASDATE) * 100 + DAY(%BASDATE)
+#  #IF 0201 =< %MMMDD  AND  %MMMDD =< 0731
+#     %PFSA  = "       N/A"
+#     %TMSA  = "       N/A"
+#     %SCSA  = "       N/A"
+#     %IBSA  = "       N/A"
+#     %FRISA = "       N/A"
+#     %CAMSA = "       N/A"
+#     %DONSA = "       N/A"
+#     %NEXSA = "       N/A"
+#     %NWMSA = "       N/A"
+#     %PRSSA = "       N/A"
+#     %BOCSA = "       N/A"
+#     %STMSA = "       N/A"
+#  #ELSE
+PFSA = Value(PFG - PFSTO)
+TMSA = Value(TMG - TMSTO)
+SCSA = Value(SCG - SCSTO)
+IBSA = Value(IBG - IBSTO)
+FRISA = Value(FRIG - FRISTO)
+CAMSA = Value(CAMG - CAMSTO)
+DONSA = Value(DONG - DONSTO)
+NEXSA = Value(NEXG - NEXSTO)
+NWMSA = Value(NWMG - NWMSTO)
+PRSSA = Value(PRSG - PRSSTO)
+BOCSA = Value(BOCG - BOCSTO)
+STMSA = Value(STMG - STMSTO)
+#
+#  #IF %CAMG > %CAMSTO
+#       %EBMSA =   %EBMG - %EBMSTO
+#  #ELSE
+#       %EBMSA = "          "
+#  #ENDIF
+#  %MMMDD = MONOFYR(%BASDATE) * 100 + DAY(%BASDATE)
+#  #IF 0201 =< %MMMDD  AND  %MMMDD =< 0731
+#     %PFSA  = "       N/A"
+#     %TMSA  = "       N/A"
+#     %SCSA  = "       N/A"
+#     %IBSA  = "       N/A"
+#     %FRISA = "       N/A"
+#     %CAMSA = "       N/A"
+#     %DONSA = "       N/A"
+#     %NEXSA = "       N/A"
+#     %NWMSA = "       N/A"
+#     %PRSSA = "       N/A"
+#     %BOCSA = "       N/A"
+#     %STMSA = "       N/A"
+#  #ELSE
+#
+#
+#
+#  Basin summations of total above top of conservation to include
+#  only encroached projects.
+#
+if ENSA <= 0:
+	ENA = Value(0)
+else:
+	ENA = Value(ENSA)
+	
+if NHSA <= 0:
+	NHA = Value(0)
+else:
+	NHA = Value(NHSA)
+	
+#
+if BUSA <= 0:
+	BCA = Value(0)
+else:
+	BCA = Value(BUSA)
+	
+#
+if HDSA <= 0:
+	HDA = Value(0)
+else:
+	HDA = Value(HDSA)
+	
+#
+if COSA <= 0:
+	COA = Value(0)
+else:
+	COA = Value(COSA)
+	
+#
+if WSSA <= 0:
+	WSA = Value(0)
+else:
+	WSA = Value(WSSA)
+	
+#
+if FMSA <= 0:
+	FMA = Value(0)
+else:
+	FMA = Value(FMSA)
+	
+#
+if MRTSA <= 0:
+	MRTA = Value(0)
+else:
+	MRTA = Value(MRTSA)
+	
+#
+if BURSA <= 0:
+	BNA = Value(0)
+else:
+	BNA = Value(BURSA)
+	
+#
+if BARSA <= 0:
+	BRA = Value(0)
+else:
+	BRA = Value(BARSA)
+	
+#
+if OWNSA <= 0:
+	OWA = Value(0)
+else:
+	OWA = Value(OWNSA)
+	
+#
+if MARSA <= 0:
+	MRA = Value(0)
+else:
+	MRA = Value(MARSA)
+	
+#
+if SHASA <= 0:
+	SHAA = Value(0)
+else:
+	SHAA = Value(SHASA)
+	
+#
+if BBSA <= 0:
+	BBTA = Value(0)
+else:
+	BBTA = Value(BBSA)
+	
+#
+if FOLSA <= 0:
+	FOLA = Value(0)
+else:
+	FOLA = Value(FOLSA)
+	
+if FOLSA12 <= 0:
+	FOLA12 = Value(0)
+else:
+	FOLA12 = Value(FOLSA12)
+	
+if FOLSA18 <= 0:
+	FOLA18 = Value(0)
+else:
+	FOLA18 = Value(FOLSA18)
+	
+if FOLSA00 <= 0:
+	FOLA00 = Value(0)
+else:
+	FOLA00 = Value(FOLSA00)
+	
+if FOLSA06 <= 0:
+	FOLA06 = Value(0)
+else:
+	FOLA06 = Value(FOLSA06)
+	
+#   #IF %SACSA =< 0
+#        %SACA = 0
+#   #ELSE
+#        %SACA = %SACSA
+#   #ENDIF
+##
+if OROSA <= 0:
+	OROA = Value(0)
+else:
+	OROA = Value(OROSA)
+	
+##
+if LOSSA <= 0:
+	LOSA = Value(0)
+else:
+	LOSA = Value(LOSSA)
+	
+##
+if NBBSA <= 0:
+	NBBA = Value(0)
+else:
+	NBBA = Value(NBBSA)
+	
+##
+if TULSA <= 0:
+	TULA = Value(0)
+else:
+	TULA = Value(TULSA)
+	
+#
+if INDSA <= 0:
+	INDA = Value(0)
+else:
+	INDA = Value(INDSA)
+	
+##
+if DELSA <= 0:
+	DELA = Value(0)
+else:
+	DELA = Value(DELSA)
+	
+##
+if BDCSA <= 0:
+	BDCA = Value(0)
+else:
+	BDCA = Value(BDCSA)
+	
+##
+if PFSA <= 0:
+	PFA = Value(0)
+else:
+	PFA = Value(PFSA)
+	
+#
+if TMSA <= 0:
+	TMA = Value(0)
+else:
+	TMA = Value(TMSA)
+	
+#
+if SCSA <= 0:
+	SCA = Value(0)
+else:
+	SCA = Value(SCSA)
+	
+#
+if IBSA <= 0:
+	IBA = Value(0)
+else:
+	IBA = Value(IBSA)
+	
+#
+if FRISA <= 0:
+	FRIA = Value(0)
+else:
+	FRIA = Value(FRISA)
+	
+##
+if CAMSA <= 0:
+	CAMA = Value(0)
+else:
+	CAMA = Value(CAMSA)
+	
+##
+if DONSA <= 0:
+	DONA = Value(0)
+else:
+	DONA = Value(DONSA)
+	
+##
+if NEXSA <= 0:
+	NEXA = Value(0)
+else:
+	NEXA = Value(NEXSA)
+	
+##
+if NWMSA <= 0:
+	NWMA = Value(0)
+else:
+	NWMA = Value(NWMSA)
+	
+##
+if PRSSA <= 0:
+	PRSA = Value(0)
+else:
+	PRSA = Value(PRSSA)
+	
+##
+if BOCSA <= 0:
+	BOCA = Value(0)
+else:
+	BOCA = Value(BOCSA)
+	
+##
+if STMSA <= 0:
+	STMA = Value(0)
+else:
+	STMA = Value(STMSA)
+	
+BBO = Value(
+	DBLOC="Black Butte",
+	DBPTYP="Ave",
+	DBPAR="Flow-Res Out",
+	DBVER="Calc-val",
+	DBINT="~1Day",
+	DBDUR="1Day",
+	PICTURE="%10.0f",
+	MISSTR="      -NR-",
+	UNDEF="      -NR-",
+	TIME=BASDATE,
+	DBUNITS="cfs",
+	DBTZ="PST8PDT",
+)
+NHO = Value(
+	DBLOC="New Hogan",
+)
+BUO = Value(
+	DBLOC="Eastman Lake",
+)
+HDO = Value(
+	DBLOC="Hensley Lake",
+)
+PFO = Value(
+	DBLOC="Pine Flat Lake",
+)
+TMO = Value(
+	DBLOC="Lake Kaweah",
+)
+SCO = Value(
+	DBLOC="Success Lake",
+)
+IBO = Value(
+	DBLOC="Lake Isabella",
+)
+COO = Value(
+	DBLOC="Lake Mendocino",
+)
+WSO = Value(
+	DBLOC="Lake Sonoma",
+)
+MRTO = Value(
+	DBLOC="Martis Creek",
+)
+BNO = Value(
+	DBLOC="Burns",
+)
+BRO = Value(
+	DBLOC="Bear",
+)
+OWO = Value(
+	DBLOC="Owens",
+)
+MRO = Value(
+	DBLOC="Mariposa",
+)
+FMO = Value(
+	DBLOC="Farmington Dam",
+	DBVER="Calc-RCF+FRMQ",
+)
+ENO = Value(
+	DBLOC="Englebright Lake",
+	DBVER="Calc-thumb",
+)
+SHAO = Value(
+	DBLOC="Shasta",
+	DBVER="Calc-usbr",
+)
+FOLO = Value(
+	DBLOC="Folsom Lake",
+	MISSTR="    -NR-",
+	UNDEF="    -NR-",
+)
+NWMO = Value(
+	DBLOC="New Melones",
+)
+TULO = Value(
+	DBLOC="Tulloch",
+)
+FRIO = Value(
+	DBLOC="Friant Dam",
+	DBVER="Calc-usbr",
+)
+OROO = Value(
+	DBLOC="Oroville Dam",
+	DBVER="MANUAL",
+	MISSTR="     -NR-",
+	UNDEF="     -NR-",
+)
+INDO = Value(
+	DBLOC="Indian Valley",
+)
+LOSO = Value(
+	DBLOC="Los Banos",
+)
+DELO = Value(
+	DBLOC="Del Valle",
+)
+DONO = Value(
+	DBLOC="Don Pedro",
+)
+CAMO = Value(
+	DBLOC="Camanche",
+)
+NEXO = Value(
+	DBLOC="New Exchequer",
+)
+PRSO = Value(
+	DBLOC="Prosser",
+)
+BOCO = Value(
+	DBLOC="Boca",
+)
+STMO = Value(
+	DBLOC="Stampede",
+)
+BDCO = Value(
+	DBLOC="Big Dry Cr",
+)
+NBBO = Value(
+	DBLOC="New Bullards Bar",
+	DBVER="Calc-cdec",
+)
+FOLO12 = Value(
+	DBLOC="Folsom Lake",
+	DBPAR="Flow-Reservoir Outflow",
+	DBPTYP="Inst",
+	DBINT="1Hour",
+	DBDUR=0,
+	DBVER="CDEC-confidential-raw",
+	MISSTR="    -NR-",
+	UNDEF="    -NR-",
+	DBTZ="UTC",
+	TIME=T12,
+)
+FOLO18 = Value(
+	TIME=T18,
+)
+FOLO00 = Value(
+	TIME=T00,
+)
+FOLO06 = Value(
+	TIME=T06,
+)
+BBI = Value(
+	DBLOC="Black Butte",
+	DBPTYP="Ave",
+	DBPAR="Flow-Res In",
+	DBVER="Calc-val",
+	DBINT="~1Day",
+	DBDUR="1Day",
+	PICTURE="%10.0f",
+	MISSTR="      -NR-",
+	UNDEF="      -NR-",
+	TIME=BASDATE,
+	DBUNITS="cfs",
+	DBTZ="PST8PDT",
+)
+NHI = Value(
+	DBLOC="New Hogan",
+)
+BUI = Value(
+	DBLOC="Eastman Lake",
+)
+HDI = Value(
+	DBLOC="Hensley Lake",
+)
+PFI = Value(
+	DBLOC="Pine Flat Lake",
+)
+TMI = Value(
+	DBLOC="Lake Kaweah",
+)
+SCI = Value(
+	DBLOC="Success Lake",
+)
+IBI = Value(
+	DBLOC="Lake Isabella",
+)
+COI = Value(
+	DBLOC="Lake Mendocino",
+)
+WSI = Value(
+	DBLOC="Lake Sonoma",
+)
+MRTI = Value(
+	DBLOC="Martis Creek",
+)
+BNI = Value(
+	DBLOC="Burns",
+)
+BRI = Value(
+	DBLOC="Bear",
+)
+OWI = Value(
+	DBLOC="Owens",
+)
+MRI = Value(
+	DBLOC="Mariposa",
+)
+FMI = Value(
+	DBLOC="Farmington Dam",
+	DBVER="Calc-RCF+FRMQ",
+)
+ENI = Value(
+	DBLOC="Englebright Lake",
+	DBVER="Calc-val",
+)
+SHAI = Value(
+	DBLOC="Shasta",
+	DBVER="Raw-USBR-Combined",
+)
+FOLI = Value(
+	DBLOC="Folsom Lake",
+	MISSTR="    -NR-",
+	UNDEF="    -NR-",
+)
+NWMI = Value(
+	DBLOC="New Melones",
+)
+TULI = Value(
+	DBLOC="Tulloch",
+)
+FRII = Value(
+	DBLOC="Friant Dam",
+)
+OROI = Value(
+	DBLOC="Oroville Dam",
+	DBVER="MANUAL",
+	MISSTR="     -NR-",
+	UNDEF="     -NR-",
+)
+INDI = Value(
+	DBLOC="Indian Valley",
+)
+LOSI = Value(
+	DBLOC="Los Banos",
+)
+DELI = Value(
+	DBLOC="Del Valle",
+)
+DONI = Value(
+	DBLOC="Don Pedro",
+)
+CAMI = Value(
+	DBLOC="Camanche",
+)
+NEXI = Value(
+	DBLOC="New Exchequer",
+)
+PRSI = Value(
+	DBLOC="Prosser",
+)
+BOCI = Value(
+	DBLOC="Boca",
+)
+STMI = Value(
+	DBLOC="Stampede",
+)
+BDCI = Value(
+	DBLOC="Big Dry Cr",
+)
+NBBI = Value(
+	DBLOC="New Bullards Bar",
+	DBVER="Calc-cdec",
+)
+FOLI12 = Value(
+	DBLOC="Folsom Lake",
+	DBVER="Raw-USBR-Combined",
+	DBINT="1Hour",
+	DBPTYP="Ave",
+	DBDUR="1Hour",
+	DBTZ="UTC",
+	TIME=T12,
+)
+FOLI18 = Value(
+	TIME=T18,
+)
+FOLI00 = Value(
+	TIME=T00,
+)
+FOLI06 = Value(
+	TIME=T06,
+)
+#   A=SAN JOAQUIN    B=FRIANT                                     F=
+#   A=NORTH YUBA     B=NEW BULLARDS BAR
+UTDATE = Value(BASDATE)
+T1 = Value(UTDATE-timedelta(years=9),
+	PICTURE="%d%b%Y",
+)
+T2 = Value(UTDATE-timedelta(years=8))
+T3 = Value(UTDATE-timedelta(years=7))
+T4 = Value(UTDATE-timedelta(years=6))
+T5 = Value(UTDATE-timedelta(years=5))
+T6 = Value(UTDATE-timedelta(years=4))
+T7 = Value(UTDATE-timedelta(years=3))
+T8 = Value(UTDATE-timedelta(years=2))
+T9 = Value(UTDATE-timedelta(years=1))
+EOSTO = Value(
+	PICTURE=" %7.0f",
+	MISSTR="     -NR-",
+	UNDEF="         ",
+	TIME=UTDATE,
+	DBTZ="MST7MDT",
+	DBLOC="Echo",
+	DBPTYP="Inst",
+	DBPAR="Stor",
+	DBINT="~1Day",
+	DBDUR=0,
+	DBVER="Raw-USBRSLC",
+	DBUNITS="ac-ft",
+	A="WEBER",
+	B="ECHO",
+	C="STOR-RES EOP",
+	E="1DAY",
+)
+#   FILE = /shared/rtsc7db.dss               TYPE=DSS
+EO1 = Value(
+	TIME=T1,
+)
+EO2 = Value(
+	TIME=T2,
+)
+EO3 = Value(
+	TIME=T3,
+)
+EO4 = Value(
+	TIME=T4,
+)
+EO5 = Value(
+	TIME=T6,
+)
+EO6 = Value(
+	TIME=T6,
+)
+EO7 = Value(
+	TIME=T7,
+)
+EO8 = Value(
+	TIME=T8,
+)
+EO9 = Value(
+	TIME=T9,
+)
+EO10 = Value(Value.average(EOSTO, EO1, EO2, EO3, EO4, EO5, EO6, EO7, EO8, EO9, treat="IGNORE"))
+RKSTO = Value(
+	DBLOC="Rockport",
+	DBVER="Rev-USBRSLC",
+	TIME=UTDATE,
+)
+RK1 = Value(
+	TIME=T1,
+)
+RK2 = Value(
+	TIME=T2,
+)
+RK3 = Value(
+	TIME=T3,
+)
+RK4 = Value(
+	TIME=T4,
+)
+RK5 = Value(
+	TIME=T6,
+)
+RK6 = Value(
+	TIME=T6,
+)
+RK7 = Value(
+	TIME=T7,
+)
+RK8 = Value(
+	TIME=T8,
+)
+RK9 = Value(
+	TIME=T9,
+)
+RK10 = Value(Value.average(RKSTO, RK1, RK2, RK3, RK4, RK5, RK6, RK7, RK8, RK9, treat="IGNORE"))
+ERSTO = Value(
+	DBLOC="EchoRockport",
+	TIME=UTDATE,
+)
+ER1 = Value(
+	TIME=T1,
+)
+ER2 = Value(
+	TIME=T2,
+)
+ER3 = Value(
+	TIME=T3,
+)
+ER4 = Value(
+	TIME=T4,
+)
+ER5 = Value(
+	TIME=T6,
+)
+ER6 = Value(
+	TIME=T6,
+)
+ER7 = Value(
+	TIME=T7,
+)
+ER8 = Value(
+	TIME=T8,
+)
+ER9 = Value(
+	TIME=T9,
+)
+ER10 = Value(Value.average(ERSTO, ER1, ER2, ER3, ER4, ER5, ER6, ER7, ER8, ER9, treat="IGNORE"))
+LCSTO = Value(
+	DBLOC="Lost Cr",
+	A="LOST CR",
+	B="LOST CR",
+	TIME=UTDATE,
+)
+LC1 = Value(
+	TIME=T1,
+)
+LC2 = Value(
+	TIME=T2,
+)
+LC3 = Value(
+	TIME=T3,
+)
+LC4 = Value(
+	TIME=T4,
+)
+LC5 = Value(
+	TIME=T6,
+)
+LC6 = Value(
+	TIME=T6,
+)
+LC7 = Value(
+	TIME=T7,
+)
+LC8 = Value(
+	TIME=T8,
+)
+LC9 = Value(
+	TIME=T9,
+)
+LC10 = Value(Value.average(LCSTO, LC1, LC2, LC3, LC4, LC5, LC6, LC7, LC8, LC9, treat="IGNORE"))
+ECSTO = Value(
+	DBLOC="East Canyon",
+	A="EAST CANYON CR",
+	B="EAST CANYON",
+	TIME=UTDATE,
+)
+EC1 = Value(
+	TIME=T1,
+)
+EC2 = Value(
+	TIME=T2,
+)
+EC3 = Value(
+	TIME=T3,
+)
+EC4 = Value(
+	TIME=T4,
+)
+EC5 = Value(
+	TIME=T6,
+)
+EC6 = Value(
+	TIME=T6,
+)
+EC7 = Value(
+	TIME=T7,
+)
+EC8 = Value(
+	TIME=T8,
+)
+EC9 = Value(
+	TIME=T9,
+)
+EC10 = Value(Value.average(ECSTO, EC1, EC2, EC3, EC4, EC5, EC6, EC7, EC8, EC9, treat="IGNORE"))
+PVSTO = Value(
+	DBLOC="Pineview",
+	DBVER="Raw-USBRSLC",
+	A="OGDEN",
+	B="PINEVIEW",
+	TIME=UTDATE,
+)
+PV1 = Value(
+	TIME=T1,
+)
+PV2 = Value(
+	TIME=T2,
+)
+PV3 = Value(
+	TIME=T3,
+)
+PV4 = Value(
+	TIME=T4,
+)
+PV5 = Value(
+	TIME=T6,
+)
+PV6 = Value(
+	TIME=T6,
+)
+PV7 = Value(
+	TIME=T7,
+)
+PV8 = Value(
+	TIME=T8,
+)
+PV9 = Value(
+	TIME=T9,
+)
+PV10 = Value(Value.average(PVSTO, PV1, PV2, PV3, PV4, PV5, PV6, PV7, PV8, PV9, treat="IGNORE"))
+STSTO = Value(
+	DBLOC="Starvation",
+	DBVER="Rev-USBRSLC",
+	A="STRAWBERRY",
+	B="STARVATION",
+	TIME=UTDATE,
+)
+ST1 = Value(
+	TIME=T1,
+)
+ST2 = Value(
+	TIME=T2,
+)
+ST3 = Value(
+	TIME=T3,
+)
+ST4 = Value(
+	TIME=T4,
+)
+ST5 = Value(
+	TIME=T6,
+)
+ST6 = Value(
+	TIME=T6,
+)
+ST7 = Value(
+	TIME=T7,
+)
+ST8 = Value(
+	TIME=T8,
+)
+ST9 = Value(
+	TIME=T9,
+)
+ST10 = Value(Value.average(STSTO, ST1, ST2, ST3, ST4, ST5, ST6, ST7, ST8, ST9, treat="IGNORE"))
+VLSTO = Value(
+	DBLOC="Vallecito",
+	A="LOS PINOS",
+	B="VALLECITO",
+	TIME=UTDATE,
+)
+VL1 = Value(
+	TIME=T1,
+)
+VL2 = Value(
+	TIME=T2,
+)
+VL3 = Value(
+	TIME=T3,
+)
+VL4 = Value(
+	TIME=T4,
+)
+VL5 = Value(
+	TIME=T6,
+)
+VL6 = Value(
+	TIME=T6,
+)
+VL7 = Value(
+	TIME=T7,
+)
+VL8 = Value(
+	TIME=T8,
+)
+VL9 = Value(
+	TIME=T9,
+)
+VL10 = Value(Value.average(VLSTO, VL1, VL2, VL3, VL4, VL5, VL6, VL7, VL8, VL9, treat="IGNORE"))
+LMSTO = Value(
+	DBLOC="Lemon",
+	DBVER="Rev-USBRSLC",
+	A="FLORIDA",
+	B="LEMON",
+	TIME=UTDATE,
+)
+LM1 = Value(
+	TIME=T1,
+)
+LM2 = Value(
+	TIME=T2,
+)
+LM3 = Value(
+	TIME=T3,
+)
+LM4 = Value(
+	TIME=T4,
+)
+LM5 = Value(
+	TIME=T6,
+)
+LM6 = Value(
+	TIME=T6,
+)
+LM7 = Value(
+	TIME=T7,
+)
+LM8 = Value(
+	TIME=T8,
+)
+LM9 = Value(
+	TIME=T9,
+)
+LM10 = Value(Value.average(LMSTO, LM1, LM2, LM3, LM4, LM5, LM6, LM7, LM8, LM9, treat="IGNORE"))
+BMSTO = Value(
+	DBLOC="Blue Mesa",
+	A="GUNNISON",
+	B="BLUE MESA",
+	TIME=UTDATE,
+)
+BM1 = Value(
+	TIME=T1,
+)
+BM2 = Value(
+	TIME=T2,
+)
+BM3 = Value(
+	TIME=T3,
+)
+BM4 = Value(
+	TIME=T4,
+)
+BM5 = Value(
+	TIME=T6,
+)
+BM6 = Value(
+	TIME=T6,
+)
+BM7 = Value(
+	TIME=T7,
+)
+BM8 = Value(
+	TIME=T8,
+)
+BM9 = Value(
+	TIME=T9,
+)
+BM10 = Value(Value.average(BMSTO, BM1, BM2, BM3, BM4, BM5, BM6, BM7, BM8, BM9, treat="IGNORE"))
+PNSTO = Value(
+	DBLOC="Paonia",
+	A="MUDDY CR",
+	B="PAONIA",
+	TIME=UTDATE,
+)
+PN1 = Value(
+	TIME=T1,
+)
+PN2 = Value(
+	TIME=T2,
+)
+PN3 = Value(
+	TIME=T3,
+)
+PN4 = Value(
+	TIME=T4,
+)
+PN5 = Value(
+	TIME=T6,
+)
+PN6 = Value(
+	TIME=T6,
+)
+PN7 = Value(
+	TIME=T7,
+)
+PN8 = Value(
+	TIME=T8,
+)
+PN9 = Value(
+	TIME=T9,
+)
+PN10 = Value(Value.average(PNSTO, PN1, PN2, PN3, PN4, PN5, PN6, PN7, PN8, PN9, treat="IGNORE"))
+RFSTO = Value(
+	DBLOC="Red Fleet",
+	A="BRUSH CR",
+	B="RED FLEET",
+	TIME=UTDATE,
+)
+RF1 = Value(
+	TIME=T1,
+)
+RF2 = Value(
+	TIME=T2,
+)
+RF3 = Value(
+	TIME=T3,
+)
+RF4 = Value(
+	TIME=T4,
+)
+RF5 = Value(
+	TIME=T6,
+)
+RF6 = Value(
+	TIME=T6,
+)
+RF7 = Value(
+	TIME=T7,
+)
+RF8 = Value(
+	TIME=T8,
+)
+RF9 = Value(
+	TIME=T9,
+)
+RF10 = Value(Value.average(RFSTO, RF1, RF2, RF3, RF4, RF5, RF6, RF7, RF8, RF9, treat="IGNORE"))
+RGSTO = Value(
+	DBLOC="Ridgway",
+	A="UNCOMPAHGRE",
+	B="RIDGWAY",
+	TIME=UTDATE,
+)
+RG1 = Value(
+	TIME=T1,
+)
+RG2 = Value(
+	TIME=T2,
+)
+RG3 = Value(
+	TIME=T3,
+)
+RG4 = Value(
+	TIME=T4,
+)
+RG5 = Value(
+	TIME=T6,
+)
+RG6 = Value(
+	TIME=T6,
+)
+RG7 = Value(
+	TIME=T7,
+)
+RG8 = Value(
+	TIME=T8,
+)
+RG9 = Value(
+	TIME=T9,
+)
+RG10 = Value(Value.average(RGSTO, RG1, RG2, RG3, RG4, RG5, RG6, RG7, RG8, RG9, treat="IGNORE"))
+JRSTO = Value(
+	DBLOC="Jordanelle",
+	A="PROVO",
+	B="JORDANELLE",
+	TIME=UTDATE,
+)
+JR1 = Value(
+	TIME=T1,
+)
+JR2 = Value(
+	TIME=T2,
+)
+JR3 = Value(
+	TIME=T3,
+)
+JR4 = Value(
+	TIME=T4,
+)
+JR5 = Value(
+	TIME=T6,
+)
+JR6 = Value(
+	TIME=T6,
+)
+JR7 = Value(
+	TIME=T7,
+)
+JR8 = Value(
+	TIME=T8,
+)
+JR9 = Value(
+	TIME=T9,
+)
+JR10 = Value(Value.average(JRSTO, JR1, JR2, JR3, JR4, JR5, JR6, JR7, JR8, JR9, treat="IGNORE"))
+LDSTO = Value(
+	DBLOC="Little Dell",
+	DBVER="Raw-USBRSLC;MANUAL",
+	A="DELL CR",
+	B="LITTLE DELL",
+	TIME=UTDATE,
+)
+LD1 = Value(
+	TIME=T1,
+)
+LD2 = Value(
+	TIME=T2,
+)
+LD3 = Value(
+	TIME=T3,
+)
+LD4 = Value(
+	TIME=T4,
+)
+LD5 = Value(
+	TIME=T6,
+)
+LD6 = Value(
+	TIME=T6,
+)
+LD7 = Value(
+	TIME=T7,
+)
+LD8 = Value(
+	TIME=T8,
+)
+LD9 = Value(
+	TIME=T9,
+)
+LD10 = Value(Value.average(LDSTO, LD1, LD2, LD3, LD4, LD5, LD6, LD7, LD8, LD9, treat="IGNORE"))
+MDSTO = Value(
+	DBLOC="Mountain Dell",
+	A="PARLEYS CR",
+	B="MOUNTAIN DELL",
+	TIME=UTDATE,
+)
+MD1 = Value(
+	TIME=T1,
+)
+MD2 = Value(
+	TIME=T2,
+)
+MD3 = Value(
+	TIME=T3,
+)
+MD4 = Value(
+	TIME=T4,
+)
+MD5 = Value(
+	TIME=T6,
+)
+MD6 = Value(
+	TIME=T6,
+)
+MD7 = Value(
+	TIME=T7,
+)
+MD8 = Value(
+	TIME=T8,
+)
+MD9 = Value(
+	TIME=T9,
+)
+MD10 = Value(Value.average(MDSTO, MD1, MD2, MD3, MD4, MD5, MD6, MD7, MD8, MD9, treat="IGNORE"))
+# UT/CO %Full
+EO10P = Value((EOSTO/EO10)*100,
+	PICTURE="  %4.0f",
+)
+PV10P = Value((PVSTO/PV10)*100)
+EC10P = Value((ECSTO/EC10)*100)
+LC10P = Value((LCSTO/LC10)*100)
+RK10P = Value((RKSTO/RK10)*100)
+ER10P = Value((ERSTO/ER10)*100)
+LD10P = Value((LDSTO/LD10)*100)
+MD10P = Value((MDSTO/MD10)*100)
+JR10P = Value((JRSTO/JR10)*100)
+RF10P = Value((RFSTO/RF10)*100)
+ST10P = Value((STSTO/ST10)*100)
+PN10P = Value((PNSTO/PN10)*100)
+BM10P = Value((BMSTO/BM10)*100)
+RG10P = Value((RGSTO/RG10)*100)
+LM10P = Value((LMSTO/LM10)*100)
+VL10P = Value((VLSTO/VL10)*100)
+EOP = Value(EOSTO / EOG * 100.0,
+	PICTURE=" %3.0f",
+)
+RKP = Value(RKSTO / RKG * 100.0)
+ERP = Value(ERSTO / ERG * 100.0)
+LCP = Value(LCSTO / LCG * 100.0)
+ECP = Value(ECSTO / ECG * 100.0)
+PVP = Value(PVSTO / PVG * 100.0)
+STP = Value(STSTO / STVG * 100.0)
+VLP = Value(VLSTO / VLG * 100.0)
+LMP = Value(LMSTO / LMG * 100.0)
+BMP = Value(BMSTO / BMG * 100.0)
+PNP = Value(PNSTO / PNG * 100.0)
+RFP = Value(RFSTO / RFG * 100.0)
+RGP = Value(RGSTO / RGG * 100.0)
+JRP = Value(JRSTO / JRG * 100.0)
+LDP = Value(LDSTO / LDG * 100.0)
+MDP = Value(MDSTO / MDG * 100.0)
+#   %MPP = %MPSTO / %MPG * 100.0
+#   %CRP = %CRSTO / %CRG * 100.0
+EOTCS = Value(
+	DBPAR="Stor-Top Con",
+	DBVER="Rev-USBRSLC",
+	PICTURE="  %6.0f",
+	MISSTR="   -NR-",
+	UNDEF="   -NR-",
+	TIME=BASDATE,
+	DBLOC="Echo",
+)
+RKTCS = Value(
+	DBLOC="Rockport",
+)
+ERTCS = Value(
+	DBLOC="EchoRockport",
+	DBVER="Rev-USBRSLC;Adjusted",
+)
+LCTCS = Value(
+	DBLOC="Lost Cr",
+	DBVER="Rev-USBRSLC",
+)
+ECTCS = Value(
+	DBLOC="East Canyon",
+)
+PVTCS = Value(
+	DBLOC="Pineview",
+)
+STTCS = Value(
+	DBLOC="Starvation",
+)
+VLTCS = Value(
+	DBLOC="Vallecito",
+)
+LMTCS = Value(
+	DBLOC="Lemon",
+)
+BMTCS = Value(
+	DBLOC="Blue Mesa",
+)
+PNTCS = Value(
+	DBLOC="Paonia",
+)
+RFTCS = Value(
+	DBLOC="Red Fleet",
+)
+RGTCS = Value(
+	DBLOC="Ridgway",
+)
+JRTCS = Value(
+	DBLOC="Jordanelle",
+)
+LDTCS = Value(
+	DBLOC="Little Dell",
+	DBVER="Calc-USBRSLC;MANUAL",
+)
+MDTCS = Value(
+	DBLOC="Mountain Dell",
+)
+EOSP = Value(EOSTO - EOTCS,
+	PICTURE="  %7.0f",
+	MISSTR="    -NR-",
+	UNDEF="    -NR-",
+)
+RKSP = Value(RKSTO - RKTCS)
+ERSP = Value(ERSTO - ERTCS)
+LCSP = Value(LCSTO - LCTCS)
+ECSP = Value(ECSTO - ECTCS)
+PVSP = Value(PVSTO - PVTCS)
+STSP = Value(STSTO - STTCS)
+VLSP = Value(VLSTO - VLTCS)
+LMSP = Value(LMSTO - LMTCS)
+BMSP = Value(BMSTO - BMTCS)
+PNSP = Value(PNSTO - PNTCS)
+RFSP = Value(RFSTO - RFTCS)
+RGSP = Value(RGSTO - RGTCS)
+JRSP = Value(JRSTO - JRTCS)
+LDSP = Value(LDSTO - LDTCS)
+MDSP = Value(MDSTO - MDTCS)
+DUMS = Value(0.0)
+EOS = Value(Value.max(DUMS, EOSP, treat="MISS"))
+RKS = Value(Value.max(DUMS, RKSP, treat="MISS"))
+ERS = Value(Value.max(DUMS, ERSP, treat="MISS"))
+LCS = Value(Value.max(DUMS, LCSP, treat="MISS"))
+ECS = Value(Value.max(DUMS, ECSP, treat="MISS"))
+PVS = Value(Value.max(DUMS, PVSP, treat="MISS"))
+STS = Value(Value.max(DUMS, STSP, treat="MISS"))
+VLS = Value(Value.max(DUMS, VLSP, treat="MISS"))
+LMS = Value(Value.max(DUMS, LMSP, treat="MISS"))
+BMS = Value(Value.max(DUMS, BMSP, treat="MISS"))
+PNS = Value(Value.max(DUMS, PNSP, treat="MISS"))
+RFS = Value(Value.max(DUMS, RFSP, treat="MISS"))
+RGS = Value(Value.max(DUMS, RGSP, treat="MISS"))
+JRS = Value(Value.max(DUMS, JRSP, treat="MISS"))
+LDS = Value(Value.max(DUMS, LDSP, treat="MISS"))
+MDS = Value(Value.max(DUMS, MDSP, treat="MISS"))
+#SPACE AVAILABLE
+EOSA = Value(EOG - EOSTO,
+	PICTURE="%7.0f",
+	MISSTR="    -NR-",
+	UNDEF="    -NR-",
+)
+RKSA = Value(RKG - RKSTO)
+ERSA = Value(ERG - ERSTO)
+LCSA = Value(LCG - LCSTO)
+ECSA = Value(ECG - ECSTO)
+PVSA = Value(PVG - PVSTO)
+STSA = Value(STVG - STSTO)
+VLSA = Value(VLG - VLSTO)
+LMSA = Value(LMG - LMSTO)
+BMSA = Value(BMG - BMSTO)
+PNSA = Value(PNG - PNSTO)
+RFSA = Value(RFG - RFSTO)
+RGSA = Value(RGG - RGSTO)
+JRSA = Value(JRG - JRSTO)
+LDSA = Value(LDG - LDSTO)
+MDSA = Value(MDG - MDSTO)
+EOSA = Value(Value.max(DUMS, EOSA, treat="MISS"))
+RKSA = Value(Value.max(DUMS, RKSA, treat="MISS"))
+LCSA = Value(Value.max(DUMS, LCSA, treat="MISS"))
+ECSA = Value(Value.max(DUMS, ECSA, treat="MISS"))
+PVSA = Value(Value.max(DUMS, PVSA, treat="MISS"))
+STSA = Value(Value.max(DUMS, STSA, treat="MISS"))
+VLSA = Value(Value.max(DUMS, VLSA, treat="MISS"))
+LMSA = Value(Value.max(DUMS, LMSA, treat="MISS"))
+BMSA = Value(Value.max(DUMS, BMSA, treat="MISS"))
+PNSA = Value(Value.max(DUMS, PNSA, treat="MISS"))
+RFSA = Value(Value.max(DUMS, RFSA, treat="MISS"))
+RGSA = Value(Value.max(DUMS, RGSA, treat="MISS"))
+JRSA = Value(Value.max(DUMS, JRSA, treat="MISS"))
+LDSA = Value(Value.max(DUMS, LDSA, treat="MISS"))
+MDSA = Value(Value.max(DUMS, MDSA, treat="MISS"))
+DUMF = Value(0.0,
+	PICTURE=" %3.0f",
+)
+if EOSTO > EOTCS and EOG > EOTCS:
+	EOF = Value(( (EOSTO-EOTCS) / (EOG-EOTCS) ) * 100.0)
+else:
+	EOF = Value(0)
+	
+if RKSTO > RKTCS and RKG > RKTCS:
+	RKF = Value(( (RKSTO-RKTCS) / (RKG-RKTCS) ) * 100.0)
+else:
+	RKF = Value(0)
+	
+if ERSTO > ERTCS and ERG > ERTCS:
+	ERF = Value(( (ERSTO-ERTCS) / (ERG-ERTCS) ) * 100.0)
+else:
+	ERF = Value(0)
+	
+if LCSTO > LCTCS and LCG > LCTCS:
+	LCF = Value(( (LCSTO-LCTCS) / (LCG-LCTCS) ) * 100.0)
+else:
+	LCF = Value(0)
+	
+if ECSTO > ECTCS and ECG > ECTCS:
+	ECF = Value(( (ECSTO-ECTCS) / (ECG-ECTCS) ) * 100.0)
+else:
+	ECF = Value(0)
+	
+if PVSTO > PVTCS and PVG > PVTCS:
+	PVF = Value(( (PVSTO-PVTCS) / (PVG-PVTCS) ) * 100.0)
+else:
+	PVF = Value(0)
+	
+if STSTO > STTCS and STG > STTCS:
+	STF = Value(( (STSTO-STTCS) / (STG-STTCS) ) * 100.0)
+else:
+	STF = Value(0)
+	
+if VLSTO > VLTCS and VLG > VLTCS:
+	VLF = Value(( (VLSTO-VLTCS) / (VLG-VLTCS) ) * 100.0)
+else:
+	VLF = Value(0)
+	
+if LMSTO > LMTCS and LMG > LMTCS:
+	LMF = Value(( (LMSTO-LMTCS) / (LMG-LMTCS) ) * 100.0)
+else:
+	LMF = Value(0)
+	
+if BMSTO > BMTCS and BMG > BMTCS:
+	BMF = Value(( (BMSTO-BMTCS) / (BMG-BMTCS) ) * 100.0)
+else:
+	BMF = Value(0)
+	
+if PNSTO > PNTCS and PNG > PNTCS:
+	PNVF = Value(( (PNSTO-PNTCS) / (PNG-PNTCS) ) * 100.0)
+else:
+	PNVF = Value(0)
+	
+if RFSTO > RFTCS and RFG > RFTCS:
+	RFF = Value(( (RFSTO-RFTCS) / (RFG-RFTCS) ) * 100.0)
+else:
+	RFF = Value(0)
+	
+if RGSTO > RGTCS and RGG > RGTCS:
+	RGF = Value(( (RGSTO-RGTCS) / (RGG-RGTCS) ) * 100.0)
+else:
+	RGF = Value(0)
+	if JRSTO > JRTCS and JRG > JRTCS:
+		JRF = Value(( (JRSTO-JRTCS) / (JRG-JRTCS) ) * 100.0)
+	else:
+		JRF = Value(0)
+		
+	if LDSTO > LDTCS and LDG > LDTCS:
+		LDF = Value(( (LDSTO-LDTCS) / (LDG-LDTCS) ) * 100.0)
+	else:
+		LDF = Value(0)
+		
+	if MDSTO > MDTCS and MDG > MDTCS:
+		MDF = Value(( (MDSTO-MDTCS) / (MDG-MDTCS) ) * 100.0)
+	else:
+		MDF = Value(0)
+		
+
+# UT/GRB inflows
+	RKPOUT = Value(
+		DBLOC="Rockport",
+		DBPTYP="Ave",
+		DBPAR="Flow-Res Out",
+		DBDUR="1DAY",
+		DBVER="Raw-USBRSLC",
+		DBUNITS="cfs",
+		TIME=BASDATE,
+		PICTURE="%7.0f",
+		MISSTR="   -NR-",
+	)
+	ECHOUT = Value(
+		DBLOC="Echo",
+	)
+	LSCOUT = Value(
+		DBLOC="Lost Cr",
+	)
+	ESTOUT = Value(
+		DBLOC="East Canyon",
+	)
+	PNVOUT = Value(
+		DBLOC="Pineview",
+	)
+	LDLOUT = Value(
+		DBLOC="Little Dell",
+		DBVER="Raw-USBRSLC;MANUAL",
+	)
+	MNDOUT = Value(
+		DBLOC="Mountain Dell",
+	)
+	JRDOUT = Value(
+		DBLOC="Jordanelle",
+		DBVER="Raw-USBRSLC",
+	)
+	RDFOUT = Value(
+		DBLOC="Red Fleet",
+	)
+	STROUT = Value(
+		DBLOC="Starvation",
+	)
+	PAOOUT = Value(
+		DBLOC="Paonia",
+	)
+	BLMOUT = Value(
+		DBLOC="Blue Mesa",
+	)
+	RDGOUT = Value(
+		DBLOC="Ridgway",
+	)
+	LEMOUT = Value(
+		DBLOC="Lemon",
+	)
+	VALOUT = Value(
+		DBLOC="Vallecito",
+	)
+	#                                 Define all INFLOWS
+	RKPIN = Value(
+		DBLOC="Rockport",
+		DBPAR="Flow-Res In",
+		TIME=BASDATE,
+		PICTURE="%7.0f",
+		MISSTR="   -NR-",
+	)
+	ECHIN = Value(
+		DBLOC="Echo",
+	)
+	LSCIN = Value(
+		DBLOC="Lost Cr",
+	)
+	ESTIN = Value(
+		DBLOC="East Canyon",
+	)
+	PNVIN = Value(
+		DBLOC="Pineview",
+	)
+	LDLIN = Value(
+		DBLOC="Little Dell",
+		DBVER="Raw-USBRSLC;MANUAL",
+	)
+	MNDIN = Value(
+		DBLOC="Mountain Dell",
+	)
+	JRDIN = Value(
+		DBLOC="Jordanelle",
+		DBVER="Raw-USBRSLC",
+	)
+	RDFIN = Value(
+		DBLOC="Red Fleet",
+	)
+	STRIN = Value(
+		DBLOC="Starvation",
+	)
+	PAOIN = Value(
+		DBLOC="Paonia",
+	)
+	BLMIN = Value(
+		DBLOC="Blue Mesa",
+	)
+	RDGIN = Value(
+		DBLOC="Ridgway",
+	)
+	LEMIN = Value(
+		DBLOC="Lemon",
+	)
+	VALIN = Value(
+		DBLOC="Vallecito",
+	)
+#ENDDEF

@@ -1,18 +1,23 @@
-import pytz,datetime,sys,time as ttime
+from repgen import __version__
+import datetime
+import sys
 import operator
 from inspect import isfunction
 import copy
 import math
 from decimal import Decimal,DivisionByZero,DecimalException,getcontext
 import ssl
-from ssl import SSLError
+
 import re
 from repgen.util import extra_operator, filterAddress
 import signal
+# 3rd Party Libs
+import pytz
+import repgen
 
 try:
 	# Relativedelta supports months and years, but is external library
-	from dateutil.relativedelta import relativedelta as timedelta
+	from dateutil.relativedelta import timedelta
 except:
 	# Included with python, but doesn't support longer granularity than weeks.
 	# This can cause issues for leap years if not accounted for.
@@ -21,6 +26,9 @@ except:
 # need to enable legacy ciphers for public CDA instance
 ssl_ctx = ssl.create_default_context()
 ssl_ctx.set_ciphers('DEFAULT')
+# fetchTimeseriesCDA requires ssl_ctx
+from repgen.workers.http import fetchTimeseriesCDA
+
 
 # types
 string_types = (b"".__class__,u"".__class__)
@@ -57,7 +65,6 @@ class Value:
 		"use_alternate": False, # Alternate server in use, if primary is unavailable
 	}
 
-	# This isn't thread safe, not an issue yet though since repgen isn't multithreaded.
 	_conn = None
 
 	#region Properties
@@ -130,7 +137,6 @@ class Value:
 					value = value + timedelta(days=+1)
 
 			return (value, is_24)
-
 		self.index = None
 		self.type="SCALAR"
 		self.value = None
@@ -396,181 +402,15 @@ class Value:
 			except Exception as err:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
 		elif self.dbtype.upper() in ["JSON", "RADAR"]:
-			import json, http.client as httplib, urllib.parse as urllib
-
-			#fmt = "%d-%b-%Y %H%M"
-			fmt = "%Y-%m-%dT%H:%M:%S"
-			tz = self.dbtz
-			units = self.dbunits
-			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, str(self.dbint), str(self.dbdur), self.dbver) )
-
-			if self.start is None or self.end is None:
-				return
-			
-			# Loop until we fetch some data, if missing is NOMISS
-			retry_count = 10			# Go back at most this many weeks + 1
-			sstart = tz.normalize(tz.localize(self.start)) if self.start.tzinfo is None else self.start
-			send = tz.normalize(tz.localize(self.end)) if self.end.tzinfo is None else self.end
-
-			path = self.path if not Value.shared["use_alternate"] else self.altpath
-			host = self.host if not Value.shared["use_alternate"] else self.althost
-			headers = { 'Accept': "application/json;version=2" }
-
-			while(retry_count > 0):
-				# Convert time to destination timezone
-				# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
-				# 'astimezone' is be the "proper" behavior, but 'replace' mimics repgen_4.
-				# This should *not* be a naive datetime
-				assert sstart.tzinfo is not None, "Naive datetime; start time should contain timezone"
-				assert send.tzinfo is not None, "Naive datetime; end time should contain timezone"
-				start = sstart.astimezone(tz)
-				end = send.astimezone(tz)
-				
-				params = urllib.urlencode( {
-					"name": ts_name,
-					"unit": units,
-					"begin": start.strftime(fmt),
-					"end":   end.strftime(fmt),
-					"office": self.dbofc if self.dbofc is not None else "",
-					"timezone": str(tz),
-					"pageSize": -1,					# always fetch all results
-				})
-
-				sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
-
+			print("queue", repgen.queue)
+			if repgen.queue:
+				repgen.queue.put((self))
+			else:
 				try:
-					data = None
-					retry_until_alternate = 3
-					while retry_until_alternate > 0:
-						retry_until_alternate -= 1
-						if path is None:
-							path = ""
-
-						query = f"/{path}/timeseries?"
-
-						# The http(s) guess isn't perfect, but it's good enough. It's for display purposes only.
-						print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params, file=sys.stderr)
-
-						try:
-							if sys.platform != "win32" and self.timeout:
-								# The SSL handshake can sometimes fail and hang indefinitely
-								# inflate the timeout slightly, so the socket has a chance to return a timeout error
-								# This is a failsafe to prevent a hung process
-								signal.alarm(int(self.timeout * 1.1) + 1)
-
-							if Value._conn is None:
-								try:
-									from repgen.util.urllib2_tls import TLS1Connection
-									Value._conn = TLS1Connection( host, timeout=self.timeout, context=ssl_ctx )
-									Value._conn.request("GET", "/{path}" )
-								except SSLError as err:
-									print(type(err).__name__ + " : " + str(err), file=sys.stderr)
-									print("Falling back to non-SSL", file=sys.stderr)
-									# SSL not supported (could be standalone instance)
-									Value._conn = httplib.HTTPConnection( host, timeout=self.timeout )
-									Value._conn.request("GET", "/{path}" )
-
-								# Test if the connection is valid
-								Value._conn.getresponse().read()
-
-							Value._conn.request("GET", query+params, None, headers )
-							r1 = Value._conn.getresponse()
-
-							# getresponse can also hang sometimes, so keep alarm active until after we fetch the response
-							if sys.platform != "win32" and self.timeout:
-								signal.alarm(0) # disable the alarm
-							
-							# Grab the charset from the headers, and decode the response using that if set
-							# HTTP default charset is iso-8859-1 for text (RFC 2616), and utf-8 for JSON (RFC 4627)
-							parts = r1.getheader("Content-Type").split(";")
-							charset = "iso-8859-1" if parts[0].startswith("text") else "utf-8" # Default charset
-							
-							if len(parts) > 1:
-								for prop in parts:
-									prop_parts = prop.split("=")
-									if len(prop_parts) > 1 and prop_parts[0].lower() == "charset":
-										charset = prop_parts[1]
-
-							data = r1.read().decode(charset)
-
-							if r1.status == 200:
-								break
-							
-							print("HTTP Error " + str(r1.status) + ": " + data, file=sys.stderr)
-							if r1.status == 404:
-								json.loads(data)
-								# We don't care about the actual error, just if it's valid JSON
-								# Valid JSON means it was a RADAR response, so we treat it as a valid response, and won't retry.
-								break
-						except (httplib.NotConnected, httplib.ImproperConnectionState, httplib.BadStatusLine, ValueError, OSError) as e:
-							print(f"Error fetching: {e}", file=sys.stderr)
-							if retry_until_alternate == 0 and self.althost is not None and host != self.althost:
-								print("Trying alternate server", file=sys.stderr)
-								Value.shared["use_alternate"] = True
-								(host, path) = (self.althost, self.altpath)
-								Value._conn = None
-								retry_until_alternate = 3
-							else:
-								print("Reconnecting to server and trying again", file=sys.stderr)
-								ttime.sleep(3)
-								try:
-									Value._conn.close()
-								except:
-									pass
-								Value._conn = None
-							continue
-
-					data_dict = None
-
-					try:
-						data_dict = json.loads(data)
-					except json.JSONDecodeError as err:
-						print(str(err), file=sys.stderr)
-						print(repr(data), file=sys.stderr)
-
-					# get the depth
-					prev_t = 0
-					#print repr(data_dict)
-
-					if data_dict.get("total", 0) > 0:
-						for d in data_dict["values"]:
-							_t = float(d[0])/1000.0 # json returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
-							_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
-							_dt = _dt.astimezone(self.dbtz)
-							#_dt = _dt.replace(tzinfo=self.tz)
-							#print("_dt: %s" % repr(_dt))
-							#print _dt
-							if d[1] is not None:
-								#print("Reading value: %s" % d[1])
-								_v = float(d[1]) # does not currently implement text operations
-							else:
-								_v = None
-							_q = int(d[2])
-							self.values.append( ( _dt,_v,_q  ) )
-					else:
-						print("No values were fetched.", file=sys.stderr)
-
-					if self.ismissing():
-						if self.missing == "NOMISS":
-							sstart = sstart - timedelta(weeks=1)
-							retry_count = retry_count - 1
-							continue
-
-					if self.time:
-						self.type = "SCALAR"
-						if self.missing == "NOMISS":
-							# Get the last one, in case we fetched extra because of NOMISS
-							for v in reversed(self.values):
-								if v is not None and v[1] is not None:
-									self.value = v[1]
-									break
-						elif len(self.values) > 0:
-							self.value = self.values[-1][1]
-
+					fetchTimeseriesCDA(self)
 				except Exception as err:
 					print( repr(err) + " : " + str(err), file=sys.stderr )
-
-				break
+			
 
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
@@ -1101,7 +941,7 @@ class Value:
 		values = []
 		typ = Value.shared["dbtype"]
 		for i in range(0,returns):
-			# If the first argument is a Value object, copy it so the properties apply
+			# # If the first argument is a Value object, copy it so the properties apply
 			if len(args) > 0 and isinstance(args[0], Value):
 				tmp = Value(args[0], copyshared=False)
 			else:
@@ -1183,7 +1023,7 @@ class Value:
 					else:
 						if isinstance( treat, number_types):
 							tmp.value = treat
-						elif treat=="MISS":
+						elif py=="MISS":
 							tmp.value = None
 							return tmp
 

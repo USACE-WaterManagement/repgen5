@@ -1,9 +1,15 @@
-import sys,time,datetime,pytz,tempfile,shutil,os
+import sys, pytz, datetime, tempfile, shutil, os, time
+
+import repgen
 from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
+from repgen import __version__, THREAD_COUNT
+from repgen.workers.http import processSiteWorker
 
-version = "5.0.5"
+import threading
+from queue import Queue
+
 
 # setup base time, ex
 # default formats
@@ -25,6 +31,7 @@ def parseArgs():
 	parser.add_argument( '-a', '--address', dest='host', default='localhost', help="location for data connections; equivalent to `DB=hostname:port/path`", metavar='IP_or_hostname:port[/basepath]')
 	parser.add_argument( '-A', '--alternate', dest='alternate', default=None, help="alternate location for data connections, if the primary is unavailable (only for RADAR)", metavar='IP_or_hostname:port[/basepath]')
 	parser.add_argument( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
+	parser.add_argument( '-p', '--parallel', dest="parallel", action="store_true", default=False, help=f"When this flag is setup Repgen5 will process requests in parallel with {THREAD_COUNT} threads." )
 	parser.add_argument( '--timeout', dest='timeout', type=float, default=None, help="Socket timeout, in seconds" )
 	# This provides repgen4 style KEY=VALUE argument passing on the command-line
 	parser.add_argument( 'set', default=[], help="Additional key=value pairs. e.g. `DBTZ=UTC DBOFC=HEC`", metavar="KEY=VALUE", nargs="*" )
@@ -37,38 +44,40 @@ def parseArgs():
 
 # https://stackoverflow.com/a/52014520
 def parse_var(s):
-    """
-    Parse a key, value pair, separated by '='
-    That's the reverse of ShellArgs.
+	"""
+	Parse a key, value pair, separated by '='
+	That's the reverse of ShellArgs.
 
-    On the command line (argparse) a declaration will typically look like:
-        foo=hello
-    or
-        foo="hello world"
-    """
-    items = s.split('=')
-    key = items[0].strip() # we remove blanks around keys, as is logical
-    if len(items) > 1:
-        # rejoin the rest:
-        value = '='.join(items[1:])
-    return (key, value)
+	On the command line (argparse) a declaration will typically look like:
+		foo=hello
+	or
+		foo="hello world"
+	"""
+	items = s.split('=')
+	key = items[0].strip() # we remove blanks around keys, as is logical
+	if len(items) > 1:
+		# rejoin the rest:
+		value = '='.join(items[1:])
+	return (key, value)
 
 def parse_vars(items):
-    """
-        Parse a series of key-value pairs and return a dictionary and 
-        a success boolean for whether each item was successfully parsed.
-    """
-    count = 0
-    d = {}
-    for item in items:
-        if "=" in item:
-            split_string = item.split("=")
-            d[split_string[0].strip().upper()] = split_string[1].strip()
-            count += 1
-        else:
-            print(f"Error: Invalid argument provided - {item}")
-        
-    return d, count == len(items)
+	"""
+		Parse a series of key-value pairs and return a dictionary and 
+		a success boolean for whether each item was successfully parsed.
+	"""
+	count = 0
+	d = {}
+	for item in items:
+		if "=" in item:
+			split_string = item.split("=")
+			d[split_string[0].strip().upper()] = split_string[1].strip()
+			count += 1
+		else:
+			print(f"Error: Invalid argument provided - {item}")
+		
+	return d, count == len(items)
+
+
 
 # Pytz doesn't know all the aliases and abbreviations
 # This works for Pacific, but untested in other locations that don't use DST.
@@ -93,12 +102,13 @@ TIMEZONE_ALIASES = {
 }
 
 if __name__ == "__main__":
+	start_time = time.time()
 	config = parseArgs()
 	kwargs = parse_vars(config.set)[0]
-
 	if config.show_ver == True:
-		print(version)
+		print(__version__)
 		sys.exit(0)
+	
 
 	report_file = kwargs.get("IN", config.in_file)
 	out_file = kwargs.get("REPORT", config.out_file)
@@ -123,16 +133,27 @@ if __name__ == "__main__":
 
 	# set some of the default values
 	Value(1, host=host, path=path, tz=tz, ucformat=config.compat, timeout=config.timeout, althost=althost, altpath=altpath, dbofc=config.office, **kwargs)
-	
+		
+	# Enable IO bound process multi-threading 
+	print ("parallel", config.parallel)
+	#  if the user has a need for speed
+	if config.parallel:
+		repgen.queue = Queue()
+		# Setup worker threads
+		for _ in range(THREAD_COUNT):
+			thread = threading.Thread(target=processSiteWorker, args=(repgen.queue, ))
+			thread.daemon = True
+			thread.start()
+			repgen.threads.append(thread)
 	# read the report file
 	if report_file == '-': 
 		report_file = sys.stdin.name
 		f = sys.stdin
 	else:
+		# TODO: change this to a context manager/with
 		f = open(report_file, 'rt')
 	report_data = f.read()
 	f.close()
-
 	base_date = kwargs.get("DATE", config.base_date)
 	base_time = kwargs.get("TIME", config.base_time)
 	delta = datetime.timedelta()
@@ -151,6 +172,7 @@ if __name__ == "__main__":
 	# Read data file input
 	data_file = kwargs.get("FILE", config.data_file)
 	if data_file:
+		# TODO: context manager?
 		f_d = open(config.data_file)
 		key = None
 		prefix = ""
@@ -182,10 +204,10 @@ if __name__ == "__main__":
 				key = None
 
 		f_d.close()
-
 	# exec the definitions
-	report = Report(report_data, report_file, config.compat)
+	report = Report(report_data, report_file, config.compat, config.parallel, **kwargs)
 	report.run(basedate, local_vars)
+	
 	output = None
 	tmpname = None
 
@@ -204,3 +226,4 @@ if __name__ == "__main__":
 		mask = os.umask(0)
 		os.chmod(out_file, 0o666 & (~mask))
 		os.umask(mask)
+	print(f"Report created after {round(time.time() - start_time, 3)}s")
