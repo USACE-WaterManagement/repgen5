@@ -2,32 +2,32 @@
     Tulsa District
     US Army Corps of Engineers
     Keystone Lake Report
-DATE    Elevation    Storage    Inflow    Outflow    Precip
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
-%DT %elev	%stor    %flow_res_in    %flow_res_out    %precip_inc
+DATE            Elevation       Storage     Inflow           Outflow         Precip
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
+%DT             %elev	        %stor       %flow_res_in    %flow_res_out    %precip_inc
 #ENDFORM
 
 #DEF
@@ -90,12 +90,12 @@ for dbpar, dbptyp, dbint, dbdur, dbver in PARAM_TSIDS:
             dbpar_norm: _value
         }
     )
-
-# This will end up being the last elev to get looped. 
-# TODO: Consider creating a sep value for just the date range that should always exist
-# DT = Value(elev.datatimes(),
-#     PICTURE="%d%b%Y %K%M",
-# )
+    # This will end up being the last elev to get looped. 
+    # TODO: Consider creating a sep value for just the date range that should always exist
+    print("datatimes", str(_value.values))
+    DT = Value(_value.datatimes(),
+        PICTURE="%d%b%Y %K%M",
+    )
 
 
 # ENDDEF
