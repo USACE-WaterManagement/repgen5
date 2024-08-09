@@ -1,6 +1,6 @@
 import sys,time,datetime,pytz,tempfile,shutil,os,operator,calendar,re
 from repgen.data.value import Value
-from repgen import queue, threads
+import repgen 
 
 try:
 	# Relativedelta supports months and years, but is external library
@@ -130,11 +130,11 @@ class Report:
 		exec(compile(self.datadef, self.repfilename, "exec"), globals(), my_locals)
 		if self.parallel:
 			print("Waiting for all tasks to be processed. . .")
-			queue.join()
+			repgen.queue.join()
 			print("All tasks processed!")
-			for _ in range(len(threads)):
-				queue.put(None)
-			for thread in threads:
+			for _ in range(len(repgen.threads)):
+				repgen.queue.put(None)
+			for thread in repgen.threads:
 				thread.join()
 		# loop through my_locals and add them
 		# to a dictionary with the % in front of the them

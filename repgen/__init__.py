@@ -1,5 +1,3 @@
-from queue import Queue
-
 __version__ = "5.1.0"
 # =========================================== #
 #              THREADING VARS				  #
@@ -13,5 +11,5 @@ PARAM_DT_FMT = "%Y-%m-%dT%H:%M:%S"
 # =========================================== #
 # Global Variables Shared Between Classes     #
 # =========================================== #
-queue = Queue()
 threads = []
+queue = None

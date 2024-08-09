@@ -196,7 +196,7 @@ def fetchTimeseriesCDA(v_self):
 			print( repr(err) + " : " + str(err), file=sys.stderr )
 		break
 
-def processSiteWorker(queue):
+def processSiteWorker(_queue):
 	"""
 	Process site worker function that continuously retrieves tasks from a queue and processes them.
 	ALL of these will terminate gracefully when self.queue.join() is called at the end of report.py
@@ -208,12 +208,13 @@ def processSiteWorker(queue):
 	results (list)
 	"""
 	while True:
-		value_self = queue.get(timeout=THREAD_TIMEOUT)
+		value_self = _queue.get(timeout=THREAD_TIMEOUT)
 		try:
 			if value_self is None:
 				break
+			print("Fetching", value_self.dbloc, value_self.dbpar, value_self.dbptyp, value_self.dbint, value_self.dbdur, value_self.dbver)
 			fetchTimeseriesCDA(value_self)
 		except Exception as err:
 			print( 'Thread Error:\n\t' + repr(err) + " : " + str(err), file=sys.stderr )
 		finally:
-			queue.task_done()
+			_queue.task_done()

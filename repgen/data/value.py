@@ -1,4 +1,4 @@
-from repgen import __version__, THREAD_COUNT
+from repgen import __version__
 import datetime
 import sys
 import operator
@@ -7,13 +7,13 @@ import copy
 import math
 from decimal import Decimal,DivisionByZero,DecimalException,getcontext
 import ssl
-from repgen import queue
 
 import re
 from repgen.util import extra_operator, filterAddress
 import signal
 # 3rd Party Libs
 import pytz
+import repgen
 
 try:
 	# Relativedelta supports months and years, but is external library
@@ -402,10 +402,10 @@ class Value:
 			except Exception as err:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
 		elif self.dbtype.upper() in ["JSON", "RADAR"]:
-			if queue:
-				queue.put((self))
+			print("queue", repgen.queue)
+			if repgen.queue:
+				repgen.queue.put((self))
 			else:
-				print("no queue")
 				try:
 					fetchTimeseriesCDA(self)
 				except Exception as err:
@@ -941,7 +941,7 @@ class Value:
 		values = []
 		typ = Value.shared["dbtype"]
 		for i in range(0,returns):
-			# If the first argument is a Value object, copy it so the properties apply
+			# # If the first argument is a Value object, copy it so the properties apply
 			if len(args) > 0 and isinstance(args[0], Value):
 				tmp = Value(args[0], copyshared=False)
 			else:

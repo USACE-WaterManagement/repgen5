@@ -29,7 +29,7 @@ os.makedirs(LOG_DIR, exist_ok=True)
 @pytest.mark.parametrize(
     "reportname",
     [
-        ("test.frm"),
+        ("bulk_test.frm,sequential_test.frm"),
     ],
 )
 def test_repgen(capsys, reportname: str):

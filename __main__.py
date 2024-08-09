@@ -1,12 +1,15 @@
 import sys, pytz, datetime, tempfile, shutil, os, time
 
+import repgen
 from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
 from repgen import __version__, THREAD_COUNT
 from repgen.workers.http import processSiteWorker
+
 import threading
-from repgen import queue, threads
+from queue import Queue
+
 
 # setup base time, ex
 # default formats
@@ -132,17 +135,16 @@ if __name__ == "__main__":
 	Value(1, host=host, path=path, tz=tz, ucformat=config.compat, timeout=config.timeout, althost=althost, altpath=altpath, dbofc=config.office, **kwargs)
 		
 	# Enable IO bound process multi-threading 
+	print ("parallel", config.parallel)
 	#  if the user has a need for speed
 	if config.parallel:
-		# Initialize the task queue 
-		print("Creating ", THREAD_COUNT, ' threads')
+		repgen.queue = Queue()
 		# Setup worker threads
 		for _ in range(THREAD_COUNT):
-			thread = threading.Thread(target=processSiteWorker, args=(queue, ))
+			thread = threading.Thread(target=processSiteWorker, args=(repgen.queue, ))
 			thread.daemon = True
 			thread.start()
-			threads.append(thread)
-		print("Created ", len(threads))
+			repgen.threads.append(thread)
 	# read the report file
 	if report_file == '-': 
 		report_file = sys.stdin.name
@@ -152,7 +154,6 @@ if __name__ == "__main__":
 		f = open(report_file, 'rt')
 	report_data = f.read()
 	f.close()
-
 	base_date = kwargs.get("DATE", config.base_date)
 	base_time = kwargs.get("TIME", config.base_time)
 	delta = datetime.timedelta()
