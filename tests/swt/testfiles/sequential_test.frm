@@ -66,45 +66,28 @@ for dbpar, dbptyp, dbint, dbdur, dbver in PARAM_TSIDS:
     # Dynamically add the project to the locals for printing to the form
     print(UNIT_MAP.get(dbpar_norm, "ft"))
     param = UNIT_MAP.get(dbpar_norm, "ft")
-    # _value = Value(
-    #     dbtype="radar",
-    #     DBTZ="US/CENTRAL",
-    #     tz="US/CENTRAL",
-    #     DBLOC=PROJECT,
-    #     DBPAR=dbpar,
-    #     DBPTYP=dbptyp,
-    #     DBINT=dbint,
-    #     DBDUR=dbdur,
-    #     DBVER=dbver,
-    #     start=BASDATE_8AM_YESTERDAY,
-    #     end=BASDATE_8AM,
-    #     PICTURE=param["picture"],
-    #     MISSTR="--",
-    #     UNDEF="~~",
-    #     DBUNITS=param["units"],
-    # )
-    elev = Value(
+    _value = Value(
         dbtype="radar",
         DBTZ="US/CENTRAL",
         tz="US/CENTRAL",
         DBLOC=PROJECT,
-        DBPAR="Elev",
-        DBPTYP="Inst",
-        DBINT="1Hour",
-        DBDUR="0",
-        DBVER="Ccp-Rev",
+        DBPAR=dbpar,
+        DBPTYP=dbptyp,
+        DBINT=dbint,
+        DBDUR=dbdur,
+        DBVER=dbver,
         start=BASDATE_8AM_YESTERDAY,
         end=BASDATE_8AM,
-        PICTURE="%3.2f",
+        PICTURE=param["picture"],
         MISSTR="--",
         UNDEF="~~",
-        DBUNITS="ft",
+        DBUNITS=param["units"],
     )
     print(param)
-    print(elev.values)
+    print(_value.values)
     locals().update(
         {
-            dbpar_norm: elev
+            dbpar_norm: _value
         }
     )
 
