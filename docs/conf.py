@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.abspath('../repgen'))
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'USACE WM Repgen'
+project = 'USACE WM Repgen5'
 copyright = '2024, HEC,MISC'
 author = 'HEC,MISC'
 release = '5.1.0'
@@ -47,7 +47,7 @@ html_static_path = ['_static']
 # One entry per manual page. List of tuples.
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'Repgen5', 'Your Project Name Documentation',
+    (master_doc, 'Repgen5', 'Repgen5 Documentation',
      [author], 1)
 ]
 
@@ -56,8 +56,8 @@ man_pages = [
 # Grouping the document tree into Texinfo files. List of tuples.
 # (source start file, target name, title, author, dir menu entry, description, category).
 texinfo_documents = [
-    (master_doc, 'Repgen5', 'Your Project Name Documentation',
-     author, 'Repgen5', 'One line description of project.',
+    (master_doc, 'Repgen5', 'Repgen5 Name Documentation',
+     author, 'Repgen5', 'A program for creating simple fixed format text reports using the CWMS Data API.',
      'Miscellaneous'),
 ]
 
