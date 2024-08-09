@@ -29,7 +29,8 @@ os.makedirs(LOG_DIR, exist_ok=True)
 @pytest.mark.parametrize(
     "reportname",
     [
-        ("bulk_test.frm,sequential_test.frm"),
+        ("bulk_test.frm"),
+        ("sequential_test.frm"),
     ],
 )
 def test_repgen(capsys, reportname: str):
@@ -46,7 +47,7 @@ def test_repgen(capsys, reportname: str):
         cmd = ["cmd.exe", "/c", script]
     else:
         script = os.path.join(SCRIPT_DIR, "run.sh")
-        cmd = [script, reportname]
+        cmd = [script, reportname, '-p']
 
     # Run the command and capture the output
     result = subprocess.run(cmd, capture_output=True, text=True)
