@@ -46,7 +46,7 @@ def test_repgen(capsys, reportname: str):
         cmd = ["cmd.exe", "/c", script]
     else:
         script = os.path.join(SCRIPT_DIR, "run.sh")
-        cmd = [script]
+        cmd = [script, reportname]
 
     # Run the command and capture the output
     result = subprocess.run(cmd, capture_output=True, text=True)
