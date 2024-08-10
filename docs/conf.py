@@ -20,13 +20,13 @@ release = '5.1.0'
 
 # Enable markdown or reStructured text source docs
 extensions = [
-    'sphinx.ext.autodoc',      # Include documentation from docstrings
-    'sphinx.ext.napoleon',     # Support for NumPy and Google style docstrings
-    'sphinx.ext.viewcode',     # Add links to highlighted source code
-    'sphinx.ext.todo',         # Support for todo items
+    # 'sphinx.ext.autodoc',      # Include documentation from docstrings
+    # 'sphinx.ext.napoleon',     # Support for NumPy and Google style docstrings
+    # 'sphinx.ext.viewcode',     # Add links to highlighted source code
+    # 'sphinx.ext.todo',         # Support for todo items
     'myst_parser',             # Markdown support (myst-parser)
 ]
-source_suffix = ['.md']
+source_suffix = {'.md': 'markdown'}
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
@@ -39,7 +39,7 @@ language = 'en'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'alabaster'
-html_static_path = ['source/_static']
+html_static_path = ['_static']
 
 
 # -- Options for manual page output ------------------------------------------
