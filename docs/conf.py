@@ -26,7 +26,7 @@ extensions = [
     'sphinx.ext.todo',         # Support for todo items
     'myst_parser',             # Markdown support (myst-parser)
 ]
-source_suffix = ['.rst', '.md']
+source_suffix = ['.md']
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
@@ -39,7 +39,7 @@ language = 'en'
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
 html_theme = 'alabaster'
-html_static_path = ['_static']
+html_static_path = ['source/_static']
 
 
 # -- Options for manual page output ------------------------------------------

@@ -1,6 +1,4 @@
 
-#### **`faq.md` (FAQs and Troubleshooting)**
-
 # FAQs and Troubleshooting
 
 This section covers common issues and frequently asked questions.
