@@ -26,7 +26,7 @@ extensions = [
     # 'sphinx.ext.todo',         # Support for todo items
     'myst_parser',             # Markdown support (myst-parser)
 ]
-source_suffix = {'.md': 'markdown'}
+source_suffix = {'.md': 'markdown', '.rst': 'restructuredtext'}
 
 templates_path = ['_templates']
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
