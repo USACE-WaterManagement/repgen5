@@ -29,3 +29,4 @@ sphinxcontrib-serializinghtml==1.1.10
 urllib3==2.2.2
 python-dateutil==2.8.2
 pytz==2024.1
+sphinx-copybutton==0.5.2
