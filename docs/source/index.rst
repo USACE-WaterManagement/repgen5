@@ -13,6 +13,11 @@ Welcome to WFRT-DEMO's documentation!
    installation
    getting_started
    usage
+   - examples/index
+   - examples/math_functions
+   - examples/monthly_chart
+   - examples/parameters_list
+   - examples/projects_report
    faq
 
 
