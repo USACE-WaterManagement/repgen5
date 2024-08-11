@@ -1,5 +1,6 @@
 import os, sys
 sys.path.insert(0, os.path.abspath('../repgen'))
+sys.path.insert(0, os.path.abspath('../tests'))
 
 project = 'USACE WM Repgen5'
 copyright = '2024, HEC,MISC'
