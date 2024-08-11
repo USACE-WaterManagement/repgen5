@@ -1,8 +1,9 @@
-.. Parameters List
+Parameters List
+===============
 
 **Example of dynamically defining parameters for a report**
 
-.. literalinclude:: _static/code/parameters.frm
+.. literalinclude:: ../../../tests/swt/testfiles/parameters.frm
    :language: python
    :linenos:
    :caption: Example of defining parameters for a report
