@@ -2,7 +2,7 @@
 
 **Example of dynamically defining parameters for a report**
 
-.. literalinclude:: /tests/swt/testfiles/parameters.frm
+.. literalinclude:: _static/code/parameters.frm
    :language: python
    :linenos:
    :caption: Example of defining parameters for a report
