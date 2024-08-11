@@ -8,7 +8,13 @@ release = '5.1.0'
 
 extensions = [
     'myst_parser',             
-    'sphinx_copybutton'
+    'sphinx_copybutton',
+    'sphinx.ext.autodoc',
+    'sphinx.ext.autosummary',
+    'sphinx.ext.intersphinx',
+    'sphinx.ext.napoleon',
+    'sphinx.ext.todo',
+    'sphinx.ext.viewcode'
 ]
 source_suffix = {'.md': 'markdown', '.rst': 'restructuredtext'}
 
