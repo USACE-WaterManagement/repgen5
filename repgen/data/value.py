@@ -289,14 +289,11 @@ class Value:
 
 		self.type = "TIMESERIES"
 		self.values = [ ] # will be a tuple of (time stamp, value, quality )
-		
-		if self.dbtype is None:
-			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
-		# TODO: Remove this at some point? 
-		# Conversion with a warning to change the dbtype from radar to CDA for rebrand
-		elif self.dbtype.upper() == "RADAR":
+		if self.dbtype.upper() == "RADAR":
 			print("\n\tWARNING: Update from dbtype=\"RADAR\" to dbtype=\"CDA\"")
 			self.dbtype = "CDA"
+		if self.dbtype is None:
+			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
 		elif self.dbtype.upper() == "FILE":
 			pass
 		elif self.dbtype.upper() == "COPY":
