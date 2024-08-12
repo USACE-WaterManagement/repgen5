@@ -7,14 +7,12 @@ Welcome to Repgen5's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   installation
-   getting_started
+   introduction
+   description
    usage
+   input_description
    examples/index
-   examples/math_functions
-   examples/monthly_chart
-   examples/parameters_list
-   examples/projects_report
+   obsolete_features
    faq
 
 

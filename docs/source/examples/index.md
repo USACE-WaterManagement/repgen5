@@ -1,4 +1,4 @@
-# Repgen5 Examples
+# Examples
 
 - [Math Functions](./math_functions)
 - [Monthly Chart](./monthly_chart)

@@ -1,4 +1,4 @@
-# Basic Usage Guide
+# Program Use
 
 Learn how to run `repgen5` and use its basic features.
 
@@ -9,15 +9,24 @@ To run `repgen5`, simply execute the following command in your terminal:
 ```bash
 repgen5 --input <input_file> --output <output_file> -a https://cwms-data.usace.army.mil -O SWT
 ```
+Where `<input_file>` is a relative or absolute path to a text file with your repgen report input
+
+**Note:** If you do not specify an `--output` argument the report will be appear in the terminal (standard output - stdout). Which can also be piped other places!
 
 ## Repgen5 Help Menu
 ```bash
-usage: . [-h] [-V] [-i REPFILE] [-o REPOUTPUT] [-f DATAFILE] [-d DDMMMYYYY] [-t HHMM] [-z Time Zone Name] [-O OFFICE_ID] [-a IP_or_hostname:port[/basepath]] [-A IP_or_hostname:port[/basepath]] [-c] [-p] [--timeout TIMEOUT] [KEY=VALUE ...]
+usage: . [-h] [-V] [-i REPFILE] 
+[-o REPOUTPUT] [-f DATAFILE] [-d DDMMMYYYY] 
+[-t HHMM] [-z Time Zone Name] [-O OFFICE_ID] 
+[-a IP_or_hostname:port[/basepath]] 
+[-A IP_or_hostname:port[/basepath]] [-c] [-p]
+[--timeout TIMEOUT] [KEY=VALUE ...]
+Additional key=value pairs. e.g. `DBTZ=UTC DBOFC=HEC`
 ```
 
 ### Positional Arguments:
-```bash
-  KEY=VALUE             Additional key=value pairs. e.g. `DBTZ=UTC DBOFC=HEC`
+```bash          
+
     options:
     -h, --help            show this help message and exit
     -V, --version         print version number
@@ -39,6 +48,5 @@ usage: . [-h] [-V] [-i REPFILE] [-o REPOUTPUT] [-f DATAFILE] [-d DDMMMYYYY] [-t 
     -A IP_or_hostname:port[/basepath], --alternate IP_or_hostname:port[/basepath]
                             alternate location for data connections, if the primary is unavailable (only for RADAR)
     -c, --compatibility   repgen4 compatibility; case-insensitive labels
-    -p, --parallel        When this flag is setup Repgen5 will process requests in parallel with 10 threads.
     --timeout TIMEOUT     Socket timeout, in seconds
 ```
