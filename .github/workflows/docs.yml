@@ -1,0 +1,38 @@
+name: Build and Deploy Docs to Read the Docs
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v3
+      with:
+        python-version: '3.8'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r docs/requirements.txt
+
+    - name: Build the docs
+      run: |
+        cd docs
+        make html
+
+    - name: Notify Read the Docs
+      run: |
+        curl -X POST -d "{\"branch\": \"${{ github.head_ref }}\"}" \
+        -H "Content-Type: application/json" \
+        -H "Authorization: Token ${{ secrets.READTHEDOCS_TOKEN }}" \
+        https://readthedocs.org/api/v3/projects/repgen5/versions/${{ github.head_ref }}/builds/
+      env:
+        READTHEDOCS_TOKEN: ${{ secrets.READTHEDOCS_TOKEN }}
