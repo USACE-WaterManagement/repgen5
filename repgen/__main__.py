@@ -2,7 +2,7 @@ import sys,datetime,pytz,tempfile,shutil,os
 from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
-
+from repgen import PROD_CDA_HOST
 version = "5.1.6"
 
 # setup base time, ex
@@ -22,7 +22,7 @@ def parseArgs():
 	parser.add_argument( '-t', '--time', dest='base_time', default=_t, help="base time for data", metavar="HHMM")
 	parser.add_argument( '-z', '--tz', dest='tz', default=_z, help="default timezone; equivalent to `TZ=timezone`", metavar='Time Zone Name')
 	parser.add_argument( '-O', '--office', dest='office', default=None, help="default office to use if not specified in report; equivalent to `DBOFC=OFFICE_ID`", metavar='OFFICE_ID')
-	parser.add_argument( '-a', '--address', dest='host', default='localhost', help="location for data connections; equivalent to `DB=hostname:port/path`", metavar='IP_or_hostname:port[/basepath]')
+	parser.add_argument( '-a', '--address', dest='host', default=PROD_CDA_HOST, help="location for data connections; equivalent to `DB=hostname:port/path`", metavar='IP_or_hostname:port[/basepath]')
 	parser.add_argument( '-A', '--alternate', dest='alternate', default=None, help="alternate location for data connections, if the primary is unavailable (only for CDA)", metavar='IP_or_hostname:port[/basepath]')
 	parser.add_argument( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
 	parser.add_argument( '--timeout', dest='timeout', type=float, default=None, help="Socket timeout, in seconds" )
@@ -108,7 +108,12 @@ def main():
 	kwargs.pop("FILE", None)
 	(host, path) = filterAddress(config.host)
 	(althost, altpath) = filterAddress(config.alternate)
-
+	if host == filterAddress(PROD_CDA_HOST)[0]:
+		if not config.office:
+			raise ValueError(f'''\n\n
+		Attempted to query Production CDA ({PROD_CDA_HOST})
+				\n\tYou must specify an OFFICE ID with the -O <district_id> argument when using the default CDA host / National CDA instance i.e.
+				\n\t{' '.join(sys.argv)} -O NAE\n\n''')
 	tz = None
 
 	if config.tz:
