@@ -15,6 +15,7 @@ dist
 build
 _build
 .DS_Store
+.pypirc
 
 
 # Custom ignore lines

@@ -24,6 +24,8 @@ The program creates fixed form text reports from a time series database, and tex
     install_requires=[
         "sphinx>=3.0.0",
         "myst-parser", 
+        "pytz>=2022.1",
+        "python-dateutil>=2.8.2",
     ],
     extras_require={
         "dev": [
