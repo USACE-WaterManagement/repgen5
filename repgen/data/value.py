@@ -283,6 +283,11 @@ class Value:
 
 		if self.dbtype is None:
 			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
+		# TODO: Remove this at some point? 
+		# Conversion with a warning to change the dbtype from radar to CDA for rebrand
+		elif self.dbtype.upper() == "radar":
+			print("\n\tWARNING: Update from dbtype=\"RADAR\" to dbtype=\"CDA\"")
+			self.dbtype = "CDA"
 		elif self.dbtype.upper() == "FILE":
 			pass
 		elif self.dbtype.upper() == "COPY":
@@ -402,7 +407,7 @@ class Value:
 					self.value = self.values[0][1]
 			except Exception as err:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
-		elif self.dbtype.upper() in ["JSON", "RADAR"]:
+		elif self.dbtype.upper() in ["JSON", "CDA"]:
 			import json, http.client as httplib, urllib.parse as urllib
 
 			#fmt = "%d-%b-%Y %H%M"
@@ -507,7 +512,7 @@ class Value:
 							if r1.status == 404:
 								json.loads(data)
 								# We don't care about the actual error, just if it's valid JSON
-								# Valid JSON means it was a RADAR response, so we treat it as a valid response, and won't retry.
+								# Valid JSON means it was a CDA response, so we treat it as a valid response, and won't retry.
 								break
 						except (httplib.NotConnected, httplib.ImproperConnectionState, httplib.BadStatusLine, ValueError, OSError) as e:
 							print(f"Error fetching: {e}", file=sys.stderr)
@@ -578,9 +583,10 @@ class Value:
 					print( repr(err) + " : " + str(err), file=sys.stderr )
 
 				break
-
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
+		else:
+			raise Exception(f"\n\n\t{self.dbtype.upper()} is not supported!\n\tAvailable options are:\n\t\t {', '.join(self.DB_OPTIONS)}\n")
 
 	# math functions
 	def __add__( self, other ):

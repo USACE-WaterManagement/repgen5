@@ -141,7 +141,7 @@ FDATE = Value(BASDATE,
 )
 #                                 Define all ELEVATIONS
 PAOELEV = Value(
-	dbtype="radar",
+	dbtype="cda",
 	DBTZ="MST7MDT",
 	DBLOC="Paonia",
 	DBPAR="Elev",
