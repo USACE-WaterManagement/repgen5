@@ -34,7 +34,7 @@ This page provides step-by-step instructions to install `repgen5`.
     ```
   - If you would like to target a specific version, use the following command:
     ```bash
-    pip install -U cwms-repgen==5.1.2
+    pip install -U cwms-repgen==5.1.6
     ``` 
 
 
