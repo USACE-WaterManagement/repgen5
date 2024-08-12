@@ -57,6 +57,15 @@ class Value:
 		"use_alternate": False, # Alternate server in use, if primary is unavailable
 	}
 
+	DB_TYPES = [
+		"CDA",
+		"SPKJSON",
+		"JSON",
+		"GENTS",
+		"TEXT",
+  		"FILE",
+    	"DSS"
+	]
 	# This isn't thread safe, not an issue yet though since repgen isn't multithreaded.
 	_conn = None
 
@@ -280,12 +289,12 @@ class Value:
 
 		self.type = "TIMESERIES"
 		self.values = [ ] # will be a tuple of (time stamp, value, quality )
-
+		
 		if self.dbtype is None:
 			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
 		# TODO: Remove this at some point? 
 		# Conversion with a warning to change the dbtype from radar to CDA for rebrand
-		elif self.dbtype.upper() == "radar":
+		elif self.dbtype.upper() == "RADAR":
 			print("\n\tWARNING: Update from dbtype=\"RADAR\" to dbtype=\"CDA\"")
 			self.dbtype = "CDA"
 		elif self.dbtype.upper() == "FILE":
@@ -586,7 +595,7 @@ class Value:
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
 		else:
-			raise Exception(f"\n\n\t{self.dbtype.upper()} is not supported!\n\tAvailable options are:\n\t\t {', '.join(self.DB_OPTIONS)}\n")
+			raise Exception(f"\n\n\t{self.dbtype.upper()} is not supported!\n\tAvailable options are:\n\t\t {', '.join(self.DB_TYPES)}\n")
 
 	# math functions
 	def __add__( self, other ):
