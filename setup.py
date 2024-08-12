@@ -4,7 +4,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="Repgen5",  
+    name="USACE-Repgen",  
     version="5.1.0", 
     author="USACE-HEC", 
     description='''This is a partial copy of HEC's (Hydrologic Engineering Center) repgen program.
@@ -33,7 +33,8 @@ The program creates fixed form text reports from a time series database, and tex
     },
     entry_points={
         "console_scripts": [
-            "repgen5=repgen5:main",  
+            "repgen5=repgen5:main", 
+            "repgen=repgen5:main", 
         ],
     },
 )
