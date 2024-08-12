@@ -7,3 +7,5 @@ test_priv/*
 *~
 .vscode
 *.swp
+tests/actual
+tests/output
