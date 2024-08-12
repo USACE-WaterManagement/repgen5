@@ -3,7 +3,7 @@ from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
 
-version = "5.0.5"
+version = "5.1.6"
 
 # setup base time, ex
 # default formats
@@ -33,7 +33,7 @@ def parseArgs():
 		parser.print_help()
 		exit(2)
 
-	return parser.parse_known_args()[0]
+	return parser
 
 # https://stackoverflow.com/a/52014520
 def parse_var(s):
@@ -92,8 +92,9 @@ TIMEZONE_ALIASES = {
 	"EST": "EST5EDT",
 }
 
-if __name__ == "__main__":
-	config = parseArgs()
+def main():
+	parser = parseArgs()
+	config = parser.parse_known_args()[0]
 	kwargs = parse_vars(config.set)[0]
 
 	if config.show_ver == True:
@@ -105,7 +106,6 @@ if __name__ == "__main__":
 	kwargs.pop("IN", None)		# This doesn't need to be visible to the report definition
 	kwargs.pop("REPORT", None)
 	kwargs.pop("FILE", None)
-
 	(host, path) = filterAddress(config.host)
 	(althost, altpath) = filterAddress(config.alternate)
 
@@ -124,14 +124,21 @@ if __name__ == "__main__":
 	# set some of the default values
 	Value(1, host=host, path=path, tz=tz, ucformat=config.compat, timeout=config.timeout, althost=althost, altpath=altpath, dbofc=config.office, **kwargs)
 	
+	report_data = None
 	# read the report file
 	if report_file == '-': 
 		report_file = sys.stdin.name
 		f = sys.stdin
 	else:
-		f = open(report_file, 'rt')
-	report_data = f.read()
-	f.close()
+		if not report_file:
+			parser.print_help()
+			print(f"\nError: No report file specified. You must specify a report file with the -i option\n")
+			sys.exit(1)
+		elif not os.path.exists(report_file):
+			print(f"\nError: Report file {report_file} does not exist\n")
+			sys.exit(1)
+		with open(report_file, 'rt') as f:
+			report_data = f.read()
 
 	base_date = kwargs.get("DATE", config.base_date)
 	base_time = kwargs.get("TIME", config.base_time)
@@ -204,3 +211,6 @@ if __name__ == "__main__":
 		mask = os.umask(0)
 		os.chmod(out_file, 0o666 & (~mask))
 		os.umask(mask)
+
+if __name__ == "__main__":
+	main()
