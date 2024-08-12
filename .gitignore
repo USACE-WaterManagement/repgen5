@@ -16,3 +16,4 @@ dist
 build
 _build
 .DS_Store
+venv
