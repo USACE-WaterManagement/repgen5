@@ -26,7 +26,13 @@ master_doc = 'index'
 language = 'en'
 
 html_theme = 'alabaster'
-html_static_path = ['_static']
+html_static_path = ['_static', '_static/css', '_static/js']
+html_css_files = [
+    'css/custom.css',
+]
+html_js_files = [
+    'js/custom.js',
+]
 
 man_pages = [
     (master_doc, 'Repgen5', 'Repgen5 Documentation',
