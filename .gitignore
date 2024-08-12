@@ -7,3 +7,4 @@ test_priv/*
 *~
 .vscode
 *.swp
+venv
