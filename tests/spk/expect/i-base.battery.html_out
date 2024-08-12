@@ -1,4 +1,4 @@
-#FORMFILE tests\testfiles\forms\i-base.battery.txt
+#FORMFILE tests\testfiles\forms\i-base.battery.table.html
 
 # Generated with dateutil.relativedelta support.
 #DEF
@@ -56,6 +56,7 @@ else:
 ETIME = Value(ETIME+timedelta(days=1),
 	PICTURE="%B  %Y",
 )
+TITLE = Value(_b)
 VLmin = Value(
 	dbtype="radar",
 	DBLOC=_a,

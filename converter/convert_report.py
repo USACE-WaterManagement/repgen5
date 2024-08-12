@@ -987,12 +987,12 @@ def main(input: str, output: str):
                             if key == "DB":
                                 if value == "%DB":
                                     key = "dbtype"
-                                    value = '"radar"'
-                                    error(f"WARNING: Oracle connectivity is not supported. Use dbtype='radar' with RADAR.")
+                                    value = '"cda"'
+                                    error(f"WARNING: Oracle connectivity is not supported. Use dbtype='cda' with CDA.")
                                 elif value.lower() == "local":
                                     error(f"WARNING: LOCAL DB connectivity is not supported.")
                                 else:
-                                    error(f"WARNING: DB option unsupported. Use dbtype='radar' with RADAR.")
+                                    error(f"WARNING: DB option unsupported. Use dbtype='cda' with CDA.")
                             elif key == "TYPE":
                                 key = "dbtype"
 

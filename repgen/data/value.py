@@ -136,7 +136,15 @@ class Value:
 		self.value = None
 		self.values = []
 		self.picture="%s"
-
+		# Normalize the keyword names to lowercase
+		kwargs = {key.lower(): value for key, value in kwargs.items()}
+		# Pop the TSID from the kwargs, so it doesn't get passed to the constructor/deep copy
+		self.tsid = kwargs.pop("tsid", None)
+		if self.tsid:
+			if self.tsid.count('.') != 5:
+				raise ValueError("Invalid timeseries ID. Fully qualified TSID are in the form DBLOC.DBPAR.DBPTYP.DBINT.DBDUR.DBVER")
+			(kwargs["dbloc"], kwargs["dbpar"], kwargs["dbptyp"], kwargs["dbint"], kwargs["dbdur"], kwargs["dbver"]) = self.tsid.split(".")
+   
 		if len(args) == 1 and isinstance(args[0], Value):
 			# This is emulating a "copy constructor" which does a deep copy.
 			value = copy.deepcopy(args[0])
@@ -175,39 +183,38 @@ class Value:
 			if isinstance(value, str) and len(value) > 0 and value[0] == '"' and value[-1] == '"':
 				value = value[1:-1]
 
-			lkey = key.lower()
-			if (lkey == "tz" or lkey == "dbtz") and isinstance(value, string_types):
+			if (key == "tz" or key == "dbtz") and isinstance(value, string_types):
 				value = pytz.timezone(value)
-			elif lkey == "start" or lkey == "end" or lkey.endswith("time") or lkey.endswith("date"):
+			elif key == "start" or key == "end" or key.endswith("time") or key.endswith("date"):
 				if isinstance(value,(Value)):
 					if value.type == 'TIMESERIES' and len(value.values) == 1:
 						value = value.values[0][0]
 					else:
 						value = value.value # internally we want the actual datetime
 
-				if lkey.endswith("time"):
+				if key.endswith("time"):
 					pending_time = value
-				elif lkey.endswith("date"):
+				elif key.endswith("date"):
 					pending_date = value
 
 				if pending_date and pending_time:
-					value, is24 = processDateTime(pending_date, lkey, pending_time)
+					value, is24 = processDateTime(pending_date, key, pending_time)
 
-				value, is24 = processDateTime(value, lkey)
+				value, is24 = processDateTime(value, key)
 				if is24 and pending_date is None:
 					# Skip this, process it later
 					continue
 
-				if lkey.startswith('s'):
+				if key.startswith('s'):
 					Value.shared["start"] = value
-				elif lkey.startswith('e'):
+				elif key.startswith('e'):
 					Value.shared["end"] = value
 				else:
 					Value.shared["start"] = value
 					Value.shared["end"] = value
 				
 				continue
-			elif lkey == "db":
+			elif key == "db":
 				# Parse the DB option and, if a URL, use it
 				# This will not cascade the specific "DB" entry, only it's component values (host, path)
 				# This currently isn't intended as a fully supported option, but for familiarity/compatibility
@@ -218,12 +225,12 @@ class Value:
 				elif value.lower()  == "local":
 					raise NotImplementedError("LOCAL DB option not supported.")
 				continue
-			elif lkey == "copyshared":
+			elif key == "copyshared":
 				# never copy these keywords
 				continue
 
-			setattr(self, lkey, value)
-			Value.shared[lkey] = value
+			setattr(self, key, value)
+			Value.shared[key] = value
 
 		# Correct any split date/times
 		if not isinstance(Value.shared["start"], datetime.datetime):
@@ -276,6 +283,11 @@ class Value:
 
 		if self.dbtype is None:
 			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
+		# TODO: Remove this at some point? 
+		# Conversion with a warning to change the dbtype from radar to CDA for rebrand
+		elif self.dbtype.upper() == "radar":
+			print("\n\tWARNING: Update from dbtype=\"RADAR\" to dbtype=\"CDA\"")
+			self.dbtype = "CDA"
 		elif self.dbtype.upper() == "FILE":
 			pass
 		elif self.dbtype.upper() == "COPY":
@@ -395,7 +407,7 @@ class Value:
 					self.value = self.values[0][1]
 			except Exception as err:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
-		elif self.dbtype.upper() in ["JSON", "RADAR"]:
+		elif self.dbtype.upper() in ["JSON", "CDA"]:
 			import json, http.client as httplib, urllib.parse as urllib
 
 			#fmt = "%d-%b-%Y %H%M"
@@ -500,7 +512,7 @@ class Value:
 							if r1.status == 404:
 								json.loads(data)
 								# We don't care about the actual error, just if it's valid JSON
-								# Valid JSON means it was a RADAR response, so we treat it as a valid response, and won't retry.
+								# Valid JSON means it was a CDA response, so we treat it as a valid response, and won't retry.
 								break
 						except (httplib.NotConnected, httplib.ImproperConnectionState, httplib.BadStatusLine, ValueError, OSError) as e:
 							print(f"Error fetching: {e}", file=sys.stderr)
@@ -571,9 +583,10 @@ class Value:
 					print( repr(err) + " : " + str(err), file=sys.stderr )
 
 				break
-
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
+		else:
+			raise Exception(f"\n\n\t{self.dbtype.upper()} is not supported!\n\tAvailable options are:\n\t\t {', '.join(self.DB_OPTIONS)}\n")
 
 	# math functions
 	def __add__( self, other ):

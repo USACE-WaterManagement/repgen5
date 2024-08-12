@@ -1,4 +1,4 @@
-# repgen5
+# repgen5 [![repgen5 tests](https://github.com/USACE-WaterManagement/repgen5/actions/workflows/tests.yml/badge.svg)](https://github.com/USACE-WaterManagement/repgen5/actions/workflows/tests.yml)
 
 This is a partial copy of HEC's (Hydrologic Engineering Center) repgen program.
 The program creates fixed form text reports from a time series database, and textfiles.
@@ -14,7 +14,7 @@ The program creates fixed form text reports from a time series database, and tex
     * Recommended for proper leap year adjustment for some date computations
 
 
-## Using
+## Usage
 The basic structure of a report input is as follows
 
 ```
@@ -31,9 +31,58 @@ arbitrary python code
 #ENDDEF
 
 ```
+### *Alternatively* - You can specify a `#FORMFILE full/file/path`
+This will provide you the ability to split your form into a **separate** file from the actual form definition. 
 
-Where %SCALAR is a simple fixed value and %TS are the first 3 values of a time series you've loaded.
-see test/test.input.python for a full example.
+__Example:__
+```
+#FORMFILE \path\to\file\morning_report.html
+
+#DEF
+arbitrary python code
+#ENDDEF
+```
+And the contents of your `morning_report.html` might look something like this:
+```html
+<html>
+<!-- Example HTML template for a table with syntax highlighting -->
+    <head>
+        <title>Title</title>
+        <style>
+            /* Custom Styles */
+
+            @media print {
+                /* Custom classes to apply when user clicks print */
+            }
+        </style>
+    </head>
+    <body>
+        <h2>Title</h2>
+        <main>
+            Average %SCALAR
+            <table>
+                <thead>
+                    <tr><th class="col">Col 1</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>%TS</td></tr>
+                    <tr><td>%TS</td></tr>
+                    <tr><td>%TS</td></tr>
+                </tbody>
+            </table>
+        </main>
+        <script>
+            // JavaScript
+        </script>
+    </body>
+</html>
+```
+
+### Where: 
+* `%SCALAR` is a simple fixed value 
+* `%TS` are the first 3 values of a time series you've loaded.  
+
+*See [tests/test.input.python](https://github.com/USACE-WaterManagement/repgen5/blob/c22a0af62df7cd3d756ce2788153fe2423e5bebe/test.manual/test.input.python) for a full example*
 
 
 ## Currently Implemented
@@ -54,7 +103,7 @@ Keyword | Description |
 picture | python format string or time format string, tells the system how to format the value |
 misstr  | what to display when a value is missing (None) |
 undef   | what to display when a value is undefined (this isn't implemented yet but was part of the original repgen program, general meaning is the time series you asked for doesn't actually exists the database being used) |
-dbtype  | copy,gents,spkjson,radar are the current valid values. This tells the system how it should interpret the supplied keywords |
+dbtype  | copy,gents,spkjson,cda are the current valid values. This tells the system how it should interpret the supplied keywords |
 
 Every time you set a keyword, Value stores the last used value. If a keyword doesn't need to change between values (e.g. they all need to render the same) you don't have to include it when creating the additional values.
 
@@ -92,7 +141,7 @@ picture is so that when the report is filled the time format will be used
 ##### Retrieve Time Series
 
 ```python
-ts = Value(dbtype="radar", 
+ts = Value(dbtype="cda", 
 	   dbloc="Black Butte-Outflow", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
 	   dbtz="UTC", dbunits="ft", dbofc="SPK" )
 ```
@@ -101,7 +150,7 @@ The start and end could also be used, in this example the start and end from the
 This allows you to get multiple time series of data by only changing the needed parameters.
 for example if we wanted the Stages (height of water in a channel) from several different locations we could to the following:
 ```python
-ts = Value(dbtype="radar", 
+ts = Value(dbtype="cda", 
 	   dbloc="Black Butte-Outflow", dbpar="Stage", dbptyp="Inst", dbint="15Minutes", dbdur="0", dbver="Combined-val",
 	   dbtz="PST8PDT", dbunits="ft", dbofc="SPK"
 	   start=datetime.datetime.now()-datetime.timedelta(hours=4)
@@ -181,7 +230,7 @@ YRS = Value(50,
 	PICTURE="%2.0f",
 )
 ts1 = Value(
-	dbtype="radar",
+	dbtype="cda",
 	DBLOC="Black Butte-Pool", DBPAR="Stor", DBPTYP="Inst", DBINT="~1Day", DBDUR=0, DBVER="Calc-val",
 	DBUNITS="ac-ft", 
 	DBTZ="PST8PDT",

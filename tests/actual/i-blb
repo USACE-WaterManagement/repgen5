@@ -388,7 +388,7 @@ MID.value = MID.value.replace(hour=0,minute=0,second=0,microsecond=0)
 FCST_T = Value(
 	MISSTR="   ",
 	UNDEF="   ",
-	dbtype="cda",
+	dbtype="radar",
 	DBLOC="Black Butte",
 	DBPAR="Flow-Reservoir inflow",
 	DBPTYP="Inst",
