@@ -3,7 +3,7 @@ from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
 
-version = "5.0.5"
+version = "5.1.4"
 
 # setup base time, ex
 # default formats
@@ -92,7 +92,7 @@ TIMEZONE_ALIASES = {
 	"EST": "EST5EDT",
 }
 
-if __name__ == "__main__":
+def main():
 	config = parseArgs()
 	kwargs = parse_vars(config.set)[0]
 
@@ -204,3 +204,6 @@ if __name__ == "__main__":
 		mask = os.umask(0)
 		os.chmod(out_file, 0o666 & (~mask))
 		os.umask(mask)
+
+if __name__ == "__main__":
+	main()
