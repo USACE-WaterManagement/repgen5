@@ -1,12 +1,13 @@
 import os, sys
+sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('../repgen'))
 sys.path.insert(0, os.path.abspath('../tests'))
+# from repgen.__main__ import version
 
 project = 'USACE WM Repgen5'
 copyright = '2024, HEC,MISC'
 author = 'HEC,MISC'
-release = '5.1.0'
-
+release = "5.1.4"
 extensions = [
     'myst_parser',             
     'sphinx_copybutton',
