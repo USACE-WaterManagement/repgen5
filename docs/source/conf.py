@@ -7,7 +7,7 @@ sys.path.insert(0, os.path.abspath('../tests'))
 project = 'USACE WM Repgen5'
 copyright = '2024, HEC,MISC'
 author = 'HEC,MISC'
-release = "5.1.5"
+release = "5.1.6"
 extensions = [
     'myst_parser',             
     'sphinx_copybutton',

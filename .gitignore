@@ -16,6 +16,7 @@ build
 _build
 .DS_Store
 .pypirc
+docs/source
 
 
 # Custom ignore lines

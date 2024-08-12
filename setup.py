@@ -22,8 +22,6 @@ The program creates fixed form text reports from a time series database, and tex
     ],
     python_requires='>=3.8', 
     install_requires=[
-        "sphinx>=3.0.0",
-        "myst-parser", 
         "pytz>=2022.1",
         "python-dateutil>=2.8.2",
     ],
@@ -31,6 +29,7 @@ The program creates fixed form text reports from a time series database, and tex
         "dev": [
             "sphinx",
             "sphinx_rtd_theme",
+            "sphinx-copybutton",
             "myst-parser",
             "twine",
             "wheel"
