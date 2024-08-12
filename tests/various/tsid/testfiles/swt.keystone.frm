@@ -93,6 +93,7 @@ stor = Value(
 # #                         Flow
 # # ==============================================================================
 flow_out = Value(
+    DBTYPE="CDA",
     DBPAR="Flow-Res Out",
     DBPTYP="Ave",
     DBINT="1Hour",

@@ -24,6 +24,7 @@ The program creates fixed form text reports from a time series database, and tex
     install_requires=[
         "pytz",
         "python-dateutil>=2.8.2",
+        "requests"
     ],
     extras_require={
         "dev": [
