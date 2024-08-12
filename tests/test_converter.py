@@ -6,10 +6,10 @@ sys.path.append("../")
 
 from converter import convert_report;
 
-INPUT_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "testfiles"))
-EXPECT_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "expect"))
-ACTUAL_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "actual"))
-LOG_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "output"))
+INPUT_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "spk", "testfiles"))
+EXPECT_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)),"spk", "expect"))
+ACTUAL_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)),"spk", "actual"))
+LOG_DIR = os.path.normpath(os.path.join(os.path.dirname(os.path.realpath(__file__)),   "spk", "output"))
 
 os.makedirs(ACTUAL_DIR, exist_ok=True)
 os.makedirs(LOG_DIR, exist_ok=True)

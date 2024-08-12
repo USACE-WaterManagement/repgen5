@@ -1,0 +1,72 @@
+#FORMFILE tests\testfiles\forms\i-base.battery.txt
+
+#DEF
+# !ECHO
+!-FUNCTION
+UNDEF="????"
+#
+#     Force the %BASDATE to a midnight value, so that TIME= does not have to be
+#     specified on the command line.
+#
+%BASDATE = SETTIME( %BASDATE, TIME, 2400 )
+#
+%CURDATE
+   PICTURE=DD AAA YYYY @ ZZZT
+%MONYR = %BASDATE
+   PICTURE = AAAAAAAAABBYYYY
+#
+#     Compute the beginning and ending days of the report.  Data is available
+#     only up thru yesterday.  Therefore,
+#     IF yesterday is >= the end of the month THEN
+#         Produce a report for the entire month (%ETIME = end-of-month)
+#     ELSEIF end-of-month > yesterday > start-of-month THEN
+#         Produce a partial month report (%ETIME = yesterday)
+#     ELSE the month lies completely in the future, so...
+#         Produce a report for the entire month consisting all No Reports
+#     ENDIF
+#
+%STIME = SETTIME( %BASDATE, DAY, 1)
+%EOM   = EOM( %BASDATE )
+%STMDAY = (YEAR(%STIME  ) - 1900)*1000 + DAYOFYR(%STIME  )
+%EOMDAY = (YEAR(%EOM    ) - 1900)*1000 + DAYOFYR(%EOM    )
+%YSTDAY = (YEAR(%CURDATE) - 1900)*1000 + DAYOFYR(%CURDATE) - 1
+#IF %YSTDAY >= %EOMDAY
+      %ETIME = %EOM
+#ELSEIF %YSTDAY > %STMDAY
+      %TEMP  = SETTIME( %CURDATE, TIME, 2400)
+      %ETIME = TIME(%TEMP - 1D)
+#ELSE
+      %ETIME = %EOM
+#ENDIF
+#
+#
+%ETIME=%ETIME+1D
+%TITLE=^b
+%VLmin
+	DB=%DB
+	DBLOC=^a
+	DBPAR=Volt-Load DBPTYP=Min DBINT=~1Day DBDUR=0 DBVER=Calc-val
+	STIME=%STIME ETIME=%ETIME
+	DBUNITS=volt
+	PICTURE="   NN.Z"
+	UNDEF  ="      m"
+	MISSTR ="      m"
+%VLmax
+	DBPTYP=Max
+%VBmax
+	DBPAR=Volt-Batt 
+%VBmin
+	DBPTYP=Min
+	
+%TMP DBLOC="Markers-Placeholder" DBPAR=Count DBPTYP=Inst DBINT=~1Day DBDUR=0 DBVER=ALL
+	DBUNITS=unit
+	STIME=%STIME-1D ETIME=%ETIME
+
+%DY=DATATIME(%TMP)
+  PICTURE="BBDD"
+ UNDEF   ="   X"
+ MISSTR  ="   X"
+
+#
+#
+#ENDDEF

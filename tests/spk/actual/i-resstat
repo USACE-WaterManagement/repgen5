@@ -95,7 +95,7 @@ T06 = Value(T00+timedelta(hours=6))
 #     Define all Top of Conservation Storage values
 #
 BBTCS = Value(
-	dbtype="radar",
+	dbtype="cda",
 	DBLOC="Black Butte",
 	DBPTYP="Inst",
 	DBPAR="Stor-Top Con",
@@ -3586,4 +3586,3 @@ else:
 		DBLOC="Vallecito",
 	)
 #ENDDEF
-
