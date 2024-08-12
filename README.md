@@ -31,7 +31,8 @@ arbitrary python code
 #ENDDEF
 
 ```
-### *Alternatively* - You can specify a `#FORMFILE full/file/path`
+### *Alternatively* - You can specify a `#FORMFILE full/file/path` 
+_**NOTE** This feature is v5.1.0+_  
 This will provide you the ability to split your form into a **separate** file from the actual form definition. 
 
 __Example:__
