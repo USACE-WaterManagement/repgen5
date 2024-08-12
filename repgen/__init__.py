@@ -1,0 +1,1 @@
+REPGEN_DOCS_URL="https://repgen5.readthedocs.io/"
