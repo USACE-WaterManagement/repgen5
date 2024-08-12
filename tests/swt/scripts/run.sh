@@ -1,6 +1,6 @@
 #!/bin/bash
 
-python3 . \
+repgen5 \
     -a https://cwms-data.usace.army.mil/cwms-data \
-    -i tests/swt/testfiles/test.frm \
+    -i tests/swt/testfiles/parameters.frm \
     -O SWT
