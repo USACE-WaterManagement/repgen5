@@ -7,3 +7,9 @@ test_priv/*
 *~
 .vscode
 *.swp
+.venv
+
+dist
+*.egg-info
+build
+.DS_Store
