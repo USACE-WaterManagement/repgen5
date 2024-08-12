@@ -1,5 +1,6 @@
 import os, sys
 from repgen.__main__ import version
+sys.path.insert(0, os.path.abspath('../'))
 sys.path.insert(0, os.path.abspath('../repgen'))
 sys.path.insert(0, os.path.abspath('../tests'))
 
