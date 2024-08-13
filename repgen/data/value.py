@@ -8,7 +8,7 @@ import ssl
 from ssl import SSLError
 import re
 from repgen.util import extra_operator, filterAddress
-from repgen.data.levels import Level
+from repgen.data.levels import LevelsApi
 
 import signal
 
@@ -36,7 +36,7 @@ def handler(signum, frame):
 if sys.platform != "win32":
 	signal.signal(signal.SIGALRM, handler)
 
-class Value(Level):
+class Value(LevelsApi):
 	shared = {
 		"picture" : "NNZ",
 		"misstr"  : "-M-",
