@@ -11,3 +11,8 @@ MAX_RETRIES = 3
 BACKOFF_FACTOR = 1 
 # Create a session for all requests
 session = requests.Session()
+
+CDA_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
+
+# Specifies the allowed unit system of the level response
+CDA_UNIT_SYSTEMS = ["SI", "EN", "Other"]
