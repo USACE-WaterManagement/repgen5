@@ -15,7 +15,6 @@ from repgen import PROD_CDA_HOST, REQUEST_TIMEOUT_SECONDS, \
 _retry_strategy = Retry(
     total=MAX_RETRIES,
     status_forcelist=[429, 500, 502, 503, 504],  
-    method_whitelist=["GET"], 
     backoff_factor=BACKOFF_FACTOR, 
 )
 
