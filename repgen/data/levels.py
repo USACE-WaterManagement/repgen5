@@ -1,14 +1,35 @@
 # stdlib 
 from urllib.parse import quote
 # third party
-import requests
+from repgen import session
 from requests.exceptions import HTTPError
+from requests import Response
 from json.decoder import JSONDecodeError
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # custom
-from repgen import PROD_CDA_HOST, REQUEST_TIMEOUT_SECONDS
+from repgen import PROD_CDA_HOST, REQUEST_TIMEOUT_SECONDS, \
+    MAX_RETRIES, BACKOFF_FACTOR
 
-def printError(err, response):
+_retry_strategy = Retry(
+    total=MAX_RETRIES,
+    status_forcelist=[429, 500, 502, 503, 504],  
+    method_whitelist=["GET"], 
+    backoff_factor=BACKOFF_FACTOR, 
+)
+
+session.mount("https://", HTTPAdapter(max_retries=_retry_strategy))
+
+
+def printError(err: HTTPError, response: Response) -> None:
+    '''
+    Prints the error and response if present
+
+    Args:
+        err (HTTPError): The HTTPError object.
+        response (Response): The Response object.
+    '''
     print(f"HTTPError: {err}")
     if err.response.status_code == 404:
         print(f"HTTPError: 404 Not Found")
@@ -17,7 +38,8 @@ def printError(err, response):
     print(f"Response: {err.response.text}")
     if response:
         print(f"Response: {response.text}") 
-class Level:
+class LevelsApi:
+    
     @staticmethod
     def getLevelById(levelId: str, office: str, effectiveDate: str, unit: str = "", timeZone: str = "GMT", *args, **kwargs) -> dict:
         '''
@@ -54,13 +76,15 @@ class Level:
         else:
             # Encode the levelId for % and / characters that are not allowed in the URL
             levelId = quote(levelId)
-        params = {"effective-date": quote(effectiveDate), "timezone": quote(timeZone), "unit": unit, "office": office, **kwargs}
+        params = {"effective-date": effectiveDate, "timezone": quote(timeZone), "unit": unit, "office": office, **kwargs}
         # Remove None values
         params = {k: v for k, v in params.items() if v is not None}
         # Encode only the values
         # encoded_params = {k: quote(str(v)) for k, v in params.items()}
         try:
-            response = requests.get(f"{PROD_CDA_HOST}/levels/{levelId}" , params=params, timeout=REQUEST_TIMEOUT_SECONDS)
+            response = session.get(f"{PROD_CDA_HOST}/levels/{levelId}" , 
+                                   params=params, 
+                                   timeout=REQUEST_TIMEOUT_SECONDS)
             print(f"[/levels/{levelId}]\t", response.url)
             # Raise HTTPError if one occurred
             response.raise_for_status()
@@ -71,6 +95,7 @@ class Level:
         else:
             raise Exception(f"Error getting levels for levelId {levelId} and office {office}: {response.status_code}\n{response.text}")
 
+    @staticmethod
     def getLevels(levelIdMask: str, 
                   office: str, 
                   unit: str = None, 
@@ -142,7 +167,7 @@ class Level:
         # Encode only the values
         # encoded_params = {k: quote(str(v)) for k, v in params.items()}
         try:
-            response = requests.get(f"{PROD_CDA_HOST}/levels" , 
+            response = session.get(f"{PROD_CDA_HOST}/levels" , 
                                     headers={
                                         "Accept": "*/*"
                                     },
@@ -169,9 +194,14 @@ if __name__ == "__main__":
     
     print("WARNING: This script should ONLY be called directly for testing purposes.")
     print("TEST: Level.getLevelById")
-    print(Level.getLevelById(levelId="KEYS.Elev.Inst.0.Top of Conservation", office="SWT", effectiveDate="2024-06-21T00:00:00", timeZone="America/Chicago", unit="ft"))
+    print(LevelsApi.getLevelById(
+            levelId="KEYS.Elev.Inst.0.Top of Conservation", 
+            office="SWT", 
+            effectiveDate="2024-06-21T00:00:00", 
+            timeZone="America/Chicago", 
+            unit="ft"))
     print("TEST: Level.getLevels")
-    print(Level.getLevels(levelIdMask="KEYS.Elev.Inst.0.Top of Conservation", 
+    print(LevelsApi.getLevels(levelIdMask="KEYS.Elev.Inst.0.Top of Conservation", 
                           begin="2024-06-11T00:00:00-05:00",
                           end="2024-06-12T00:00:00-05:00",
                           timeZone="America/Chicago",
