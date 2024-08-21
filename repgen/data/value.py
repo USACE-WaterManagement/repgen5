@@ -147,7 +147,7 @@ class Value(LevelsApi):
 		self.type="SCALAR"
 		self.value = None
 		self.values = []
-		self.picture="%s"
+		self.picture = None
 		# Normalize the keyword names to lowercase
 		kwargs = {key.lower(): value for key, value in kwargs.items()}
 		# Pop the TSID from the kwargs, so it doesn't get passed to the constructor/deep copy
@@ -293,7 +293,13 @@ class Value(LevelsApi):
 		# If the levelId is set, go for that first
 		if self.levelid:
 			self.type = "LEVEL"
+			# Convert the remainder picture to the level format
+			# Leftover from the BASDATE amd other shared value calls
+			if self.picture == "%Y%b%d %H%M":
+				self.picture = "%5.2f"
 		else:
+			if not self.picture:
+				self.picture = "%s"
 			self.type = "TIMESERIES"
 		self.values = [ ] # will be a tuple of (time stamp, value, quality )
 		if self.dbtype.upper() == "RADAR":
@@ -609,13 +615,10 @@ class Value(LevelsApi):
 					unit=units
                  )
 				for level in levelData["location-levels"]["location-levels"]:
-					# print(level)
 					for _d, _v in level["values"]["segments"][0]["values"]:
 						_dt = datetime.datetime.strptime(_d, CDA_DATE_FORMAT + "%z")
 						_dt = _dt.astimezone(self.dbtz)
 						self.values.append( ( _dt,_v, 0 if _v is not None else 5  ) )
-				print(self.values)
-				# self.type = "SCALAR"
 
 
 		elif self.dbtype.upper() == "DSS":
@@ -837,7 +840,6 @@ class Value(LevelsApi):
 		return NotImplemented
 
 	def __str__(self):
-		print(self.type, self.value, self.values)
 		if self.type=="SCALAR":
 			return self.format(self.value)
 		else:
@@ -908,7 +910,7 @@ class Value(LevelsApi):
 	def pop(self):
 		if self.type == "SCALAR":
 			return self.format(self.value)
-		elif self.type == "TIMESERIES":
+		elif self.type in ["TIMESERIES", "LEVEL"]:
 			if self.index is None:
 				self.index = 0
 			self.index = self.index+1
@@ -930,7 +932,7 @@ class Value(LevelsApi):
 		Value.shared["dbtype"]=typ
 
 		tmp.type = self.type
-		if self.type == "TIMESERIES":
+		if self.type in ["TIMESERIES", "LEVEL"]:
 			for v in self.values:
 				tmp.values.append( (v[0],v[0],v[2]) )
 		elif self.type == "SCALAR":
