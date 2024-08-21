@@ -8,13 +8,13 @@ Keystone Lake Levels
 #ENDFORM
 #DEF
 
-toc_level =Value(
+TOP_OF_CONSERVATION =Value(
 		dbtype  = "CDA",     
         levelId = "KEYS.Elev.Inst.0.Top of Conservation",
 		misstr  = "-M-",
 		undef   = "-?-",
 		dbunits = "EN",
 	)
-print(str(toc_level))
+print(str(TOP_OF_CONSERVATION))
 #ENDDEF
     

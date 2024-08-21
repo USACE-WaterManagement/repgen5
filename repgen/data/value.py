@@ -189,7 +189,6 @@ class Value(LevelsApi):
 		pending_date = None
 		
 		# update the shared keywords
-		print(kwargs)
 		for key in kwargs:
 			value = kwargs[key]
 			# If the value is wrapped in quotes, it's most likely wrong (possibly value was read from a file where it had quotes).
@@ -292,7 +291,6 @@ class Value(LevelsApi):
 			raise ValueError("Only 1 non named value is allowed")
 		
 		# If the levelId is set, go for that first
-		print('dbtype', self.dbtype)
 		if self.levelid:
 			self.type = "LEVEL"
 		else:
@@ -422,7 +420,6 @@ class Value(LevelsApi):
 			except Exception as err:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
 		elif self.dbtype.upper() in ["JSON", "CDA"]:
-			print(self.start, self.end)
 			tz = self.dbtz
 			units = self.dbunits
    
@@ -433,7 +430,6 @@ class Value(LevelsApi):
 				assert send.tzinfo is not None, "Naive datetime; end time should contain timezone"
 				start = sstart.astimezone(tz)
 				end = send.astimezone(tz)
-			print("type", self.type)
 			if self.type == "TIMESERIES":
 				if self.start is None or self.end is None:
 					return
@@ -612,11 +608,14 @@ class Value(LevelsApi):
 					pageSize=-1, 
 					unit=units
                  )
-				print(levelData)
 				for level in levelData["location-levels"]["location-levels"]:
-					print(level)
-     
-				self.type = "SCALAR"
+					# print(level)
+					for _d, _v in level["values"]["segments"][0]["values"]:
+						_dt = datetime.datetime.strptime(_d, CDA_DATE_FORMAT + "%z")
+						_dt = _dt.astimezone(self.dbtz)
+						self.values.append( ( _dt,_v, 0 if _v is not None else 5  ) )
+				print(self.values)
+				# self.type = "SCALAR"
 
 
 		elif self.dbtype.upper() == "DSS":
@@ -838,15 +837,16 @@ class Value(LevelsApi):
 		return NotImplemented
 
 	def __str__(self):
+		print(self.type, self.value, self.values)
 		if self.type=="SCALAR":
 			return self.format(self.value)
 		else:
 			return "Unable to process at this time"
+		
 	def __repr__(self):
 		return "<Value,type=%s,value=%s,len values=%d, picture=%s>" % (self.type,str(self.value),len(self.values),self.picture)
 
 	def format(self,value):
-		#print repr(value)
 		if self.ismissing(value) or isinstance(value, list):
 			return self.misstr
 
@@ -859,7 +859,6 @@ class Value(LevelsApi):
 			prefix = self.picture[0:specifier_start]
 			picture = re.search(r"%([0-9.,+-]*[bcdoxXneEfFgG%])", self.picture).group(1)
 			suffix = self.picture[self.picture.index(picture) + len(picture):]
-
 			if isinstance(value, (Decimal,float)) and not math.isfinite(value):
 				result = prefix + self.undef + suffix
 			else:
@@ -914,7 +913,6 @@ class Value(LevelsApi):
 				self.index = 0
 			self.index = self.index+1
 			try:
-				#print repr(self.values[self.index-1])
 				return self.format(self.values[self.index-1][1])
 			except IndexError:
 				# If data is missing, just return the undefined string value
