@@ -19,10 +19,13 @@ TOP_OF_DAM = Value(
 
 TOP_OF_CONSERVATION =Value(
         levelId = "KEYS.Elev.Inst.0.Top of Conservation",
+		start=BASDATE.value.replace(month=6, day=21, year=2019, hour=8, minute=0, second=0, microsecond=0),
+    	end=BASDATE.value.replace(hour=8, minute=0, second=0, microsecond=0),
 	)
 
 BOTTOM_OF_CONSERVATION = Value(
     levelId = "KEYS.Elev.Inst.0.Bottom of Conservation",
+    start=BASDATE.value.replace(month=6, day=21, year=2020, hour=8, minute=0, second=0, microsecond=0),
     picture = "%5.3f",
 )
 TOD_DT = Value(TOP_OF_DAM.datatimes(),
