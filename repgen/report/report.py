@@ -94,34 +94,21 @@ class Report:
 						if match:
 							# Grab the actual value given the regex key match
 							newval = str(data_point.get(match.group(2), ""))
+							if newval is None:
+								newval = data_point.misstr
 							# Replace every instance in the line *exactly* with the new value
 							tmp = tmp.replace(match.group(0), newval)
 					else: 
+						# pop the next value off the stack
 						newval = data_point.pop()
-						if self.compatibility:
-							start = tmp.upper().find(v.upper())
-						else:
-							start = tmp.find(v)
 						#sys.stderr.write("Using %s\n" % newval)
 						if newval is None:
 							newval = data_point.misstr
-						end = len(newval)
-						# sys.stderr.write("Newval: %s (%d)\n" % (newval, len(newval)))
-						# sys.stderr.write("line: %s\n" % tmp)
-						# sys.stderr.write("Before: Start: %d; End: %d; Len: %d\n" % (start, end, len(v)))
-						if end < len(v):
-							end = len(v) # make sure the replacement eats the whole variable
-						#sys.stderr.write("After: Start: %d; End: %d; Len: %d\n" % (start, end, len(v)))
-						if start+end > len(tmp):
-							# we need to extend the line
-							tmp = tmp + " "*end
-						tmp2 = list(tmp)
-						#sys.stderr.write(repr(tmp2) + "\n")
-						for i in range(0,end):
-							if i < len(newval):tmp2[start+i] = newval[i]
-							else: tmp2[start+i] = " "
-						#tmp2[start:start+end] = newval
-						tmp = "".join(tmp2)
+						# Replace every instance in the line *exactly* with the new value
+						if self.compatibility:
+							tmp = tmp.replace(v.upper(), newval)
+						else:
+							tmp = tmp.replace(v, newval)
 					if self.compatibility:
 						tmpupper = tmp.upper()
 					else:
