@@ -8,7 +8,7 @@ from requests import Response
 from json.decoder import JSONDecodeError
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
-
+from repgen.util import pascalToCamel
 # custom
 from repgen import PROD_CDA_HOST, REQUEST_TIMEOUT_SECONDS, \
     MAX_RETRIES, BACKOFF_FACTOR, CDA_UNIT_SYSTEMS
@@ -104,16 +104,7 @@ class LocationsApi:
             data = response.json()
             # replace all keys that are pascal-case with camelCase
             # do this so we can use the camelCase keys in the repgen code
-            _camelObj = {}
-            for key in data.keys():
-                # for keys with multiple hyphens - in the name, split and capitalize each part ignoring the first
-                _cKey = key.split("-")[0] + "".join([i.capitalize() for i in key.split("-")[1:]])
-                value = data[key]
-                # Cleanup strings that should otherwise be None
-                if isinstance(value, str) and value.upper() == "NULL":
-                    value = None
-                _camelObj[_cKey] = value
-            return _camelObj
+            return pascalToCamel(data)
         else:
             raise Exception(f"Error getting metadata for locationId {locationId} and office {office}: {response.status_code}\n{response.text}")
 
