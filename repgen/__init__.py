@@ -1,6 +1,6 @@
 import requests
 
-REPGEN_DOCS_URL="https://repgen5.readthedocs.io/"
+REPGEN_DOCS_URL = "https://repgen5.readthedocs.io/"
 PROD_CDA_HOST = "https://cwms-data.usace.army.mil/cwms-data"
 
 # Time in seconds before a request should timeout
@@ -16,3 +16,5 @@ CDA_DATE_FORMAT = "%Y-%m-%dT%H:%M:%S"
 
 # Specifies the allowed unit system of the level response
 CDA_UNIT_SYSTEMS = ["SI", "EN", "Other"]
+
+DB_OPTIONS = ["GENTS", "COPY", "SPKJSON", "JSON"]
