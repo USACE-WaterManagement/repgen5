@@ -27,6 +27,9 @@ meta.stateInitial       %meta.stateInitial
 meta.timezoneName       %meta.timezoneName
 meta.verticalDatum      %meta.verticalDatum
 
+%meta.somevalue-that-does-not-exist
+%meta.someotherValue
+
 =========================================
 Location MetaData for %meta2.publicName
 =========================================

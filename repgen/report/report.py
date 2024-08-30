@@ -1,5 +1,6 @@
 import sys,time,datetime,pytz,tempfile,shutil,os,operator,calendar,re
 from repgen.data.value import Value
+
 try:
 	# Relativedelta supports months and years, but is external library
 	from dateutil.relativedelta import relativedelta as timedelta
@@ -84,14 +85,20 @@ class Report:
 				# Loop to catch multiple instances of a variable usage
 				while v in tmpupper:
 					#sys.stderr.write("Found a marker for %s (%d)\n" % (v, len(v)))
+					if v.find("-") >= 0:
+						tmpupper = tmp = ""
+						continue
 					data_point = self.data[data_keys[v]]
 					if isinstance(data_point, dict):
 						v = tmp
 						# create a regex to grab the dictionary key after the period for anywhere on a line
-						regex = re.compile(r"%([a-zA-Z0-9]+)\.([a-zA-Z0-9_]+)")
+						regex = re.compile(r"%([a-zA-Z0-9]+)\.([a-zA-Z0-9-_]+)")
 						match = regex.search(tmp)
 						newval = ""
 						if match:
+							if match.group(2).find("-") >= 0 :
+								print(f"\tWARNING: Hyphens are not supported in variable names: ({match.group(1)}.{match.group(2)})\n\t Use snake_case or camelCase instead!")
+								continue
 							# Grab the actual value given the regex key match
 							newval = str(data_point.get(match.group(2), ""))
 							if newval is None:
