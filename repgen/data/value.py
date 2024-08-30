@@ -594,9 +594,10 @@ class Value:
 		# set the Value properties as the keys of the location data
 		metaData = LocationsApi.getLocationById(locationId=self.dbloc, office=self.dbofc, unit=unit_system)
 		for key in metaData.keys():
+			# assign the values to the instance so they can be accessed
 			setattr(self, key, metaData[key])
 			Value.shared[key] = metaData[key]
-			print(dir(self))
+		return metaData
 	# math functions
 	def __add__( self, other ):
 		return self.domath(operator.add,other)

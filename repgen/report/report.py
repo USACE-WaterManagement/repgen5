@@ -84,34 +84,44 @@ class Report:
 				# Loop to catch multiple instances of a variable usage
 				while v in tmpupper:
 					#sys.stderr.write("Found a marker for %s (%d)\n" % (v, len(v)))
-					if self.compatibility:
-						start = tmp.upper().find(v.upper())
-					else:
-						start = tmp.find(v)
-
-					newval = self.data[data_keys[v]].pop()
-					#sys.stderr.write("Using %s\n" % newval)
-					if newval is None:
-						newval = self.data[data_keys[v]].misstr
-
-					end = len(newval)
-					#sys.stderr.write("Newval: %s (%d)\n" % (newval, len(newval)))
-					#sys.stderr.write("line: %s\n" % tmp)
-					#sys.stderr.write("Before: Start: %d; End: %d; Len: %d\n" % (start, end, len(v)))
-					if end < len(v):
-						end = len(v) # make sure the replacement eats the whole variable
-					#sys.stderr.write("After: Start: %d; End: %d; Len: %d\n" % (start, end, len(v)))
-					if start+end > len(tmp):
-						# we need to extend the line
-						tmp = tmp + " "*end
-					tmp2 = list(tmp)
-					#sys.stderr.write(repr(tmp2) + "\n")
-					for i in range(0,end):
-						if i < len(newval):tmp2[start+i] = newval[i]
-						else: tmp2[start+i] = " "
-					#tmp2[start:start+end] = newval
-					tmp = "".join(tmp2)
-
+					data_point = self.data[data_keys[v]]
+					if isinstance(data_point, dict):
+						v = tmp
+						# create a regex to grab the dictionary key after the period for anywhere on a line
+						regex = re.compile(r"%([a-zA-Z0-9]+)\.([a-zA-Z0-9_]+)")
+						match = regex.search(tmp)
+						newval = ""
+						if match:
+							# Grab the actual value given the regex key match
+							newval = str(data_point.get(match.group(2), ""))
+							# Replace every instance in the line *exactly* with the new value
+							tmp = tmp.replace(match.group(0), newval)
+					else: 
+						newval = data_point.pop()
+						if self.compatibility:
+							start = tmp.upper().find(v.upper())
+						else:
+							start = tmp.find(v)
+						#sys.stderr.write("Using %s\n" % newval)
+						if newval is None:
+							newval = data_point.misstr
+						end = len(newval)
+						# sys.stderr.write("Newval: %s (%d)\n" % (newval, len(newval)))
+						# sys.stderr.write("line: %s\n" % tmp)
+						# sys.stderr.write("Before: Start: %d; End: %d; Len: %d\n" % (start, end, len(v)))
+						if end < len(v):
+							end = len(v) # make sure the replacement eats the whole variable
+						#sys.stderr.write("After: Start: %d; End: %d; Len: %d\n" % (start, end, len(v)))
+						if start+end > len(tmp):
+							# we need to extend the line
+							tmp = tmp + " "*end
+						tmp2 = list(tmp)
+						#sys.stderr.write(repr(tmp2) + "\n")
+						for i in range(0,end):
+							if i < len(newval):tmp2[start+i] = newval[i]
+							else: tmp2[start+i] = " "
+						#tmp2[start:start+end] = newval
+						tmp = "".join(tmp2)
 					if self.compatibility:
 						tmpupper = tmp.upper()
 					else:
@@ -164,7 +174,8 @@ class Report:
 		# to a dictionary with the % in front of the them
 		# to mark location on the report
 		self.data = { }
-
 		for key in my_locals:
 			if isinstance(my_locals[key], Value ):
+				self.data["%"+key] = my_locals[key]
+			elif isinstance(my_locals[key], dict):
 				self.data["%"+key] = my_locals[key]
