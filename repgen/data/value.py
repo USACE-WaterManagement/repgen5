@@ -9,6 +9,7 @@ from ssl import SSLError
 import re
 from repgen.util import extra_operator, filterAddress
 import signal
+from repgen.data.locations import LocationsApi
 
 try:
 	# Relativedelta supports months and years, but is external library
@@ -575,6 +576,13 @@ class Value:
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
 
+	def meta(self):
+		# set the Value properties as the keys of the location data
+		metaData = LocationsApi.getLocationById(locationId=self.value, office=self.dboff, unit=self.dbunits)
+		for key in metaData.keys():
+			setattr(self, key, metaData[key])
+			Value.shared[key] = metaData[key]
+			print(dir(self))
 	# math functions
 	def __add__( self, other ):
 		return self.domath(operator.add,other)
