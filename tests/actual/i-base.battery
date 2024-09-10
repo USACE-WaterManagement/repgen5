@@ -1,41 +1,5 @@
-#FORM
-Year/Month %MONYR
-Report As of %CURDATE              
-%TITLE
-           Loaded         Normal
-Day       min    max     min    max 
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-%DY     %VLmin %VLmax  %VBmin %VBMax
-#ENDFORM
+#FORMFILE tests\testfiles\forms\i-base.battery.txt
+
 # Generated with dateutil.relativedelta support.
 #DEF
 # !ECHO
@@ -94,7 +58,7 @@ ETIME = Value(ETIME+timedelta(days=1),
 )
 TITLE = Value(_b)
 VLmin = Value(
-	dbtype="radar",
+	dbtype="cda",
 	DBLOC=_a,
 	DBPAR="Volt-Load",
 	DBPTYP="Min",
