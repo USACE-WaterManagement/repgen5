@@ -1,0 +1,60 @@
+=========================================
+Location MetaData for Keystone Lake
+=========================================
+Current Elev Value: 1639.36
+
+meta.active             True
+meta.boundingOfficeId   SWT
+meta.countyName         Tulsa
+meta.description        None
+meta.elevation          615.2296587926509
+meta.horizontalDatum    NAD83
+meta.latitude           36.151666666667
+meta.locationKind       PROJECT
+meta.locationType       Reservoir
+meta.longName           None
+meta.longitude          -96.251666666667
+meta.mapLabel           Keystone Lake
+meta.name               KEYS
+meta.nation             US
+meta.nearestCity        Sand Springs, OK
+meta.officeId           SWT
+meta.publicName         Keystone Lake
+meta.publishedLatitude  36.151666666667
+meta.publishedLongitude -96.251666666667
+meta.stateInitial       OK
+meta.timezoneName       US/Central
+meta.verticalDatum      NGVD29
+
+
+
+
+=========================================
+Location MetaData for Foss Lake
+=========================================
+Current Elev Value: 1639.36
+
+Now to stress test the ability to import the value anywhere
+meta2.active             True
+meta2.boundingOfficeId   SWT
+meta2.countyName         Custer
+meta2.description        Foss Reservoir near Foss, OK
+meta2.elevation          1562.9986876640419    %%ionKind
+meta2.horizontalDatum    WGS84
+meta2.latitude           35.5383333 NAD83
+meta2.locationKind   what about some random text    PROJECT
+meta2.locationType       RESERVOIR
+meta2.longName           Foss Reservoir near Foss, OK
+meta2.longitude     or an actual 1639.36 value in the middle?     -99.1783333
+meta2.mapLabel           Foss Lake or the end: 1639.35
+meta2.name               FOSS
+meta2.nation             US a few more 1639.36 1639.36
+meta2.nearestCity        Stafford, OK
+meta2.officeId    SWT text here       SWTforgot a space here orhereSWT
+meta2.1639.35publicName         Foss Lake
+meta2.publ1639.35ishedLatitude  35.538333333333
+meta2.publishedLongitude 99.166666666667
+meta2.stateInitial       OK
+meUS/Central       US/Central
+meta2.verticalDatum      NGVD29
+

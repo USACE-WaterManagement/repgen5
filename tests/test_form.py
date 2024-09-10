@@ -7,19 +7,19 @@ import platform
 sys.path.append("../")
 
 INPUT_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "tsid", "testfiles")
+    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "testfiles")
 )
 EXPECT_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "tsid", "expect")
+    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "expect")
 )
 ACTUAL_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "tsid", "actual")
+    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "actual")
 )
 LOG_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "tsid", "output")
+    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "output")
 )
 SCRIPT_DIR = os.path.normpath(
-    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "tsid", "scripts")
+    os.path.join(os.path.dirname(os.path.realpath(__file__)), "various", "scripts")
 )
 
 os.makedirs(ACTUAL_DIR, exist_ok=True)
@@ -29,21 +29,22 @@ os.makedirs(LOG_DIR, exist_ok=True)
 @pytest.mark.parametrize(
     "reportname, office",
     [
+        ("meta", "SWT"),
         ("swt.keystone", "SWT"),
         ("spk.flow_out", "SPK"),
     ]
 )
 def test_repgen(capsys, reportname: str, office: str):
-    print(f"office: {office} reportname: {reportname}")
     actualname = os.path.join(
         ACTUAL_DIR, reportname + ".txt"
     )  # Assuming output is .txt
+    print(f"office: {office} report: {actualname}")
     expectname = os.path.join(EXPECT_DIR, reportname + ".txt")
     outputname = os.path.join(LOG_DIR, reportname + ".out.log")
     errname = os.path.join(LOG_DIR, reportname + ".err.log")
 
     # Determine the operating system and choose the script accordingly
-    _rg_args = ["python", ".", "-a", "https://cwms-data.usace.army.mil/cwms-data", "-i", f"./tests/various/tsid/testfiles/{reportname}.frm", "-O", office.upper(), "-o", f"./tests/various/tsid/actual/{reportname}.txt"]
+    _rg_args = ["python", ".", "-a", "https://cwms-data.usace.army.mil/cwms-data", "-i", f"./tests/various/testfiles/{reportname}.frm", "-O", office.upper(), "-o", f"./tests/various/actual/{reportname}.txt"]
 
     if platform.system() == "Windows":
         script = os.path.join(SCRIPT_DIR, "run.bat")
@@ -66,6 +67,7 @@ def test_repgen(capsys, reportname: str, office: str):
         
     # Write captured output to files
     if output:
+        print("OUTPUTNAME", outputname)
         with open(outputname, "wt") as output_fd:
             output_fd.write(output)
 
