@@ -194,7 +194,14 @@ class Value(LevelsApi):
 			# If the value is wrapped in quotes, it's most likely wrong (possibly value was read from a file where it had quotes).
 			if isinstance(value, str) and len(value) > 0 and value[0] == '"' and value[-1] == '"':
 				value = value[1:-1]
-
+			print("key", key, 'value', value)
+			if key in ["dbloc", "dbpar", "dbptyp","dbint","dbdur","dbver"]:
+				# Switch to timeseries when a user actively provides a TS parameter
+				if self.type == "LEVEL": self.type = "TIMESERIES"
+			elif key == "levelid":
+                # Switch to timeseries when a user actively provides a TS parameter
+				if self.type in ["SCALAR", "TIMESERIES"]: 
+					self.type = "LEVEL" 
 			if (key == "tz" or key == "dbtz") and isinstance(value, string_types):
 				value = pytz.timezone(value)
 			elif key == "start" or key == "end" or key.endswith("time") or key.endswith("date"):
@@ -203,7 +210,6 @@ class Value(LevelsApi):
 						value = value.values[0][0]
 					else:
 						value = value.value # internally we want the actual datetime
-
 				if key.endswith("time"):
 					pending_time = value
 				elif key.endswith("date"):
@@ -291,8 +297,9 @@ class Value(LevelsApi):
 			raise ValueError("Only 1 non named value is allowed")
 		
 		# If the levelId is set, go for that first
+		print(self.levelid)
+		print(self.type)
 		if self.levelid:
-			self.type = "LEVEL"
 			# Convert the remainder picture to the level format
 			# Leftover from the BASDATE amd other shared value calls
 			if self.picture == "%Y%b%d %H%M":
@@ -300,7 +307,6 @@ class Value(LevelsApi):
 		else:
 			if not self.picture:
 				self.picture = "%s"
-			self.type = "TIMESERIES"
 		self.values = [ ] # will be a tuple of (time stamp, value, quality )
 		if self.dbtype.upper() == "RADAR":
 			print("\n\tWARNING: Update from dbtype=\"RADAR\" to dbtype=\"CDA\"")
