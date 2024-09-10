@@ -1,5 +1,6 @@
-import sys,time,datetime,pytz,tempfile,shutil,os,operator,calendar,re
+import sys, datetime, os
 from repgen.data.value import Value
+from repgen import REPGEN_DOCS_URL
 try:
 	# Relativedelta supports months and years, but is external library
 	from dateutil.relativedelta import relativedelta as timedelta
@@ -129,6 +130,8 @@ class Report:
 			ValueError: If the report does not contain a '#FORM'/'#ENDFORM' or '#FORMFILE' tag.
 		"""
 		# TODO: What else should we be validating in a report?
+		if not report:
+			raise ValueError(f"\n\tReport is empty. See the documentation for how to create a report.\n\n\tCtrl + Click => {REPGEN_DOCS_URL}")
 		# Pick one or the other, not both
 		if ("#FORM\n" in report or "#ENDFORM\n" in report) and "#FORMFILE" in report:
 			raise ValueError("\n\tReport contains both a #FORM/#ENDFORM and a #FORMFILE tag. You must choose ONE.\n")

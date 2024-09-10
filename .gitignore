@@ -9,3 +9,11 @@ test_priv/*
 *.swp
 tests/actual
 tests/output
+
+.pypirc
+*.egg-info
+dist
+build
+_build
+.DS_Store
+venv

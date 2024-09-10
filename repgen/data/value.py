@@ -8,6 +8,8 @@ import ssl
 from ssl import SSLError
 import re
 from repgen.util import extra_operator, filterAddress
+from repgen.data.levels import LevelsApi
+from repgen import CDA_DATE_FORMAT, CDA_UNIT_SYSTEMS
 import signal
 
 try:
@@ -34,14 +36,14 @@ def handler(signum, frame):
 if sys.platform != "win32":
 	signal.signal(signal.SIGALRM, handler)
 
-class Value:
+class Value(LevelsApi):
 	shared = {
 		"picture" : "NNZ",
 		"misstr"  : "-M-",
 		"undef"   : "-?-",
 		"missdta"  : -901,
 		"missing": "MISSOK",  # How to treat missing values
-
+		"levelid": None,
 		# shared and updated between calls
 		"host" : None,          # ip address/hostname or file name
 		"dbtype" : None,        # file or spkjson
@@ -56,7 +58,17 @@ class Value:
 		"ucformat": None,       # Upper-case date format (repgen4 compatibility)
 		"use_alternate": False, # Alternate server in use, if primary is unavailable
 	}
+	dbunits = None
 
+	DB_TYPES = [
+		"CDA",
+		"SPKJSON",
+		"JSON",
+		"GENTS",
+		"TEXT",
+  		"FILE",
+    	"DSS"
+	]
 	# This isn't thread safe, not an issue yet though since repgen isn't multithreaded.
 	_conn = None
 
@@ -135,7 +147,7 @@ class Value:
 		self.type="SCALAR"
 		self.value = None
 		self.values = []
-		self.picture="%s"
+		self.picture = None
 		# Normalize the keyword names to lowercase
 		kwargs = {key.lower(): value for key, value in kwargs.items()}
 		# Pop the TSID from the kwargs, so it doesn't get passed to the constructor/deep copy
@@ -182,7 +194,14 @@ class Value:
 			# If the value is wrapped in quotes, it's most likely wrong (possibly value was read from a file where it had quotes).
 			if isinstance(value, str) and len(value) > 0 and value[0] == '"' and value[-1] == '"':
 				value = value[1:-1]
-
+			print("key", key, 'value', value)
+			if key in ["dbloc", "dbpar", "dbptyp","dbint","dbdur","dbver"]:
+				# Switch to timeseries when a user actively provides a TS parameter
+				if self.type == "LEVEL": self.type = "TIMESERIES"
+			elif key == "levelid":
+                # Switch to timeseries when a user actively provides a TS parameter
+				if self.type in ["SCALAR", "TIMESERIES"]: 
+					self.type = "LEVEL" 
 			if (key == "tz" or key == "dbtz") and isinstance(value, string_types):
 				value = pytz.timezone(value)
 			elif key == "start" or key == "end" or key.endswith("time") or key.endswith("date"):
@@ -191,7 +210,6 @@ class Value:
 						value = value.values[0][0]
 					else:
 						value = value.value # internally we want the actual datetime
-
 				if key.endswith("time"):
 					pending_time = value
 				elif key.endswith("date"):
@@ -277,17 +295,24 @@ class Value:
 			return
 		elif len(args) > 0:
 			raise ValueError("Only 1 non named value is allowed")
-
-		self.type = "TIMESERIES"
+		
+		# If the levelId is set, go for that first
+		print(self.levelid)
+		print(self.type)
+		if self.levelid:
+			# Convert the remainder picture to the level format
+			# Leftover from the BASDATE amd other shared value calls
+			if self.picture == "%Y%b%d %H%M":
+				self.picture = "%5.2f"
+		else:
+			if not self.picture:
+				self.picture = "%s"
 		self.values = [ ] # will be a tuple of (time stamp, value, quality )
-
-		if self.dbtype is None:
-			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
-		# TODO: Remove this at some point? 
-		# Conversion with a warning to change the dbtype from radar to CDA for rebrand
-		elif self.dbtype.upper() == "radar":
+		if self.dbtype.upper() == "RADAR":
 			print("\n\tWARNING: Update from dbtype=\"RADAR\" to dbtype=\"CDA\"")
 			self.dbtype = "CDA"
+		if self.dbtype is None:
+			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
 		elif self.dbtype.upper() == "FILE":
 			pass
 		elif self.dbtype.upper() == "COPY":
@@ -355,7 +380,6 @@ class Value:
 		elif self.dbtype.upper() == "SPKJSON":
 			import json, http.client as httplib, urllib.parse as urllib
 
-			fmt = "%d-%b-%Y %H%M"
 			tz = self.dbtz
 			units= self.dbunits
 			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, self.dbint, self.dbdur, self.dbver) )
@@ -364,13 +388,13 @@ class Value:
 			start = self.start.astimezone(tz)
 			end = self.end.astimezone(tz)
 
-			sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
+			sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(CDA_DATE_FORMAT),end.strftime(CDA_DATE_FORMAT),str(tz),units))
 			query = "/fcgi-bin/get_ts.py?"
 			params = urllib.urlencode( {
 				"site": ts_name,
 				"units": units,
-				"start_time": start.strftime(fmt),
-				"end_time":   end.strftime(fmt),
+				"start_time": start.strftime(CDA_DATE_FORMAT),
+				"end_time":   end.strftime(CDA_DATE_FORMAT),
 				"tz": str(tz)
 			})
 			try:
@@ -408,185 +432,205 @@ class Value:
 			except Exception as err:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
 		elif self.dbtype.upper() in ["JSON", "CDA"]:
-			import json, http.client as httplib, urllib.parse as urllib
-
-			#fmt = "%d-%b-%Y %H%M"
-			fmt = "%Y-%m-%dT%H:%M:%S"
 			tz = self.dbtz
 			units = self.dbunits
-			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, str(self.dbint), str(self.dbdur), self.dbver) )
-
-			if self.start is None or self.end is None:
-				return
-			
-			# Loop until we fetch some data, if missing is NOMISS
-			retry_count = 10			# Go back at most this many weeks + 1
-			sstart = tz.normalize(tz.localize(self.start)) if self.start.tzinfo is None else self.start
-			send = tz.normalize(tz.localize(self.end)) if self.end.tzinfo is None else self.end
-
-			path = self.path if not Value.shared["use_alternate"] else self.altpath
-			host = self.host if not Value.shared["use_alternate"] else self.althost
-			headers = { 'Accept': "application/json;version=2" }
-
-			while(retry_count > 0):
-				# Convert time to destination timezone
-				# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
-				# 'astimezone' is be the "proper" behavior, but 'replace' mimics repgen_4.
-				# This should *not* be a naive datetime
+   
+			if self.start and self.end:
+				sstart = tz.normalize(tz.localize(self.start)) if self.start.tzinfo is None else self.start
+				send = tz.normalize(tz.localize(self.end)) if self.end.tzinfo is None else self.end
 				assert sstart.tzinfo is not None, "Naive datetime; start time should contain timezone"
 				assert send.tzinfo is not None, "Naive datetime; end time should contain timezone"
 				start = sstart.astimezone(tz)
 				end = send.astimezone(tz)
+			if self.type == "TIMESERIES":
+				if self.start is None or self.end is None:
+					return
+				import json, http.client as httplib, urllib.parse as urllib
+
+				ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, str(self.dbint), str(self.dbdur), self.dbver) )
 				
-				params = urllib.urlencode( {
-					"name": ts_name,
-					"unit": units,
-					"begin": start.strftime(fmt),
-					"end":   end.strftime(fmt),
-					"office": self.dbofc if self.dbofc is not None else "",
-					"timezone": str(tz),
-					"pageSize": -1,					# always fetch all results
-				})
+				# Loop until we fetch some data, if missing is NOMISS
+				retry_count = 10			# Go back at most this many weeks + 1
+				
+				path = self.path if not Value.shared["use_alternate"] else self.altpath
+				host = self.host if not Value.shared["use_alternate"] else self.althost
+				headers = { 'Accept': "application/json;version=2" }
 
-				sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
+				while(retry_count > 0):
+					# Convert time to destination timezone
+					# Should this actually convert the time to the destination time zone (astimezone), or simply swap the TZ (replace)?
+					# 'astimezone' is be the "proper" behavior, but 'replace' mimics repgen_4.
+					# This should *not* be a naive datetime
 
-				try:
-					data = None
-					retry_until_alternate = 3
-					while retry_until_alternate > 0:
-						retry_until_alternate -= 1
-						if path is None:
-							path = ""
+					params = urllib.urlencode( {
+						"name": ts_name,
+						"unit": units,
+						"begin": start.strftime(CDA_DATE_FORMAT),
+						"end":   end.strftime(CDA_DATE_FORMAT),
+						"office": self.dbofc if self.dbofc is not None else "",
+						"timezone": str(tz),
+						"pageSize": -1,					# always fetch all results
+					})
 
-						query = f"/{path}/timeseries?"
-
-						# The http(s) guess isn't perfect, but it's good enough. It's for display purposes only.
-						print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params, file=sys.stderr)
-
-						try:
-							if sys.platform != "win32" and self.timeout:
-								# The SSL handshake can sometimes fail and hang indefinitely
-								# inflate the timeout slightly, so the socket has a chance to return a timeout error
-								# This is a failsafe to prevent a hung process
-								signal.alarm(int(self.timeout * 1.1) + 1)
-
-							if Value._conn is None:
-								try:
-									from repgen.util.urllib2_tls import TLS1Connection
-									Value._conn = TLS1Connection( host, timeout=self.timeout, context=ssl_ctx )
-									Value._conn.request("GET", "/{path}" )
-								except SSLError as err:
-									print(type(err).__name__ + " : " + str(err), file=sys.stderr)
-									print("Falling back to non-SSL", file=sys.stderr)
-									# SSL not supported (could be standalone instance)
-									Value._conn = httplib.HTTPConnection( host, timeout=self.timeout )
-									Value._conn.request("GET", "/{path}" )
-
-								# Test if the connection is valid
-								Value._conn.getresponse().read()
-
-							Value._conn.request("GET", query+params, None, headers )
-							r1 = Value._conn.getresponse()
-
-							# getresponse can also hang sometimes, so keep alarm active until after we fetch the response
-							if sys.platform != "win32" and self.timeout:
-								signal.alarm(0) # disable the alarm
-							
-							# Grab the charset from the headers, and decode the response using that if set
-							# HTTP default charset is iso-8859-1 for text (RFC 2616), and utf-8 for JSON (RFC 4627)
-							parts = r1.getheader("Content-Type").split(";")
-							charset = "iso-8859-1" if parts[0].startswith("text") else "utf-8" # Default charset
-							
-							if len(parts) > 1:
-								for prop in parts:
-									prop_parts = prop.split("=")
-									if len(prop_parts) > 1 and prop_parts[0].lower() == "charset":
-										charset = prop_parts[1]
-
-							data = r1.read().decode(charset)
-
-							if r1.status == 200:
-								break
-							
-							print("HTTP Error " + str(r1.status) + ": " + data, file=sys.stderr)
-							if r1.status == 404:
-								json.loads(data)
-								# We don't care about the actual error, just if it's valid JSON
-								# Valid JSON means it was a CDA response, so we treat it as a valid response, and won't retry.
-								break
-						except (httplib.NotConnected, httplib.ImproperConnectionState, httplib.BadStatusLine, ValueError, OSError) as e:
-							print(f"Error fetching: {e}", file=sys.stderr)
-							if retry_until_alternate == 0 and self.althost is not None and host != self.althost:
-								print("Trying alternate server", file=sys.stderr)
-								Value.shared["use_alternate"] = True
-								(host, path) = (self.althost, self.altpath)
-								Value._conn = None
-								retry_until_alternate = 3
-							else:
-								print("Reconnecting to server and trying again", file=sys.stderr)
-								ttime.sleep(3)
-								try:
-									Value._conn.close()
-								except:
-									pass
-								Value._conn = None
-							continue
-
-					data_dict = None
+					sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(CDA_DATE_FORMAT),end.strftime(CDA_DATE_FORMAT),str(tz),units))
 
 					try:
-						data_dict = json.loads(data)
-					except json.JSONDecodeError as err:
-						print(str(err), file=sys.stderr)
-						print(repr(data), file=sys.stderr)
+						data = None
+						retry_until_alternate = 3
+						while retry_until_alternate > 0:
+							retry_until_alternate -= 1
+							if path is None:
+								path = ""
 
-					# get the depth
-					prev_t = 0
-					#print repr(data_dict)
+							query = f"/{path}/timeseries?"
 
-					if data_dict.get("total", 0) > 0:
-						for d in data_dict["values"]:
-							_t = float(d[0])/1000.0 # json returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
-							_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
-							_dt = _dt.astimezone(self.dbtz)
-							#_dt = _dt.replace(tzinfo=self.tz)
-							#print("_dt: %s" % repr(_dt))
-							#print _dt
-							if d[1] is not None:
-								#print("Reading value: %s" % d[1])
-								_v = float(d[1]) # does not currently implement text operations
-							else:
-								_v = None
-							_q = int(d[2])
-							self.values.append( ( _dt,_v,_q  ) )
-					else:
-						print("No values were fetched.", file=sys.stderr)
+							# The http(s) guess isn't perfect, but it's good enough. It's for display purposes only.
+							print("Fetching: %s" % ("https://" if host[-2:] == "43" else "http://") + host+query+params, file=sys.stderr)
 
-					if self.ismissing():
-						if self.missing == "NOMISS":
-							sstart = sstart - timedelta(weeks=1)
-							retry_count = retry_count - 1
-							continue
+							try:
+								if sys.platform != "win32" and self.timeout:
+									# The SSL handshake can sometimes fail and hang indefinitely
+									# inflate the timeout slightly, so the socket has a chance to return a timeout error
+									# This is a failsafe to prevent a hung process
+									signal.alarm(int(self.timeout * 1.1) + 1)
 
-					if self.time:
-						self.type = "SCALAR"
-						if self.missing == "NOMISS":
-							# Get the last one, in case we fetched extra because of NOMISS
-							for v in reversed(self.values):
-								if v is not None and v[1] is not None:
-									self.value = v[1]
+								if Value._conn is None:
+									try:
+										from repgen.util.urllib2_tls import TLS1Connection
+										Value._conn = TLS1Connection( host, timeout=self.timeout, context=ssl_ctx )
+										Value._conn.request("GET", "/{path}" )
+									except SSLError as err:
+										print(type(err).__name__ + " : " + str(err), file=sys.stderr)
+										print("Falling back to non-SSL", file=sys.stderr)
+										# SSL not supported (could be standalone instance)
+										Value._conn = httplib.HTTPConnection( host, timeout=self.timeout )
+										Value._conn.request("GET", "/{path}" )
+
+									# Test if the connection is valid
+									Value._conn.getresponse().read()
+
+								Value._conn.request("GET", query+params, None, headers )
+								r1 = Value._conn.getresponse()
+
+								# getresponse can also hang sometimes, so keep alarm active until after we fetch the response
+								if sys.platform != "win32" and self.timeout:
+									signal.alarm(0) # disable the alarm
+								
+								# Grab the charset from the headers, and decode the response using that if set
+								# HTTP default charset is iso-8859-1 for text (RFC 2616), and utf-8 for JSON (RFC 4627)
+								parts = r1.getheader("Content-Type").split(";")
+								charset = "iso-8859-1" if parts[0].startswith("text") else "utf-8" # Default charset
+								
+								if len(parts) > 1:
+									for prop in parts:
+										prop_parts = prop.split("=")
+										if len(prop_parts) > 1 and prop_parts[0].lower() == "charset":
+											charset = prop_parts[1]
+
+								data = r1.read().decode(charset)
+
+								if r1.status == 200:
 									break
-						elif len(self.values) > 0:
-							self.value = self.values[-1][1]
+								
+								print("HTTP Error " + str(r1.status) + ": " + data, file=sys.stderr)
+								if r1.status == 404:
+									json.loads(data)
+									# We don't care about the actual error, just if it's valid JSON
+									# Valid JSON means it was a CDA response, so we treat it as a valid response, and won't retry.
+									break
+							except (httplib.NotConnected, httplib.ImproperConnectionState, httplib.BadStatusLine, ValueError, OSError) as e:
+								print(f"Error fetching: {e}", file=sys.stderr)
+								if retry_until_alternate == 0 and self.althost is not None and host != self.althost:
+									print("Trying alternate server", file=sys.stderr)
+									Value.shared["use_alternate"] = True
+									(host, path) = (self.althost, self.altpath)
+									Value._conn = None
+									retry_until_alternate = 3
+								else:
+									print("Reconnecting to server and trying again", file=sys.stderr)
+									ttime.sleep(3)
+									try:
+										Value._conn.close()
+									except:
+										pass
+									Value._conn = None
+								continue
 
-				except Exception as err:
-					print( repr(err) + " : " + str(err), file=sys.stderr )
+						data_dict = None
 
-				break
+						try:
+							data_dict = json.loads(data)
+						except json.JSONDecodeError as err:
+							print(str(err), file=sys.stderr)
+							print(repr(data), file=sys.stderr)
+
+						# get the depth
+						prev_t = 0
+						#print repr(data_dict)
+
+						if data_dict.get("total", 0) > 0:
+							for d in data_dict["values"]:
+								_t = float(d[0])/1000.0 # json returns times in javascript time, milliseconds since epoch, convert to unix time of seconds since epoch
+								_dt = datetime.datetime.fromtimestamp(_t,pytz.utc)
+								_dt = _dt.astimezone(self.dbtz)
+								#_dt = _dt.replace(tzinfo=self.tz)
+								#print("_dt: %s" % repr(_dt))
+								#print _dt
+								if d[1] is not None:
+									#print("Reading value: %s" % d[1])
+									_v = float(d[1]) # does not currently implement text operations
+								else:
+									_v = None
+								_q = int(d[2])
+								self.values.append( ( _dt,_v,_q  ) )
+						else:
+							print("No values were fetched.", file=sys.stderr)
+
+						if self.ismissing():
+							if self.missing == "NOMISS":
+								sstart = sstart - timedelta(weeks=1)
+								retry_count = retry_count - 1
+								continue
+
+						if self.time:
+							self.type = "SCALAR"
+							if self.missing == "NOMISS":
+								# Get the last one, in case we fetched extra because of NOMISS
+								for v in reversed(self.values):
+									if v is not None and v[1] is not None:
+										self.value = v[1]
+										break
+							elif len(self.values) > 0:
+								self.value = self.values[-1][1]
+
+					except Exception as err:
+						print( repr(err) + " : " + str(err), file=sys.stderr )
+
+					break
+		
+			elif self.type == "LEVEL":
+				if units not in CDA_UNIT_SYSTEMS:
+					raise ValueError(f"\n\nInvalid unit system. Valid values for levels are {', '.join(CDA_UNIT_SYSTEMS)} i.e. dbunits=\"EN\"")
+				levelData = LevelsApi.getLevels(
+					levelIdMask=self.levelid, 
+					begin=None if not self.start else self.start.strftime(CDA_DATE_FORMAT), 
+					end=None if not self.end   else self.end.strftime(CDA_DATE_FORMAT),
+					office=self.dbofc, 
+					timeZone=str(tz), 
+					pageSize=-1, 
+					unit=units
+                 )
+				for level in levelData["location-levels"]["location-levels"]:
+					for _d, _v in level["values"]["segments"][0]["values"]:
+						_dt = datetime.datetime.strptime(_d, CDA_DATE_FORMAT + "%z")
+						_dt = _dt.astimezone(self.dbtz)
+						self.values.append( ( _dt,_v, 0 if _v is not None else 5  ) )
+
+
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
 		else:
-			raise Exception(f"\n\n\t{self.dbtype.upper()} is not supported!\n\tAvailable options are:\n\t\t {', '.join(self.DB_OPTIONS)}\n")
+			raise Exception(f"\n\n\t{self.dbtype.upper()} is not supported!\n\tAvailable options are:\n\t\t {', '.join(self.DB_TYPES)}\n")
 
 	# math functions
 	def __add__( self, other ):
@@ -806,11 +850,11 @@ class Value:
 			return self.format(self.value)
 		else:
 			return "Unable to process at this time"
+		
 	def __repr__(self):
 		return "<Value,type=%s,value=%s,len values=%d, picture=%s>" % (self.type,str(self.value),len(self.values),self.picture)
 
 	def format(self,value):
-		#print repr(value)
 		if self.ismissing(value) or isinstance(value, list):
 			return self.misstr
 
@@ -823,7 +867,6 @@ class Value:
 			prefix = self.picture[0:specifier_start]
 			picture = re.search(r"%([0-9.,+-]*[bcdoxXneEfFgG%])", self.picture).group(1)
 			suffix = self.picture[self.picture.index(picture) + len(picture):]
-
 			if isinstance(value, (Decimal,float)) and not math.isfinite(value):
 				result = prefix + self.undef + suffix
 			else:
@@ -873,12 +916,11 @@ class Value:
 	def pop(self):
 		if self.type == "SCALAR":
 			return self.format(self.value)
-		elif self.type == "TIMESERIES":
+		elif self.type in ["TIMESERIES", "LEVEL"]:
 			if self.index is None:
 				self.index = 0
 			self.index = self.index+1
 			try:
-				#print repr(self.values[self.index-1])
 				return self.format(self.values[self.index-1][1])
 			except IndexError:
 				# If data is missing, just return the undefined string value
@@ -896,7 +938,7 @@ class Value:
 		Value.shared["dbtype"]=typ
 
 		tmp.type = self.type
-		if self.type == "TIMESERIES":
+		if self.type in ["TIMESERIES", "LEVEL"]:
 			for v in self.values:
 				tmp.values.append( (v[0],v[0],v[2]) )
 		elif self.type == "SCALAR":
