@@ -1075,6 +1075,10 @@ class Value:
 								tmp.time = v[0]
 								haveval = True
 								break
+							elif self.missing == "NOMISS" and v[1] is not None:
+								tmp.value = v[1]
+								tmp.time = v[0]
+
 
 				if haveval == True:
 					return tmp
@@ -1082,6 +1086,9 @@ class Value:
 					if self.missing == "EXACT":
 						return tmp
 					elif self.missing == "MISSOK":
+						return tmp
+					elif self.missing == "NOMISS" and tmp.value is not None:
+						# We found a nearby value
 						return tmp
 			else:
 				raise Exception("date index only valid on a timeseries")
