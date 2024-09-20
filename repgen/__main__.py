@@ -2,6 +2,7 @@ import sys,time,datetime,pytz,tempfile,shutil,os
 from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
+from repgen import REPGEN_DOCS_URL
 
 version = "5.2.0"
 
@@ -14,7 +15,7 @@ def parseArgs():
 	dt = datetime.datetime.now().astimezone()
 	_d = dt.strftime("%d%b%Y")
 	_t = dt.strftime("%H%M")
-	parser.add_argument( '-V', '--version',dest='show_ver',action='store_true',default=False, help="print version number")
+	parser.add_argument( '-V', '-v', '--version',dest='show_ver',action='store_true',default=False, help="Prints the current version number")
 	parser.add_argument( '-i', '--in', dest='in_file', help="INput report file", metavar="REPFILE" )
 	parser.add_argument( '-o', '--out', dest='out_file', default="-", help="OUTput file with filled report", metavar="REPOUTPUT")
 	parser.add_argument( '-f', '--file', dest='data_file', default=None, help="Variable data file", metavar="DATAFILE" )
@@ -31,9 +32,15 @@ def parseArgs():
 
 	if len(sys.argv) == 1:
 		parser.print_help()
+		print(f"\n\tDocumentation -> {REPGEN_DOCS_URL}")
 		exit(2)
-
-	return parser.parse_known_args()[0]
+	args, unknown = parser.parse_known_args()
+	# Check for unknown arguments and post the help message if any are found
+	if unknown:
+		parser.print_help()
+		print(f"Error: Unknown arguments: {' '.join(unknown)}")
+		exit(2)
+	return args
 
 # https://stackoverflow.com/a/52014520
 def parse_var(s):
