@@ -30,10 +30,10 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             github.git.createRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "refs/tags/${{steps.get_version.outputs.VERSION}}",
-              sha: context.sha
+              owner: github.context.repo.owner,
+              repo: github.context.repo.repo,
+              ref: `refs/tags/${steps.get_version.outputs.VERSION}`,
+              sha: github.context.sha
             })
       - name: Create Release
         id: create_release
