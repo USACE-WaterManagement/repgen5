@@ -9,3 +9,4 @@ test_priv/*
 *.swp
 tests/actual
 tests/output
+cwms_repgen.egg-info
