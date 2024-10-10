@@ -3,57 +3,57 @@
     US Army Corps of Engineers
     Elevation, Storage, Flow Out, Precip for 8am to 8am on 2024-06-21
     
-DATE	Elevation    Storage    Flow Out       Precip
+DATE	 Elevation    Storage   Flow Out       Precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 %DT
-        %elev        %stor        %flow_out    %precip
+        %elevation   %storage  %flow_out      %precip
 #ENDFORM
 
 #DEF
@@ -67,23 +67,45 @@ BASDATE_8AM = BASDATE.value.replace(year=2024, month=6, day=21, hour=8, minute=0
 BASDATE_8AM_YESTERDAY = BASDATE_8AM - datetime.timedelta(hours=24)
 
 
+# FORMAT NOTES
+# The %variables in the form definition are replaced with the contents,
+# filling the same space the variable name took up.
+# To avoid alignment issues, make sure your output fits within the length of the name (including %).
+# For example:
+
+# Datetime       Elevation  Storage
+# %DT            %elev      %storage
+
+# would be replaced to give you the following:
+
+# Datetime       Elevation  Storage
+# 20Jun2024 0800       724.73      429926
+
+# However, if you want to keep columns aligned with headers, do this:
+# Datetime       Elevation  Storage
+# %DATE_TIME_VAL%elevation %storageage
+
+# Combined with the appropriate PICTURE, you can fill the wider space with smaller width data
+# Datetime       Elevation  Storage
+# 20Jun2024 0800    724.73   429926
+
 
 # ==============================================================================
 #                         Storage
 # ==============================================================================
-stor = Value(
+storage = Value(
     dbtype="radar",
     DBTZ="US/CENTRAL",
     tz="US/CENTRAL",
     TSID="KEYS.Stor.Inst.1Hour.0.Ccp-Rev",
     start=BASDATE_8AM_YESTERDAY,
     end=BASDATE_8AM,
-    PICTURE="%7.0f",
+    PICTURE="%8.0f",
     MISSTR="--",
     UNDEF="~~",
     DBUNITS="ac-ft",
 )
-print(stor.values)
+print(storage.values)
 # ==============================================================================
 #                         Dates
 # ==============================================================================
@@ -99,15 +121,16 @@ flow_out = Value(
     DBINT="1Hour",
     DBDUR="1Hour",
     DBVER="Rev-Regi-Flowgroup",
-    PICTURE="%4.0f",
+    # The picture width should match where it fits into the form if you want to keep the alignment
+    PICTURE="%9.0f",
     DBUNITS="cfs"
 )
 
 # # ==============================================================================
 # #                         Elevation
 # # ==============================================================================
-elev = Value( 
-    PICTURE="%3.2f",
+elevation = Value( 
+    PICTURE="%10.2f",
     dbloc="KEYS",
     dbpar="Elev",
     DBPTYP="Inst",
@@ -119,10 +142,10 @@ elev = Value(
 
 precip = Value(
     TSID="KEYS.Precip-Inc.Total.1Hour.1Hour.Ccp-Rev",
-    PICTURE="%3.3f",
+    PICTURE="%7.3f",
     DBUNITS="in"
 )
-DT = Value(elev.datatimes(),
+DT = Value(elevation.datatimes(),
     PICTURE = "%d%b%Y %K%M ",
 )
 

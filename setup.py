@@ -5,25 +5,26 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setup(
-    name="cwms-repgen",  
-    version=version, 
+    name="cwms-repgen",
+    version=version,
     license="MIT",
-    author="USACE-HEC", 
-    description='''This is a partial copy of HEC's (Hydrologic Engineering Center) repgen program.
-The program creates fixed form text reports from a time series database, and textfiles.''',
+    author="USACE-HEC",
+    description="""This is a partial copy of HEC's (Hydrologic Engineering Center) repgen program.
+The program creates fixed form text reports from a time series database, and textfiles.""",
     long_description=long_description,
-    long_description_content_type="text/markdown", 
-    url="https://github.com/USACE-WaterManagement/repgen5", 
+    long_description_content_type="text/markdown",
+    url="https://github.com/USACE-WaterManagement/repgen5",
     packages=find_packages(exclude=["tests", "docs"]),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License", 
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.8', 
+    python_requires=">=3.8",
     install_requires=[
-        "pytz>=2022.1",
+        "pytz",
         "python-dateutil>=2.8.2",
+        "requests"
     ],
     extras_require={
         "dev": [
@@ -32,13 +33,13 @@ The program creates fixed form text reports from a time series database, and tex
             "sphinx-copybutton",
             "myst-parser",
             "twine",
-            "wheel"
+            "wheel",
         ],
     },
     entry_points={
-        'console_scripts': [
-            'repgen5=repgen.__main__:main',
-            'repgen=repgen.__main__:main',
+        "console_scripts": [
+            "repgen5=repgen.__main__:main",
+            "repgen=repgen.__main__:main",
         ],
     },
 )

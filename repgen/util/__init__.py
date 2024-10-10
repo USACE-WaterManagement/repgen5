@@ -29,3 +29,25 @@ def filterAddress(address):
 		host += (":443" if match.group(1) is not None and match.group(1).startswith("https") else ":80")
 
 	return (host, query)
+
+
+def pascalToCamel(obj):
+	"""
+	Convert a dictionary with pascal-case keys to a dictionary with camelCase keys.
+	
+	Args:
+		obj (dict): The dictionary to convert.
+	
+	Returns:
+		dict: The converted dictionary.
+	"""
+	_camelObj = {}
+	for key in obj.keys():
+		# for keys with multiple hyphens - in the name, split and capitalize each part ignoring the first
+		_cKey = key.split("-")[0] + "".join([i.capitalize() for i in key.split("-")[1:]])
+		value = obj[key]
+		# Cleanup strings that should otherwise be None
+		if isinstance(value, str) and value.upper() == "NULL":
+			value = None
+		_camelObj[_cKey] = value
+	return _camelObj

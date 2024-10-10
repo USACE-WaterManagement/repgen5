@@ -2,8 +2,9 @@ import sys,time,datetime,pytz,tempfile,shutil,os
 from repgen.data.value import Value
 from repgen.report import Report
 from repgen.util import filterAddress
+from repgen import REPGEN_DOCS_URL
 
-version = "5.1.6"
+version = "5.2.0"
 
 # setup base time, ex
 # default formats
@@ -14,7 +15,7 @@ def parseArgs():
 	dt = datetime.datetime.now().astimezone()
 	_d = dt.strftime("%d%b%Y")
 	_t = dt.strftime("%H%M")
-	parser.add_argument( '-V', '--version',dest='show_ver',action='store_true',default=False, help="print version number")
+	parser.add_argument( '-V', '-v', '--version',dest='show_ver',action='store_true',default=False, help="Prints the current version number")
 	parser.add_argument( '-i', '--in', dest='in_file', help="INput report file", metavar="REPFILE" )
 	parser.add_argument( '-o', '--out', dest='out_file', default="-", help="OUTput file with filled report", metavar="REPOUTPUT")
 	parser.add_argument( '-f', '--file', dest='data_file', default=None, help="Variable data file", metavar="DATAFILE" )
@@ -22,8 +23,8 @@ def parseArgs():
 	parser.add_argument( '-t', '--time', dest='base_time', default=_t, help="base time for data", metavar="HHMM")
 	parser.add_argument( '-z', '--tz', dest='tz', default=_z, help="default timezone; equivalent to `TZ=timezone`", metavar='Time Zone Name')
 	parser.add_argument( '-O', '--office', dest='office', default=None, help="default office to use if not specified in report; equivalent to `DBOFC=OFFICE_ID`", metavar='OFFICE_ID')
-	parser.add_argument( '-a', '--address', dest='host', default='localhost', help="location for data connections; equivalent to `DB=hostname:port/path`", metavar='IP_or_hostname:port[/basepath]')
-	parser.add_argument( '-A', '--alternate', dest='alternate', default=None, help="alternate location for data connections, if the primary is unavailable (only for RADAR)", metavar='IP_or_hostname:port[/basepath]')
+	parser.add_argument( '-a', '--address', dest='host', default='https://cwms-data.usace.army.mil/cwms-data', help="location for data connections; equivalent to `DB=hostname:port/path`", metavar='IP_or_hostname:port[/basepath]')
+	parser.add_argument( '-A', '--alternate', dest='alternate', default=None, help="alternate location for data connections, if the primary is unavailable (only for CDA)", metavar='IP_or_hostname:port[/basepath]')
 	parser.add_argument( '-c', '--compatibility', dest='compat', action="store_true", default=False, help="repgen4 compatibility; case-insensitive labels")
 	parser.add_argument( '--timeout', dest='timeout', type=float, default=None, help="Socket timeout, in seconds" )
 	# This provides repgen4 style KEY=VALUE argument passing on the command-line
@@ -31,9 +32,15 @@ def parseArgs():
 
 	if len(sys.argv) == 1:
 		parser.print_help()
+		print(f"\n\tDocumentation -> {REPGEN_DOCS_URL}")
 		exit(2)
-
-	return parser.parse_known_args()[0]
+	args, unknown = parser.parse_known_args()
+	# Check for unknown arguments and post the help message if any are found
+	if unknown:
+		parser.print_help()
+		print(f"Error: Unknown arguments: {' '.join(unknown)}")
+		exit(2)
+	return args
 
 # https://stackoverflow.com/a/52014520
 def parse_var(s):

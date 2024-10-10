@@ -9,6 +9,8 @@ from ssl import SSLError
 import re
 from repgen.util import extra_operator, filterAddress
 import signal
+from repgen import DB_OPTIONS, REPGEN_DOCS_URL
+from repgen.data.locations import LocationsApi
 
 try:
 	# Relativedelta supports months and years, but is external library
@@ -280,15 +282,14 @@ class Value:
 
 		self.type = "TIMESERIES"
 		self.values = [ ] # will be a tuple of (time stamp, value, quality )
-
 		if self.dbtype is None:
 			raise ValueError("you must enter a scalar quantity if you aren't specifying a data source")
 		# TODO: Remove this at some point? 
 		# Conversion with a warning to change the dbtype from radar to CDA for rebrand
-		elif self.dbtype.upper() == "radar":
+		if self.dbtype.upper() == "RADAR":
 			print("\n\tWARNING: Update from dbtype=\"RADAR\" to dbtype=\"CDA\"")
 			self.dbtype = "CDA"
-		elif self.dbtype.upper() == "FILE":
+		if self.dbtype.upper() == "FILE":
 			pass
 		elif self.dbtype.upper() == "COPY":
 			pass
@@ -351,7 +352,6 @@ class Value:
 				# Check to see if the data is numeric
 				try: self.value = Decimal(self.value)		# Use Decimal to ensure the value is read exactly as it appears
 				except DecimalException: pass
-				
 		elif self.dbtype.upper() == "SPKJSON":
 			import json, http.client as httplib, urllib.parse as urllib
 
@@ -409,14 +409,17 @@ class Value:
 				print( repr(err) + " : " + str(err), file=sys.stderr )
 		elif self.dbtype.upper() in ["JSON", "CDA"]:
 			import json, http.client as httplib, urllib.parse as urllib
-
+			# Picture gets set to a date earlier in the code. Override that if the user does not specify it.
+			if self.picture == "%Y%b%d %H%M":
+				self.picture = "%5.2f"
+				print("\tWARNING: Picture was not set for timeseries. Defaulting to %5.2f.")
 			#fmt = "%d-%b-%Y %H%M"
 			fmt = "%Y-%m-%dT%H:%M:%S"
 			tz = self.dbtz
 			units = self.dbunits
 			ts_name = ".".join( (self.dbloc, self.dbpar, self.dbptyp, str(self.dbint), str(self.dbdur), self.dbver) )
-
 			if self.start is None or self.end is None:
+				print(f"\n\tWARNING: No start or end date provided for ({ts_name}).\n\tView examples in the documentation:\t{REPGEN_DOCS_URL}")
 				return
 			
 			# Loop until we fetch some data, if missing is NOMISS
@@ -447,7 +450,6 @@ class Value:
 					"timezone": str(tz),
 					"pageSize": -1,					# always fetch all results
 				})
-
 				sys.stderr.write("Getting %s from %s to %s in tz %s, with units %s\n" % (ts_name,start.strftime(fmt),end.strftime(fmt),str(tz),units))
 
 				try:
@@ -586,8 +588,16 @@ class Value:
 		elif self.dbtype.upper() == "DSS":
 			raise Exception("DSS retrieval is not currently implemented")
 		else:
-			raise Exception(f"\n\n\t{self.dbtype.upper()} is not supported!\n\tAvailable options are:\n\t\t {', '.join(self.DB_OPTIONS)}\n")
+			raise Exception(f"\n\n\t{self.dbtype.upper()} is not supported!\n\tAvailable options are:\n\t\t {', '.join(DB_OPTIONS)}\n")
 
+	def meta(self, unit_system="EN"):
+		# set the Value properties as the keys of the location data
+		metaData = LocationsApi.getLocationById(locationId=self.dbloc, office=self.dbofc, unit=unit_system)
+		for key in metaData.keys():
+			# assign the values to the instance so they can be accessed
+			setattr(self, key, metaData[key])
+			Value.shared[key] = metaData[key]
+		return metaData
 	# math functions
 	def __add__( self, other ):
 		return self.domath(operator.add,other)
@@ -1065,6 +1075,10 @@ class Value:
 								tmp.time = v[0]
 								haveval = True
 								break
+							elif self.missing == "NOMISS" and v[1] is not None:
+								tmp.value = v[1]
+								tmp.time = v[0]
+
 
 				if haveval == True:
 					return tmp
@@ -1072,6 +1086,9 @@ class Value:
 					if self.missing == "EXACT":
 						return tmp
 					elif self.missing == "MISSOK":
+						return tmp
+					elif self.missing == "NOMISS" and tmp.value is not None:
+						# We found a nearby value
 						return tmp
 			else:
 				raise Exception("date index only valid on a timeseries")
